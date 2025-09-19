@@ -37,6 +37,10 @@ Welcome to **SwitchLingua**, an open-source project aimed at providing high-qual
 > *✨  Explore the nuances of bilingual speech in real-world contexts — from everyday chit-chat to formal news commentary!*
 
 ---
+## 🚀 News
+
+- [19/09/2025] **SwitchLingua: The First Large-Scale Multilingual and Multi-Ethnic Code-Switching Dataset** is accepted by NeurIPS 2025!
+- [30/05/2024] The manuscript can be found on [arXiv](https://arxiv.org/abs/2506.00087).
 
 ## 📖 Table of Contents
 1. [Overview](#overview)
@@ -333,5 +337,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 *If you find this project useful or interesting, please ⭐ star this repo to show your support. Happy code-switching!* 🎉
 
-```
-```
