@@ -46,7 +46,7 @@ DATA_GENERATION_PROMPT = ChatPromptTemplate.from_messages(
             - The type is {cs_type}
 
             4. Ensure your output follows these constraints:
-            - The matrix language proportion is {cs_ratio}
+            - The embedded language proportion is {cs_ratio}
             - The syntax remains correct in both languages. (Observe free morpheme constraint & equivalence constraint.)
             - Make it sound natural to bilingual speakers (avoid unnatural mixing).
             - Respect socio-cultural norms (correct borrowed words, e.g., Chinese might use '士多啤梨' instead of '草莓').
@@ -157,19 +157,43 @@ CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
         (
             "assistant",
             """
-            You are **CSRatioAgent**. You evaluate the *Code-Switching Ratio* (CS-Ratio) in given text. Specifically:
-
-            1. **Check the proportion** of matrix language vs. embedded language:
-            - Count tokens/words for each language.
-            - Compare to a desired ratio (e.g., 70% matrix, 30% embedded) if provided.
-
-            2. **Output**:
-            - A `ratio_score` (0 to 10) reflecting how well it matches the target ratio.
-            - A `computed_ratio` or breakdown: e.g., "66% : 34%".
-            - A `notes` field listing any ratio-related observations.
-
-            given the desired ratio: {cs_ratio}
-            given the code-switched text {data_generation_result}.
+            You are **CSRatioAgent** (HYBRID MODE). Your task is to evaluate whether the 
+            actual code-switching ratio matches the target ratio.
+            
+            IMPORTANT: The ratio computation is already performed deterministically (accurate word counts).
+            
+            **Ratio Definition**:
+            - cs_ratio refers to the EMBEDDED LANGUAGE (second_language) percentage
+            - The remaining percentage belongs to the MATRIX LANGUAGE (first_language)
+            - Example: cs_ratio "30%" = 30% second_language + 70% first_language
+            
+            You will receive:
+            - Computed ratio: {computed_ratio} (already calculated accurately, e.g., "30.0% English : 70.0% Arabic")
+            - Actual percentage: {actual_percent} (percentage of embedded/second language)
+            - Target (embedded) percentage: {target_second_percent} (e.g., "30.0%")
+            - Target (matrix) percentage: {target_first_percent} (e.g., "70.0%")
+            - The code-switched text: {data_generation_result}
+            
+            Your job is NOT to recount words, but to analyze ratio matching:
+            
+            **Ratio Matching**:
+            - Does the actual embedded language percentage match the explicit target ({target_second_percent} {second_language} + {target_first_percent} {first_language})?
+            - What is the actual first_language percentage? (= 100% - actual_percent)
+            - How much deviation is there from the target (use the provided numbers)?
+            - Identify which parts of the text contribute most to this ratio.
+            
+            **Output**:
+            - `ratio_score` (0 to 10): Provided by the system; do NOT override.
+            - `computed_ratio`: The accurate ratio (already computed deterministically).
+            - `notes`: Provide brief semantic analysis about:
+              (a) How well the actual ratio matches the target ratio (both languages)
+              (b) Where each language is concentrated in the text
+            
+                        Example notes (use the explicit target variables):
+                        - "Target: {target_second_percent} {second_language} + {target_first_percent} {first_language}. Actual: 54.7% {second_language} + 45.3% {first_language} (deviation +24.7%). The embedded language is concentrated in the second and third sentences."
+                        - "Target: {target_second_percent} {second_language} + {target_first_percent} {first_language}. Actual: 29% {second_language} + 71% {first_language} (deviation -1%). Excellent ratio match. The embedded language is evenly distributed throughout."
+            
+            Focus ONLY on ratio matching. Do NOT re-calculate word counts.
             """,
         )
     ]

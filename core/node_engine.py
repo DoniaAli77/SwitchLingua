@@ -23,15 +23,16 @@ from utils import weighting_scheme
 from copy import deepcopy
 
 from mcp_tools import get_all_tools
+from cs_ratio_calculator import compute_cs_ratio, calculate_ratio_score
 from typing import Dict, Any
 
 
 dotenv.load_dotenv()
 
-API_KEY = os.getenv("API_KEY")
-API_BASE = os.getenv("API_BASE")
-MODEL = "gpt-4o"
-OUTPUT_DIR = "YOUR_OUTPUT_DIR"
+API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("API_KEY")
+API_BASE = os.getenv("OPENAI_BASE_URL") or os.getenv("API_BASE")
+MODEL = "gpt-4o-mini"
+OUTPUT_DIR = "output"
 
 def RunSampleAgent(state: AgentRunningState):
     SampleAgent = SAMPLE_AGENT_PROMPT | ChatOpenAI(
@@ -114,11 +115,59 @@ def RunNaturalnessAgent(state: AgentRunningState):
 
 
 def RunCSRatioAgent(state: AgentRunningState):
-    CSRatioAgent = CS_RATIO_PROMPT | ChatOpenAI(
-        model=MODEL, temperature=0.1, base_url=API_BASE
-    ).with_structured_output(CSRatioResponse)
-    response = CSRatioAgent.invoke(state)
+    # HYBRID APPROACH: Deterministic calculation + LLM interpretation
+    
+    # Step 1: Deterministic calculation (accurate word counting)
+    ratio_data = compute_cs_ratio(
+        state["data_generation_result"],
+        state["first_language"],
+        state["second_language"]
+    )
+    
+    # Step 2: Calculate score based on target vs actual
+    ratio_score = calculate_ratio_score(
+        ratio_data["lang2_percent"],
+        state["cs_ratio"]
+    )
+    
+    # Step 3: Use LLM for qualitative feedback (optional enhancement)
+    # This adds interpretation without relying on it for accuracy
+    try:
+        CSRatioAgent = CS_RATIO_PROMPT | ChatOpenAI(
+            model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
+        ).with_structured_output(CSRatioResponse)
+        
+        # Compute explicit target percents and pass the accurate data to LLM
+        try:
+            target_pct = float(str(state.get("cs_ratio", "0")).rstrip("%"))
+        except Exception:
+            target_pct = 0.0
 
+        target_second_percent = f"{target_pct:.1f}%"  # embedded / second language
+        target_first_percent = f"{(100.0 - target_pct):.1f}%"  # matrix / first language
+
+        llm_state = state.copy()
+        llm_state["computed_ratio"] = ratio_data["computed_ratio"]
+        llm_state["actual_percent"] = f"{ratio_data['lang2_percent']:.1f}%"
+        llm_state["target_second_percent"] = target_second_percent
+        llm_state["target_first_percent"] = target_first_percent
+        
+        llm_response = CSRatioAgent.invoke(llm_state)
+        
+        # Use LLM's notes/analysis but override the score with our accurate calculation
+        response = {
+            "ratio_score": ratio_score,  # ← Use deterministic score
+            "computed_ratio": ratio_data["computed_ratio"],  # ← Use accurate ratio
+            "notes": llm_response.get("notes", ratio_data["details"])  # ← Use LLM notes if available
+        }
+    except Exception as e:
+        # Fallback if LLM fails: use pure deterministic results
+        response = {
+            "ratio_score": ratio_score,
+            "computed_ratio": ratio_data["computed_ratio"],
+            "notes": f"{ratio_data['details']} Target: {state['cs_ratio']}"
+        }
+    
     return {"cs_ratio_result": response}
 
 

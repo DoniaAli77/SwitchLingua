@@ -43,6 +43,7 @@ class AgentRunningState(TypedDict):
     cs_function: str
     cs_type: str
     news_article: Optional[str] = None
+    mcp_result: Optional[dict] = None
     response: str
     data_generation_result: list[str]
     news_generation_result: list[str]

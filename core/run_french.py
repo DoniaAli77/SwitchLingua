@@ -40,6 +40,7 @@ class CodeSwitchingAgent:
         self.state["news_article"] = ""
         self.state["news_hash"] = set()
         self.state["news_dict"] = {}
+        self.state["mcp_result"] = {}
         self.workflow_with_data_generation: StateGraph = (
             self._construct_graph_with_data_generation()
         )
@@ -96,7 +97,7 @@ async def arun(scenario_k):
 
 
 async def main():
-    config: dict = load_config("../config/config_augmented_french_eng.yaml")
+    config: dict = load_config("config/config.yaml")
     scenarios: list[AgentRunningState] = generate_scenarios(config["pre_execute"])
     # shuffle scenarios
     random.shuffle(scenarios)
@@ -128,10 +129,17 @@ async def main():
 
 def send_message(message):
     WEBHOOK = "YOUR_WEBHOOK_URL"
+    # If WEBHOOK is not configured, skip sending messages (avoid runtime errors)
+    if not WEBHOOK or WEBHOOK == "YOUR_WEBHOOK_URL":
+        return
     params = {"msg_type": "text", "content": {"text": message}}
     import requests
 
-    requests.post(WEBHOOK, json=params)
+    try:
+        requests.post(WEBHOOK, json=params)
+    except Exception:
+        # Do not let webhook failures interrupt the pipeline
+        logger.debug("Failed to send webhook message")
 
 
 if __name__ == "__main__":
