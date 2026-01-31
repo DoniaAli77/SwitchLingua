@@ -1,0 +1,14 @@
+rows: 9
+columns: topic, score, cs_ratio, cs_type, cs_function, tense, perspective, conversation_type, first_language, second_language, gender, age, education_level, refine_count, mcp_result, data_generation_result, fluency_result, naturalness_result, cs_ratio_result, social_cultural_result, summary
+mismatch_count: 9
+sample_mismatches:
+- row 0: cs_ratio=30% computed_ratio=65% : 35% ratio_score=7.5
+- row 1: cs_ratio=30% computed_ratio=60% : 40% ratio_score=7.5
+- row 2: cs_ratio=30% computed_ratio=70% : 30% ratio_score=6.5
+- row 3: cs_ratio=30% computed_ratio=60% : 40% ratio_score=7.5
+- row 4: cs_ratio=30% computed_ratio=60% : 40% ratio_score=7.5
+- row 5: cs_ratio=30% computed_ratio=70% : 30% ratio_score=7.5
+- row 6: cs_ratio=30% computed_ratio=65% : 35% ratio_score=6.5
+- row 7: cs_ratio=30% computed_ratio=65% : 35% ratio_score=6.5
+- row 8: cs_ratio=30% computed_ratio=65% : 35% ratio_score=7.5
+ratio_score stats: count=9 min=6.5 max=7.5 mean=7.166666666666667

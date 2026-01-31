@@ -1,0 +1,46 @@
+rows: 9
+row 0:
+  sentence 1: matrix_pct=41 counts=15/22
+  sentence 2: matrix_pct=57 counts=20/15
+  sentence 3: matrix_pct=69 counts=31/14
+  sentence 4: matrix_pct=40 counts=25/37
+row 1:
+  sentence 1: matrix_pct=50 counts=30/30
+  sentence 2: matrix_pct=28 counts=18/46
+  sentence 3: matrix_pct=35 counts=24/45
+  sentence 4: matrix_pct=41 counts=35/50
+row 2:
+  sentence 1: matrix_pct=48 counts=24/26
+  sentence 2: matrix_pct=88 counts=35/5
+  sentence 3: matrix_pct=47 counts=28/32
+  sentence 4: matrix_pct=54 counts=29/25
+row 3:
+  sentence 1: matrix_pct=52 counts=25/23
+  sentence 2: matrix_pct=55 counts=33/27
+  sentence 3: matrix_pct=56 counts=34/27
+  sentence 4: matrix_pct=61 counts=31/20
+row 4:
+  sentence 1: matrix_pct=93 counts=67/5
+  sentence 2: matrix_pct=83 counts=50/10
+  sentence 3: matrix_pct=87 counts=46/7
+  sentence 4: matrix_pct=66 counts=35/18
+row 5:
+  sentence 1: matrix_pct=50 counts=22/22
+  sentence 2: matrix_pct=62 counts=35/21
+  sentence 3: matrix_pct=57 counts=43/33
+  sentence 4: matrix_pct=76 counts=55/17
+row 6:
+  sentence 1: matrix_pct=44 counts=19/24
+  sentence 2: matrix_pct=58 counts=31/22
+  sentence 3: matrix_pct=58 counts=40/29
+  sentence 4: matrix_pct=50 counts=30/30
+row 7:
+  sentence 1: matrix_pct=71 counts=67/27
+  sentence 2: matrix_pct=50 counts=37/37
+  sentence 3: matrix_pct=67 counts=57/28
+  sentence 4: matrix_pct=32 counts=26/55
+row 8:
+  sentence 1: matrix_pct=33 counts=14/29
+  sentence 2: matrix_pct=37 counts=19/33
+  sentence 3: matrix_pct=84 counts=26/5
+  sentence 4: matrix_pct=56 counts=27/21

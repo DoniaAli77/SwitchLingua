@@ -1,0 +1,47 @@
+rows: 9
+row 0:
+  sentence 1: matrix_pct=83 words=5/1
+  sentence 2: matrix_pct=89 words=8/1
+  sentence 3: matrix_pct=64 words=7/4
+  sentence 4: matrix_pct=85 words=11/2
+row 1:
+  sentence 1: matrix_pct=50 words=4/4
+  sentence 2: matrix_pct=58 words=7/5
+  sentence 3: matrix_pct=53 words=8/7
+  sentence 4: matrix_pct=57 words=8/6
+row 2:
+  sentence 1: matrix_pct=92 words=11/1
+  sentence 2: matrix_pct=77 words=10/3
+  sentence 3: matrix_pct=54 words=7/6
+  sentence 4: matrix_pct=55 words=6/5
+row 3:
+  sentence 1: matrix_pct=88 words=7/1
+  sentence 2: matrix_pct=64 words=7/4
+  sentence 3: matrix_pct=58 words=7/5
+  sentence 4: matrix_pct=69 words=11/5
+row 4:
+  sentence 1: matrix_pct=38 words=5/8
+  sentence 2: matrix_pct=27 words=4/11
+  sentence 3: matrix_pct=38 words=5/8
+  sentence 4: matrix_pct=64 words=7/4
+row 5:
+  sentence 1: matrix_pct=56 words=9/7
+  sentence 2: matrix_pct=63 words=12/7
+  sentence 3: matrix_pct=36 words=5/9
+  sentence 4: matrix_pct=47 words=7/8
+row 6:
+  sentence 1: matrix_pct=50 words=7/7
+  sentence 2: matrix_pct=79 words=11/3
+  sentence 3: matrix_pct=62 words=8/5
+  sentence 4: matrix_pct=74 words=14/5
+row 7:
+  sentence 1: matrix_pct=90 words=9/1
+  sentence 2: matrix_pct=45 words=5/6
+  sentence 3: matrix_pct=54 words=7/6
+  sentence 4: matrix_pct=50 words=6/6
+row 8:
+  sentence 1: matrix_pct=47 words=7/8
+  sentence 2: matrix_pct=62 words=8/5
+  sentence 3: matrix_pct=38 words=6/10
+  sentence 4: matrix_pct=38 words=5/8
+  sentence 5: matrix_pct=54 words=7/6
