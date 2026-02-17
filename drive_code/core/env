@@ -1,0 +1,4 @@
+OPENAI_API_KEY = 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
+OPENAI_BASE_URL = https://api.openai.com/v1
+MODEL = gpt-4o-mini
+OUTPUT_DIR = /content/drive/MyDrive/SwitchLingua/SwitchLingua/output/result.jsonl
