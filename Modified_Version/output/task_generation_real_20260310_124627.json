@@ -1,0 +1,208 @@
+{
+  "outputs": {
+    "topic": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "business",
+        "scenario_summary": {
+          "task": "topic",
+          "topic": "business",
+          "label": "business"
+        },
+        "data_generation_result": [
+          "عندما أتحدث عن الأعمال، I always think about the importance of networking.",
+          "في عالم الأعمال اليوم، understanding digital marketing is crucial for success.",
+          "عندما أبدأ مشروعًا جديدًا، I make sure to do thorough market research first.",
+          "الابتكار هو مفتاح النجاح في أي قطاع، especially in technology-driven industries."
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9125,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses business networking, which aligns well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The instance discusses digital marketing within the context of business, aligning well with the expected topic label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses starting a new project and emphasizes the importance of market research, which aligns well with the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses innovation as a key to success, which aligns well with the business topic, especially in technology sectors.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_task_validator": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "عندما أتحدث عن الأعمال، I always think about the importance of networking.",
+          "في عالم الأعمال اليوم، understanding digital marketing is crucial for success.",
+          "عندما أبدأ مشروعًا جديدًا، I make sure to do thorough market research first.",
+          "الابتكار هو مفتاح النجاح في أي قطاع، especially in technology-driven industries."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9125,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses business networking, which aligns well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The instance discusses digital marketing within the context of business, aligning well with the expected topic label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses starting a new project and emphasizes the importance of market research, which aligns well with the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses innovation as a key to success, which aligns well with the business topic, especially in technology sectors.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "عندما أتحدث عن الأعمال، I always think about the importance of networking.",
+          "في عالم الأعمال اليوم، understanding digital marketing is crucial for success.",
+          "عندما أبدأ مشروعًا جديدًا، I make sure to do thorough market research first.",
+          "الابتكار هو مفتاح النجاح في أي قطاع، especially in technology-driven industries."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9125,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses business networking, which aligns well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The instance discusses digital marketing within the context of business, aligning well with the expected topic label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses starting a new project and emphasizes the importance of market research, which aligns well with the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses innovation as a key to success, which aligns well with the business topic, especially in technology sectors.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "topic": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "num_instances": 4,
+        "code_switched_instances": 4
+      }
+    ]
+  }
+}

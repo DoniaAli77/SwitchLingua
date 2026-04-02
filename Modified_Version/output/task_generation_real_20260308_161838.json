@@ -1,0 +1,95 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "أنا أدرس في الجامعة، and I'm really interested في كيفية إدارة الأعمال.",
+        "الاستثمار في المشاريع الصغيرة يمكن أن يكون ممتعًا، you know?",
+        "أحب أن أتعلم من قصص النجاح، especially في عالم البزنس.",
+        "في رأيي، teamwork هو المفتاح لنجاح أي مشروع."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "أنا أدرس في الجامعة، and I'm really interested في كيفية إدارة الأعمال.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "الاستثمار في المشاريع الصغيرة يمكن أن يكون ممتعًا، you know?",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أحب أن أتعلم من قصص النجاح، especially في عالم البزنس.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "في رأيي، teamwork هو المفتاح لنجاح أي مشروع.",
+          "label": "business"
+        }
+      ]
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أدرس في الجامعة، and I'm really interested في كيفية إدارة الأعمال.",
+        "الاستثمار في المشاريع الصغيرة يمكن أن يكون ممتعًا، you know?",
+        "أحب أن أتعلم من قصص النجاح، especially في عالم البزنس.",
+        "في رأيي، teamwork هو المفتاح لنجاح أي مشروع."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "أنا أدرس في الجامعة، and I'm really interested في كيفية إدارة الأعمال.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "الاستثمار في المشاريع الصغيرة يمكن أن يكون ممتعًا، you know?",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أحب أن أتعلم من قصص النجاح، especially في عالم البزنس.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "في رأيي، teamwork هو المفتاح لنجاح أي مشروع.",
+          "label": "business"
+        }
+      ]
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "generated_at": "2026-04-01T16:16:14.687753",
+  "modified_output_path": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\output\\Arabic.jsonl",
+  "baseline_output_path": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Original_baseLine\\output\\sample.json",
+  "summary": {
+    "total_records": 61,
+    "validation_pass_rate": 75.40983606557377,
+    "avg_score": 7.183469945355191,
+    "min_score": 6.1,
+    "max_score": 8.266666666666666,
+    "stdev_score": 0.42540770695559693,
+    "avg_fluency": 8.161764705882353,
+    "avg_naturalness": 8.264705882352942,
+    "avg_socio_cultural": 8.308823529411764,
+    "avg_cs_ratio_score": 3.1194029850746268,
+    "avg_refine_count": 2.901639344262295,
+    "validation_passed": 46,
+    "validation_total": 61
+  },
+  "by_task": [
+    {
+      "name": "ner",
+      "count": 6,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "avg_score": 7.455555555555555
+    },
+    {
+      "name": "sentiment",
+      "count": 45,
+      "passed": 36,
+      "pass_rate": 80.0,
+      "avg_score": 7.151018518518518
+    },
+    {
+      "name": "topic",
+      "count": 10,
+      "passed": 10,
+      "pass_rate": 100.0,
+      "avg_score": 7.16625
+    }
+  ],
+  "by_label": [
+    {
+      "name": "business",
+      "count": 4,
+      "passed": 4,
+      "pass_rate": 100.0,
+      "avg_score": 6.909375
+    },
+    {
+      "name": "education",
+      "count": 6,
+      "passed": 6,
+      "pass_rate": 100.0,
+      "avg_score": 7.3375
+    },
+    {
+      "name": "negative",
+      "count": 14,
+      "passed": 5,
+      "pass_rate": 35.714285714285715,
+      "avg_score": 6.936845238095238
+    },
+    {
+      "name": "neutral",
+      "count": 15,
+      "passed": 15,
+      "pass_rate": 100.0,
+      "avg_score": 7.232833333333333
+    },
+    {
+      "name": "positive",
+      "count": 16,
+      "passed": 16,
+      "pass_rate": 100.0,
+      "avg_score": 7.26171875
+    },
+    {
+      "name": "unknown",
+      "count": 6,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "avg_score": 7.455555555555555
+    }
+  ],
+  "comparison": [
+    {
+      "metric": "total_records",
+      "modified": 61,
+      "baseline": 12,
+      "delta": 49.0
+    },
+    {
+      "metric": "validation_pass_rate",
+      "modified": 75.40983606557377,
+      "baseline": 0.0,
+      "delta": 75.40983606557377
+    },
+    {
+      "metric": "avg_score",
+      "modified": 7.183469945355191,
+      "baseline": 8.622916666666667,
+      "delta": -1.4394467213114757
+    },
+    {
+      "metric": "min_score",
+      "modified": 6.1,
+      "baseline": 8.25,
+      "delta": -2.1500000000000004
+    },
+    {
+      "metric": "max_score",
+      "modified": 8.266666666666666,
+      "baseline": 9.2,
+      "delta": -0.9333333333333336
+    },
+    {
+      "metric": "stdev_score",
+      "modified": 0.42540770695559693,
+      "baseline": 0.2559426279225067,
+      "delta": 0.16946507903309022
+    },
+    {
+      "metric": "avg_fluency",
+      "modified": 8.161764705882353,
+      "baseline": 8.5,
+      "delta": -0.33823529411764675
+    },
+    {
+      "metric": "avg_naturalness",
+      "modified": 8.264705882352942,
+      "baseline": 9.0,
+      "delta": -0.735294117647058
+    },
+    {
+      "metric": "avg_socio_cultural",
+      "modified": 8.308823529411764,
+      "baseline": 8.791666666666666,
+      "delta": -0.4828431372549016
+    },
+    {
+      "metric": "avg_cs_ratio_score",
+      "modified": 3.1194029850746268,
+      "baseline": 8.125,
+      "delta": -5.005597014925373
+    },
+    {
+      "metric": "avg_refine_count",
+      "modified": 2.901639344262295,
+      "baseline": 0.0,
+      "delta": 2.901639344262295
+    }
+  ]
+}

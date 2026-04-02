@@ -1,0 +1,189 @@
+{
+  "outputs": {
+    "ner": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "tech|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "tech",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا أستخدم Google كل يوم عشان أبحث عن معلومات جديدة في التكنولوجيا, وخصوصاً أخبار Elon Musk.",
+          "بالنسبة لي, تعلم البرمجة مع Microsoft يعتبر تجربة رائعة, خصوصاً لما أحتاج أستخدم أدواتهم في مشاريعي.",
+          "أحب أتابع أخبار التكنولوجيا من موقع TechCrunch, وأحياناً أستمع لمقابلات مع Sundar Pichai.",
+          "كلما كنت في دبي, أحاول زيارة مكاتب الشركات مثل Facebook, لأنه دائماً يكون في هناك أحداث جديدة.",
+          "أنا متحمس جداً لمتابعة تطورات Apple, خاصة مع كل الإعلانات الجديدة التي تصدر من مؤتمرهم."
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient number of required entities: only 2 found, but at least 2 required.",
+            "instance_1: No English-script entities found.",
+            "instance_1: Must include at least one PER and one ORG entity.",
+            "instance_2: Insufficient number of entities: only 2 found, but max limit is 3.",
+            "instance_3: Not enough English entities to satisfy min_entities requirement.",
+            "instance_3: Missing required entity type 'PER'.",
+            "instance_4: Missing required English-script entities for 'PER' and 'ORG'."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_task_validator": {
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم Google كل يوم عشان أبحث عن معلومات جديدة في التكنولوجيا, وخصوصاً أخبار Elon Musk.",
+          "بالنسبة لي, تعلم البرمجة مع Microsoft يعتبر تجربة رائعة, خصوصاً لما أحتاج أستخدم أدواتهم في مشاريعي.",
+          "أحب أتابع أخبار التكنولوجيا من موقع TechCrunch, وأحياناً أستمع لمقابلات مع Sundar Pichai.",
+          "كلما كنت في دبي, أحاول زيارة مكاتب الشركات مثل Facebook, لأنه دائماً يكون في هناك أحداث جديدة.",
+          "أنا متحمس جداً لمتابعة تطورات Apple, خاصة مع كل الإعلانات الجديدة التي تصدر من مؤتمرهم."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient number of required entities: only 2 found, but at least 2 required.",
+            "instance_1: No English-script entities found.",
+            "instance_1: Must include at least one PER and one ORG entity.",
+            "instance_2: Insufficient number of entities: only 2 found, but max limit is 3.",
+            "instance_3: Not enough English entities to satisfy min_entities requirement.",
+            "instance_3: Missing required entity type 'PER'.",
+            "instance_4: Missing required English-script entities for 'PER' and 'ORG'."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم Google كل يوم عشان أبحث عن معلومات جديدة في التكنولوجيا, وخصوصاً أخبار Elon Musk.",
+          "بالنسبة لي, تعلم البرمجة مع Microsoft يعتبر تجربة رائعة, خصوصاً لما أحتاج أستخدم أدواتهم في مشاريعي.",
+          "أحب أتابع أخبار التكنولوجيا من موقع TechCrunch, وأحياناً أستمع لمقابلات مع Sundar Pichai.",
+          "كلما كنت في دبي, أحاول زيارة مكاتب الشركات مثل Facebook, لأنه دائماً يكون في هناك أحداث جديدة.",
+          "أنا متحمس جداً لمتابعة تطورات Apple, خاصة مع كل الإعلانات الجديدة التي تصدر من مؤتمرهم."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient number of required entities: only 2 found, but at least 2 required.",
+            "instance_1: No English-script entities found.",
+            "instance_1: Must include at least one PER and one ORG entity.",
+            "instance_2: Insufficient number of entities: only 2 found, but max limit is 3.",
+            "instance_3: Not enough English entities to satisfy min_entities requirement.",
+            "instance_3: Missing required entity type 'PER'.",
+            "instance_4: Missing required English-script entities for 'PER' and 'ORG'."
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "ner": [
+      {
+        "passed": false,
+        "reason": "Entity heuristic check failed for count/type constraints.",
+        "entity_counts": {
+          "PER": 2,
+          "ORG": 4,
+          "LOC": 0
+        },
+        "total_entities": 6,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,421 @@
+{
+  "outputs": {
+    "sentiment": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "positive",
+        "scenario_summary": {
+          "task": "sentiment",
+          "topic": "tech",
+          "label": "positive"
+        },
+        "data_generation_result": [
+          "أنا دائما متحمس للابتكارات الجديدة في tech، especially in artificial intelligence.",
+          "كلما أسمع عن advancements في التكنولوجيا، أشعر أن العالم يصبح أكثر exciting.",
+          "عندما أستخدم gadgets الجديدة، أشعر أنني أعيش في المستقبل، it's really amazing.",
+          "أحب أن أتعلم عن latest trends في technology و كيف يمكن أن تغير حياتنا.",
+          "لدي شغف كبير بالبرمجة، و programming languages تجعلني أشعر بالإنجاز."
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses excitement about new innovations in technology, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment about technological advancements, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The sentiment expressed in the instance is overwhelmingly positive, highlighting excitement about new gadgets.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment towards learning about technology trends, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a strong passion for programming, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "tech|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "tech",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا أستخدم التكنولوجيا الحديثة مثل Google وApple في حياتي اليومية.",
+          "عندما أذهب إلى لندن، أستمتع بزيارة المكاتب التابعة لـ Microsoft.",
+          "في الجامعة، أدرس عن تأثير شركات مثل Facebook وAmazon على الاقتصاد.",
+          "أحب متابعة أخبار التكنولوجيا من مصادر مثل TechCrunch وThe Verge.",
+          "أحيانًا أشارك أفكاري حول الابتكارات الجديدة في مجال التكنولوجيا مع أصدقائي في القاهرة."
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient English entities: only 1 found, minimum required is 2.",
+            "instance_1: Insufficient required entities: only 1 found, 2 needed.",
+            "instance_2: No English-script entities found.",
+            "instance_2: Required entity types (PER, ORG) not satisfied.",
+            "instance_3: Missing required English entities of type 'PER' and 'ORG'.",
+            "instance_4: No English-script entities found.",
+            "instance_4: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_task_validator": {
+    "sentiment": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا دائما متحمس للابتكارات الجديدة في tech، especially in artificial intelligence.",
+          "كلما أسمع عن advancements في التكنولوجيا، أشعر أن العالم يصبح أكثر exciting.",
+          "عندما أستخدم gadgets الجديدة، أشعر أنني أعيش في المستقبل، it's really amazing.",
+          "أحب أن أتعلم عن latest trends في technology و كيف يمكن أن تغير حياتنا.",
+          "لدي شغف كبير بالبرمجة، و programming languages تجعلني أشعر بالإنجاز."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses excitement about new innovations in technology, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment about technological advancements, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The sentiment expressed in the instance is overwhelmingly positive, highlighting excitement about new gadgets.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment towards learning about technology trends, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a strong passion for programming, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم التكنولوجيا الحديثة مثل Google وApple في حياتي اليومية.",
+          "عندما أذهب إلى لندن، أستمتع بزيارة المكاتب التابعة لـ Microsoft.",
+          "في الجامعة، أدرس عن تأثير شركات مثل Facebook وAmazon على الاقتصاد.",
+          "أحب متابعة أخبار التكنولوجيا من مصادر مثل TechCrunch وThe Verge.",
+          "أحيانًا أشارك أفكاري حول الابتكارات الجديدة في مجال التكنولوجيا مع أصدقائي في القاهرة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient English entities: only 1 found, minimum required is 2.",
+            "instance_1: Insufficient required entities: only 1 found, 2 needed.",
+            "instance_2: No English-script entities found.",
+            "instance_2: Required entity types (PER, ORG) not satisfied.",
+            "instance_3: Missing required English entities of type 'PER' and 'ORG'.",
+            "instance_4: No English-script entities found.",
+            "instance_4: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "sentiment": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا دائما متحمس للابتكارات الجديدة في tech، especially in artificial intelligence.",
+          "كلما أسمع عن advancements في التكنولوجيا، أشعر أن العالم يصبح أكثر exciting.",
+          "عندما أستخدم gadgets الجديدة، أشعر أنني أعيش في المستقبل، it's really amazing.",
+          "أحب أن أتعلم عن latest trends في technology و كيف يمكن أن تغير حياتنا.",
+          "لدي شغف كبير بالبرمجة، و programming languages تجعلني أشعر بالإنجاز."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses excitement about new innovations in technology, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment about technological advancements, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The sentiment expressed in the instance is overwhelmingly positive, highlighting excitement about new gadgets.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment towards learning about technology trends, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a strong passion for programming, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم التكنولوجيا الحديثة مثل Google وApple في حياتي اليومية.",
+          "عندما أذهب إلى لندن، أستمتع بزيارة المكاتب التابعة لـ Microsoft.",
+          "في الجامعة، أدرس عن تأثير شركات مثل Facebook وAmazon على الاقتصاد.",
+          "أحب متابعة أخبار التكنولوجيا من مصادر مثل TechCrunch وThe Verge.",
+          "أحيانًا أشارك أفكاري حول الابتكارات الجديدة في مجال التكنولوجيا مع أصدقائي في القاهرة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient English entities: only 1 found, minimum required is 2.",
+            "instance_1: Insufficient required entities: only 1 found, 2 needed.",
+            "instance_2: No English-script entities found.",
+            "instance_2: Required entity types (PER, ORG) not satisfied.",
+            "instance_3: Missing required English entities of type 'PER' and 'ORG'.",
+            "instance_4: No English-script entities found.",
+            "instance_4: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "sentiment": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "label": "positive",
+        "positive_hits": 3,
+        "negative_hits": 0,
+        "num_instances": 5
+      }
+    ],
+    "ner": [
+      {
+        "passed": false,
+        "reason": "Entity heuristic check failed for count/type constraints.",
+        "entity_counts": {
+          "PER": 0,
+          "ORG": 3,
+          "LOC": 0
+        },
+        "total_entities": 3,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      }
+    ]
+  }
+}

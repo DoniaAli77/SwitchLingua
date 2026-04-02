@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\drive_code\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\drive_code\\.env",
+    "tasks": [
+      "topic",
+      "sentiment",
+      "ner"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-01T13:15:33.401299"
+  },
+  "runs": [
+    {
+      "task": "topic",
+      "scenario_index": 1,
+      "error": "'Input to ChatPromptTemplate is missing variables {\\'\\\\n                                \"fluency_score\"\\'}.  Expected: [\\'\\\\n                                \"fluency_score\"\\', \\'sentences_for_batch\\'] Received: [\\'sentences_for_batch\\']\\nNote: if you intended {\\n                                \"fluency_score\"} to be part of the string and not a variable, please escape it with double curly braces like: \\'{{\\n                                \"fluency_score\"}}\\'.\\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/INVALID_PROMPT_INPUT '",
+      "state": {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "عندما يتعلق الأمر بالبيزنس، I always think about كيفية الابتكار والتكيف مع التغيرات في السوق.",
+          "في عالم البيزنس اليوم، networking is crucial لتوسيع دائرة المعارف والفرص.",
+          "أحب دراسة استراتيجيات البيزنس، especially عندما أرى كيف يمكن أن تؤثر التكنولوجيا على الأعمال.",
+          "في النهاية، النجاح في البيزنس يعتمد على القدرة على التواصل بشكل فعال، you know؟"
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses business innovation and adaptation to market changes, aligning well with the expected topic of 'business'.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses networking in the business context, which aligns well with the expected topic label of 'business'.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses business strategies and the impact of technology on business, aligning well with the expected topic of 'business'.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses success in business and effective communication, aligning well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "task": "sentiment",
+      "scenario_index": 1,
+      "error": "'Input to ChatPromptTemplate is missing variables {\\'\\\\n                                \"fluency_score\"\\'}.  Expected: [\\'\\\\n                                \"fluency_score\"\\', \\'sentences_for_batch\\'] Received: [\\'sentences_for_batch\\']\\nNote: if you intended {\\n                                \"fluency_score\"} to be part of the string and not a variable, please escape it with double curly braces like: \\'{{\\n                                \"fluency_score\"}}\\'.\\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/INVALID_PROMPT_INPUT '",
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أحب التكنولوجيا الجديدة لأنها تجعل حياتنا أسهل, especially when it comes to التواصل مع الأصدقاء.",
+          "أجد أنه من الرائع كيف يمكن للتطبيقات الحديثة أن تساعدنا في تنظيم حياتنا, like managing our وقت الدراسة.",
+          "التقدم في الذكاء الاصطناعي مذهل, و أنا متحمس لاستخدامه في مشاريعي الجامعية القادمة.",
+          "أحب مشاركة الأفكار التقنية مع أصدقائي, و نتحدث عن innovations التي يمكن أن تغير المستقبل.",
+          "أشعر بالسعادة عندما أتعلم مهارات جديدة في البرمجة, it really boosts my confidence."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.89,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment towards new technology, highlighting its benefits in making life easier and enhancing communication with friends.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment about modern applications helping with organization, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses excitement about advancements in AI, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The instance expresses a positive sentiment about sharing technical ideas and discussing innovations, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance expresses a positive sentiment about learning new programming skills, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "task": "ner",
+      "scenario_index": 1,
+      "error": "'Input to ChatPromptTemplate is missing variables {\\'\\\\n                                \"fluency_score\"\\'}.  Expected: [\\'\\\\n                                \"fluency_score\"\\', \\'sentences_for_batch\\'] Received: [\\'sentences_for_batch\\']\\nNote: if you intended {\\n                                \"fluency_score\"} to be part of the string and not a variable, please escape it with double curly braces like: \\'{{\\n                                \"fluency_score\"}}\\'.\\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/INVALID_PROMPT_INPUT '",
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أدرس في جامعة Harvard و أعتقد أن تقنيات الذكاء الاصطناعي مثل تلك التي تستخدمها شركة Google ستغير المستقبل بشكل جذري.",
+          "في آخر مؤتمر حضرت فيه، كان هناك الكثير من النقاش حول تأثير شركة Microsoft على تطوير البرمجيات، وكنت متحمسًا جدًا للمشاركة في ذلك النقاش.",
+          "صديقي يدرس في جامعة Stanford و هو دائمًا يتحدث عن الابتكارات التي تقوم بها شركة Apple في مجال الهواتف الذكية."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Insufficient English entities: only 1 found, minimum required is 2.",
+            "instance_1: No English-script entities found.",
+            "instance_1: Minimum required entities not satisfied.",
+            "instance_2: Missing required 'PER' entity."
+          ]
+        }
+      }
+    }
+  ]
+}

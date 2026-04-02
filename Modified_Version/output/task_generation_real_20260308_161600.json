@@ -1,0 +1,155 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "العمل في مجال الأعمال يحتاج دائماً إلى تخطيط جيد. We must always have a strategy!",
+        "في السوق، المنافسة شرسة جداً. It's all about standing out!",
+        "التواصل مع العملاء هو مفتاح النجاح. Good customer service makes a huge difference.",
+        "لذلك، يجب علينا الاستثمار في التسويق الرقمي. It's the future of business!"
+      ]
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا اليوم كنت أبحث عن آخر الأخبار about technology ووجدت شيء رائع. في الحقيقة, the new smartphone الذي تم إطلاقه يبدو مذهلاً جداً."
+      ]
+    },
+    "ner": {
+      "data_generation_result": [
+        "أنا دائماً أقرأ عن آخر أخبار التكنولوجيا، خاصةً عندما يتعلق الأمر بشركات مثل Google وApple. أعتقد أن الابتكارات التي تقدمها هذه الشركات تغير حياتنا بشكل جذري. في الحقيقة، كنت أبحث عن معلومات عن أحدث الهواتف الذكية من Samsung، لأنها دائماً ما تكون في الصدارة."
+      ]
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "العمل في مجال الأعمال يحتاج دائماً إلى تخطيط جيد. We must always have a strategy!",
+        "في السوق، المنافسة شرسة جداً. It's all about standing out!",
+        "التواصل مع العملاء هو مفتاح النجاح. Good customer service makes a huge difference.",
+        "لذلك، يجب علينا الاستثمار في التسويق الرقمي. It's the future of business!"
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": ""
+    },
+    "sentiment": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا اليوم كنت أبحث عن آخر الأخبار about technology ووجدت شيء رائع. في الحقيقة, the new smartphone الذي تم إطلاقه يبدو مذهلاً جداً."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "sentiment",
+      "label": "positive",
+      "task_constraints": {
+        "intensity": "low",
+        "ambiguity": "low"
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": ""
+    },
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائماً أقرأ عن آخر أخبار التكنولوجيا، خاصةً عندما يتعلق الأمر بشركات مثل Google وApple. أعتقد أن الابتكارات التي تقدمها هذه الشركات تغير حياتنا بشكل جذري. في الحقيقة، كنت أبحث عن معلومات عن أحدث الهواتف الذكية من Samsung، لأنها دائماً ما تكون في الصدارة."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": ""
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": true,
+      "reason": "OK",
+      "label": "positive",
+      "positive_hits": 1,
+      "negative_hits": 0,
+      "num_instances": 1
+    },
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 2,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

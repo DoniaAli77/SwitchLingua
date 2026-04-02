@@ -1,0 +1,399 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "الأعمال التجارية تتطلب خطة واضحة وstrategies فعالة.",
+        "عندما نتحدث عن الاستثمار، يجب أن نفكر في risk management بشكل جيد.",
+        "أنا أؤمن أن teamwork هو المفتاح لنجاح أي مشروع.",
+        "التسويق الرقمي أصبح جزءاً أساسياً من modern business strategies."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "الأعمال التجارية تتطلب خطة واضحة وstrategies فعالة.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "عندما نتحدث عن الاستثمار، يجب أن نفكر في risk management بشكل جيد.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أنا أؤمن أن teamwork هو المفتاح لنجاح أي مشروع.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "التسويق الرقمي أصبح جزءاً أساسياً من modern business strategies.",
+          "label": "business"
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances are relevant to the business topic and correctly labeled.",
+        "predicted_label": "business",
+        "errors": []
+      }
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا أحب التكنولوجيا الجديدة، especially كيفية استخدام الذكاء الاصطناعي في حياتنا اليومية.",
+        "عندما أستخدم التطبيقات الحديثة، أشعر بسعادة كبيرة because everything is so easy to access.",
+        "الابتكارات في مجال التكنولوجيا تجعلني متحمس، like تطوير الهواتف الذكية التي تسهل التواصل.",
+        "أنا دائماً أتابع آخر الأخبار عن التكنولوجيا, it's really exciting to see what's next!",
+        "التقنيات الجديدة تجعل حياتنا أفضل, especially عندما نتحدث عن الأمان على الإنترنت."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا أحب التكنولوجيا الجديدة، especially كيفية استخدام الذكاء الاصطناعي في حياتنا اليومية.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "عندما أستخدم التطبيقات الحديثة، أشعر بسعادة كبيرة because everything is so easy to access.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "الابتكارات في مجال التكنولوجيا تجعلني متحمس، like تطوير الهواتف الذكية التي تسهل التواصل.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "أنا دائماً أتابع آخر الأخبار عن التكنولوجيا, it's really exciting to see what's next!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "التقنيات الجديدة تجعل حياتنا أفضل, especially عندما نتحدث عن الأمان على الإنترنت.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances correctly reflect a positive sentiment with low intensity and low ambiguity as per the constraints.",
+        "predicted_label": "positive",
+        "errors": []
+      }
+    },
+    "ner": {
+      "data_generation_result": [
+        "أنا دائماً أتابع أخبار شركة Google لأنها تقدم تقنيات جديدة كل يوم. أعتقد أن مهاراتي في البرمجة ستساعدني في العمل هناك يوماً ما."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائماً أتابع أخبار شركة Google لأنها تقدم تقنيات جديدة كل يوم. أعتقد أن مهاراتي في البرمجة ستساعدني في العمل هناك يوماً ما.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.9,
+        "notes": "The generated instance contains the required entity types and meets the constraints.",
+        "predicted_label": null,
+        "errors": []
+      }
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "الأعمال التجارية تتطلب خطة واضحة وstrategies فعالة.",
+        "عندما نتحدث عن الاستثمار، يجب أن نفكر في risk management بشكل جيد.",
+        "أنا أؤمن أن teamwork هو المفتاح لنجاح أي مشروع.",
+        "التسويق الرقمي أصبح جزءاً أساسياً من modern business strategies."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "الأعمال التجارية تتطلب خطة واضحة وstrategies فعالة.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "عندما نتحدث عن الاستثمار، يجب أن نفكر في risk management بشكل جيد.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أنا أؤمن أن teamwork هو المفتاح لنجاح أي مشروع.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "التسويق الرقمي أصبح جزءاً أساسياً من modern business strategies.",
+          "label": "business"
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances are relevant to the business topic and correctly labeled.",
+        "predicted_label": "business",
+        "errors": []
+      }
+    },
+    "sentiment": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أحب التكنولوجيا الجديدة، especially كيفية استخدام الذكاء الاصطناعي في حياتنا اليومية.",
+        "عندما أستخدم التطبيقات الحديثة، أشعر بسعادة كبيرة because everything is so easy to access.",
+        "الابتكارات في مجال التكنولوجيا تجعلني متحمس، like تطوير الهواتف الذكية التي تسهل التواصل.",
+        "أنا دائماً أتابع آخر الأخبار عن التكنولوجيا, it's really exciting to see what's next!",
+        "التقنيات الجديدة تجعل حياتنا أفضل, especially عندما نتحدث عن الأمان على الإنترنت."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "sentiment",
+      "label": "positive",
+      "task_constraints": {
+        "intensity": "low",
+        "ambiguity": "low"
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا أحب التكنولوجيا الجديدة، especially كيفية استخدام الذكاء الاصطناعي في حياتنا اليومية.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "عندما أستخدم التطبيقات الحديثة، أشعر بسعادة كبيرة because everything is so easy to access.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "الابتكارات في مجال التكنولوجيا تجعلني متحمس، like تطوير الهواتف الذكية التي تسهل التواصل.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "أنا دائماً أتابع آخر الأخبار عن التكنولوجيا, it's really exciting to see what's next!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "التقنيات الجديدة تجعل حياتنا أفضل, especially عندما نتحدث عن الأمان على الإنترنت.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances correctly reflect a positive sentiment with low intensity and low ambiguity as per the constraints.",
+        "predicted_label": "positive",
+        "errors": []
+      }
+    },
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائماً أتابع أخبار شركة Google لأنها تقدم تقنيات جديدة كل يوم. أعتقد أن مهاراتي في البرمجة ستساعدني في العمل هناك يوماً ما."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائماً أتابع أخبار شركة Google لأنها تقدم تقنيات جديدة كل يوم. أعتقد أن مهاراتي في البرمجة ستساعدني في العمل هناك يوماً ما.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.9,
+        "notes": "The generated instance contains the required entity types and meets the constraints.",
+        "predicted_label": null,
+        "errors": []
+      }
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": true,
+      "reason": "OK",
+      "label": "positive",
+      "positive_hits": 2,
+      "negative_hits": 0,
+      "num_instances": 5
+    },
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 1,
+        "LOC": 0
+      },
+      "total_entities": 1,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

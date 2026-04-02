@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "noop",
+			"type": "shell",
+			"command": "echo"
+		},
+		{
+			"label": "noop2",
+			"type": "shell",
+			"command": "echo"
+		},
+		{
+			"label": "noop3",
+			"type": "shell",
+			"command": "echo"
+		},
+		{
+			"label": "noop4",
+			"type": "shell",
+			"command": "echo"
+		}
+	]
+}

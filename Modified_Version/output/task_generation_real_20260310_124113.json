@@ -1,0 +1,628 @@
+{
+  "outputs": {
+    "topic": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "business",
+        "scenario_summary": {
+          "task": "topic",
+          "topic": "business",
+          "label": "business"
+        },
+        "data_generation_result": [
+          "في عالم الأعمال اليوم، everyone is looking for innovative solutions.",
+          "الاستثمار في التكنولوجيا هو مفتاح النجاح، don’t you think?",
+          "تحتاج الشركات إلى التكيف بسرعة، or they risk falling behind.",
+          "التواصل الفعّال هو عنصر أساسي في أي مشروع، because it builds strong relationships."
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.7375,
+          "notes": "Per-instance task validation; predicted_labels=['business', 'communication', 'technology']",
+          "predicted_label": "mixed",
+          "errors": [
+            "instance_1: Instance does not explicitly mention business.",
+            "instance_1: Focus is more on technology than business.",
+            "instance_2: Instance is in a different language (Arabic) than expected for classification.",
+            "instance_3: Instance does not directly address business topics."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses innovative solutions in the business world, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses technology investment, which is related to business but not explicitly labeled as such.",
+              "predicted_label": "technology",
+              "errors": [
+                "Instance does not explicitly mention business.",
+                "Focus is more on technology than business."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses business adaptation but is in Arabic, which may affect classification accuracy.",
+              "predicted_label": "business",
+              "errors": [
+                "Instance is in a different language (Arabic) than expected for classification."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses effective communication, which is relevant to business but not explicitly focused on business topics.",
+              "predicted_label": "communication",
+              "errors": [
+                "Instance does not directly address business topics."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "sentiment": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "positive",
+        "scenario_summary": {
+          "task": "sentiment",
+          "topic": "tech",
+          "label": "positive"
+        },
+        "data_generation_result": [
+          "أنا أحب التكنولوجيا الجديدة، especially لما أكتشف أدوات جديدة تساعدني في دراستي.",
+          "لما جربت البرنامج الجديد، حسيت إنه سهل الاستخدام وفعلاً رائع!",
+          "الابتكارات في عالم التكنولوجيا تجعلني متحمس دائماً، like لما شفت أحدث الهواتف.",
+          "التطبيقات الجديدة تساعدني كثيراً في تنظيم وقتي، وده شيء ممتاز.",
+          "أنا متشوق لتجربة الأجهزة الجديدة، they always bring something unique."
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.88,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment towards new technology, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment with low intensity and low ambiguity.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses excitement about technology, aligning with the positive sentiment label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment with low intensity and low ambiguity.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses excitement about new devices, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "tech|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "tech",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا أبحث عن طريقة لتعلم البرمجة بشكل أفضل، وسمعت أن Google لديها موارد رائعة لهذا. في الواقع، أعتقد أن الإبداع في التكنولوجيا، مثل ما يفعله Elon Musk في شركاته، هو ما يجعلنا نتقدم."
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No English-script entities found.",
+            "instance_0: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_task_validator": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "في عالم الأعمال اليوم، everyone is looking for innovative solutions.",
+          "الاستثمار في التكنولوجيا هو مفتاح النجاح، don’t you think?",
+          "تحتاج الشركات إلى التكيف بسرعة، or they risk falling behind.",
+          "التواصل الفعّال هو عنصر أساسي في أي مشروع، because it builds strong relationships."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.7375,
+          "notes": "Per-instance task validation; predicted_labels=['business', 'communication', 'technology']",
+          "predicted_label": "mixed",
+          "errors": [
+            "instance_1: Instance does not explicitly mention business.",
+            "instance_1: Focus is more on technology than business.",
+            "instance_2: Instance is in a different language (Arabic) than expected for classification.",
+            "instance_3: Instance does not directly address business topics."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses innovative solutions in the business world, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses technology investment, which is related to business but not explicitly labeled as such.",
+              "predicted_label": "technology",
+              "errors": [
+                "Instance does not explicitly mention business.",
+                "Focus is more on technology than business."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses business adaptation but is in Arabic, which may affect classification accuracy.",
+              "predicted_label": "business",
+              "errors": [
+                "Instance is in a different language (Arabic) than expected for classification."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses effective communication, which is relevant to business but not explicitly focused on business topics.",
+              "predicted_label": "communication",
+              "errors": [
+                "Instance does not directly address business topics."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "sentiment": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أحب التكنولوجيا الجديدة، especially لما أكتشف أدوات جديدة تساعدني في دراستي.",
+          "لما جربت البرنامج الجديد، حسيت إنه سهل الاستخدام وفعلاً رائع!",
+          "الابتكارات في عالم التكنولوجيا تجعلني متحمس دائماً، like لما شفت أحدث الهواتف.",
+          "التطبيقات الجديدة تساعدني كثيراً في تنظيم وقتي، وده شيء ممتاز.",
+          "أنا متشوق لتجربة الأجهزة الجديدة، they always bring something unique."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.88,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment towards new technology, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment with low intensity and low ambiguity.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses excitement about technology, aligning with the positive sentiment label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment with low intensity and low ambiguity.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses excitement about new devices, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أبحث عن طريقة لتعلم البرمجة بشكل أفضل، وسمعت أن Google لديها موارد رائعة لهذا. في الواقع، أعتقد أن الإبداع في التكنولوجيا، مثل ما يفعله Elon Musk في شركاته، هو ما يجعلنا نتقدم."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No English-script entities found.",
+            "instance_0: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "في عالم الأعمال اليوم، everyone is looking for innovative solutions.",
+          "الاستثمار في التكنولوجيا هو مفتاح النجاح، don’t you think?",
+          "تحتاج الشركات إلى التكيف بسرعة، or they risk falling behind.",
+          "التواصل الفعّال هو عنصر أساسي في أي مشروع، because it builds strong relationships."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.7375,
+          "notes": "Per-instance task validation; predicted_labels=['business', 'communication', 'technology']",
+          "predicted_label": "mixed",
+          "errors": [
+            "instance_1: Instance does not explicitly mention business.",
+            "instance_1: Focus is more on technology than business.",
+            "instance_2: Instance is in a different language (Arabic) than expected for classification.",
+            "instance_3: Instance does not directly address business topics."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses innovative solutions in the business world, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses technology investment, which is related to business but not explicitly labeled as such.",
+              "predicted_label": "technology",
+              "errors": [
+                "Instance does not explicitly mention business.",
+                "Focus is more on technology than business."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses business adaptation but is in Arabic, which may affect classification accuracy.",
+              "predicted_label": "business",
+              "errors": [
+                "Instance is in a different language (Arabic) than expected for classification."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses effective communication, which is relevant to business but not explicitly focused on business topics.",
+              "predicted_label": "communication",
+              "errors": [
+                "Instance does not directly address business topics."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "sentiment": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أحب التكنولوجيا الجديدة، especially لما أكتشف أدوات جديدة تساعدني في دراستي.",
+          "لما جربت البرنامج الجديد، حسيت إنه سهل الاستخدام وفعلاً رائع!",
+          "الابتكارات في عالم التكنولوجيا تجعلني متحمس دائماً، like لما شفت أحدث الهواتف.",
+          "التطبيقات الجديدة تساعدني كثيراً في تنظيم وقتي، وده شيء ممتاز.",
+          "أنا متشوق لتجربة الأجهزة الجديدة، they always bring something unique."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.88,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment towards new technology, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment with low intensity and low ambiguity.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses excitement about technology, aligning with the positive sentiment label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment with low intensity and low ambiguity.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses excitement about new devices, which aligns with a positive sentiment.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أبحث عن طريقة لتعلم البرمجة بشكل أفضل، وسمعت أن Google لديها موارد رائعة لهذا. في الواقع، أعتقد أن الإبداع في التكنولوجيا، مثل ما يفعله Elon Musk في شركاته، هو ما يجعلنا نتقدم."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No English-script entities found.",
+            "instance_0: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "topic": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "num_instances": 4,
+        "code_switched_instances": 4
+      }
+    ],
+    "sentiment": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "label": "positive",
+        "positive_hits": 4,
+        "negative_hits": 0,
+        "num_instances": 5
+      }
+    ],
+    "ner": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "entity_counts": {
+          "PER": 1,
+          "ORG": 1,
+          "LOC": 0
+        },
+        "total_entities": 2,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      }
+    ]
+  }
+}

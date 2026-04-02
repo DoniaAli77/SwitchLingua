@@ -1,0 +1,277 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "أحب أن أدرس البزنس لأنه يساعدني على فهم الاقتصاد العالمي. I find it fascinating to see how markets operate.",
+        "أعتقد أن العمل مع فريق مهم جداً. Teamwork is essential for success in any business.",
+        "سأقوم بإجراء بعض الأبحاث عن الشركات الناشئة. It's interesting to see how innovation drives growth.",
+        "أحياناً يتطلب الأمر اتخاذ قرارات صعبة. Sometimes, you have to make tough decisions for the greater good."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "أحب أن أدرس البزنس لأنه يساعدني على فهم الاقتصاد العالمي. I find it fascinating to see how markets operate.",
+          "label": "business",
+          "topic": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أعتقد أن العمل مع فريق مهم جداً. Teamwork is essential for success in any business.",
+          "label": "business",
+          "topic": "business"
+        },
+        {
+          "task": "topic",
+          "text": "سأقوم بإجراء بعض الأبحاث عن الشركات الناشئة. It's interesting to see how innovation drives growth.",
+          "label": "business",
+          "topic": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أحياناً يتطلب الأمر اتخاذ قرارات صعبة. Sometimes, you have to make tough decisions for the greater good.",
+          "label": "business",
+          "topic": "business"
+        }
+      ]
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا فعلاً مبسوط بالتكنولوجيا الجديدة، like the latest smartphones اللي تطلع كل يوم."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا فعلاً مبسوط بالتكنولوجيا الجديدة، like the latest smartphones اللي تطلع كل يوم.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ]
+    },
+    "ner": {
+      "data_generation_result": [
+        "أحب أقرأ عن التطورات الجديدة في tech مثل الذكاء الاصطناعي. مثلاً، اليوم كنت أتابع أخبار Google و شو عملوا في هذا المجال."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أحب أقرأ عن التطورات الجديدة في tech مثل الذكاء الاصطناعي. مثلاً، اليوم كنت أتابع أخبار Google و شو عملوا في هذا المجال.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ]
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أحب أن أدرس البزنس لأنه يساعدني على فهم الاقتصاد العالمي. I find it fascinating to see how markets operate.",
+        "أعتقد أن العمل مع فريق مهم جداً. Teamwork is essential for success in any business.",
+        "سأقوم بإجراء بعض الأبحاث عن الشركات الناشئة. It's interesting to see how innovation drives growth.",
+        "أحياناً يتطلب الأمر اتخاذ قرارات صعبة. Sometimes, you have to make tough decisions for the greater good."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "أحب أن أدرس البزنس لأنه يساعدني على فهم الاقتصاد العالمي. I find it fascinating to see how markets operate.",
+          "label": "business",
+          "topic": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أعتقد أن العمل مع فريق مهم جداً. Teamwork is essential for success in any business.",
+          "label": "business",
+          "topic": "business"
+        },
+        {
+          "task": "topic",
+          "text": "سأقوم بإجراء بعض الأبحاث عن الشركات الناشئة. It's interesting to see how innovation drives growth.",
+          "label": "business",
+          "topic": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أحياناً يتطلب الأمر اتخاذ قرارات صعبة. Sometimes, you have to make tough decisions for the greater good.",
+          "label": "business",
+          "topic": "business"
+        }
+      ]
+    },
+    "sentiment": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا فعلاً مبسوط بالتكنولوجيا الجديدة، like the latest smartphones اللي تطلع كل يوم."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "sentiment",
+      "label": "positive",
+      "task_constraints": {
+        "intensity": "low",
+        "ambiguity": "low"
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا فعلاً مبسوط بالتكنولوجيا الجديدة، like the latest smartphones اللي تطلع كل يوم.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ]
+    },
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أحب أقرأ عن التطورات الجديدة في tech مثل الذكاء الاصطناعي. مثلاً، اليوم كنت أتابع أخبار Google و شو عملوا في هذا المجال."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أحب أقرأ عن التطورات الجديدة في tech مثل الذكاء الاصطناعي. مثلاً، اليوم كنت أتابع أخبار Google و شو عملوا في هذا المجال.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ]
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": false,
+      "reason": "Lexical polarity check did not match expected label.",
+      "label": "positive",
+      "positive_hits": 0,
+      "negative_hits": 0,
+      "num_instances": 1
+    },
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 1,
+        "LOC": 0
+      },
+      "total_entities": 1,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

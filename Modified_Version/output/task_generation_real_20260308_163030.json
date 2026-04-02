@@ -1,0 +1,129 @@
+0{
+  "outputs": {
+    "ner": {
+      "data_generation_result": [
+        "أنا أحب التكنولوجيا وأتابع أخبار شركة Apple بشكل دائم. اليوم قرأت أن شركة Google تطلق منتج جديد في مدينة دبي."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا أحب التكنولوجيا وأتابع أخبار شركة Apple بشكل دائم. اليوم قرأت أن شركة Google تطلق منتج جديد في مدينة دبي.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.9,
+        "notes": "The generated instance contains the required entity types and meets the constraints.",
+        "predicted_label": null,
+        "errors": []
+      }
+    }
+  },
+  "states_after_generation": {
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أحب التكنولوجيا وأتابع أخبار شركة Apple بشكل دائم. اليوم قرأت أن شركة Google تطلق منتج جديد في مدينة دبي."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا أحب التكنولوجيا وأتابع أخبار شركة Apple بشكل دائم. اليوم قرأت أن شركة Google تطلق منتج جديد في مدينة دبي.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.9,
+        "notes": "The generated instance contains the required entity types and meets the constraints.",
+        "predicted_label": null,
+        "errors": []
+      }
+    }
+  },
+  "validations": {
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 2,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

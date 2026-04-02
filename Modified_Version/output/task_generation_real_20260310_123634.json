@@ -1,0 +1,235 @@
+{
+  "outputs": {
+    "topic": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "business",
+        "scenario_summary": {
+          "task": "topic",
+          "topic": "business",
+          "label": "business"
+        },
+        "data_generation_result": [
+          "عندما أفكر في الأعمال التجارية, I always consider the market trends.",
+          "الاستثمار في الأسهم يمكن أن يكون risky, لكن إذا تم بشكل صحيح, يمكن أن يكون مربحًا.",
+          "في عالم الأعمال, networking is essential for success.",
+          "أحب أن أقرأ عن قصص نجاح الشركات, especially the ones that started from scratch."
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.825,
+          "notes": "Per-instance task validation; predicted_labels=['business', 'finance']",
+          "predicted_label": "mixed",
+          "errors": [
+            "instance_1: Instance is not strictly in the business category; it leans more towards finance.",
+            "instance_1: Language mix may affect clarity and classification.",
+            "instance_3: Instance contains non-English text which may lead to misinterpretation."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses business concepts and market trends, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses investment in stocks, which is related to business, but the language used is informal and includes a mix of Arabic and English.",
+              "predicted_label": "finance",
+              "errors": [
+                "Instance is not strictly in the business category; it leans more towards finance.",
+                "Language mix may affect clarity and classification."
+              ]
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses networking in the context of business, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses business success stories, which aligns with the expected label, but the presence of Arabic text may affect clarity.",
+              "predicted_label": "business",
+              "errors": [
+                "Instance contains non-English text which may lead to misinterpretation."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_task_validator": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "عندما أفكر في الأعمال التجارية, I always consider the market trends.",
+          "الاستثمار في الأسهم يمكن أن يكون risky, لكن إذا تم بشكل صحيح, يمكن أن يكون مربحًا.",
+          "في عالم الأعمال, networking is essential for success.",
+          "أحب أن أقرأ عن قصص نجاح الشركات, especially the ones that started from scratch."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.825,
+          "notes": "Per-instance task validation; predicted_labels=['business', 'finance']",
+          "predicted_label": "mixed",
+          "errors": [
+            "instance_1: Instance is not strictly in the business category; it leans more towards finance.",
+            "instance_1: Language mix may affect clarity and classification.",
+            "instance_3: Instance contains non-English text which may lead to misinterpretation."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses business concepts and market trends, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses investment in stocks, which is related to business, but the language used is informal and includes a mix of Arabic and English.",
+              "predicted_label": "finance",
+              "errors": [
+                "Instance is not strictly in the business category; it leans more towards finance.",
+                "Language mix may affect clarity and classification."
+              ]
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses networking in the context of business, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses business success stories, which aligns with the expected label, but the presence of Arabic text may affect clarity.",
+              "predicted_label": "business",
+              "errors": [
+                "Instance contains non-English text which may lead to misinterpretation."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "عندما أفكر في الأعمال التجارية, I always consider the market trends.",
+          "الاستثمار في الأسهم يمكن أن يكون risky, لكن إذا تم بشكل صحيح, يمكن أن يكون مربحًا.",
+          "في عالم الأعمال, networking is essential for success.",
+          "أحب أن أقرأ عن قصص نجاح الشركات, especially the ones that started from scratch."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.825,
+          "notes": "Per-instance task validation; predicted_labels=['business', 'finance']",
+          "predicted_label": "mixed",
+          "errors": [
+            "instance_1: Instance is not strictly in the business category; it leans more towards finance.",
+            "instance_1: Language mix may affect clarity and classification.",
+            "instance_3: Instance contains non-English text which may lead to misinterpretation."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses business concepts and market trends, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses investment in stocks, which is related to business, but the language used is informal and includes a mix of Arabic and English.",
+              "predicted_label": "finance",
+              "errors": [
+                "Instance is not strictly in the business category; it leans more towards finance.",
+                "Language mix may affect clarity and classification."
+              ]
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses networking in the context of business, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance discusses business success stories, which aligns with the expected label, but the presence of Arabic text may affect clarity.",
+              "predicted_label": "business",
+              "errors": [
+                "Instance contains non-English text which may lead to misinterpretation."
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "topic": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "num_instances": 4,
+        "code_switched_instances": 4
+      }
+    ]
+  }
+}

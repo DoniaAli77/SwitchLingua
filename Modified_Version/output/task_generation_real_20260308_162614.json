@@ -1,0 +1,407 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "أنا أعتقد أن البزنس اليوم يتطلب الكثير من الابتكار والتفكير الإبداعي. Business is all about adapting to new trends.",
+        "في عالم الأعمال، العلاقات الشخصية مهمة جدًا. Networking can really open doors!",
+        "التخطيط الاستراتيجي هو المفتاح لنجاح أي مشروع. You need to have a clear vision.",
+        "أنا أبحث عن فرص جديدة للاستثمار. Have you heard about any exciting startups lately?"
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "أنا أعتقد أن البزنس اليوم يتطلب الكثير من الابتكار والتفكير الإبداعي. Business is all about adapting to new trends.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "في عالم الأعمال، العلاقات الشخصية مهمة جدًا. Networking can really open doors!",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "التخطيط الاستراتيجي هو المفتاح لنجاح أي مشروع. You need to have a clear vision.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أنا أبحث عن فرص جديدة للاستثمار. Have you heard about any exciting startups lately?",
+          "label": "business"
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances are relevant to the business topic and correctly labeled.",
+        "predicted_label": "business",
+        "errors": []
+      }
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا دائمًا أشعر أن التكنولوجيا تجعل حياتنا أسهل، like كلما استخدمت تطبيق جديد، بلاحظ كيف أنه يسهل عليّ الأمور اليومية."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا دائمًا أشعر أن التكنولوجيا تجعل حياتنا أسهل، like كلما استخدمت تطبيق جديد، بلاحظ كيف أنه يسهل عليّ الأمور اليومية.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "The generated instance aligns with the expected positive sentiment label and meets the specified constraints.",
+        "predicted_label": "positive",
+        "errors": []
+      }
+    },
+    "ner": {
+      "data_generation_result": [
+        "أنا دائما أتابع أخبار التكنولوجيا, مثل ما يحدث في شركة Google. في رأيي, الابتكارات الجديدة مثل الذكاء الاصطناعي تجعل الحياة أسهل. لكن, بالطبع, هناك تحديات تتعلق بالخصوصية.",
+        "أحب استخدام تطبيقات جديدة, خاصة من Facebook, لأنها تتيح لي التواصل مع أصدقائي بسهولة. أنا متحمس لرؤية كيف ستتطور هذه التكنولوجيا في المستقبل.",
+        "في الجامعة, أدرس علوم الحاسوب. نحن ندرس عن شركات مثل Microsoft وكيفية تأثيرها على السوق. أعتقد أن هذا المجال مليء بالفرص."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائما أتابع أخبار التكنولوجيا, مثل ما يحدث في شركة Google. في رأيي, الابتكارات الجديدة مثل الذكاء الاصطناعي تجعل الحياة أسهل. لكن, بالطبع, هناك تحديات تتعلق بالخصوصية.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        },
+        {
+          "task": "ner",
+          "text": "أحب استخدام تطبيقات جديدة, خاصة من Facebook, لأنها تتيح لي التواصل مع أصدقائي بسهولة. أنا متحمس لرؤية كيف ستتطور هذه التكنولوجيا في المستقبل.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        },
+        {
+          "task": "ner",
+          "text": "في الجامعة, أدرس علوم الحاسوب. نحن ندرس عن شركات مثل Microsoft وكيفية تأثيرها على السوق. أعتقد أن هذا المجال مليء بالفرص.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "None of the generated instances contain the required entity types (PER and ORG) as per the constraints.",
+        "predicted_label": null,
+        "errors": [
+          "Instance 1: Missing required entity types (PER, ORG).",
+          "Instance 2: Missing required entity types (PER, ORG).",
+          "Instance 3: Missing required entity types (PER, ORG)."
+        ]
+      }
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أعتقد أن البزنس اليوم يتطلب الكثير من الابتكار والتفكير الإبداعي. Business is all about adapting to new trends.",
+        "في عالم الأعمال، العلاقات الشخصية مهمة جدًا. Networking can really open doors!",
+        "التخطيط الاستراتيجي هو المفتاح لنجاح أي مشروع. You need to have a clear vision.",
+        "أنا أبحث عن فرص جديدة للاستثمار. Have you heard about any exciting startups lately?"
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "أنا أعتقد أن البزنس اليوم يتطلب الكثير من الابتكار والتفكير الإبداعي. Business is all about adapting to new trends.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "في عالم الأعمال، العلاقات الشخصية مهمة جدًا. Networking can really open doors!",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "التخطيط الاستراتيجي هو المفتاح لنجاح أي مشروع. You need to have a clear vision.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أنا أبحث عن فرص جديدة للاستثمار. Have you heard about any exciting startups lately?",
+          "label": "business"
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances are relevant to the business topic and correctly labeled.",
+        "predicted_label": "business",
+        "errors": []
+      }
+    },
+    "sentiment": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائمًا أشعر أن التكنولوجيا تجعل حياتنا أسهل، like كلما استخدمت تطبيق جديد، بلاحظ كيف أنه يسهل عليّ الأمور اليومية."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "sentiment",
+      "label": "positive",
+      "task_constraints": {
+        "intensity": "low",
+        "ambiguity": "low"
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا دائمًا أشعر أن التكنولوجيا تجعل حياتنا أسهل، like كلما استخدمت تطبيق جديد، بلاحظ كيف أنه يسهل عليّ الأمور اليومية.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "The generated instance aligns with the expected positive sentiment label and meets the specified constraints.",
+        "predicted_label": "positive",
+        "errors": []
+      }
+    },
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائما أتابع أخبار التكنولوجيا, مثل ما يحدث في شركة Google. في رأيي, الابتكارات الجديدة مثل الذكاء الاصطناعي تجعل الحياة أسهل. لكن, بالطبع, هناك تحديات تتعلق بالخصوصية.",
+        "أحب استخدام تطبيقات جديدة, خاصة من Facebook, لأنها تتيح لي التواصل مع أصدقائي بسهولة. أنا متحمس لرؤية كيف ستتطور هذه التكنولوجيا في المستقبل.",
+        "في الجامعة, أدرس علوم الحاسوب. نحن ندرس عن شركات مثل Microsoft وكيفية تأثيرها على السوق. أعتقد أن هذا المجال مليء بالفرص."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائما أتابع أخبار التكنولوجيا, مثل ما يحدث في شركة Google. في رأيي, الابتكارات الجديدة مثل الذكاء الاصطناعي تجعل الحياة أسهل. لكن, بالطبع, هناك تحديات تتعلق بالخصوصية.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        },
+        {
+          "task": "ner",
+          "text": "أحب استخدام تطبيقات جديدة, خاصة من Facebook, لأنها تتيح لي التواصل مع أصدقائي بسهولة. أنا متحمس لرؤية كيف ستتطور هذه التكنولوجيا في المستقبل.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        },
+        {
+          "task": "ner",
+          "text": "في الجامعة, أدرس علوم الحاسوب. نحن ندرس عن شركات مثل Microsoft وكيفية تأثيرها على السوق. أعتقد أن هذا المجال مليء بالفرص.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "None of the generated instances contain the required entity types (PER and ORG) as per the constraints.",
+        "predicted_label": null,
+        "errors": [
+          "Instance 1: Missing required entity types (PER, ORG).",
+          "Instance 2: Missing required entity types (PER, ORG).",
+          "Instance 3: Missing required entity types (PER, ORG)."
+        ]
+      }
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": false,
+      "reason": "Lexical polarity check did not match expected label.",
+      "label": "positive",
+      "positive_hits": 0,
+      "negative_hits": 0,
+      "num_instances": 1
+    },
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 2,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

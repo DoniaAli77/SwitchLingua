@@ -1,0 +1,175 @@
+{
+  "outputs": {
+    "ner": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "tech|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "tech",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا أدرس في جامعة MIT و كل يوم أتعلم أشياء جديدة عن التكنولوجيا. I find it fascinating how companies like Google and Apple are changing the world.",
+          "في صيف العام الماضي، زرت مدينة سان فرانسيسكو و كنت أبحث عن فرص تدريب في شركات مثل Facebook و Twitter. I met some amazing people there.",
+          "عندما كنت في مؤتمر في نيويورك، تحدثت مع أحد موظفي شركة IBM حول أحدث التقنيات. It was inspiring to hear about their projects.",
+          "أحب متابعة أخبار التكنولوجيا، خصوصاً من مواقع مثل TechCrunch و Wired. I always find innovative ideas that excite me.",
+          "في أحد الأيام، سأذهب إلى مؤتمر في لوس أنجلوس حيث سيتحدث فيه Elon Musk عن مستقبل الذكاء الاصطناعي. I can't wait to hear his insights."
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.88,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_3: No English-script entities found.",
+            "instance_3: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "task_validator_enabled": true,
+  "states_after_task_validator": {
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أدرس في جامعة MIT و كل يوم أتعلم أشياء جديدة عن التكنولوجيا. I find it fascinating how companies like Google and Apple are changing the world.",
+          "في صيف العام الماضي، زرت مدينة سان فرانسيسكو و كنت أبحث عن فرص تدريب في شركات مثل Facebook و Twitter. I met some amazing people there.",
+          "عندما كنت في مؤتمر في نيويورك، تحدثت مع أحد موظفي شركة IBM حول أحدث التقنيات. It was inspiring to hear about their projects.",
+          "أحب متابعة أخبار التكنولوجيا، خصوصاً من مواقع مثل TechCrunch و Wired. I always find innovative ideas that excite me.",
+          "في أحد الأيام، سأذهب إلى مؤتمر في لوس أنجلوس حيث سيتحدث فيه Elon Musk عن مستقبل الذكاء الاصطناعي. I can't wait to hear his insights."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.88,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_3: No English-script entities found.",
+            "instance_3: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أدرس في جامعة MIT و كل يوم أتعلم أشياء جديدة عن التكنولوجيا. I find it fascinating how companies like Google and Apple are changing the world.",
+          "في صيف العام الماضي، زرت مدينة سان فرانسيسكو و كنت أبحث عن فرص تدريب في شركات مثل Facebook و Twitter. I met some amazing people there.",
+          "عندما كنت في مؤتمر في نيويورك، تحدثت مع أحد موظفي شركة IBM حول أحدث التقنيات. It was inspiring to hear about their projects.",
+          "أحب متابعة أخبار التكنولوجيا، خصوصاً من مواقع مثل TechCrunch و Wired. I always find innovative ideas that excite me.",
+          "في أحد الأيام، سأذهب إلى مؤتمر في لوس أنجلوس حيث سيتحدث فيه Elon Musk عن مستقبل الذكاء الاصطناعي. I can't wait to hear his insights."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.88,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_3: No English-script entities found.",
+            "instance_3: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "ner": [
+      {
+        "passed": false,
+        "reason": "Entity heuristic check failed for count/type constraints.",
+        "entity_counts": {
+          "PER": 1,
+          "ORG": 3,
+          "LOC": 0
+        },
+        "total_entities": 4,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      }
+    ]
+  }
+}

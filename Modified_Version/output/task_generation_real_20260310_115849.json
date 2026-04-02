@@ -1,0 +1,149 @@
+{
+  "outputs": {
+    "ner": {
+      "data_generation_result": [
+        "أنا دائماً مشغول بالتكنولوجيا الجديدة، مثل الذكاء الاصطناعي. في رأيي، شركات مثل Google و Apple تلعب دوراً مهماً في تطوير هذه التقنيات. أعتقد أن المستقبل سيكون مشرق مع كل الابتكارات التي يقدمها هؤلاء الرواد."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائماً مشغول بالتكنولوجيا الجديدة، مثل الذكاء الاصطناعي. في رأيي، شركات مثل Google و Apple تلعب دوراً مهماً في تطوير هذه التقنيات. أعتقد أن المستقبل سيكون مشرق مع كل الابتكارات التي يقدمها هؤلاء الرواد.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "Deterministic English-entity policy check; llm_notes=The generated instance does not contain any English-script entities, which are required to satisfy the NER constraints.",
+        "predicted_label": null,
+        "errors": [
+          "All English entity_types not satisfied: ['PER', 'ORG', 'LOC']",
+          "Required English entity types not satisfied: ['PER', 'ORG']",
+          "English entity count 1 is outside range [2, 3]"
+        ],
+        "english_entity_counts": {
+          "PER": 1,
+          "ORG": 0,
+          "LOC": 0
+        },
+        "english_total_entities": 1
+      }
+    }
+  },
+  "states_after_generation": {
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائماً مشغول بالتكنولوجيا الجديدة، مثل الذكاء الاصطناعي. في رأيي، شركات مثل Google و Apple تلعب دوراً مهماً في تطوير هذه التقنيات. أعتقد أن المستقبل سيكون مشرق مع كل الابتكارات التي يقدمها هؤلاء الرواد."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائماً مشغول بالتكنولوجيا الجديدة، مثل الذكاء الاصطناعي. في رأيي، شركات مثل Google و Apple تلعب دوراً مهماً في تطوير هذه التقنيات. أعتقد أن المستقبل سيكون مشرق مع كل الابتكارات التي يقدمها هؤلاء الرواد.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "Deterministic English-entity policy check; llm_notes=The generated instance does not contain any English-script entities, which are required to satisfy the NER constraints.",
+        "predicted_label": null,
+        "errors": [
+          "All English entity_types not satisfied: ['PER', 'ORG', 'LOC']",
+          "Required English entity types not satisfied: ['PER', 'ORG']",
+          "English entity count 1 is outside range [2, 3]"
+        ],
+        "english_entity_counts": {
+          "PER": 1,
+          "ORG": 0,
+          "LOC": 0
+        },
+        "english_total_entities": 1
+      }
+    }
+  },
+  "validations": {
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 2,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

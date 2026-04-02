@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-04-01T17:29:32.207792",
+  "modified_output_path": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\output\\Arabic.jsonl",
+  "baseline_output_path": null,
+  "summary": {
+    "total_records": 77,
+    "validation_pass_rate": 75.32467532467533,
+    "avg_score": 7.272348484848485,
+    "min_score": 6.1,
+    "max_score": 9.5,
+    "stdev_score": 0.5267124280459443,
+    "avg_fluency": 8.417582417582418,
+    "avg_naturalness": 8.391941391941392,
+    "avg_socio_cultural": 8.432234432234432,
+    "avg_cs_ratio_score": 2.8961424332344214,
+    "avg_refine_count": 2.5454545454545454,
+    "validation_passed": 58,
+    "validation_total": 77
+  },
+  "by_task": [
+    {
+      "name": "ner",
+      "count": 9,
+      "passed": 1,
+      "pass_rate": 11.11111111111111,
+      "avg_score": 7.811111111111111
+    },
+    {
+      "name": "sentiment",
+      "count": 55,
+      "passed": 44,
+      "pass_rate": 80.0,
+      "avg_score": 7.182651515151515
+    },
+    {
+      "name": "topic",
+      "count": 13,
+      "passed": 13,
+      "pass_rate": 100.0,
+      "avg_score": 7.278846153846153
+    }
+  ],
+  "by_label": [
+    {
+      "name": "business",
+      "count": 5,
+      "passed": 5,
+      "pass_rate": 100.0,
+      "avg_score": 7.0275
+    },
+    {
+      "name": "education",
+      "count": 8,
+      "passed": 8,
+      "pass_rate": 100.0,
+      "avg_score": 7.4359375
+    },
+    {
+      "name": "negative",
+      "count": 19,
+      "passed": 8,
+      "pass_rate": 42.10526315789474,
+      "avg_score": 6.945043859649123
+    },
+    {
+      "name": "neutral",
+      "count": 18,
+      "passed": 18,
+      "pass_rate": 100.0,
+      "avg_score": 7.275138888888889
+    },
+    {
+      "name": "positive",
+      "count": 18,
+      "passed": 18,
+      "pass_rate": 100.0,
+      "avg_score": 7.340972222222222
+    },
+    {
+      "name": "unknown",
+      "count": 9,
+      "passed": 1,
+      "pass_rate": 11.11111111111111,
+      "avg_score": 7.811111111111111
+    }
+  ],
+  "comparison": []
+}

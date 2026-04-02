@@ -1,0 +1,1 @@
+2026-01-30 23:39:52.016 | ERROR    | __main__:<module>:141 - 🚨 Error: [Errno 2] No such file or directory: '../config/config_augmented_french_eng.yaml'

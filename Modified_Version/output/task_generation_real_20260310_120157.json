@@ -1,0 +1,141 @@
+{
+  "outputs": {
+    "ner": {
+      "data_generation_result": [
+        "أنا دائماً أتابع أخبار التكنولوجيا، وخصوصاً عندما يتحدث Sundar Pichai عن innovations في Google. اليوم كنت أقرأ مقالاً عن كيف أن Dubai أصبحت مركزاً للابتكار في مجال التكنولوجيا."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائماً أتابع أخبار التكنولوجيا، وخصوصاً عندما يتحدث Sundar Pichai عن innovations في Google. اليوم كنت أقرأ مقالاً عن كيف أن Dubai أصبحت مركزاً للابتكار في مجال التكنولوجيا.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "Deterministic English-entity policy check; llm_notes=The generated instance does not meet the required NER constraints. It contains no English-script entities, and thus fails to satisfy the must_include_types requirement.",
+        "predicted_label": null,
+        "errors": [],
+        "english_entity_counts": {
+          "PER": 1,
+          "ORG": 1,
+          "LOC": 1
+        },
+        "english_total_entities": 3
+      }
+    }
+  },
+  "states_after_generation": {
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائماً أتابع أخبار التكنولوجيا، وخصوصاً عندما يتحدث Sundar Pichai عن innovations في Google. اليوم كنت أقرأ مقالاً عن كيف أن Dubai أصبحت مركزاً للابتكار في مجال التكنولوجيا."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائماً أتابع أخبار التكنولوجيا، وخصوصاً عندما يتحدث Sundar Pichai عن innovations في Google. اليوم كنت أقرأ مقالاً عن كيف أن Dubai أصبحت مركزاً للابتكار في مجال التكنولوجيا.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "Deterministic English-entity policy check; llm_notes=The generated instance does not meet the required NER constraints. It contains no English-script entities, and thus fails to satisfy the must_include_types requirement.",
+        "predicted_label": null,
+        "errors": [],
+        "english_entity_counts": {
+          "PER": 1,
+          "ORG": 1,
+          "LOC": 1
+        },
+        "english_total_entities": 3
+      }
+    }
+  },
+  "validations": {
+    "ner": {
+      "passed": true,
+      "reason": "OK",
+      "entity_counts": {
+        "PER": 1,
+        "ORG": 1,
+        "LOC": 1
+      },
+      "total_entities": 3,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

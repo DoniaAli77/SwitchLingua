@@ -1,0 +1,135 @@
+{
+  "outputs": {
+    "ner": {
+      "data_generation_result": [
+        "أنا أستخدم هاتف iPhone من Apple و أحب الميزات الجديدة. مؤخرًا، سمعت أن Tim Cook سيأتي إلى دبي للحديث عن الابتكارات الجديدة."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا أستخدم هاتف iPhone من Apple و أحب الميزات الجديدة. مؤخرًا، سمعت أن Tim Cook سيأتي إلى دبي للحديث عن الابتكارات الجديدة.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "The generated instance does not contain any English-script entities that satisfy the required entity types. The only entities present are in Arabic script and do not count towards the required types.",
+        "predicted_label": null,
+        "errors": [
+          "No English-script entities found.",
+          "Required entity types (PER, ORG) not satisfied."
+        ]
+      }
+    }
+  },
+  "states_after_generation": {
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أستخدم هاتف iPhone من Apple و أحب الميزات الجديدة. مؤخرًا، سمعت أن Tim Cook سيأتي إلى دبي للحديث عن الابتكارات الجديدة."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا أستخدم هاتف iPhone من Apple و أحب الميزات الجديدة. مؤخرًا، سمعت أن Tim Cook سيأتي إلى دبي للحديث عن الابتكارات الجديدة.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "The generated instance does not contain any English-script entities that satisfy the required entity types. The only entities present are in Arabic script and do not count towards the required types.",
+        "predicted_label": null,
+        "errors": [
+          "No English-script entities found.",
+          "Required entity types (PER, ORG) not satisfied."
+        ]
+      }
+    }
+  },
+  "validations": {
+    "ner": {
+      "passed": true,
+      "reason": "OK",
+      "entity_counts": {
+        "PER": 1,
+        "ORG": 1,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

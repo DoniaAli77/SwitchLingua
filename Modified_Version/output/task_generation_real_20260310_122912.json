@@ -1,0 +1,1560 @@
+{
+  "outputs": {
+    "topic": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "business",
+        "scenario_summary": {
+          "task": "topic",
+          "topic": "business",
+          "label": "business"
+        },
+        "data_generation_result": [
+          "في عالم البزنس، you need to be مبدع ومرن.",
+          "التواصل الجيد مع العملاء مهم جداً, especially when you're trying to build trust.",
+          "التكنولوجيا تلعب دور كبير في تطوير الأعمال, like using social media للترويج.",
+          "يمكن أن تكون المنافسة شرسة, but with the right strategy, you can succeed."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "topic",
+            "instance_index": 0,
+            "label": "business"
+          },
+          {
+            "task": "topic",
+            "instance_index": 1,
+            "label": "business"
+          },
+          {
+            "task": "topic",
+            "instance_index": 2,
+            "label": "business"
+          },
+          {
+            "task": "topic",
+            "instance_index": 3,
+            "label": "business"
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance aligns well with the expected topic label 'business'.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses customer communication, which aligns with business topics.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses technology's role in business development, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses competition and strategy, which are relevant to the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        }
+      },
+      {
+        "scenario_index": 2,
+        "scenario_key": "education",
+        "scenario_summary": {
+          "task": "topic",
+          "topic": "education",
+          "label": "education"
+        },
+        "data_generation_result": [
+          "أنا أدرس في الجامعة وأحب المواد اللي تتعلق بالتكنولوجيا. I feel like they are the future!",
+          "امتحاناتي قريبة وأنا متوتر شوي. But I'm trying to stay positive!",
+          "الأساتذة في جامعتي جداً متعاونين. It makes learning so much easier.",
+          "أحياناً أواجه صعوبة في بعض المواد. That's when I really need to reach out for help!"
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "topic",
+            "instance_index": 0,
+            "label": "education"
+          },
+          {
+            "task": "topic",
+            "instance_index": 1,
+            "label": "education"
+          },
+          {
+            "task": "topic",
+            "instance_index": 2,
+            "label": "education"
+          },
+          {
+            "task": "topic",
+            "instance_index": 3,
+            "label": "education"
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['education']",
+          "predicted_label": "education",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses studying at a university and technology-related subjects, which aligns well with the education topic.",
+              "predicted_label": "education",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses exams, which is relevant to the education topic.",
+              "predicted_label": "education",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses teachers and learning, which aligns well with the education topic.",
+              "predicted_label": "education",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses challenges in education, which aligns with the expected label.",
+              "predicted_label": "education",
+              "errors": []
+            }
+          ]
+        }
+      },
+      {
+        "scenario_index": 3,
+        "scenario_key": "health",
+        "scenario_summary": {
+          "task": "topic",
+          "topic": "health",
+          "label": "health"
+        },
+        "data_generation_result": [
+          "صحتنا مهمة جداً، you know? لذلك يجب علينا الاعتناء بأنفسنا.",
+          "مؤخراً، بدأت أمارس الرياضة بشكل منتظم، and it feels amazing!",
+          "أيضاً، التغذية السليمة تلعب دور كبير في الصحة، like eating more fruits and vegetables.",
+          "لازم نشرب ماء كفاية، otherwise, we might get dehydrated."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "topic",
+            "instance_index": 0,
+            "label": "health"
+          },
+          {
+            "task": "topic",
+            "instance_index": 1,
+            "label": "health"
+          },
+          {
+            "task": "topic",
+            "instance_index": 2,
+            "label": "health"
+          },
+          {
+            "task": "topic",
+            "instance_index": 3,
+            "label": "health"
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.95,
+          "notes": "Per-instance task validation; predicted_labels=['health']",
+          "predicted_label": "health",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses health and self-care, aligning well with the expected label.",
+              "predicted_label": "health",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses exercise, which is relevant to health.",
+              "predicted_label": "health",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses nutrition and health, aligning well with the expected label.",
+              "predicted_label": "health",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses hydration, which is a health-related topic.",
+              "predicted_label": "health",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "sentiment": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "positive",
+        "scenario_summary": {
+          "task": "sentiment",
+          "topic": "tech",
+          "label": "positive"
+        },
+        "data_generation_result": [
+          "أنا دائماً أحب التكنولوجيا، especially when it comes to new gadgets اللي تخلي حياتنا أسهل.",
+          "مؤخراً اشتريت لابتوب جديد، and honestly, الأداء حقه ممتاز جداً!",
+          "أنا سعيد جداً بالبرمجيات الجديدة اللي نزلت، they really improve productivity.",
+          "التكنولوجيا الحديثة فعلاً amazing, especially كيف تساعدنا في التواصل مع بعض بسهولة."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "sentiment",
+            "instance_index": 0,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 1,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 2,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 3,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.75,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [
+            "instance_1: Intensity of sentiment is too high for the low intensity constraint.",
+            "instance_2: Intensity of sentiment is too high for the given constraints.",
+            "instance_3: Intensity of sentiment is too high; 'amazing' suggests a strong positive sentiment."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment towards technology, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses a positive sentiment but does not meet the low intensity constraint due to strong positive language.",
+              "predicted_label": "positive",
+              "errors": [
+                "Intensity of sentiment is too high for the low intensity constraint."
+              ],
+              "llm_notes": "The sentiment expressed is positive, but the intensity is not low as required.",
+              "deterministic_notes": "The phrase 'الأداء حقه ممتاز جداً!' indicates a strong positive sentiment."
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses a positive sentiment but has high intensity due to the phrase 'سعيد جداً' which contradicts the low intensity constraint.",
+              "predicted_label": "positive",
+              "errors": [
+                "Intensity of sentiment is too high for the given constraints."
+              ],
+              "llm_notes": "The sentiment expressed is positive, but the intensity does not align with the specified low intensity requirement.",
+              "deterministic_notes": "The instance contains strong positive language that exceeds the low intensity constraint."
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses a positive sentiment but does not meet the low intensity constraint due to the use of 'amazing'.",
+              "predicted_label": "positive",
+              "errors": [
+                "Intensity of sentiment is too high; 'amazing' suggests a strong positive sentiment."
+              ],
+              "llm_notes": "The sentiment expressed is positive, but the intensity is not low as required.",
+              "deterministic_notes": "The phrase contains strong positive language which contradicts the low intensity requirement."
+            }
+          ]
+        }
+      },
+      {
+        "scenario_index": 2,
+        "scenario_key": "negative",
+        "scenario_summary": {
+          "task": "sentiment",
+          "topic": "tech",
+          "label": "negative"
+        },
+        "data_generation_result": [
+          "أنا كنت متحمس لآخر التحديثات في التكنولوجيا، بس honestly، الأشياء ما زالت بطيئة جداً.",
+          "بتمنى لو كانت الأجهزة الجديدة أسرع، لأنه حالياً performance مو كافي.",
+          "الحقيقة أني شفت الكثير من العروض الجديدة، بس أحياناً أشعر أنها ما بتقدم أي شيء جديد.",
+          "للأسف، كل ما أسمع عن innovations جديدة، أتوقع شيء مختلف، بس النتيجة دائماً مخيبة.",
+          "أنا بحب التكنولوجيا، بس lately أجد نفسي disappointed من التقدم اللي عم نشوفه."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "sentiment",
+            "instance_index": 0,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 1,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 2,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 3,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 4,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.82,
+          "notes": "Per-instance task validation; predicted_labels=['negative']",
+          "predicted_label": "negative",
+          "errors": [
+            "instance_4: Intensity of sentiment is higher than the specified low intensity constraint."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses a negative sentiment towards technology updates, aligning with the expected label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses a negative sentiment about the performance of new devices, which aligns with the expected negative label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses a negative sentiment about new tech offerings, aligning with the expected label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses disappointment with technology innovations, aligning with the expected negative sentiment label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses disappointment, which aligns with a negative sentiment, but the intensity is higher than expected.",
+              "predicted_label": "negative",
+              "errors": [
+                "Intensity of sentiment is higher than the specified low intensity constraint."
+              ],
+              "llm_notes": "The sentiment expressed is negative, but the intensity does not meet the low threshold.",
+              "deterministic_notes": "The instance reflects a negative sentiment but fails to adhere to the low intensity requirement."
+            }
+          ]
+        }
+      },
+      {
+        "scenario_index": 3,
+        "scenario_key": "neutral",
+        "scenario_summary": {
+          "task": "sentiment",
+          "topic": "tech",
+          "label": "neutral"
+        },
+        "data_generation_result": [
+          "أنا اليوم كنت أبحث online عن آخر gadgets الجديدة، ووجدت بعض الأشياء المثيرة للاهتمام. مثلًا، في جهاز جديد لم أسمع عنه من قبل، لكن لم أقرر إذا كان يستحق الشراء أو لا."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "sentiment",
+            "instance_index": 0,
+            "label": "neutral",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.95,
+          "notes": "Per-instance task validation; predicted_labels=['neutral']",
+          "predicted_label": "neutral",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance expresses a neutral sentiment about technology without strong opinions.",
+              "predicted_label": "neutral",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "tech|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "tech",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا حالياً أدرس computer science في الجامعة وكنت أبحث عن معلومات عن Microsoft و Elon Musk. أعتقد أن هذين هما من أهم الأسماء في عالم التكنولوجيا اليوم."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "ner",
+            "instance_index": 0,
+            "label": null,
+            "topic": "tech",
+            "annotations": [],
+            "task_constraints": {
+              "entity_types": [
+                "PER",
+                "ORG",
+                "LOC"
+              ],
+              "min_entities": 2,
+              "max_entities": 3,
+              "must_include_types": [
+                "PER",
+                "ORG"
+              ],
+              "allow_code_switched_entities": true
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No English-script entities found.",
+            "instance_0: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      },
+      {
+        "scenario_index": 2,
+        "scenario_key": "finance|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "finance",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا الآن أدرس في الجامعة وأتعلم كيف أستثمر مثل Elon Musk. سمعت أن Google بدأت مشروعاً جديداً في دبي لتطوير تكنولوجيا المالية."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "ner",
+            "instance_index": 0,
+            "label": null,
+            "topic": "finance",
+            "annotations": [],
+            "task_constraints": {
+              "entity_types": [
+                "PER",
+                "ORG",
+                "LOC"
+              ],
+              "min_entities": 2,
+              "max_entities": 3,
+              "must_include_types": [
+                "PER",
+                "ORG"
+              ],
+              "allow_code_switched_entities": true
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No valid English-script entities found.",
+            "instance_0: Must include at least one 'PER' and one 'ORG' entity.",
+            "instance_0: Total entities found do not meet the minimum requirement."
+          ]
+        }
+      },
+      {
+        "scenario_index": 3,
+        "scenario_key": "shopping|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "shopping",
+          "label": null
+        },
+        "data_generation_result": [
+          "أحب أذهب لمحل Nike في دبي لأن لديهم أفضل أحذية رياضية. أحيانًا ألتقي بأصدقائي مثل Ahmad هناك لنتسوق معًا."
+        ],
+        "labeled_data_generation_result": [
+          {
+            "task": "ner",
+            "instance_index": 0,
+            "label": null,
+            "topic": "shopping",
+            "annotations": [],
+            "task_constraints": {
+              "entity_types": [
+                "PER",
+                "ORG",
+                "LOC"
+              ],
+              "min_entities": 2,
+              "max_entities": 3,
+              "must_include_types": [
+                "PER",
+                "ORG"
+              ],
+              "allow_code_switched_entities": true
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Not enough English-script entities present.",
+            "instance_0: Arabic-script entities do not count towards required types."
+          ]
+        }
+      }
+    ]
+  },
+  "states_after_generation": {
+    "topic": [
+      {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "في عالم البزنس، you need to be مبدع ومرن.",
+          "التواصل الجيد مع العملاء مهم جداً, especially when you're trying to build trust.",
+          "التكنولوجيا تلعب دور كبير في تطوير الأعمال, like using social media للترويج.",
+          "يمكن أن تكون المنافسة شرسة, but with the right strategy, you can succeed."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "topic",
+            "instance_index": 0,
+            "label": "business"
+          },
+          {
+            "task": "topic",
+            "instance_index": 1,
+            "label": "business"
+          },
+          {
+            "task": "topic",
+            "instance_index": 2,
+            "label": "business"
+          },
+          {
+            "task": "topic",
+            "instance_index": 3,
+            "label": "business"
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance aligns well with the expected topic label 'business'.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses customer communication, which aligns with business topics.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses technology's role in business development, aligning well with the expected label.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses competition and strategy, which are relevant to the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        }
+      },
+      {
+        "topic": "education",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أدرس في الجامعة وأحب المواد اللي تتعلق بالتكنولوجيا. I feel like they are the future!",
+          "امتحاناتي قريبة وأنا متوتر شوي. But I'm trying to stay positive!",
+          "الأساتذة في جامعتي جداً متعاونين. It makes learning so much easier.",
+          "أحياناً أواجه صعوبة في بعض المواد. That's when I really need to reach out for help!"
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "education",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "topic",
+            "instance_index": 0,
+            "label": "education"
+          },
+          {
+            "task": "topic",
+            "instance_index": 1,
+            "label": "education"
+          },
+          {
+            "task": "topic",
+            "instance_index": 2,
+            "label": "education"
+          },
+          {
+            "task": "topic",
+            "instance_index": 3,
+            "label": "education"
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9,
+          "notes": "Per-instance task validation; predicted_labels=['education']",
+          "predicted_label": "education",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses studying at a university and technology-related subjects, which aligns well with the education topic.",
+              "predicted_label": "education",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses exams, which is relevant to the education topic.",
+              "predicted_label": "education",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses teachers and learning, which aligns well with the education topic.",
+              "predicted_label": "education",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance discusses challenges in education, which aligns with the expected label.",
+              "predicted_label": "education",
+              "errors": []
+            }
+          ]
+        }
+      },
+      {
+        "topic": "health",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "صحتنا مهمة جداً، you know? لذلك يجب علينا الاعتناء بأنفسنا.",
+          "مؤخراً، بدأت أمارس الرياضة بشكل منتظم، and it feels amazing!",
+          "أيضاً، التغذية السليمة تلعب دور كبير في الصحة، like eating more fruits and vegetables.",
+          "لازم نشرب ماء كفاية، otherwise, we might get dehydrated."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "health",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "topic",
+            "instance_index": 0,
+            "label": "health"
+          },
+          {
+            "task": "topic",
+            "instance_index": 1,
+            "label": "health"
+          },
+          {
+            "task": "topic",
+            "instance_index": 2,
+            "label": "health"
+          },
+          {
+            "task": "topic",
+            "instance_index": 3,
+            "label": "health"
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.95,
+          "notes": "Per-instance task validation; predicted_labels=['health']",
+          "predicted_label": "health",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses health and self-care, aligning well with the expected label.",
+              "predicted_label": "health",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses exercise, which is relevant to health.",
+              "predicted_label": "health",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses nutrition and health, aligning well with the expected label.",
+              "predicted_label": "health",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance discusses hydration, which is a health-related topic.",
+              "predicted_label": "health",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "sentiment": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا دائماً أحب التكنولوجيا، especially when it comes to new gadgets اللي تخلي حياتنا أسهل.",
+          "مؤخراً اشتريت لابتوب جديد، and honestly, الأداء حقه ممتاز جداً!",
+          "أنا سعيد جداً بالبرمجيات الجديدة اللي نزلت، they really improve productivity.",
+          "التكنولوجيا الحديثة فعلاً amazing, especially كيف تساعدنا في التواصل مع بعض بسهولة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "sentiment",
+            "instance_index": 0,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 1,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 2,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 3,
+            "label": "positive",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.75,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": [
+            "instance_1: Intensity of sentiment is too high for the low intensity constraint.",
+            "instance_2: Intensity of sentiment is too high for the given constraints.",
+            "instance_3: Intensity of sentiment is too high; 'amazing' suggests a strong positive sentiment."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance expresses a positive sentiment towards technology, aligning with the expected label.",
+              "predicted_label": "positive",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses a positive sentiment but does not meet the low intensity constraint due to strong positive language.",
+              "predicted_label": "positive",
+              "errors": [
+                "Intensity of sentiment is too high for the low intensity constraint."
+              ],
+              "llm_notes": "The sentiment expressed is positive, but the intensity is not low as required.",
+              "deterministic_notes": "The phrase 'الأداء حقه ممتاز جداً!' indicates a strong positive sentiment."
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses a positive sentiment but has high intensity due to the phrase 'سعيد جداً' which contradicts the low intensity constraint.",
+              "predicted_label": "positive",
+              "errors": [
+                "Intensity of sentiment is too high for the given constraints."
+              ],
+              "llm_notes": "The sentiment expressed is positive, but the intensity does not align with the specified low intensity requirement.",
+              "deterministic_notes": "The instance contains strong positive language that exceeds the low intensity constraint."
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses a positive sentiment but does not meet the low intensity constraint due to the use of 'amazing'.",
+              "predicted_label": "positive",
+              "errors": [
+                "Intensity of sentiment is too high; 'amazing' suggests a strong positive sentiment."
+              ],
+              "llm_notes": "The sentiment expressed is positive, but the intensity is not low as required.",
+              "deterministic_notes": "The phrase contains strong positive language which contradicts the low intensity requirement."
+            }
+          ]
+        }
+      },
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا كنت متحمس لآخر التحديثات في التكنولوجيا، بس honestly، الأشياء ما زالت بطيئة جداً.",
+          "بتمنى لو كانت الأجهزة الجديدة أسرع، لأنه حالياً performance مو كافي.",
+          "الحقيقة أني شفت الكثير من العروض الجديدة، بس أحياناً أشعر أنها ما بتقدم أي شيء جديد.",
+          "للأسف، كل ما أسمع عن innovations جديدة، أتوقع شيء مختلف، بس النتيجة دائماً مخيبة.",
+          "أنا بحب التكنولوجيا، بس lately أجد نفسي disappointed من التقدم اللي عم نشوفه."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "negative",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "sentiment",
+            "instance_index": 0,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 1,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 2,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 3,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          },
+          {
+            "task": "sentiment",
+            "instance_index": 4,
+            "label": "negative",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.82,
+          "notes": "Per-instance task validation; predicted_labels=['negative']",
+          "predicted_label": "negative",
+          "errors": [
+            "instance_4: Intensity of sentiment is higher than the specified low intensity constraint."
+          ],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses a negative sentiment towards technology updates, aligning with the expected label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses a negative sentiment about the performance of new devices, which aligns with the expected negative label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses a negative sentiment about new tech offerings, aligning with the expected label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The generated instance expresses disappointment with technology innovations, aligning with the expected negative sentiment label.",
+              "predicted_label": "negative",
+              "errors": []
+            },
+            {
+              "passed": false,
+              "confidence": 0.7,
+              "notes": "The generated instance expresses disappointment, which aligns with a negative sentiment, but the intensity is higher than expected.",
+              "predicted_label": "negative",
+              "errors": [
+                "Intensity of sentiment is higher than the specified low intensity constraint."
+              ],
+              "llm_notes": "The sentiment expressed is negative, but the intensity does not meet the low threshold.",
+              "deterministic_notes": "The instance reflects a negative sentiment but fails to adhere to the low intensity requirement."
+            }
+          ]
+        }
+      },
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا اليوم كنت أبحث online عن آخر gadgets الجديدة، ووجدت بعض الأشياء المثيرة للاهتمام. مثلًا، في جهاز جديد لم أسمع عنه من قبل، لكن لم أقرر إذا كان يستحق الشراء أو لا."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "neutral",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "sentiment",
+            "instance_index": 0,
+            "label": "neutral",
+            "topic": "tech",
+            "task_constraints": {
+              "intensity": "low",
+              "ambiguity": "low"
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.95,
+          "notes": "Per-instance task validation; predicted_labels=['neutral']",
+          "predicted_label": "neutral",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The generated instance expresses a neutral sentiment about technology without strong opinions.",
+              "predicted_label": "neutral",
+              "errors": []
+            }
+          ]
+        }
+      }
+    ],
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا حالياً أدرس computer science في الجامعة وكنت أبحث عن معلومات عن Microsoft و Elon Musk. أعتقد أن هذين هما من أهم الأسماء في عالم التكنولوجيا اليوم."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "ner",
+            "instance_index": 0,
+            "label": null,
+            "topic": "tech",
+            "annotations": [],
+            "task_constraints": {
+              "entity_types": [
+                "PER",
+                "ORG",
+                "LOC"
+              ],
+              "min_entities": 2,
+              "max_entities": 3,
+              "must_include_types": [
+                "PER",
+                "ORG"
+              ],
+              "allow_code_switched_entities": true
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No English-script entities found.",
+            "instance_0: Required entity types (PER, ORG) not satisfied."
+          ]
+        }
+      },
+      {
+        "topic": "finance",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا الآن أدرس في الجامعة وأتعلم كيف أستثمر مثل Elon Musk. سمعت أن Google بدأت مشروعاً جديداً في دبي لتطوير تكنولوجيا المالية."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "ner",
+            "instance_index": 0,
+            "label": null,
+            "topic": "finance",
+            "annotations": [],
+            "task_constraints": {
+              "entity_types": [
+                "PER",
+                "ORG",
+                "LOC"
+              ],
+              "min_entities": 2,
+              "max_entities": 3,
+              "must_include_types": [
+                "PER",
+                "ORG"
+              ],
+              "allow_code_switched_entities": true
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: No valid English-script entities found.",
+            "instance_0: Must include at least one 'PER' and one 'ORG' entity.",
+            "instance_0: Total entities found do not meet the minimum requirement."
+          ]
+        }
+      },
+      {
+        "topic": "shopping",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أحب أذهب لمحل Nike في دبي لأن لديهم أفضل أحذية رياضية. أحيانًا ألتقي بأصدقائي مثل Ahmad هناك لنتسوق معًا."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "labeled_data_generation_result": [
+          {
+            "task": "ner",
+            "instance_index": 0,
+            "label": null,
+            "topic": "shopping",
+            "annotations": [],
+            "task_constraints": {
+              "entity_types": [
+                "PER",
+                "ORG",
+                "LOC"
+              ],
+              "min_entities": 2,
+              "max_entities": 3,
+              "must_include_types": [
+                "PER",
+                "ORG"
+              ],
+              "allow_code_switched_entities": true
+            }
+          }
+        ],
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.0,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Not enough English-script entities present.",
+            "instance_0: Arabic-script entities do not count towards required types."
+          ]
+        }
+      }
+    ]
+  },
+  "validations": {
+    "topic": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "num_instances": 4,
+        "code_switched_instances": 4
+      },
+      {
+        "passed": true,
+        "reason": "OK",
+        "num_instances": 4,
+        "code_switched_instances": 4
+      },
+      {
+        "passed": true,
+        "reason": "OK",
+        "num_instances": 4,
+        "code_switched_instances": 4
+      }
+    ],
+    "sentiment": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "label": "positive",
+        "positive_hits": 3,
+        "negative_hits": 0,
+        "num_instances": 4
+      },
+      {
+        "passed": false,
+        "reason": "Lexical polarity check did not match expected label.",
+        "label": "negative",
+        "positive_hits": 1,
+        "negative_hits": 0,
+        "num_instances": 5
+      },
+      {
+        "passed": true,
+        "reason": "OK",
+        "label": "neutral",
+        "positive_hits": 0,
+        "negative_hits": 0,
+        "num_instances": 1
+      }
+    ],
+    "ner": [
+      {
+        "passed": true,
+        "reason": "OK",
+        "entity_counts": {
+          "PER": 1,
+          "ORG": 1,
+          "LOC": 0
+        },
+        "total_entities": 2,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      },
+      {
+        "passed": true,
+        "reason": "OK",
+        "entity_counts": {
+          "PER": 1,
+          "ORG": 1,
+          "LOC": 0
+        },
+        "total_entities": 2,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      },
+      {
+        "passed": false,
+        "reason": "Entity heuristic check failed for count/type constraints.",
+        "entity_counts": {
+          "PER": 0,
+          "ORG": 0,
+          "LOC": 0
+        },
+        "total_entities": 0,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "في عالم الأعمال اليوم، I feel that التغيير السريع هو مفتاح النجاح.",
+        "التكنولوجيا تلعب دورًا كبيرًا في تحسين الكفاءة، especially with tools like AI that help automate tasks.",
+        "عندما نفكر في استراتيجية التسويق، we need to consider the target audience very carefully.",
+        "الشبكات الاجتماعية أصبحت جزءًا أساسيًا من أي خطة عمل، don't you think؟"
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "في عالم الأعمال اليوم، I feel that التغيير السريع هو مفتاح النجاح.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "التكنولوجيا تلعب دورًا كبيرًا في تحسين الكفاءة، especially with tools like AI that help automate tasks.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "عندما نفكر في استراتيجية التسويق، we need to consider the target audience very carefully.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "الشبكات الاجتماعية أصبحت جزءًا أساسيًا من أي خطة عمل، don't you think؟",
+          "label": "business"
+        }
+      ]
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا أستمتع بكتابة الكود اليوم, it's so much fun!",
+        "المشاريع الجديدة في التكنولوجيا تجعلني متحمس, I can't wait to see what's next!",
+        "حسناً, أنا أتعلم أشياء جديدة في البرمجة, and it feels great!",
+        "التكنولوجيا تتطور بسرعة, and I'm really excited about the future!",
+        "أنا أحب استكشاف الأدوات الجديدة, they make my work easier!"
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا أستمتع بكتابة الكود اليوم, it's so much fun!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "المشاريع الجديدة في التكنولوجيا تجعلني متحمس, I can't wait to see what's next!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "حسناً, أنا أتعلم أشياء جديدة في البرمجة, and it feels great!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "التكنولوجيا تتطور بسرعة, and I'm really excited about the future!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "أنا أحب استكشاف الأدوات الجديدة, they make my work easier!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ]
+    },
+    "ner": {
+      "data_generation_result": [
+        "أنا دائما أستخدم Apple products لأنهم يشتغلون بشكل رائع مع بعضهم. في الجامعة، أدرس Computer Science وكنت أبحث عن أفضل laptops، ووجدت أن Dell أيضًا خيار ممتاز."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائما أستخدم Apple products لأنهم يشتغلون بشكل رائع مع بعضهم. في الجامعة، أدرس Computer Science وكنت أبحث عن أفضل laptops، ووجدت أن Dell أيضًا خيار ممتاز.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ]
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "في عالم الأعمال اليوم، I feel that التغيير السريع هو مفتاح النجاح.",
+        "التكنولوجيا تلعب دورًا كبيرًا في تحسين الكفاءة، especially with tools like AI that help automate tasks.",
+        "عندما نفكر في استراتيجية التسويق، we need to consider the target audience very carefully.",
+        "الشبكات الاجتماعية أصبحت جزءًا أساسيًا من أي خطة عمل، don't you think؟"
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "في عالم الأعمال اليوم، I feel that التغيير السريع هو مفتاح النجاح.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "التكنولوجيا تلعب دورًا كبيرًا في تحسين الكفاءة، especially with tools like AI that help automate tasks.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "عندما نفكر في استراتيجية التسويق، we need to consider the target audience very carefully.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "الشبكات الاجتماعية أصبحت جزءًا أساسيًا من أي خطة عمل، don't you think؟",
+          "label": "business"
+        }
+      ]
+    },
+    "sentiment": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أستمتع بكتابة الكود اليوم, it's so much fun!",
+        "المشاريع الجديدة في التكنولوجيا تجعلني متحمس, I can't wait to see what's next!",
+        "حسناً, أنا أتعلم أشياء جديدة في البرمجة, and it feels great!",
+        "التكنولوجيا تتطور بسرعة, and I'm really excited about the future!",
+        "أنا أحب استكشاف الأدوات الجديدة, they make my work easier!"
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "sentiment",
+      "label": "positive",
+      "task_constraints": {
+        "intensity": "low",
+        "ambiguity": "low"
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا أستمتع بكتابة الكود اليوم, it's so much fun!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "المشاريع الجديدة في التكنولوجيا تجعلني متحمس, I can't wait to see what's next!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "حسناً, أنا أتعلم أشياء جديدة في البرمجة, and it feels great!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "التكنولوجيا تتطور بسرعة, and I'm really excited about the future!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        },
+        {
+          "task": "sentiment",
+          "text": "أنا أحب استكشاف الأدوات الجديدة, they make my work easier!",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ]
+    },
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا دائما أستخدم Apple products لأنهم يشتغلون بشكل رائع مع بعضهم. في الجامعة، أدرس Computer Science وكنت أبحث عن أفضل laptops، ووجدت أن Dell أيضًا خيار ممتاز."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا دائما أستخدم Apple products لأنهم يشتغلون بشكل رائع مع بعضهم. في الجامعة، أدرس Computer Science وكنت أبحث عن أفضل laptops، ووجدت أن Dell أيضًا خيار ممتاز.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ]
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": true,
+      "reason": "OK",
+      "label": "positive",
+      "positive_hits": 4,
+      "negative_hits": 0,
+      "num_instances": 5
+    },
+    "ner": {
+      "passed": true,
+      "reason": "OK",
+      "entity_counts": {
+        "PER": 1,
+        "ORG": 1,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

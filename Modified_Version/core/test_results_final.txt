@@ -1,0 +1,14 @@
+﻿python :   File 
+"C:\Users\Eng.Donia\Documents\matser\SwitchLingua\Modified_Version\core\test 
+files\test_pipeline_output_reviewer.py", line 3
+At line:1 char:29
++ ... sion/core"; python "test files/test_pipeline_output_reviewer.py" 2>&1 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "C:\User...wer.py", line 3 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    **Last Updated:** 2026-04-01 14:00  
+                           ^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use 
+an 0o prefix for octal integers

@@ -1,0 +1,151 @@
+{
+  "outputs": {
+    "ner": {
+      "data_generation_result": [
+        "أنا الآن أتعلم عن الذكاء الاصطناعي في جامعة MIT. It's really fascinating how organizations like Google و Microsoft are pushing the boundaries of technology."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا الآن أتعلم عن الذكاء الاصطناعي في جامعة MIT. It's really fascinating how organizations like Google و Microsoft are pushing the boundaries of technology.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.5917,
+        "notes": "Deterministic English-entity policy check",
+        "deterministic_notes": "Deterministic English-entity policy check",
+        "llm_notes": "The generated instance does not meet the required entity constraints. It contains Arabic-script entities which do not count towards the required English-script entities.",
+        "predicted_label": null,
+        "errors": [
+          "All English entity_types not satisfied: ['PER', 'ORG', 'LOC']",
+          "Required English entity types not satisfied: ['PER', 'ORG']"
+        ],
+        "english_entity_counts": {
+          "PER": 0,
+          "ORG": 2,
+          "LOC": 0
+        },
+        "english_total_entities": 2
+      }
+    }
+  },
+  "states_after_generation": {
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا الآن أتعلم عن الذكاء الاصطناعي في جامعة MIT. It's really fascinating how organizations like Google و Microsoft are pushing the boundaries of technology."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا الآن أتعلم عن الذكاء الاصطناعي في جامعة MIT. It's really fascinating how organizations like Google و Microsoft are pushing the boundaries of technology.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.5917,
+        "notes": "Deterministic English-entity policy check",
+        "deterministic_notes": "Deterministic English-entity policy check",
+        "llm_notes": "The generated instance does not meet the required entity constraints. It contains Arabic-script entities which do not count towards the required English-script entities.",
+        "predicted_label": null,
+        "errors": [
+          "All English entity_types not satisfied: ['PER', 'ORG', 'LOC']",
+          "Required English entity types not satisfied: ['PER', 'ORG']"
+        ],
+        "english_entity_counts": {
+          "PER": 0,
+          "ORG": 2,
+          "LOC": 0
+        },
+        "english_total_entities": 2
+      }
+    }
+  },
+  "validations": {
+    "ner": {
+      "passed": false,
+      "reason": "Entity heuristic check failed for count/type constraints.",
+      "entity_counts": {
+        "PER": 0,
+        "ORG": 2,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

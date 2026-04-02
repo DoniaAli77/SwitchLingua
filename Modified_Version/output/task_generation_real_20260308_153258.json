@@ -1,0 +1,54 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "في عالم الأعمال اليوم، I really believe that التواصل الفعال هو المفتاح.",
+        "الابتكار ضروري، especially في السوق التنافسية.",
+        "يجب أن نفكر في الاستراتيجيات الجديدة، like استخدام التكنولوجيا لتحسين الكفاءة.",
+        "التعاون بين الفرق يمكن أن يؤدي إلى نتائج أفضل، you know?"
+      ]
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا فعلاً أحب التكنولوجيا الجديدة، especially عندما تكون الأجهزة سهلة الاستخدام وفعالة في حياتنا اليومية."
+      ]
+    },
+    "ner": {
+      "data_generation_result": [
+        "اليوم كنت بدرس عن أحدث التقنيات في مجال الذكاء الاصطناعي، ووجدت أن شركة Google تعمل على تطوير نظام جديد. بصراحة، ما زلت متحمسًا لمعرفة كيف ستغير هذه التقنيات حياتنا اليومية. على فكرة، سمعت أن Elon Musk لديه مشروع جديد في هذا المجال أيضًا."
+      ]
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": true,
+      "reason": "OK",
+      "label": "positive",
+      "positive_hits": 1,
+      "negative_hits": 0,
+      "num_instances": 1
+    },
+    "ner": {
+      "passed": true,
+      "reason": "OK",
+      "entity_counts": {
+        "PER": 1,
+        "ORG": 1,
+        "LOC": 0
+      },
+      "total_entities": 2,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

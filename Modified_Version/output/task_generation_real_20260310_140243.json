@@ -1,0 +1,133 @@
+{
+  "outputs": {
+    "ner": [
+      {
+        "scenario_index": 1,
+        "scenario_key": "tech|PER|ORG|LOC",
+        "scenario_summary": {
+          "task": "ner",
+          "topic": "tech",
+          "label": null
+        },
+        "data_generation_result": [
+          "أنا أستخدم Google لتعلم البرمجة و Elon Musk يلهمني في مشاريعي التقنية.",
+          "دائمًا أبحث عن أخبار Apple و Sundar Pichai لجديد التكنولوجيا.",
+          "عندما أكون في Dubai، أحب زيارة مكاتب Microsoft لأنهم يقدمون ورش عمل مدهشة."
+        ]
+      }
+    ]
+  },
+  "task_validator_enabled": false,
+  "states_after_task_validator": {
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم Google لتعلم البرمجة و Elon Musk يلهمني في مشاريعي التقنية.",
+          "دائمًا أبحث عن أخبار Apple و Sundar Pichai لجديد التكنولوجيا.",
+          "عندما أكون في Dubai، أحب زيارة مكاتب Microsoft لأنهم يقدمون ورش عمل مدهشة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": ""
+      }
+    ]
+  },
+  "states_after_generation": {
+    "ner": [
+      {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم Google لتعلم البرمجة و Elon Musk يلهمني في مشاريعي التقنية.",
+          "دائمًا أبحث عن أخبار Apple و Sundar Pichai لجديد التكنولوجيا.",
+          "عندما أكون في Dubai، أحب زيارة مكاتب Microsoft لأنهم يقدمون ورش عمل مدهشة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": ""
+      }
+    ]
+  },
+  "validations": {
+    "ner": [
+      {
+        "passed": false,
+        "reason": "Entity heuristic check failed for count/type constraints.",
+        "entity_counts": {
+          "PER": 2,
+          "ORG": 3,
+          "LOC": 1
+        },
+        "total_entities": 6,
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ]
+      }
+    ]
+  }
+}

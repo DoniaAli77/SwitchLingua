@@ -1,0 +1,321 @@
+{
+  "outputs": {
+    "topic": {
+      "data_generation_result": [
+        "في عالم الأعمال، success هو كل شيء.",
+        "لا يمكنني الانتظار لرؤية كيف سيؤثر هذا project الجديد على السوق.",
+        "أنا متحمس للعمل مع فريقنا، لأن collaboration هو مفتاح النجاح.",
+        "هل تعتقد أن marketing strategy الجديدة ستكون فعالة؟"
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "في عالم الأعمال، success هو كل شيء.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "لا يمكنني الانتظار لرؤية كيف سيؤثر هذا project الجديد على السوق.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أنا متحمس للعمل مع فريقنا، لأن collaboration هو مفتاح النجاح.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "هل تعتقد أن marketing strategy الجديدة ستكون فعالة؟",
+          "label": "business"
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances are relevant to the business topic, demonstrating clear connections to business concepts.",
+        "predicted_label": "business",
+        "errors": []
+      }
+    },
+    "sentiment": {
+      "data_generation_result": [
+        "أنا حقاً أحب التكنولوجيا الجديدة، especially how it makes حياتنا أسهل."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا حقاً أحب التكنولوجيا الجديدة، especially how it makes حياتنا أسهل.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.9,
+        "notes": "The generated instance expresses a positive sentiment towards technology, aligning with the expected label.",
+        "predicted_label": "positive",
+        "errors": []
+      }
+    },
+    "ner": {
+      "data_generation_result": [
+        "أنا أستخدم Google Cloud لتخزين بياناتي، وبالمناسبة، سمعت أن Sundar Pichai سيحضر المؤتمر في دبي."
+      ],
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا أستخدم Google Cloud لتخزين بياناتي، وبالمناسبة، سمعت أن Sundar Pichai سيحضر المؤتمر في دبي.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "The generated instance does not contain any English-script entities that satisfy the required entity types. The only entities present are in Arabic script, which do not count towards the required types.",
+        "deterministic_notes": "",
+        "llm_notes": "The generated instance does not contain any English-script entities that satisfy the required entity types. The only entities present are in Arabic script, which do not count towards the required types.",
+        "predicted_label": null,
+        "errors": [
+          "No English-script entities found.",
+          "Required entity types (PER, ORG) not satisfied."
+        ]
+      }
+    }
+  },
+  "states_after_generation": {
+    "topic": {
+      "topic": "business",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "في عالم الأعمال، success هو كل شيء.",
+        "لا يمكنني الانتظار لرؤية كيف سيؤثر هذا project الجديد على السوق.",
+        "أنا متحمس للعمل مع فريقنا، لأن collaboration هو مفتاح النجاح.",
+        "هل تعتقد أن marketing strategy الجديدة ستكون فعالة؟"
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "topic",
+      "label": "business",
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "topic",
+          "text": "في عالم الأعمال، success هو كل شيء.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "لا يمكنني الانتظار لرؤية كيف سيؤثر هذا project الجديد على السوق.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "أنا متحمس للعمل مع فريقنا، لأن collaboration هو مفتاح النجاح.",
+          "label": "business"
+        },
+        {
+          "task": "topic",
+          "text": "هل تعتقد أن marketing strategy الجديدة ستكون فعالة؟",
+          "label": "business"
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.95,
+        "notes": "All generated instances are relevant to the business topic, demonstrating clear connections to business concepts.",
+        "predicted_label": "business",
+        "errors": []
+      }
+    },
+    "sentiment": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا حقاً أحب التكنولوجيا الجديدة، especially how it makes حياتنا أسهل."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "sentiment",
+      "label": "positive",
+      "task_constraints": {
+        "intensity": "low",
+        "ambiguity": "low"
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "sentiment",
+          "text": "أنا حقاً أحب التكنولوجيا الجديدة، especially how it makes حياتنا أسهل.",
+          "label": "positive",
+          "topic": "tech",
+          "task_constraints": {
+            "intensity": "low",
+            "ambiguity": "low"
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": true,
+        "confidence": 0.9,
+        "notes": "The generated instance expresses a positive sentiment towards technology, aligning with the expected label.",
+        "predicted_label": "positive",
+        "errors": []
+      }
+    },
+    "ner": {
+      "topic": "tech",
+      "tense": "Present",
+      "perspective": "First Person",
+      "gender": "Male",
+      "age": "18-25",
+      "education_level": "College",
+      "cs_ratio": "70%",
+      "use_tools": false,
+      "conversation_type": "single_turn",
+      "first_language": "Arabic",
+      "second_language": "English",
+      "cs_function": "Expressive",
+      "cs_type": "Intrasentential",
+      "data_generation_result": [
+        "أنا أستخدم Google Cloud لتخزين بياناتي، وبالمناسبة، سمعت أن Sundar Pichai سيحضر المؤتمر في دبي."
+      ],
+      "response": "",
+      "refine_count": 0,
+      "task": "ner",
+      "annotations": [],
+      "task_constraints": {
+        "entity_types": [
+          "PER",
+          "ORG",
+          "LOC"
+        ],
+        "min_entities": 2,
+        "max_entities": 3,
+        "must_include_types": [
+          "PER",
+          "ORG"
+        ],
+        "allow_code_switched_entities": true
+      },
+      "news_article": "",
+      "news_dict": {},
+      "news_hash": [],
+      "mcp_result": "",
+      "labeled_data_generation_result": [
+        {
+          "task": "ner",
+          "text": "أنا أستخدم Google Cloud لتخزين بياناتي، وبالمناسبة، سمعت أن Sundar Pichai سيحضر المؤتمر في دبي.",
+          "label": null,
+          "topic": "tech",
+          "annotations": [],
+          "task_constraints": {
+            "entity_types": [
+              "PER",
+              "ORG",
+              "LOC"
+            ],
+            "min_entities": 2,
+            "max_entities": 3,
+            "must_include_types": [
+              "PER",
+              "ORG"
+            ],
+            "allow_code_switched_entities": true
+          }
+        }
+      ],
+      "task_validation_result": {
+        "passed": false,
+        "confidence": 0.0,
+        "notes": "The generated instance does not contain any English-script entities that satisfy the required entity types. The only entities present are in Arabic script, which do not count towards the required types.",
+        "deterministic_notes": "",
+        "llm_notes": "The generated instance does not contain any English-script entities that satisfy the required entity types. The only entities present are in Arabic script, which do not count towards the required types.",
+        "predicted_label": null,
+        "errors": [
+          "No English-script entities found.",
+          "Required entity types (PER, ORG) not satisfied."
+        ]
+      }
+    }
+  },
+  "validations": {
+    "topic": {
+      "passed": true,
+      "reason": "OK",
+      "num_instances": 4,
+      "code_switched_instances": 4
+    },
+    "sentiment": {
+      "passed": true,
+      "reason": "OK",
+      "label": "positive",
+      "positive_hits": 1,
+      "negative_hits": 0,
+      "num_instances": 1
+    },
+    "ner": {
+      "passed": true,
+      "reason": "OK",
+      "entity_counts": {
+        "PER": 2,
+        "ORG": 1,
+        "LOC": 0
+      },
+      "total_entities": 3,
+      "min_entities": 2,
+      "max_entities": 3,
+      "must_include_types": [
+        "PER",
+        "ORG"
+      ]
+    }
+  }
+}

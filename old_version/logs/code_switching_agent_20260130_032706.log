@@ -1,0 +1,2 @@
+2026-01-30 03:27:09.171 | INFO     | __main__:main:122 - 🔍 Number of results finished: 0
+2026-01-30 03:27:10.812 | ERROR    | __main__:<module>:141 - 🚨 Error: Invalid URL 'YOUR_WEBHOOK_URL': No scheme supplied. Perhaps you meant https://YOUR_WEBHOOK_URL?
