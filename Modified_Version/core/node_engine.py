@@ -1,4 +1,4 @@
-import os
+﻿import os
 import re
 import json
 from pathlib import Path
@@ -31,7 +31,12 @@ from node_models import (
     SocialCulturalResponse,
     TaskValidationResult,
 )
-from utils import weighting_scheme, compute_sentence_weighted_scores, build_sentence_records
+from utils import (
+    weighting_scheme,
+    compute_sentence_weighted_scores,
+    build_sentence_records,
+    validate_sentence_records_consistency,
+)
 from copy import deepcopy
 
 from mcp_tools import get_all_tools
@@ -293,21 +298,21 @@ def _extract_english_ner_counts(text: str, requested_entity_types: list[str]) ->
     )
     org_entities.update(
         re.findall(
-            r"\b(?:company|organization|institution|bank|جامعة|شركة|بنك)\s+([A-Z][A-Za-z0-9&\.-]*(?:\s+[A-Z][A-Za-z0-9&\.-]*)?)\b",
+            r"\b(?:company|organization|institution|bank|Ø¬Ø§Ù…Ø¹Ø©|Ø´Ø±ÙƒØ©|Ø¨Ù†Ùƒ)\s+([A-Z][A-Za-z0-9&\.-]*(?:\s+[A-Z][A-Za-z0-9&\.-]*)?)\b",
             ascii_text,
             flags=re.IGNORECASE,
         )
     )
     org_entities.update(
         re.findall(
-            r"\b(?:program|app|application|platform|tool|service|product|برنامج|تطبيق|منصة|خدمة|منتج)\s+([A-Z][A-Za-z0-9&\.-]*(?:\s+[A-Z][A-Za-z0-9&\.-]*)?)\b",
+            r"\b(?:program|app|application|platform|tool|service|product|Ø¨Ø±Ù†Ø§Ù…Ø¬|ØªØ·Ø¨ÙŠÙ‚|Ù…Ù†ØµØ©|Ø®Ø¯Ù…Ø©|Ù…Ù†ØªØ¬)\s+([A-Z][A-Za-z0-9&\.-]*(?:\s+[A-Z][A-Za-z0-9&\.-]*)?)\b",
             ascii_text,
             flags=re.IGNORECASE,
         )
     )
     org_entities.update(
         re.findall(
-            r"\b(?:from|by|via|using|use|about|with|من|عن|باستخدام)\s+([A-Z][A-Za-z0-9&\.-]*(?:\s+[A-Z][A-Za-z0-9&\.-]*)?)\b",
+            r"\b(?:from|by|via|using|use|about|with|Ù…Ù†|Ø¹Ù†|Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù…)\s+([A-Z][A-Za-z0-9&\.-]*(?:\s+[A-Z][A-Za-z0-9&\.-]*)?)\b",
             ascii_text,
             flags=re.IGNORECASE,
         )
@@ -322,7 +327,7 @@ def _extract_english_ner_counts(text: str, requested_entity_types: list[str]) ->
         )
     )
     loc_entities.update(
-        re.findall(r"\bفي\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\b", text)
+        re.findall(r"\bÙÙŠ\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\b", text)
     )
 
     standalone_single_tokens = set(re.findall(r"\b([A-Z][a-z]{2,})\b", ascii_text))
@@ -489,7 +494,7 @@ def RunDataGenerationAgent(state: AgentRunningState):
             "data_generation_result": [],
         }
 
-    # # 🔹 NEW PART STARTS HERE 🔹
+    # # ðŸ”¹ NEW PART STARTS HERE ðŸ”¹
     # per_instance_stats = [compute_true_cs_stats(x) for x in instances]
 
     # # instances is usually a list of strings
@@ -501,7 +506,7 @@ def RunDataGenerationAgent(state: AgentRunningState):
     # cs_stats = compute_true_cs_stats(text_for_stats)
     # print("CS STATS:", cs_stats)
 
-    # # 🔹 NEW PART ENDS HERE 🔹
+    # # ðŸ”¹ NEW PART ENDS HERE ðŸ”¹
 
     return {
         "data_generation_result": response["instances"],  # unchanged key
@@ -529,11 +534,25 @@ def RunFluencyAgent(state: AgentRunningState):
     response = FluencyAgent.invoke(
         {"sentences_for_batch": _build_sentences_for_batch(texts)}
     )
-    batch_results = _extract_json_array(response)
+    raw_batch_results = _extract_json_array(response)
+    if len(raw_batch_results) != len(texts):
+        raw_batch_results = _recover_results_per_sentence(
+            texts,
+            invoke_single=lambda idx, text: FluencyAgent.invoke(
+                {"sentences_for_batch": _build_sentences_for_batch([text])}
+            ),
+            agent_name="FluencyAgent",
+        )
+
+    batch_results = _normalize_batch_dict_results(
+        raw_batch_results,
+        expected_len=len(texts),
+        agent_name="FluencyAgent",
+    )
 
     results = []
     for idx in range(len(texts)):
-        item = batch_results[idx] if idx < len(batch_results) else {}
+        item = batch_results[idx]
         errors = item.get("errors", {})
         if not isinstance(errors, dict):
             if isinstance(errors, list):
@@ -583,11 +602,25 @@ def RunNaturalnessAgent(state: AgentRunningState):
     response = NaturalnessAgent.invoke(
         {"sentences_for_batch": _build_sentences_for_batch(texts)}
     )
-    batch_results = _extract_json_array(response)
+    raw_batch_results = _extract_json_array(response)
+    if len(raw_batch_results) != len(texts):
+        raw_batch_results = _recover_results_per_sentence(
+            texts,
+            invoke_single=lambda idx, text: NaturalnessAgent.invoke(
+                {"sentences_for_batch": _build_sentences_for_batch([text])}
+            ),
+            agent_name="NaturalnessAgent",
+        )
+
+    batch_results = _normalize_batch_dict_results(
+        raw_batch_results,
+        expected_len=len(texts),
+        agent_name="NaturalnessAgent",
+    )
 
     results = []
     for idx in range(len(texts)):
-        item = batch_results[idx] if idx < len(batch_results) else {}
+        item = batch_results[idx]
         observations = item.get("observations", {})
         if not isinstance(observations, dict):
             if isinstance(observations, list):
@@ -665,11 +698,77 @@ def _extract_json_array(response: Any) -> list[dict]:
     return []
 
 
+def _extract_json_object(response: Any) -> dict:
+    """Best-effort extraction of a JSON object from an LLM response."""
+    try:
+        content = response.content if hasattr(response, "content") else str(response)
+        content = content.strip()
+        start = content.find("{")
+        end = content.rfind("}") + 1
+        if start != -1 and end > start:
+            parsed = json.loads(content[start:end])
+        else:
+            parsed = json.loads(content)
+        if isinstance(parsed, dict):
+            return parsed
+    except (json.JSONDecodeError, TypeError, AttributeError) as e:
+        print(f"ERROR parsing JSON object response: {e}")
+    return {}
+
+
 def _safe_score(value: Any) -> float:
     try:
         return float(value)
     except (TypeError, ValueError):
         return 0.0
+
+
+def _normalize_batch_dict_results(raw_results: Any, expected_len: int, agent_name: str) -> list[dict]:
+    """Normalize evaluator batch results to exactly expected_len dict items."""
+    if not isinstance(raw_results, list):
+        raw_results = []
+
+    normalized = [item if isinstance(item, dict) else {} for item in raw_results]
+
+    if len(normalized) != expected_len:
+        print(
+            f"WARNING [{agent_name}]: expected {expected_len} batch items, got {len(normalized)}. "
+            "Applying pad/trim normalization."
+        )
+
+    if len(normalized) < expected_len:
+        normalized.extend([{} for _ in range(expected_len - len(normalized))])
+    elif len(normalized) > expected_len:
+        normalized = normalized[:expected_len]
+
+    return normalized
+
+
+def _recover_results_per_sentence(
+    texts: list[str],
+    invoke_single,
+    agent_name: str,
+) -> list[dict]:
+    """Recover per-sentence evaluator outputs when batch output is unsafe."""
+    recovered: list[dict] = []
+    print(f"WARNING [{agent_name}]: entering per-sentence fallback recovery for {len(texts)} sentence(s).")
+
+    for idx, text in enumerate(texts):
+        try:
+            response = invoke_single(idx, text)
+            parsed_arr = _extract_json_array(response)
+            if parsed_arr:
+                item = parsed_arr[0] if isinstance(parsed_arr[0], dict) else {}
+            else:
+                item = _extract_json_object(response)
+            if not isinstance(item, dict):
+                item = {}
+            recovered.append(item)
+        except Exception as e:
+            print(f"WARNING [{agent_name}]: single-sentence fallback failed at index {idx}: {e}")
+            recovered.append({})
+
+    return recovered
 
 
 def RunCSRatioAgent(state: AgentRunningState):
@@ -716,34 +815,55 @@ def RunCSRatioAgent(state: AgentRunningState):
     
     response = CSRatioAgent.invoke(local_state)
     
-    # Parse response - expecting JSON array
-    import json
-    try:
-        content = response.content if hasattr(response, 'content') else str(response)
-        json_start = content.find('[')
-        json_end = content.rfind(']') + 1
-        if json_start != -1 and json_end > json_start:
-            json_str = content[json_start:json_end]
-            batch_results = json.loads(json_str)
-        else:
-            batch_results = json.loads(content)
-    except (json.JSONDecodeError, AttributeError) as e:
-        print(f"ERROR parsing batch response: {e}")
-        batch_results = []
-    
-    # Ensure we have results for each sentence
-    if isinstance(batch_results, list):
-        results = batch_results[:len(texts)]
-    else:
-        results = [batch_results] if batch_results else []
-    
-    # Fill in any missing results from stats
-    while len(results) < len(texts):
-        stats = per_scenario_stats[len(results)]
+    raw_batch_results = _extract_json_array(response)
+    if len(raw_batch_results) != len(texts):
+        def _invoke_single_cs(idx: int, text: str):
+            stats = per_scenario_stats[idx]
+            single_sent_with_stats = (
+                f"Sentence 1: {text}\n"
+                f"  - Arabic ratio: {stats['cs_ar_ratio']:.2f}%\n"
+                f"  - English ratio: {stats['cs_en_ratio']:.2f}%\n"
+                f"  - Arabic tokens: {stats['cs_ar_count']}\n"
+                f"  - English tokens: {stats['cs_en_count']}\n"
+                f"  - Is code-switched: {stats['is_code_switched']}\n"
+            )
+            return CSRatioAgent.invoke(
+                {
+                    "cs_ratio": state.get("cs_ratio"),
+                    "target_en_ratio": target_en,
+                    "target_ar_ratio": target_ar,
+                    "sentences_with_stats": single_sent_with_stats,
+                }
+            )
+
+        raw_batch_results = _recover_results_per_sentence(
+            texts,
+            invoke_single=_invoke_single_cs,
+            agent_name="CSRatioAgent",
+        )
+
+    batch_results = _normalize_batch_dict_results(
+        raw_batch_results,
+        expected_len=len(texts),
+        agent_name="CSRatioAgent",
+    )
+
+    for idx in range(len(texts)):
+        item = batch_results[idx]
+        stats = per_scenario_stats[idx]
+
+        if not item:
+            results.append({
+                "ratio_score": 0 if not stats["is_code_switched"] else 5,
+                "computed_ratio": f"{stats['cs_ar_ratio']:.2f}% : {stats['cs_en_ratio']:.2f}%",
+                "notes": "monolingual" if not stats["is_code_switched"] else "code-switched"
+            })
+            continue
+
         results.append({
-            "ratio_score": 0 if not stats['is_code_switched'] else 5,
-            "computed_ratio": f"{stats['cs_ar_ratio']:.2f}% : {stats['cs_en_ratio']:.2f}%",
-            "notes": "monolingual" if not stats['is_code_switched'] else "code-switched"
+            "ratio_score": _safe_score(item.get("ratio_score")),
+            "computed_ratio": str(item.get("computed_ratio", f"{stats['cs_ar_ratio']:.2f}% : {stats['cs_en_ratio']:.2f}%")),
+            "notes": str(item.get("notes", "monolingual" if not stats["is_code_switched"] else "code-switched"))
         })
     
     return {"cs_ratio_results_per_instances": results}
@@ -814,11 +934,25 @@ def RunSocialCulturalAgent(state: AgentRunningState):
     response = SocialCulturalAgent.invoke(
         {"sentences_for_batch": _build_sentences_for_batch(texts)}
     )
-    batch_results = _extract_json_array(response)
+    raw_batch_results = _extract_json_array(response)
+    if len(raw_batch_results) != len(texts):
+        raw_batch_results = _recover_results_per_sentence(
+            texts,
+            invoke_single=lambda idx, text: SocialCulturalAgent.invoke(
+                {"sentences_for_batch": _build_sentences_for_batch([text])}
+            ),
+            agent_name="SocialCulturalAgent",
+        )
+
+    batch_results = _normalize_batch_dict_results(
+        raw_batch_results,
+        expected_len=len(texts),
+        agent_name="SocialCulturalAgent",
+    )
 
     results = []
     for idx in range(len(texts)):
-        item = batch_results[idx] if idx < len(batch_results) else {}
+        item = batch_results[idx]
         issues = item.get("issues", "")
         if isinstance(issues, list):
             issues = "; ".join([str(x) for x in issues])
@@ -888,6 +1022,11 @@ def SummarizeResult(state: AgentRunningState):
         threshold=sentence_threshold,
         max_refines=MAX_SENTENCE_REFINES,
     )
+    records_consistency = validate_sentence_records_consistency(
+        sentence_scores=sentence_scores,
+        refine_counts=refine_counts,
+        records=records,
+    )
 
     return {
         "score": weighting_scheme(state),
@@ -896,6 +1035,7 @@ def SummarizeResult(state: AgentRunningState):
         "failing_sentence_indices": failing_sentence_indices,
         "instance_refine_counts": refine_counts,
         "sentence_records": records,
+        "records_consistency": records_consistency,
     }
 
 
@@ -916,7 +1056,7 @@ def AcceptanceAgent(state: AgentRunningState):
 def RunRefinerAgent(state: AgentRunningState):
     texts = state.get("data_generation_result", [])
     if not isinstance(texts, list) or not texts:
-        return {"refine_count": 1}
+        return {}
 
     failing_indices = state.get("failing_sentence_indices", [])
     if not isinstance(failing_indices, list):
@@ -937,7 +1077,7 @@ def RunRefinerAgent(state: AgentRunningState):
     ]
 
     if not eligible_indices:
-        return {"refine_count": 1, "instance_refine_counts": refine_counts}
+        return {"instance_refine_counts": refine_counts}
 
     refiner = REFINER_PROMPT | ChatOpenAI(
         model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
@@ -992,11 +1132,14 @@ def RunRefinerAgent(state: AgentRunningState):
 
         response = refiner.invoke(single_state)
         refined_instances = response.get("instances", []) if isinstance(response, dict) else []
+        applied = False
         if isinstance(refined_instances, list) and refined_instances:
             candidate = refined_instances[0]
             if isinstance(candidate, str) and candidate.strip():
                 updated_texts[index] = candidate.strip()
-        refine_counts[index] = int(refine_counts[index]) + 1
+                applied = True
+        if applied:
+            refine_counts[index] = int(refine_counts[index]) + 1
 
     return {
         "data_generation_result": updated_texts,

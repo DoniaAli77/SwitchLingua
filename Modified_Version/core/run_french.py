@@ -156,7 +156,7 @@ async def main():
     random.shuffle(scenarios)
     # make a for loop, each loop run 10 scenarios
     results_count = 0
-    for i in range(0, len(scenarios), 3):
+    for i in range(0, len(scenarios), 1):
         tasks = [arun(scenario) for scenario in scenarios[i : i + 1]]
 
         # 使用 asyncio.as_completed

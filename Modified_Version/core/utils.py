@@ -348,6 +348,65 @@ def build_sentence_records(
     return records
 
 
+def validate_sentence_records_consistency(
+    sentence_scores: List[float],
+    refine_counts: List[int],
+    records: List[Dict[str, Any]],
+    score_tolerance: float = 1e-6,
+) -> Dict[str, Any]:
+    """Compare legacy arrays with additive sentence_records and report mismatches.
+
+    This keeps runtime behavior unchanged while giving us confidence before
+    migrating to fully canonical record-first logic.
+    """
+    mismatches: List[str] = []
+
+    if len(sentence_scores) != len(records):
+        mismatches.append(
+            f"length mismatch: sentence_scores={len(sentence_scores)} records={len(records)}"
+        )
+
+    if len(refine_counts) != len(records):
+        mismatches.append(
+            f"length mismatch: refine_counts={len(refine_counts)} records={len(records)}"
+        )
+
+    for i, rec in enumerate(records):
+        if i >= len(sentence_scores):
+            break
+        rec_score = rec.get("weighted_score")
+        if rec_score is None:
+            mismatches.append(f"record {i} missing weighted_score")
+        else:
+            if abs(float(rec_score) - float(sentence_scores[i])) > score_tolerance:
+                mismatches.append(
+                    f"score mismatch at {i}: array={sentence_scores[i]} record={rec_score}"
+                )
+
+    for i, rec in enumerate(records):
+        if i >= len(refine_counts):
+            break
+        rec_rc = rec.get("refine_count")
+        if rec_rc is None:
+            mismatches.append(f"record {i} missing refine_count")
+        else:
+            if int(rec_rc) != int(refine_counts[i]):
+                mismatches.append(
+                    f"refine_count mismatch at {i}: array={refine_counts[i]} record={rec_rc}"
+                )
+
+    result = {
+        "ok": len(mismatches) == 0,
+        "mismatch_count": len(mismatches),
+        "mismatches": mismatches,
+    }
+
+    if not result["ok"]:
+        logger.warning("sentence_records consistency mismatches: {}", mismatches)
+
+    return result
+
+
 if __name__ == "__main__":
     # Here is your config dictionary (simplified for the example):
     config = {

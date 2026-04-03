@@ -170,6 +170,7 @@ class BaseState(TypedDict, total=False):
     failing_sentence_indices: List[int]
     instance_refine_counts: List[int]
     sentence_records: List[SentenceRecord]    # per-sentence canonical records (additive)
+    records_consistency: Dict[str, Any]
     refine_count: Annotated[int, add]
 
     # existing tooling fields
