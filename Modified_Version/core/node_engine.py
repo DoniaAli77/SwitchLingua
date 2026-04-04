@@ -489,10 +489,7 @@ def RunDataGenerationAgent(state: AgentRunningState):
 
     instances = response.get("instances", [])
     if not instances:
-        print("WARNING: DataGenerationAgent failed to generate instances after retries")
-        return {
-            "data_generation_result": [],
-        }
+        raise RuntimeError("DataGenerationAgent produced no instances after retries")
 
     # # ðŸ”¹ NEW PART STARTS HERE ðŸ”¹
     # per_instance_stats = [compute_true_cs_stats(x) for x in instances]
@@ -1058,15 +1055,21 @@ def RunRefinerAgent(state: AgentRunningState):
     if not isinstance(texts, list) or not texts:
         return {}
 
-    failing_indices = state.get("failing_sentence_indices", [])
-    if not isinstance(failing_indices, list):
-        failing_indices = []
+    records = state.get("sentence_records", [])
+    if not isinstance(records, list) or len(records) != len(texts):
+        return {"instance_refine_counts": state.get("instance_refine_counts", [])}
 
-    refine_counts = state.get("instance_refine_counts", [])
-    if not isinstance(refine_counts, list):
-        refine_counts = []
-    if len(refine_counts) < len(texts):
-        refine_counts = refine_counts + [0] * (len(texts) - len(refine_counts))
+    failing_indices = []
+    refine_counts = []
+    for i, rec in enumerate(records):
+        if not isinstance(rec, dict):
+            refine_counts.append(0)
+            continue
+        rc = int(rec.get("refine_count", 0) or 0)
+        refine_counts.append(rc)
+        weighted_score = rec.get("weighted_score")
+        if isinstance(weighted_score, (int, float)) and float(weighted_score) < 8.0:
+            failing_indices.append(i)
 
     eligible_indices = [
         idx
@@ -1085,22 +1088,12 @@ def RunRefinerAgent(state: AgentRunningState):
 
     updated_texts = list(texts)
     for index in eligible_indices:
-        sentence_scores = state.get("sentence_scores", [])
-        score_at_index = (
-            sentence_scores[index]
-            if isinstance(sentence_scores, list) and index < len(sentence_scores)
-            else None
-        )
-
-        flu_all = state.get("fluency_results_per_instances", [])
-        nat_all = state.get("naturalness_results_per_instances", [])
-        cs_all = state.get("cs_ratio_results_per_instances", [])
-        soc_all = state.get("social_cultural_results_per_instances", [])
-
-        flu_inst = flu_all[index] if isinstance(flu_all, list) and index < len(flu_all) and isinstance(flu_all[index], dict) else {}
-        nat_inst = nat_all[index] if isinstance(nat_all, list) and index < len(nat_all) and isinstance(nat_all[index], dict) else {}
-        cs_inst = cs_all[index] if isinstance(cs_all, list) and index < len(cs_all) and isinstance(cs_all[index], dict) else {}
-        soc_inst = soc_all[index] if isinstance(soc_all, list) and index < len(soc_all) and isinstance(soc_all[index], dict) else {}
+        rec = records[index] if isinstance(records[index], dict) else {}
+        score_at_index = rec.get("weighted_score")
+        flu_inst = rec.get("fluency") if isinstance(rec.get("fluency"), dict) else {}
+        nat_inst = rec.get("naturalness") if isinstance(rec.get("naturalness"), dict) else {}
+        cs_inst = rec.get("cs_ratio") if isinstance(rec.get("cs_ratio"), dict) else {}
+        soc_inst = rec.get("socio_cultural") if isinstance(rec.get("socio_cultural"), dict) else {}
 
         task_val_inst = {}
         tvr = state.get("task_validation_result", {})

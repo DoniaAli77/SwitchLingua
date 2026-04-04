@@ -1,0 +1,365 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\.env",
+    "tasks": [
+      "topic"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-04T11:22:53.357477"
+  },
+  "runs": [
+    {
+      "task": "topic",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 4,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أعتقد أن التكنولوجيات الحديثة تؤثر بشكل كبير على عالم الأعمال اليوم. You know, innovation is key!",
+          "في رأيي، التخطيط الجيد هو أساس النجاح في أي مشروع. We really need to focus on our goals!",
+          "التسويق الرقمي أصبح جزءًا لا يتجزأ من استراتيجيات الشركات. It's all about reaching the right audience!",
+          "أنا أعمل على مشروع جديد في الجامعة يتعلق بالاستثمار. It’s exciting to see how it evolves!"
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9125,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The instance discusses the impact of modern technologies on the business world, which aligns well with the expected topic of 'business'.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses planning and success in projects, which aligns well with business topics.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses digital marketing as a key part of business strategies, aligning well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses a project related to investment, which aligns well with the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        },
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with a smooth transition between Arabic and English."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence maintains grammatical integrity and coherence, effectively blending Arabic and English."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is syntactically sound and coherent, with a clear integration of both languages."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, successfully combining Arabic and English."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 9.0,
+          "errors": {},
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch to English feels natural as it emphasizes the importance of innovation.",
+              "2": "The use of 'You know' is a common conversational filler that fits well."
+            },
+            "summary": "The sentence flows well with a natural blend of Arabic and English, maintaining coherence."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The English switch highlights the need for focus, which is relevant to the context.",
+              "2": "The phrase 'We really need to' is a common expression that adds urgency."
+            },
+            "summary": "The sentence is mostly natural, though the switch could be slightly more integrated."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The English part effectively emphasizes the importance of the target audience.",
+              "2": "The phrase 'It's all about' is a common expression that fits well in this context."
+            },
+            "summary": "The sentence is very natural, with a smooth transition between languages."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The English phrase adds excitement, which complements the Arabic context.",
+              "2": "The use of 'It’s exciting to see' is a relatable expression, though slightly abrupt."
+            },
+            "summary": "The sentence is mostly natural, but the switch could be more fluid."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.5,
+          "observations": {
+            "sentence_1": "{'1': 'The switch to English feels natural as it emphasizes the importance of innovation.', '2': \"The use of 'You know' is a common conversational filler that fits well.\"}",
+            "sentence_2": "{'1': 'The English switch highlights the need for focus, which is relevant to the context.', '2': \"The phrase 'We really need to' is a common expression that adds urgency.\"}",
+            "sentence_3": "{'1': 'The English part effectively emphasizes the importance of the target audience.', '2': \"The phrase 'It's all about' is a common expression that fits well in this context.\"}",
+            "sentence_4": "{'1': 'The English phrase adds excitement, which complements the Arabic context.', '2': \"The use of 'It’s exciting to see' is a relatable expression, though slightly abrupt.\"}"
+          },
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 8.0,
+            "computed_ratio": "70.59% : 29.41%",
+            "notes": "close to target ratio"
+          },
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "55.56% : 44.44%",
+            "notes": "further from target ratio"
+          },
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "52.94% : 47.06%",
+            "notes": "further from target ratio"
+          },
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "52.94% : 47.06%",
+            "notes": "further from target ratio"
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence aligns well with cultural norms and the borrowed English phrase is appropriate."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally appropriate, and the English phrase complements the message."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally relevant, and the English phrase enhances the context."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally appropriate, and the English phrase fits well with the overall message."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 9.0,
+          "issues": "sentence_1: None | sentence_2: None | sentence_3: None | sentence_4: None",
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أنا أعتقد أن التكنولوجيات الحديثة تؤثر بشكل كبير على عالم الأعمال اليوم. You know, innovation is key!', 'في رأيي، التخطيط الجيد هو أساس النجاح في أي مشروع. We really need to focus on our goals!', \"التسويق الرقمي أصبح جزءًا لا يتجزأ من استراتيجيات الشركات. It's all about reaching the right audience!\", 'أنا أعمل على مشروع جديد في الجامعة يتعلق بالاستثمار. It’s exciting to see how it evolves!']\n    Sentence Scores: [8.8, 7.75, 8.0, 7.75]\n    Failing Sentence Indices (<8.0): [1, 3]\n    Fluency Per-Instance: [{'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with a smooth transition between Arabic and English.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence maintains grammatical integrity and coherence, effectively blending Arabic and English.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is syntactically sound and coherent, with a clear integration of both languages.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, successfully combining Arabic and English.'}]\n    Fluency Result: {'fluency_score': 9.0, 'errors': {}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The switch to English feels natural as it emphasizes the importance of innovation.', '2': \"The use of 'You know' is a common conversational filler that fits well.\"}, 'summary': 'The sentence flows well with a natural blend of Arabic and English, maintaining coherence.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The English switch highlights the need for focus, which is relevant to the context.', '2': \"The phrase 'We really need to' is a common expression that adds urgency.\"}, 'summary': 'The sentence is mostly natural, though the switch could be slightly more integrated.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The English part effectively emphasizes the importance of the target audience.', '2': \"The phrase 'It's all about' is a common expression that fits well in this context.\"}, 'summary': 'The sentence is very natural, with a smooth transition between languages.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The English phrase adds excitement, which complements the Arabic context.', '2': \"The use of 'It’s exciting to see' is a relatable expression, though slightly abrupt.\"}, 'summary': 'The sentence is mostly natural, but the switch could be more fluid.'}]\n    Naturalness Result: {'naturalness_score': 8.5, 'observations': {'sentence_1': '{\\'1\\': \\'The switch to English feels natural as it emphasizes the importance of innovation.\\', \\'2\\': \"The use of \\'You know\\' is a common conversational filler that fits well.\"}', 'sentence_2': '{\\'1\\': \\'The English switch highlights the need for focus, which is relevant to the context.\\', \\'2\\': \"The phrase \\'We really need to\\' is a common expression that adds urgency.\"}', 'sentence_3': '{\\'1\\': \\'The English part effectively emphasizes the importance of the target audience.\\', \\'2\\': \"The phrase \\'It\\'s all about\\' is a common expression that fits well in this context.\"}', 'sentence_4': '{\\'1\\': \\'The English phrase adds excitement, which complements the Arabic context.\\', \\'2\\': \"The use of \\'It’s exciting to see\\' is a relatable expression, though slightly abrupt.\"}'}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 8.0, 'computed_ratio': '70.59% : 29.41%', 'notes': 'close to target ratio'}, {'ratio_score': 4.0, 'computed_ratio': '55.56% : 44.44%', 'notes': 'further from target ratio'}, {'ratio_score': 4.0, 'computed_ratio': '52.94% : 47.06%', 'notes': 'further from target ratio'}, {'ratio_score': 4.0, 'computed_ratio': '52.94% : 47.06%', 'notes': 'further from target ratio'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence aligns well with cultural norms and the borrowed English phrase is appropriate.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally appropriate, and the English phrase complements the message.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally relevant, and the English phrase enhances the context.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally appropriate, and the English phrase fits well with the overall message.'}]\n    Social Cultural Result: {'socio_cultural_score': 9.0, 'issues': 'sentence_1: None | sentence_2: None | sentence_3: None | sentence_4: None', 'summary': 'Per-instance average across 4 sentence(s).'}\n    ",
+        "score": 8.075,
+        "sentence_scores": [
+          8.8,
+          7.75,
+          8.0,
+          7.75
+        ],
+        "failing_sentence_indices": [
+          1,
+          3
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا أعتقد أن التكنولوجيات الحديثة تؤثر بشكل كبير على عالم الأعمال اليوم. You know, innovation is key!",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with a smooth transition between Arabic and English."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch to English feels natural as it emphasizes the importance of innovation.",
+                "2": "The use of 'You know' is a common conversational filler that fits well."
+              },
+              "summary": "The sentence flows well with a natural blend of Arabic and English, maintaining coherence."
+            },
+            "cs_ratio": {
+              "ratio_score": 8.0,
+              "computed_ratio": "70.59% : 29.41%",
+              "notes": "close to target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence aligns well with cultural norms and the borrowed English phrase is appropriate."
+            },
+            "weighted_score": 8.8,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true
+          },
+          {
+            "index": 1,
+            "text": "في رأيي، التخطيط الجيد هو أساس النجاح في أي مشروع. We really need to focus on our goals!",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence maintains grammatical integrity and coherence, effectively blending Arabic and English."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The English switch highlights the need for focus, which is relevant to the context.",
+                "2": "The phrase 'We really need to' is a common expression that adds urgency."
+              },
+              "summary": "The sentence is mostly natural, though the switch could be slightly more integrated."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "55.56% : 44.44%",
+              "notes": "further from target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally appropriate, and the English phrase complements the message."
+            },
+            "weighted_score": 7.75,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true
+          },
+          {
+            "index": 2,
+            "text": "التسويق الرقمي أصبح جزءًا لا يتجزأ من استراتيجيات الشركات. It's all about reaching the right audience!",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is syntactically sound and coherent, with a clear integration of both languages."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The English part effectively emphasizes the importance of the target audience.",
+                "2": "The phrase 'It's all about' is a common expression that fits well in this context."
+              },
+              "summary": "The sentence is very natural, with a smooth transition between languages."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "52.94% : 47.06%",
+              "notes": "further from target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally relevant, and the English phrase enhances the context."
+            },
+            "weighted_score": 8.0,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true
+          },
+          {
+            "index": 3,
+            "text": "أنا أعمل على مشروع جديد في الجامعة يتعلق بالاستثمار. It’s exciting to see how it evolves!",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, successfully combining Arabic and English."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The English phrase adds excitement, which complements the Arabic context.",
+                "2": "The use of 'It’s exciting to see' is a relatable expression, though slightly abrupt."
+              },
+              "summary": "The sentence is mostly natural, but the switch could be more fluid."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "52.94% : 47.06%",
+              "notes": "further from target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally appropriate, and the English phrase fits well with the overall message."
+            },
+            "weighted_score": 7.75,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    }
+  ]
+}

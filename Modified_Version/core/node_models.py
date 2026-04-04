@@ -111,7 +111,7 @@ class SentenceRecord(TypedDict, total=False):
 
     Each metric field holds the full typed response object (not just the score float),
     so all errors, notes, summaries, and computed values are preserved per sentence.
-    Built alongside existing parallel arrays in SummarizeResult — additive, no arrays changed.
+    Built in SummarizeResult and used as canonical runtime source where available.
     status values: 'pass' | 'fail' | 'refined_pass' | 'budget_exhausted'
     """
     index: int
@@ -166,10 +166,10 @@ class BaseState(TypedDict, total=False):
 
     summary: str
     score: float
-    sentence_scores: List[float]
-    failing_sentence_indices: List[int]
-    instance_refine_counts: List[int]
-    sentence_records: List[SentenceRecord]    # per-sentence canonical records (additive)
+    sentence_scores: List[float]           # legacy compatibility mirror
+    failing_sentence_indices: List[int]    # legacy compatibility mirror
+    instance_refine_counts: List[int]      # legacy compatibility mirror
+    sentence_records: List[SentenceRecord]    # per-sentence canonical records
     records_consistency: Dict[str, Any]
     refine_count: Annotated[int, add]
 

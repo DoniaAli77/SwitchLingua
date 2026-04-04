@@ -11,9 +11,10 @@ from dotenv import load_dotenv
 
 def _resolve_paths() -> tuple[Path, Path, Path]:
     script_dir = Path(__file__).resolve().parent
-    core_dir = script_dir / "core"
-    default_config = script_dir / "config" / "config2.yaml"
-    default_env = core_dir / ".env"
+    project_root = script_dir.parent.parent
+    core_dir = project_root / "core"
+    default_config = project_root / "config" / "config2.yaml"
+    default_env = project_root / ".env"
     return core_dir, default_config, default_env
 
 

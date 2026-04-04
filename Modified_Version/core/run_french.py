@@ -43,21 +43,20 @@ MAX_SENTENCE_REFINES = int(os.getenv("MAX_SENTENCE_REFINES", "1"))
 
 
 def meet_criteria(state: AgentRunningState):
-    sentence_scores = state.get("sentence_scores", [])
-    if isinstance(sentence_scores, list) and sentence_scores:
-        refine_counts = state.get("instance_refine_counts", [])
-        if not isinstance(refine_counts, list):
-            refine_counts = []
-        failing_indices = [
-            idx
-            for idx, value in enumerate(sentence_scores)
-            if isinstance(value, (int, float)) and float(value) < SENTENCE_SCORE_THRESHOLD
-        ]
-        eligible_failing_indices = [
-            idx
-            for idx in failing_indices
-            if idx >= len(refine_counts) or int(refine_counts[idx]) < MAX_SENTENCE_REFINES
-        ]
+    records = state.get("sentence_records", [])
+    if isinstance(records, list):
+        eligible_failing_indices = []
+        for idx, rec in enumerate(records):
+            if not isinstance(rec, dict):
+                continue
+            score = rec.get("weighted_score")
+            rc = int(rec.get("refine_count", 0) or 0)
+            if (
+                isinstance(score, (int, float))
+                and float(score) < SENTENCE_SCORE_THRESHOLD
+                and rc < MAX_SENTENCE_REFINES
+            ):
+                eligible_failing_indices.append(idx)
 
         if eligible_failing_indices:
             return "RefinerAgent"
@@ -156,14 +155,23 @@ async def main():
     random.shuffle(scenarios)
     # make a for loop, each loop run 10 scenarios
     results_count = 0
+    failed_count = 0
     for i in range(0, len(scenarios), 1):
         tasks = [arun(scenario) for scenario in scenarios[i : i + 1]]
 
         # 使用 asyncio.as_completed
         try:
             for task in asyncio.as_completed(tasks, timeout=7200):
-                result = await task
-                results_count += 1
+                try:
+                    await task
+                    results_count += 1
+                except Exception as e:
+                    failed_count += 1
+                    logger.exception(f"🚨 Scenario failed at index {i}: {e}")
+                    send_message(
+                        f"🔍 LANG: {lang} Scenario failed at index {i}: {type(e).__name__}"
+                    )
+                    continue
         except asyncio.TimeoutError:
             logger.warning(f"⏱️ Scenario timed out after 2400 seconds: {i}")
             send_message(
@@ -177,6 +185,9 @@ async def main():
                 send_message(
                     f"🔍 LANG: {lang} Number of results finished: {results_count}"
                 )
+    logger.info(
+        f"✅ Pipeline completed. Success={results_count}, Failed={failed_count}"
+    )
     return results_count
 
 

@@ -1,0 +1,372 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\.env",
+    "tasks": [
+      "topic"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-04T11:28:37.356197"
+  },
+  "runs": [
+    {
+      "task": "topic",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 4,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أعتقد أن العمل من المنزل أصبح شائعًا جدًا nowadays.",
+          "في رأيي، الشركات يجب أن تستثمر أكثر في التكنولوجيا لتحسين الأداء.",
+          "هل تعتقد أن المنافسة في السوق أصبحت أصعب من قبل؟",
+          "أنا أقرأ كثيرًا عن استراتيجيات النجاح في الأعمال، it's really fascinating."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9125,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": [],
+          "per_instance_results": [
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses the popularity of working from home, which is relevant to the business topic, especially in the context of current work trends.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses companies investing in technology, which aligns well with the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses market competition, which is relevant to the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            },
+            {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The instance discusses business strategies and success, aligning well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          ]
+        },
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 8.0,
+            "errors": {},
+            "summary": "The sentence is mostly coherent, but the switch to 'nowadays' is slightly awkward."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with no issues."
+          },
+          {
+            "fluency_score": 10.0,
+            "errors": {},
+            "summary": "The sentence is fully coherent and grammatically correct."
+          },
+          {
+            "fluency_score": 7.0,
+            "errors": {
+              "1": "The switch to 'it's really fascinating' is abrupt and disrupts the flow."
+            },
+            "summary": "The sentence is mostly coherent, but the code-switching is not smooth."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 8.5,
+          "errors": {
+            "sentence_4": "{'1': \"The switch to 'it's really fascinating' is abrupt and disrupts the flow.\"}"
+          },
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The switch to 'nowadays' is appropriate and commonly used among bilingual speakers.",
+              "2": "The sentence flows well and maintains clarity."
+            },
+            "summary": "The sentence is natural and reflects authentic bilingual usage."
+          },
+          {
+            "naturalness_score": 10.0,
+            "observations": {
+              "1": "The sentence is entirely in Arabic, which is appropriate for the context.",
+              "2": "No code-switching occurs, making it very natural."
+            },
+            "summary": "The sentence is perfectly natural and coherent."
+          },
+          {
+            "naturalness_score": 10.0,
+            "observations": {
+              "1": "The sentence is fully in Arabic, which is suitable for the context.",
+              "2": "No code-switching occurs, enhancing its naturalness."
+            },
+            "summary": "The sentence is completely natural and clear."
+          },
+          {
+            "naturalness_score": 7.0,
+            "observations": {
+              "1": "The switch to 'it's really fascinating' is somewhat common but less frequent in formal contexts.",
+              "2": "The sentence maintains a good flow despite the switch."
+            },
+            "summary": "The sentence is mostly natural, though the code-switching may feel slightly out of place."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.75,
+          "observations": {
+            "sentence_1": "{'1': \"The switch to 'nowadays' is appropriate and commonly used among bilingual speakers.\", '2': 'The sentence flows well and maintains clarity.'}",
+            "sentence_2": "{'1': 'The sentence is entirely in Arabic, which is appropriate for the context.', '2': 'No code-switching occurs, making it very natural.'}",
+            "sentence_3": "{'1': 'The sentence is fully in Arabic, which is suitable for the context.', '2': 'No code-switching occurs, enhancing its naturalness.'}",
+            "sentence_4": "{'1': \"The switch to 'it's really fascinating' is somewhat common but less frequent in formal contexts.\", '2': 'The sentence maintains a good flow despite the switch.'}"
+          },
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "88.89% : 11.11%",
+            "notes": "code-switched, diff > 20%"
+          },
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "100.00% : 0.00%",
+            "notes": "monolingual"
+          },
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "100.00% : 0.00%",
+            "notes": "monolingual"
+          },
+          {
+            "ratio_score": 8.0,
+            "computed_ratio": "66.67% : 33.33%",
+            "notes": "code-switched, diff <= 5%"
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "The use of 'nowadays' is acceptable but may feel slightly out of place in a predominantly Arabic sentence.",
+            "summary": "The sentence is mostly culturally appropriate, with minor concerns regarding the borrowed word."
+          },
+          {
+            "socio_cultural_score": 10.0,
+            "issues": "",
+            "summary": "The sentence aligns well with cultural norms and does not contain any borrowed words."
+          },
+          {
+            "socio_cultural_score": 10.0,
+            "issues": "",
+            "summary": "The sentence is culturally appropriate and does not contain any borrowed words."
+          },
+          {
+            "socio_cultural_score": 7.0,
+            "issues": "The phrase 'it's really fascinating' may feel slightly informal or out of place in an Arabic context.",
+            "summary": "The sentence is mostly appropriate but the borrowed phrase may not resonate well with all audiences."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 8.75,
+          "issues": "sentence_1: The use of 'nowadays' is acceptable but may feel slightly out of place in a predominantly Arabic sentence. | sentence_4: The phrase 'it's really fascinating' may feel slightly informal or out of place in an Arabic context.",
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أعتقد أن العمل من المنزل أصبح شائعًا جدًا nowadays.', 'في رأيي، الشركات يجب أن تستثمر أكثر في التكنولوجيا لتحسين الأداء.', 'هل تعتقد أن المنافسة في السوق أصبحت أصعب من قبل؟', \"أنا أقرأ كثيرًا عن استراتيجيات النجاح في الأعمال، it's really fascinating.\"]\n    Sentence Scores: [6.4, 7.7, 8.0, 7.2]\n    Failing Sentence Indices (<8.0): [0, 1, 3]\n    Fluency Per-Instance: [{'fluency_score': 8.0, 'errors': {}, 'summary': \"The sentence is mostly coherent, but the switch to 'nowadays' is slightly awkward.\"}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with no issues.'}, {'fluency_score': 10.0, 'errors': {}, 'summary': 'The sentence is fully coherent and grammatically correct.'}, {'fluency_score': 7.0, 'errors': {'1': \"The switch to 'it's really fascinating' is abrupt and disrupts the flow.\"}, 'summary': 'The sentence is mostly coherent, but the code-switching is not smooth.'}]\n    Fluency Result: {'fluency_score': 8.5, 'errors': {'sentence_4': '{\\'1\\': \"The switch to \\'it\\'s really fascinating\\' is abrupt and disrupts the flow.\"}'}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 8.0, 'observations': {'1': \"The switch to 'nowadays' is appropriate and commonly used among bilingual speakers.\", '2': 'The sentence flows well and maintains clarity.'}, 'summary': 'The sentence is natural and reflects authentic bilingual usage.'}, {'naturalness_score': 10.0, 'observations': {'1': 'The sentence is entirely in Arabic, which is appropriate for the context.', '2': 'No code-switching occurs, making it very natural.'}, 'summary': 'The sentence is perfectly natural and coherent.'}, {'naturalness_score': 10.0, 'observations': {'1': 'The sentence is fully in Arabic, which is suitable for the context.', '2': 'No code-switching occurs, enhancing its naturalness.'}, 'summary': 'The sentence is completely natural and clear.'}, {'naturalness_score': 7.0, 'observations': {'1': \"The switch to 'it's really fascinating' is somewhat common but less frequent in formal contexts.\", '2': 'The sentence maintains a good flow despite the switch.'}, 'summary': 'The sentence is mostly natural, though the code-switching may feel slightly out of place.'}]\n    Naturalness Result: {'naturalness_score': 8.75, 'observations': {'sentence_1': '{\\'1\\': \"The switch to \\'nowadays\\' is appropriate and commonly used among bilingual speakers.\", \\'2\\': \\'The sentence flows well and maintains clarity.\\'}', 'sentence_2': \"{'1': 'The sentence is entirely in Arabic, which is appropriate for the context.', '2': 'No code-switching occurs, making it very natural.'}\", 'sentence_3': \"{'1': 'The sentence is fully in Arabic, which is suitable for the context.', '2': 'No code-switching occurs, enhancing its naturalness.'}\", 'sentence_4': '{\\'1\\': \"The switch to \\'it\\'s really fascinating\\' is somewhat common but less frequent in formal contexts.\", \\'2\\': \\'The sentence maintains a good flow despite the switch.\\'}'}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 0.0, 'computed_ratio': '88.89% : 11.11%', 'notes': 'code-switched, diff > 20%'}, {'ratio_score': 0.0, 'computed_ratio': '100.00% : 0.00%', 'notes': 'monolingual'}, {'ratio_score': 0.0, 'computed_ratio': '100.00% : 0.00%', 'notes': 'monolingual'}, {'ratio_score': 8.0, 'computed_ratio': '66.67% : 33.33%', 'notes': 'code-switched, diff <= 5%'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 8.0, 'issues': \"The use of 'nowadays' is acceptable but may feel slightly out of place in a predominantly Arabic sentence.\", 'summary': 'The sentence is mostly culturally appropriate, with minor concerns regarding the borrowed word.'}, {'socio_cultural_score': 10.0, 'issues': '', 'summary': 'The sentence aligns well with cultural norms and does not contain any borrowed words.'}, {'socio_cultural_score': 10.0, 'issues': '', 'summary': 'The sentence is culturally appropriate and does not contain any borrowed words.'}, {'socio_cultural_score': 7.0, 'issues': \"The phrase 'it's really fascinating' may feel slightly informal or out of place in an Arabic context.\", 'summary': 'The sentence is mostly appropriate but the borrowed phrase may not resonate well with all audiences.'}]\n    Social Cultural Result: {'socio_cultural_score': 8.75, 'issues': \"sentence_1: The use of 'nowadays' is acceptable but may feel slightly out of place in a predominantly Arabic sentence. | sentence_4: The phrase 'it's really fascinating' may feel slightly informal or out of place in an Arabic context.\", 'summary': 'Per-instance average across 4 sentence(s).'}\n    ",
+        "score": 7.325,
+        "sentence_scores": [
+          6.4,
+          7.7,
+          8.0,
+          7.2
+        ],
+        "failing_sentence_indices": [
+          0,
+          1,
+          3
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أعتقد أن العمل من المنزل أصبح شائعًا جدًا nowadays.",
+            "fluency": {
+              "fluency_score": 8.0,
+              "errors": {},
+              "summary": "The sentence is mostly coherent, but the switch to 'nowadays' is slightly awkward."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The switch to 'nowadays' is appropriate and commonly used among bilingual speakers.",
+                "2": "The sentence flows well and maintains clarity."
+              },
+              "summary": "The sentence is natural and reflects authentic bilingual usage."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "88.89% : 11.11%",
+              "notes": "code-switched, diff > 20%"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "The use of 'nowadays' is acceptable but may feel slightly out of place in a predominantly Arabic sentence.",
+              "summary": "The sentence is mostly culturally appropriate, with minor concerns regarding the borrowed word."
+            },
+            "weighted_score": 6.4,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true
+          },
+          {
+            "index": 1,
+            "text": "في رأيي، الشركات يجب أن تستثمر أكثر في التكنولوجيا لتحسين الأداء.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with no issues."
+            },
+            "naturalness": {
+              "naturalness_score": 10.0,
+              "observations": {
+                "1": "The sentence is entirely in Arabic, which is appropriate for the context.",
+                "2": "No code-switching occurs, making it very natural."
+              },
+              "summary": "The sentence is perfectly natural and coherent."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "100.00% : 0.00%",
+              "notes": "monolingual"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 10.0,
+              "issues": "",
+              "summary": "The sentence aligns well with cultural norms and does not contain any borrowed words."
+            },
+            "weighted_score": 7.7,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true
+          },
+          {
+            "index": 2,
+            "text": "هل تعتقد أن المنافسة في السوق أصبحت أصعب من قبل؟",
+            "fluency": {
+              "fluency_score": 10.0,
+              "errors": {},
+              "summary": "The sentence is fully coherent and grammatically correct."
+            },
+            "naturalness": {
+              "naturalness_score": 10.0,
+              "observations": {
+                "1": "The sentence is fully in Arabic, which is suitable for the context.",
+                "2": "No code-switching occurs, enhancing its naturalness."
+              },
+              "summary": "The sentence is completely natural and clear."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "100.00% : 0.00%",
+              "notes": "monolingual"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 10.0,
+              "issues": "",
+              "summary": "The sentence is culturally appropriate and does not contain any borrowed words."
+            },
+            "weighted_score": 8.0,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true
+          },
+          {
+            "index": 3,
+            "text": "أنا أقرأ كثيرًا عن استراتيجيات النجاح في الأعمال، it's really fascinating.",
+            "fluency": {
+              "fluency_score": 7.0,
+              "errors": {
+                "1": "The switch to 'it's really fascinating' is abrupt and disrupts the flow."
+              },
+              "summary": "The sentence is mostly coherent, but the code-switching is not smooth."
+            },
+            "naturalness": {
+              "naturalness_score": 7.0,
+              "observations": {
+                "1": "The switch to 'it's really fascinating' is somewhat common but less frequent in formal contexts.",
+                "2": "The sentence maintains a good flow despite the switch."
+              },
+              "summary": "The sentence is mostly natural, though the code-switching may feel slightly out of place."
+            },
+            "cs_ratio": {
+              "ratio_score": 8.0,
+              "computed_ratio": "66.67% : 33.33%",
+              "notes": "code-switched, diff <= 5%"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 7.0,
+              "issues": "The phrase 'it's really fascinating' may feel slightly informal or out of place in an Arabic context.",
+              "summary": "The sentence is mostly appropriate but the borrowed phrase may not resonate well with all audiences."
+            },
+            "weighted_score": 7.2,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    }
+  ]
+}
