@@ -1,0 +1,331 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\.env",
+    "tasks": [
+      "ner"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-04T11:50:50.402200"
+  },
+  "runs": [
+    {
+      "task": "ner",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 3,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أعمل مع Elon Musk في مشروع جديد حول الذكاء الاصطناعي, ونتحدث عن كيف يمكن لـ Google أن تؤثر على مستقبل التكنولوجيا.",
+          "أحب التكنولوجيا, خاصة عندما أقرأ عن Microsoft وكيف يتم تطوير البرمجيات الحديثة في نيويورك.",
+          "أتحدث مع زملائي عن كيف أن Amazon تغير طريقة التسوق في دبي, خاصة بعد أن أعلنت عن تقنيات جديدة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Only 2 entities found, maximum allowed is 3.",
+            "instance_1: Insufficient entities: only 1 English entity found, 2 required.",
+            "instance_1: Missing required entity type: PER or LOC not found.",
+            "instance_2: No English-script entities found.",
+            "instance_2: Required entity types (PER, ORG) not satisfied."
+          ],
+          "per_instance_results": [
+            {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains one English entity 'Elon Musk' (PER) and one English entity 'Google' (ORG), satisfying the required entity types. However, it only has two entities, while the maximum allowed is three, and the minimum required is two. The instance is valid but does not meet the maximum entity count requirement.",
+              "predicted_label": null,
+              "errors": [
+                "Only 2 entities found, maximum allowed is 3."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains one English entity 'Microsoft' (ORG) but lacks a second required entity of type PER or LOC. The Arabic context does not contribute to the required entities.",
+              "predicted_label": null,
+              "errors": [
+                "Insufficient entities: only 1 English entity found, 2 required.",
+                "Missing required entity type: PER or LOC not found."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance does not contain any English-script entities that satisfy the required entity types (PER, ORG).",
+              "predicted_label": null,
+              "errors": [
+                "No English-script entities found.",
+                "Required entity types (PER, ORG) not satisfied."
+              ]
+            }
+          ]
+        },
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 9.0,
+          "errors": {},
+          "summary": "Per-instance average across 3 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch between Arabic and English feels natural, especially with a well-known figure like Elon Musk.",
+              "2": "The context of discussing AI and Google is relevant and authentic."
+            },
+            "summary": "The sentence demonstrates a high level of naturalness due to the relevance of the topics and the familiarity with the names mentioned."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The mention of Microsoft is appropriate in a tech context, and the switch is smooth.",
+              "2": "The sentence flows well, but the transition could be slightly more integrated."
+            },
+            "summary": "Overall, the sentence is natural, but the integration of the English term could be improved for a more seamless bilingual experience."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The reference to Amazon and its impact on shopping is relevant and timely.",
+              "2": "The switch to English is well-placed and feels authentic."
+            },
+            "summary": "This sentence is highly natural, effectively blending Arabic and English in a relevant context."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.666666666666666,
+          "observations": {
+            "sentence_1": "{'1': 'The switch between Arabic and English feels natural, especially with a well-known figure like Elon Musk.', '2': 'The context of discussing AI and Google is relevant and authentic.'}",
+            "sentence_2": "{'1': 'The mention of Microsoft is appropriate in a tech context, and the switch is smooth.', '2': 'The sentence flows well, but the transition could be slightly more integrated.'}",
+            "sentence_3": "{'1': 'The reference to Amazon and its impact on shopping is relevant and timely.', '2': 'The switch to English is well-placed and feels authentic.'}"
+          },
+          "summary": "Per-instance average across 3 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "86.36% : 13.64%",
+            "notes": "far from target ratio"
+          },
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "92.86% : 7.14%",
+            "notes": "far from target ratio"
+          },
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "94.74% : 5.26%",
+            "notes": "far from target ratio"
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "The mention of Elon Musk and Google is culturally relevant, but the mix of Arabic and English may not resonate with all Arabic speakers.",
+            "summary": "Generally appropriate, but the code-switching may not be universally accepted."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "The reference to Microsoft and modern software development is culturally relevant and widely accepted.",
+            "summary": "Highly appropriate with no significant issues."
+          },
+          {
+            "socio_cultural_score": 7.0,
+            "issues": "The mention of Amazon and its impact on shopping in Dubai is relevant, but the code-switching may feel unnatural to some audiences.",
+            "summary": "Appropriate but could be improved for cultural resonance."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 8.0,
+          "issues": "sentence_1: The mention of Elon Musk and Google is culturally relevant, but the mix of Arabic and English may not resonate with all Arabic speakers. | sentence_2: The reference to Microsoft and modern software development is culturally relevant and widely accepted. | sentence_3: The mention of Amazon and its impact on shopping in Dubai is relevant, but the code-switching may feel unnatural to some audiences.",
+          "summary": "Per-instance average across 3 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أنا أعمل مع Elon Musk في مشروع جديد حول الذكاء الاصطناعي, ونتحدث عن كيف يمكن لـ Google أن تؤثر على مستقبل التكنولوجيا.', 'أحب التكنولوجيا, خاصة عندما أقرأ عن Microsoft وكيف يتم تطوير البرمجيات الحديثة في نيويورك.', 'أتحدث مع زملائي عن كيف أن Amazon تغير طريقة التسوق في دبي, خاصة بعد أن أعلنت عن تقنيات جديدة.']\n    Sentence Scores: [6.95, 6.95, 6.7]\n    Failing Sentence Indices (<8.0): [0, 1, 2]\n    Fluency Per-Instance: [{'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with appropriate code-switching.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with appropriate code-switching.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with appropriate code-switching.'}]\n    Fluency Result: {'fluency_score': 9.0, 'errors': {}, 'summary': 'Per-instance average across 3 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The switch between Arabic and English feels natural, especially with a well-known figure like Elon Musk.', '2': 'The context of discussing AI and Google is relevant and authentic.'}, 'summary': 'The sentence demonstrates a high level of naturalness due to the relevance of the topics and the familiarity with the names mentioned.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The mention of Microsoft is appropriate in a tech context, and the switch is smooth.', '2': 'The sentence flows well, but the transition could be slightly more integrated.'}, 'summary': 'Overall, the sentence is natural, but the integration of the English term could be improved for a more seamless bilingual experience.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The reference to Amazon and its impact on shopping is relevant and timely.', '2': 'The switch to English is well-placed and feels authentic.'}, 'summary': 'This sentence is highly natural, effectively blending Arabic and English in a relevant context.'}]\n    Naturalness Result: {'naturalness_score': 8.666666666666666, 'observations': {'sentence_1': \"{'1': 'The switch between Arabic and English feels natural, especially with a well-known figure like Elon Musk.', '2': 'The context of discussing AI and Google is relevant and authentic.'}\", 'sentence_2': \"{'1': 'The mention of Microsoft is appropriate in a tech context, and the switch is smooth.', '2': 'The sentence flows well, but the transition could be slightly more integrated.'}\", 'sentence_3': \"{'1': 'The reference to Amazon and its impact on shopping is relevant and timely.', '2': 'The switch to English is well-placed and feels authentic.'}\"}, 'summary': 'Per-instance average across 3 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 0.0, 'computed_ratio': '86.36% : 13.64%', 'notes': 'far from target ratio'}, {'ratio_score': 0.0, 'computed_ratio': '92.86% : 7.14%', 'notes': 'far from target ratio'}, {'ratio_score': 0.0, 'computed_ratio': '94.74% : 5.26%', 'notes': 'far from target ratio'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 8.0, 'issues': 'The mention of Elon Musk and Google is culturally relevant, but the mix of Arabic and English may not resonate with all Arabic speakers.', 'summary': 'Generally appropriate, but the code-switching may not be universally accepted.'}, {'socio_cultural_score': 9.0, 'issues': 'The reference to Microsoft and modern software development is culturally relevant and widely accepted.', 'summary': 'Highly appropriate with no significant issues.'}, {'socio_cultural_score': 7.0, 'issues': 'The mention of Amazon and its impact on shopping in Dubai is relevant, but the code-switching may feel unnatural to some audiences.', 'summary': 'Appropriate but could be improved for cultural resonance.'}]\n    Social Cultural Result: {'socio_cultural_score': 8.0, 'issues': 'sentence_1: The mention of Elon Musk and Google is culturally relevant, but the mix of Arabic and English may not resonate with all Arabic speakers. | sentence_2: The reference to Microsoft and modern software development is culturally relevant and widely accepted. | sentence_3: The mention of Amazon and its impact on shopping in Dubai is relevant, but the code-switching may feel unnatural to some audiences.', 'summary': 'Per-instance average across 3 sentence(s).'}\n    ",
+        "score": 6.866666666666666,
+        "sentence_scores": [
+          6.95,
+          6.95,
+          6.7
+        ],
+        "failing_sentence_indices": [
+          0,
+          1,
+          2
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا أعمل مع Elon Musk في مشروع جديد حول الذكاء الاصطناعي, ونتحدث عن كيف يمكن لـ Google أن تؤثر على مستقبل التكنولوجيا.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch between Arabic and English feels natural, especially with a well-known figure like Elon Musk.",
+                "2": "The context of discussing AI and Google is relevant and authentic."
+              },
+              "summary": "The sentence demonstrates a high level of naturalness due to the relevance of the topics and the familiarity with the names mentioned."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "86.36% : 13.64%",
+              "notes": "far from target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "The mention of Elon Musk and Google is culturally relevant, but the mix of Arabic and English may not resonate with all Arabic speakers.",
+              "summary": "Generally appropriate, but the code-switching may not be universally accepted."
+            },
+            "weighted_score": 6.95,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false
+          },
+          {
+            "index": 1,
+            "text": "أحب التكنولوجيا, خاصة عندما أقرأ عن Microsoft وكيف يتم تطوير البرمجيات الحديثة في نيويورك.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The mention of Microsoft is appropriate in a tech context, and the switch is smooth.",
+                "2": "The sentence flows well, but the transition could be slightly more integrated."
+              },
+              "summary": "Overall, the sentence is natural, but the integration of the English term could be improved for a more seamless bilingual experience."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "92.86% : 7.14%",
+              "notes": "far from target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "The reference to Microsoft and modern software development is culturally relevant and widely accepted.",
+              "summary": "Highly appropriate with no significant issues."
+            },
+            "weighted_score": 6.95,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false
+          },
+          {
+            "index": 2,
+            "text": "أتحدث مع زملائي عن كيف أن Amazon تغير طريقة التسوق في دبي, خاصة بعد أن أعلنت عن تقنيات جديدة.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The reference to Amazon and its impact on shopping is relevant and timely.",
+                "2": "The switch to English is well-placed and feels authentic."
+              },
+              "summary": "This sentence is highly natural, effectively blending Arabic and English in a relevant context."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "94.74% : 5.26%",
+              "notes": "far from target ratio"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 7.0,
+              "issues": "The mention of Amazon and its impact on shopping in Dubai is relevant, but the code-switching may feel unnatural to some audiences.",
+              "summary": "Appropriate but could be improved for cultural resonance."
+            },
+            "weighted_score": 6.7,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    }
+  ]
+}

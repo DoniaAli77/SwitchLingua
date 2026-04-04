@@ -282,11 +282,9 @@ def build_sentence_records(
             )
 
     task_validation_result = state.get("task_validation_result") or {}
-    per_instance_tv = (
-        task_validation_result.get("per_instance_results", []) or []
-        if isinstance(task_validation_result, dict)
-        else []
-    )
+    per_instance_tv = state.get("task_validation_results_per_instances", []) or []
+    if not isinstance(per_instance_tv, list):
+        per_instance_tv = []
 
     # Normalise refine_counts to match text count
     rc = list(refine_counts) if isinstance(refine_counts, list) else []
@@ -320,14 +318,23 @@ def build_sentence_records(
         else:
             status = "fail"
 
-        # Per-sentence task validation flag
+        # Per-sentence task validation payload + legacy pass flag mirror
         task_passed = None
+        task_validation = {}
         tv_item = per_instance_tv[i] if i < len(per_instance_tv) else None
         if isinstance(tv_item, dict):
             task_passed = bool(tv_item.get("passed", False))
+            task_validation = tv_item
         elif not per_instance_tv and isinstance(task_validation_result, dict):
             raw = task_validation_result.get("passed")
             task_passed = bool(raw) if raw is not None else None
+            task_validation = {
+                "passed": task_passed,
+                "confidence": task_validation_result.get("confidence"),
+                "notes": task_validation_result.get("notes"),
+                "predicted_label": task_validation_result.get("predicted_label"),
+                "errors": task_validation_result.get("errors", []),
+            }
 
         # Store the full typed response objects, not just extracted floats
         records.append(
@@ -342,6 +349,7 @@ def build_sentence_records(
                 "refine_count": rc_i,
                 "status": status,
                 "task_passed": task_passed,
+                "task_validation": task_validation,
             }
         )
 

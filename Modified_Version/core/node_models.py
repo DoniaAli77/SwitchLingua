@@ -124,6 +124,7 @@ class SentenceRecord(TypedDict, total=False):
     refine_count: int
     status: str
     task_passed: Optional[bool]
+    task_validation: TaskValidationResult      # full per-instance task validation object
 
 class BaseState(TypedDict, total=False):
     task: Literal["topic", "sentiment", "ner"]
@@ -155,6 +156,7 @@ class BaseState(TypedDict, total=False):
 
     # quality results (unchanged types)
     task_validation_result: TaskValidationResult
+    task_validation_results_per_instances: List[TaskValidationResult]
     fluency_result: FluencyResponse
     fluency_results_per_instances: List[FluencyResponse]
     naturalness_result: NaturalnessResponse

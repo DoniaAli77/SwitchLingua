@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\.env",
+    "tasks": [
+      "ner"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-04T12:21:00.413405"
+  },
+  "runs": [
+    {
+      "task": "ner",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 3,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أستخدم Google للبحث عن المعلومات، وأعتقد أن Elon Musk لديه أفكار رائعة حول المستقبل.",
+          "كل يوم أتعلم شيئًا جديدًا عن التكنولوجيا من Apple، خاصة كيف أن Tim Cook يقود الشركة بشكل مبدع.",
+          "في الصف، نتحدث كثيرًا عن تأثير Facebook على المجتمع، وأعتقد أن Mark Zuckerberg لديه رؤية مثيرة للاهتمام."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.8,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_0: Not enough English entities to satisfy min_entities requirement.",
+            "instance_1: Insufficient English-script entities: only 1 valid entity found.",
+            "instance_2: Not enough required entities: found 1, required at least 2."
+          ],
+          "per_instance_results": [
+            {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains only one English entity (Google) and one Arabic entity (Elon Musk), failing the requirement for at least two English entities.",
+              "predicted_label": null,
+              "errors": [
+                "Not enough English entities to satisfy min_entities requirement."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains one required entity (Apple - ORG) and one additional entity (Tim Cook - PER), but Tim Cook is not in English script. Therefore, it does not meet the minimum requirement of two English-script entities.",
+              "predicted_label": null,
+              "errors": [
+                "Insufficient English-script entities: only 1 valid entity found."
+              ]
+            },
+            {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains only one English entity 'Mark Zuckerberg' which is a PER type, but it does not meet the minimum requirement of two entities. The other entity 'Facebook' is an ORG type but is not counted due to the Arabic context.",
+              "predicted_label": null,
+              "errors": [
+                "Not enough required entities: found 1, required at least 2."
+              ]
+            }
+          ]
+        },
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 9.0,
+          "errors": {},
+          "summary": "Per-instance average across 3 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch between Arabic and English is smooth and contextually appropriate.",
+              "2": "The mention of Elon Musk feels natural in the context of discussing future ideas."
+            },
+            "summary": "The sentence flows well and reflects authentic bilingual usage."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The integration of Apple and Tim Cook is relevant and fits the context of learning about technology.",
+              "2": "The sentence maintains a good balance between Arabic and English."
+            },
+            "summary": "Overall, the sentence is natural, though slightly less fluid than the first."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The reference to Facebook and Mark Zuckerberg is timely and relevant.",
+              "2": "The switch is seamless and reflects common discussions among bilingual speakers."
+            },
+            "summary": "The sentence is very natural and effectively combines both languages."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.666666666666666,
+          "observations": {
+            "sentence_1": "{'1': 'The switch between Arabic and English is smooth and contextually appropriate.', '2': 'The mention of Elon Musk feels natural in the context of discussing future ideas.'}",
+            "sentence_2": "{'1': 'The integration of Apple and Tim Cook is relevant and fits the context of learning about technology.', '2': 'The sentence maintains a good balance between Arabic and English.'}",
+            "sentence_3": "{'1': 'The reference to Facebook and Mark Zuckerberg is timely and relevant.', '2': 'The switch is seamless and reflects common discussions among bilingual speakers.'}"
+          },
+          "summary": "Per-instance average across 3 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "20.00% : 80.00%",
+            "notes": "Code-switched, diff = 10% from target."
+          },
+          {
+            "ratio_score": 2.0,
+            "computed_ratio": "15.79% : 84.21%",
+            "notes": "Code-switched, diff = 20.21% from target."
+          },
+          {
+            "ratio_score": 2.0,
+            "computed_ratio": "17.65% : 82.35%",
+            "notes": "Code-switched, diff = 19.35% from target."
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "The use of 'Google' and 'Elon Musk' is generally acceptable, but the cultural context of discussing a foreign figure may vary.",
+            "summary": "The sentence aligns well with cultural norms, but the mention of a foreign figure could be seen as less relevant in some contexts."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "The use of 'Apple' and 'Tim Cook' is appropriate, as technology is a widely accepted topic, and the reference to a foreign CEO is generally positive.",
+            "summary": "The sentence is culturally appropriate and aligns well with local norms regarding technology discussions."
+          },
+          {
+            "socio_cultural_score": 7.0,
+            "issues": "While discussing 'Facebook' and 'Mark Zuckerberg' is relevant, the perception of social media can be mixed in different cultures.",
+            "summary": "The sentence is mostly appropriate, but the mention of social media's impact may raise concerns in some cultural contexts."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 8.0,
+          "issues": "sentence_1: The use of 'Google' and 'Elon Musk' is generally acceptable, but the cultural context of discussing a foreign figure may vary. | sentence_2: The use of 'Apple' and 'Tim Cook' is appropriate, as technology is a widely accepted topic, and the reference to a foreign CEO is generally positive. | sentence_3: While discussing 'Facebook' and 'Mark Zuckerberg' is relevant, the perception of social media can be mixed in different cultures.",
+          "summary": "Per-instance average across 3 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أنا أستخدم Google للبحث عن المعلومات، وأعتقد أن Elon Musk لديه أفكار رائعة حول المستقبل.', 'كل يوم أتعلم شيئًا جديدًا عن التكنولوجيا من Apple، خاصة كيف أن Tim Cook يقود الشركة بشكل مبدع.', 'في الصف، نتحدث كثيرًا عن تأثير Facebook على المجتمع، وأعتقد أن Mark Zuckerberg لديه رؤية مثيرة للاهتمام.']\n    Sentence Scores: [7.75, 7.35, 7.1]\n    Failing Sentence Indices (<8.0): [0, 1, 2]\n    Fluency Per-Instance: [{'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with appropriate code-switching.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with appropriate code-switching.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with appropriate code-switching.'}]\n    Fluency Result: {'fluency_score': 9.0, 'errors': {}, 'summary': 'Per-instance average across 3 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The switch between Arabic and English is smooth and contextually appropriate.', '2': 'The mention of Elon Musk feels natural in the context of discussing future ideas.'}, 'summary': 'The sentence flows well and reflects authentic bilingual usage.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The integration of Apple and Tim Cook is relevant and fits the context of learning about technology.', '2': 'The sentence maintains a good balance between Arabic and English.'}, 'summary': 'Overall, the sentence is natural, though slightly less fluid than the first.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The reference to Facebook and Mark Zuckerberg is timely and relevant.', '2': 'The switch is seamless and reflects common discussions among bilingual speakers.'}, 'summary': 'The sentence is very natural and effectively combines both languages.'}]\n    Naturalness Result: {'naturalness_score': 8.666666666666666, 'observations': {'sentence_1': \"{'1': 'The switch between Arabic and English is smooth and contextually appropriate.', '2': 'The mention of Elon Musk feels natural in the context of discussing future ideas.'}\", 'sentence_2': \"{'1': 'The integration of Apple and Tim Cook is relevant and fits the context of learning about technology.', '2': 'The sentence maintains a good balance between Arabic and English.'}\", 'sentence_3': \"{'1': 'The reference to Facebook and Mark Zuckerberg is timely and relevant.', '2': 'The switch is seamless and reflects common discussions among bilingual speakers.'}\"}, 'summary': 'Per-instance average across 3 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 4.0, 'computed_ratio': '20.00% : 80.00%', 'notes': 'Code-switched, diff = 10% from target.'}, {'ratio_score': 2.0, 'computed_ratio': '15.79% : 84.21%', 'notes': 'Code-switched, diff = 20.21% from target.'}, {'ratio_score': 2.0, 'computed_ratio': '17.65% : 82.35%', 'notes': 'Code-switched, diff = 19.35% from target.'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 8.0, 'issues': \"The use of 'Google' and 'Elon Musk' is generally acceptable, but the cultural context of discussing a foreign figure may vary.\", 'summary': 'The sentence aligns well with cultural norms, but the mention of a foreign figure could be seen as less relevant in some contexts.'}, {'socio_cultural_score': 9.0, 'issues': \"The use of 'Apple' and 'Tim Cook' is appropriate, as technology is a widely accepted topic, and the reference to a foreign CEO is generally positive.\", 'summary': 'The sentence is culturally appropriate and aligns well with local norms regarding technology discussions.'}, {'socio_cultural_score': 7.0, 'issues': \"While discussing 'Facebook' and 'Mark Zuckerberg' is relevant, the perception of social media can be mixed in different cultures.\", 'summary': \"The sentence is mostly appropriate, but the mention of social media's impact may raise concerns in some cultural contexts.\"}]\n    Social Cultural Result: {'socio_cultural_score': 8.0, 'issues': \"sentence_1: The use of 'Google' and 'Elon Musk' is generally acceptable, but the cultural context of discussing a foreign figure may vary. | sentence_2: The use of 'Apple' and 'Tim Cook' is appropriate, as technology is a widely accepted topic, and the reference to a foreign CEO is generally positive. | sentence_3: While discussing 'Facebook' and 'Mark Zuckerberg' is relevant, the perception of social media can be mixed in different cultures.\", 'summary': 'Per-instance average across 3 sentence(s).'}\n    ",
+        "score": 7.3999999999999995,
+        "sentence_scores": [
+          7.75,
+          7.35,
+          7.1
+        ],
+        "failing_sentence_indices": [
+          0,
+          1,
+          2
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا أستخدم Google للبحث عن المعلومات، وأعتقد أن Elon Musk لديه أفكار رائعة حول المستقبل.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch between Arabic and English is smooth and contextually appropriate.",
+                "2": "The mention of Elon Musk feels natural in the context of discussing future ideas."
+              },
+              "summary": "The sentence flows well and reflects authentic bilingual usage."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "20.00% : 80.00%",
+              "notes": "Code-switched, diff = 10% from target."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "The use of 'Google' and 'Elon Musk' is generally acceptable, but the cultural context of discussing a foreign figure may vary.",
+              "summary": "The sentence aligns well with cultural norms, but the mention of a foreign figure could be seen as less relevant in some contexts."
+            },
+            "weighted_score": 7.75,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains only one English entity (Google) and one Arabic entity (Elon Musk), failing the requirement for at least two English entities.",
+              "predicted_label": null,
+              "errors": [
+                "Not enough English entities to satisfy min_entities requirement."
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "text": "كل يوم أتعلم شيئًا جديدًا عن التكنولوجيا من Apple، خاصة كيف أن Tim Cook يقود الشركة بشكل مبدع.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The integration of Apple and Tim Cook is relevant and fits the context of learning about technology.",
+                "2": "The sentence maintains a good balance between Arabic and English."
+              },
+              "summary": "Overall, the sentence is natural, though slightly less fluid than the first."
+            },
+            "cs_ratio": {
+              "ratio_score": 2.0,
+              "computed_ratio": "15.79% : 84.21%",
+              "notes": "Code-switched, diff = 20.21% from target."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "The use of 'Apple' and 'Tim Cook' is appropriate, as technology is a widely accepted topic, and the reference to a foreign CEO is generally positive.",
+              "summary": "The sentence is culturally appropriate and aligns well with local norms regarding technology discussions."
+            },
+            "weighted_score": 7.35,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains one required entity (Apple - ORG) and one additional entity (Tim Cook - PER), but Tim Cook is not in English script. Therefore, it does not meet the minimum requirement of two English-script entities.",
+              "predicted_label": null,
+              "errors": [
+                "Insufficient English-script entities: only 1 valid entity found."
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "text": "في الصف، نتحدث كثيرًا عن تأثير Facebook على المجتمع، وأعتقد أن Mark Zuckerberg لديه رؤية مثيرة للاهتمام.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with appropriate code-switching."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The reference to Facebook and Mark Zuckerberg is timely and relevant.",
+                "2": "The switch is seamless and reflects common discussions among bilingual speakers."
+              },
+              "summary": "The sentence is very natural and effectively combines both languages."
+            },
+            "cs_ratio": {
+              "ratio_score": 2.0,
+              "computed_ratio": "17.65% : 82.35%",
+              "notes": "Code-switched, diff = 19.35% from target."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 7.0,
+              "issues": "While discussing 'Facebook' and 'Mark Zuckerberg' is relevant, the perception of social media can be mixed in different cultures.",
+              "summary": "The sentence is mostly appropriate, but the mention of social media's impact may raise concerns in some cultural contexts."
+            },
+            "weighted_score": 7.1,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains only one English entity 'Mark Zuckerberg' which is a PER type, but it does not meet the minimum requirement of two entities. The other entity 'Facebook' is an ORG type but is not counted due to the Arabic context.",
+              "predicted_label": null,
+              "errors": [
+                "Not enough required entities: found 1, required at least 2."
+              ]
+            }
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    }
+  ]
+}

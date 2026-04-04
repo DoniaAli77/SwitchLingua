@@ -1,0 +1,274 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\.env",
+    "tasks": [
+      "ner"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-04T12:28:24.456581"
+  },
+  "runs": [
+    {
+      "task": "ner",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 2,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أتحدث مع Elon Musk عن innovations في Apple. في الحقيقة، أعتقد أن شراكتهم مع Google ستحدث ثورة في مجال التكنولوجيا.",
+          "أعيش في القاهرة وأحب استخدام التكنولوجيا التي تطورها Microsoft. مؤخراً، قرأت مقال عن تأثير Sundar Pichai على مستقبل الذكاء الصناعي."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.85,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_1: Insufficient English entities: only 2 found, minimum required is 2.",
+            "instance_1: Missing required entity types: must include both PER and ORG."
+          ]
+        },
+        "task_validation_results_per_instances": [
+          {
+            "passed": true,
+            "confidence": 0.9,
+            "notes": "The generated instance contains the required entities 'Elon Musk' (PER) and 'Apple' (ORG), satisfying the constraints.",
+            "predicted_label": null,
+            "errors": []
+          },
+          {
+            "passed": false,
+            "confidence": 0.8,
+            "notes": "The generated instance contains one English entity (Microsoft) and one English person entity (Sundar Pichai), but the Arabic entities do not count towards the required types. The minimum requirement of 2 English entities is not met.",
+            "predicted_label": null,
+            "errors": [
+              "Insufficient English entities: only 2 found, minimum required is 2.",
+              "Missing required entity types: must include both PER and ORG."
+            ]
+          }
+        ],
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 8.0,
+            "errors": {},
+            "summary": "The sentence is mostly coherent and grammatically correct, with a good mix of Arabic and English. The use of 'innovations' and 'Elon Musk' fits well within the context."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is coherent and grammatically correct. The integration of 'Sundar Pichai' and 'Microsoft' is appropriate, and the overall structure is clear."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 8.5,
+          "errors": {},
+          "summary": "Per-instance average across 2 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The sentence uses intersentential switching effectively, with Arabic and English terms that are relevant to the context.",
+              "2": "The mix of languages feels authentic, as discussions about technology often involve English terms."
+            },
+            "summary": "The sentence is highly natural, reflecting common bilingual usage in technology discussions."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The sentence includes intrasentential switching with the name 'Sundar Pichai' which is appropriate in the context.",
+              "2": "While the sentence flows well, the switch to English could be slightly more integrated."
+            },
+            "summary": "The sentence is natural but could benefit from a smoother integration of the English term."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.5,
+          "observations": {
+            "sentence_1": "{'1': 'The sentence uses intersentential switching effectively, with Arabic and English terms that are relevant to the context.', '2': 'The mix of languages feels authentic, as discussions about technology often involve English terms.'}",
+            "sentence_2": "{'1': \"The sentence includes intrasentential switching with the name 'Sundar Pichai' which is appropriate in the context.\", '2': 'While the sentence flows well, the switch to English could be slightly more integrated.'}"
+          },
+          "summary": "Per-instance average across 2 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 6.0,
+            "computed_ratio": "76.19% : 23.81%",
+            "notes": "code-switched, diff = 3.81%"
+          },
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "85.00% : 15.00%",
+            "notes": "code-switched, diff = 5.00%"
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "The use of 'Elon Musk' and 'Apple' may not resonate with all Arabic speakers, but they are widely recognized figures and brands. The sentence is generally appropriate.",
+            "summary": "The sentence aligns well with cultural norms and uses borrowed words appropriately."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "The mention of 'Sundar Pichai' and 'Microsoft' is culturally relevant and widely accepted. The sentence is clear and appropriate.",
+            "summary": "The sentence is culturally appropriate and uses borrowed words effectively."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 8.5,
+          "issues": "sentence_1: The use of 'Elon Musk' and 'Apple' may not resonate with all Arabic speakers, but they are widely recognized figures and brands. The sentence is generally appropriate. | sentence_2: The mention of 'Sundar Pichai' and 'Microsoft' is culturally relevant and widely accepted. The sentence is clear and appropriate.",
+          "summary": "Per-instance average across 2 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أنا أتحدث مع Elon Musk عن innovations في Apple. في الحقيقة، أعتقد أن شراكتهم مع Google ستحدث ثورة في مجال التكنولوجيا.', 'أعيش في القاهرة وأحب استخدام التكنولوجيا التي تطورها Microsoft. مؤخراً، قرأت مقال عن تأثير Sundar Pichai على مستقبل الذكاء الصناعي.']\n    Sentence Scores: [7.85, 7.75]\n    Failing Sentence Indices (<8.0): [0, 1]\n    Fluency Per-Instance: [{'fluency_score': 8.0, 'errors': {}, 'summary': \"The sentence is mostly coherent and grammatically correct, with a good mix of Arabic and English. The use of 'innovations' and 'Elon Musk' fits well within the context.\"}, {'fluency_score': 9.0, 'errors': {}, 'summary': \"The sentence is coherent and grammatically correct. The integration of 'Sundar Pichai' and 'Microsoft' is appropriate, and the overall structure is clear.\"}]\n    Fluency Result: {'fluency_score': 8.5, 'errors': {}, 'summary': 'Per-instance average across 2 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The sentence uses intersentential switching effectively, with Arabic and English terms that are relevant to the context.', '2': 'The mix of languages feels authentic, as discussions about technology often involve English terms.'}, 'summary': 'The sentence is highly natural, reflecting common bilingual usage in technology discussions.'}, {'naturalness_score': 8.0, 'observations': {'1': \"The sentence includes intrasentential switching with the name 'Sundar Pichai' which is appropriate in the context.\", '2': 'While the sentence flows well, the switch to English could be slightly more integrated.'}, 'summary': 'The sentence is natural but could benefit from a smoother integration of the English term.'}]\n    Naturalness Result: {'naturalness_score': 8.5, 'observations': {'sentence_1': \"{'1': 'The sentence uses intersentential switching effectively, with Arabic and English terms that are relevant to the context.', '2': 'The mix of languages feels authentic, as discussions about technology often involve English terms.'}\", 'sentence_2': '{\\'1\\': \"The sentence includes intrasentential switching with the name \\'Sundar Pichai\\' which is appropriate in the context.\", \\'2\\': \\'While the sentence flows well, the switch to English could be slightly more integrated.\\'}'}, 'summary': 'Per-instance average across 2 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 6.0, 'computed_ratio': '76.19% : 23.81%', 'notes': 'code-switched, diff = 3.81%'}, {'ratio_score': 4.0, 'computed_ratio': '85.00% : 15.00%', 'notes': 'code-switched, diff = 5.00%'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 8.0, 'issues': \"The use of 'Elon Musk' and 'Apple' may not resonate with all Arabic speakers, but they are widely recognized figures and brands. The sentence is generally appropriate.\", 'summary': 'The sentence aligns well with cultural norms and uses borrowed words appropriately.'}, {'socio_cultural_score': 9.0, 'issues': \"The mention of 'Sundar Pichai' and 'Microsoft' is culturally relevant and widely accepted. The sentence is clear and appropriate.\", 'summary': 'The sentence is culturally appropriate and uses borrowed words effectively.'}]\n    Social Cultural Result: {'socio_cultural_score': 8.5, 'issues': \"sentence_1: The use of 'Elon Musk' and 'Apple' may not resonate with all Arabic speakers, but they are widely recognized figures and brands. The sentence is generally appropriate. | sentence_2: The mention of 'Sundar Pichai' and 'Microsoft' is culturally relevant and widely accepted. The sentence is clear and appropriate.\", 'summary': 'Per-instance average across 2 sentence(s).'}\n    ",
+        "score": 7.8,
+        "sentence_scores": [
+          7.85,
+          7.75
+        ],
+        "failing_sentence_indices": [
+          0,
+          1
+        ],
+        "instance_refine_counts": [
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا أتحدث مع Elon Musk عن innovations في Apple. في الحقيقة، أعتقد أن شراكتهم مع Google ستحدث ثورة في مجال التكنولوجيا.",
+            "fluency": {
+              "fluency_score": 8.0,
+              "errors": {},
+              "summary": "The sentence is mostly coherent and grammatically correct, with a good mix of Arabic and English. The use of 'innovations' and 'Elon Musk' fits well within the context."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The sentence uses intersentential switching effectively, with Arabic and English terms that are relevant to the context.",
+                "2": "The mix of languages feels authentic, as discussions about technology often involve English terms."
+              },
+              "summary": "The sentence is highly natural, reflecting common bilingual usage in technology discussions."
+            },
+            "cs_ratio": {
+              "ratio_score": 6.0,
+              "computed_ratio": "76.19% : 23.81%",
+              "notes": "code-switched, diff = 3.81%"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "The use of 'Elon Musk' and 'Apple' may not resonate with all Arabic speakers, but they are widely recognized figures and brands. The sentence is generally appropriate.",
+              "summary": "The sentence aligns well with cultural norms and uses borrowed words appropriately."
+            },
+            "weighted_score": 7.85,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The generated instance contains the required entities 'Elon Musk' (PER) and 'Apple' (ORG), satisfying the constraints.",
+              "predicted_label": null,
+              "errors": []
+            }
+          },
+          {
+            "index": 1,
+            "text": "أعيش في القاهرة وأحب استخدام التكنولوجيا التي تطورها Microsoft. مؤخراً، قرأت مقال عن تأثير Sundar Pichai على مستقبل الذكاء الصناعي.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is coherent and grammatically correct. The integration of 'Sundar Pichai' and 'Microsoft' is appropriate, and the overall structure is clear."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The sentence includes intrasentential switching with the name 'Sundar Pichai' which is appropriate in the context.",
+                "2": "While the sentence flows well, the switch to English could be slightly more integrated."
+              },
+              "summary": "The sentence is natural but could benefit from a smoother integration of the English term."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "85.00% : 15.00%",
+              "notes": "code-switched, diff = 5.00%"
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "The mention of 'Sundar Pichai' and 'Microsoft' is culturally relevant and widely accepted. The sentence is clear and appropriate.",
+              "summary": "The sentence is culturally appropriate and uses borrowed words effectively."
+            },
+            "weighted_score": 7.75,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The generated instance contains one English entity (Microsoft) and one English person entity (Sundar Pichai), but the Arabic entities do not count towards the required types. The minimum requirement of 2 English entities is not met.",
+              "predicted_label": null,
+              "errors": [
+                "Insufficient English entities: only 2 found, minimum required is 2.",
+                "Missing required entity types: must include both PER and ORG."
+              ]
+            }
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    }
+  ]
+}

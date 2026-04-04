@@ -182,7 +182,11 @@ def _invoke_task_validation_with_retry(state: AgentRunningState, validator_promp
 def _validate_per_instance_with_retry(state: AgentRunningState, validator_prompt) -> Dict[str, Any]:
     instances = state.get("data_generation_result", [])
     if not isinstance(instances, list) or not instances:
-        return _invoke_task_validation_with_retry(state, validator_prompt)
+        aggregate = _invoke_task_validation_with_retry(state, validator_prompt)
+        return {
+            "aggregate": aggregate,
+            "per_instance_results": [],
+        }
 
     per_instance_results = []
     all_errors: list[str] = []
@@ -205,11 +209,14 @@ def _validate_per_instance_with_retry(state: AgentRunningState, validator_prompt
 
     if not per_instance_results:
         return {
+            "aggregate": {
             "passed": False,
             "confidence": 0.0,
             "notes": "Validator returned empty per-instance responses",
             "predicted_label": None,
             "errors": ["empty_per_instance_validator_response"],
+            },
+            "per_instance_results": [],
         }
 
     passed = all(bool(item.get("passed", False)) for item in per_instance_results)
@@ -227,23 +234,31 @@ def _validate_per_instance_with_retry(state: AgentRunningState, validator_prompt
         notes += f"; predicted_labels={unique_predicted}"
 
     return {
-        "passed": passed,
-        "confidence": confidence,
-        "notes": notes,
-        "predicted_label": aggregate_predicted,
-        "errors": all_errors,
+        "aggregate": {
+            "passed": passed,
+            "confidence": confidence,
+            "notes": notes,
+            "predicted_label": aggregate_predicted,
+            "errors": all_errors,
+        },
         "per_instance_results": per_instance_results,
     }
 
 
 def RunTopicTaskValidatorAgent(state: AgentRunningState):
     response = _validate_per_instance_with_retry(state, TASK_VALIDATION_TOPIC_PROMPT)
-    return {"task_validation_result": response}
+    return {
+        "task_validation_result": response.get("aggregate", {}),
+        "task_validation_results_per_instances": response.get("per_instance_results", []),
+    }
 
 
 def RunSentimentTaskValidatorAgent(state: AgentRunningState):
     response = _validate_per_instance_with_retry(state, TASK_VALIDATION_SENTIMENT_PROMPT)
-    return {"task_validation_result": response}
+    return {
+        "task_validation_result": response.get("aggregate", {}),
+        "task_validation_results_per_instances": response.get("per_instance_results", []),
+    }
 
 
 def _normalize_entity_type(entity_type: str) -> str:
@@ -429,17 +444,19 @@ def _deterministic_ner_english_policy(state: AgentRunningState) -> Dict[str, Any
 
 def RunNERTaskValidatorAgent(state: AgentRunningState):
     llm_response = _validate_per_instance_with_retry(state, TASK_VALIDATION_NER_PROMPT)
+    llm_aggregate = llm_response.get("aggregate", {}) if isinstance(llm_response, dict) else {}
+    llm_per_instance = llm_response.get("per_instance_results", []) if isinstance(llm_response, dict) else []
     # deterministic = _deterministic_ner_english_policy(state)
-    llm_notes = llm_response.get("notes", "") if isinstance(llm_response, dict) else ""
+    llm_notes = llm_aggregate.get("notes", "") if isinstance(llm_aggregate, dict) else ""
 
     final_result = {
-        "passed": bool(llm_response.get("passed", False)) if isinstance(llm_response, dict) else False,
-        "confidence": float(llm_response.get("confidence", 0.0)) if isinstance(llm_response, dict) else 0.0,
+        "passed": bool(llm_aggregate.get("passed", False)) if isinstance(llm_aggregate, dict) else False,
+        "confidence": float(llm_aggregate.get("confidence", 0.0)) if isinstance(llm_aggregate, dict) else 0.0,
         "notes": llm_notes,
         "deterministic_notes": "",
         "llm_notes": llm_notes,
-        "predicted_label": llm_response.get("predicted_label") if isinstance(llm_response, dict) else None,
-        "errors": llm_response.get("errors", []) if isinstance(llm_response, dict) else ["empty_validator_response"],
+        "predicted_label": llm_aggregate.get("predicted_label") if isinstance(llm_aggregate, dict) else None,
+        "errors": llm_aggregate.get("errors", []) if isinstance(llm_aggregate, dict) else ["empty_validator_response"],
     }
 
     # To re-enable hybrid validation later, restore deterministic merge logic:
@@ -454,7 +471,10 @@ def RunNERTaskValidatorAgent(state: AgentRunningState):
     #     "english_entity_counts": deterministic["english_entity_counts"],
     #     "english_total_entities": deterministic["english_total_entities"],
     # }
-    return {"task_validation_result": final_result}
+    return {
+        "task_validation_result": final_result,
+        "task_validation_results_per_instances": llm_per_instance,
+    }
 
 
 def RunTaskValidatorAgent(state: AgentRunningState):
@@ -1095,10 +1115,9 @@ def RunRefinerAgent(state: AgentRunningState):
         cs_inst = rec.get("cs_ratio") if isinstance(rec.get("cs_ratio"), dict) else {}
         soc_inst = rec.get("socio_cultural") if isinstance(rec.get("socio_cultural"), dict) else {}
 
-        task_val_inst = {}
-        tvr = state.get("task_validation_result", {})
-        if isinstance(tvr, dict):
-            per_instance = tvr.get("per_instance_results", [])
+        task_val_inst = rec.get("task_validation") if isinstance(rec.get("task_validation"), dict) else {}
+        if not task_val_inst:
+            per_instance = state.get("task_validation_results_per_instances", [])
             if isinstance(per_instance, list) and index < len(per_instance) and isinstance(per_instance[index], dict):
                 task_val_inst = per_instance[index]
 
