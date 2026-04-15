@@ -676,12 +676,18 @@ def parse_target_ratios(cs_ratio: str):
     if not cs_ratio:
         return 0.0, 0.0
     try:
-        target_ar = float(cs_ratio.replace("%","")) 
-        target_en = 100 - target_ar
-        return round(target_en, 4), round(target_ar, 4)
+        target_matrix = float(cs_ratio.replace("%", ""))
+        target_embedded = 100 - target_matrix
+        return round(target_matrix, 4), round(target_embedded, 4)
     except (ValueError, AttributeError) as e:
         print(f"ERROR parsing cs_ratio '{cs_ratio}': {e}")
         return 0.0, 0.0
+
+
+def _is_arabic_language(language: str) -> bool:
+    normalized = str(language or "").strip().lower()
+    return normalized in {"arabic", "ar"} or "arab" in normalized
+
 def set_field(obj, key, value):
     if isinstance(obj, dict):
         obj[key] = value
@@ -801,18 +807,28 @@ def RunCSRatioAgent(state: AgentRunningState):
     print("stats_list length:", len(per_scenario_stats))
     print("stats_list:", per_scenario_stats)
 
-    target_en, target_ar = parse_target_ratios(state.get("cs_ratio"))
-    print('target', target_en, target_ar)
+    target_matrix, target_embedded = parse_target_ratios(state.get("cs_ratio"))
+    matrix_is_arabic = _is_arabic_language(state.get("first_language", ""))
+    mapped_stats_list = [
+        {
+            "matrix_ratio": stats.get("cs_ar_ratio", 0.0) if matrix_is_arabic else stats.get("cs_en_ratio", 0.0),
+            "embedded_ratio": stats.get("cs_en_ratio", 0.0) if matrix_is_arabic else stats.get("cs_ar_ratio", 0.0),
+            "matrix_count": stats.get("cs_ar_count", 0) if matrix_is_arabic else stats.get("cs_en_count", 0),
+            "embedded_count": stats.get("cs_en_count", 0) if matrix_is_arabic else stats.get("cs_ar_count", 0),
+        }
+        for stats in per_scenario_stats
+    ]
+    print('target', target_matrix, target_embedded)
     
     # Prepare batch data: combine sentences with their stats
     sentences_with_stats = []
-    for i, (sent, stats) in enumerate(zip(texts, per_scenario_stats)):
+    for i, (sent, stats, mapped_stats) in enumerate(zip(texts, per_scenario_stats, mapped_stats_list)):
         sentences_with_stats.append(
             f"Sentence {i+1}: {sent}\n"
-            f"  - Arabic ratio: {stats['cs_ar_ratio']:.2f}%\n"
-            f"  - English ratio: {stats['cs_en_ratio']:.2f}%\n"
-            f"  - Arabic tokens: {stats['cs_ar_count']}\n"
-            f"  - English tokens: {stats['cs_en_count']}\n"
+            f"  - Matrix ratio: {mapped_stats['matrix_ratio']:.2f}%\n"
+            f"  - Embedded ratio: {mapped_stats['embedded_ratio']:.2f}%\n"
+            f"  - Matrix tokens: {mapped_stats['matrix_count']}\n"
+            f"  - Embedded tokens: {mapped_stats['embedded_count']}\n"
             f"  - Is code-switched: {stats['is_code_switched']}\n"
         )
     
@@ -821,8 +837,8 @@ def RunCSRatioAgent(state: AgentRunningState):
     # Batch call: all sentences at once
     local_state = {
         "cs_ratio": state.get("cs_ratio"),
-        "target_en_ratio": target_en,
-        "target_ar_ratio": target_ar,
+        "target_matrix_ratio": target_matrix,
+        "target_embedded_ratio": target_embedded,
         "sentences_with_stats": sentences_with_stats_str,
     }
     
@@ -836,19 +852,20 @@ def RunCSRatioAgent(state: AgentRunningState):
     if len(raw_batch_results) != len(texts):
         def _invoke_single_cs(idx: int, text: str):
             stats = per_scenario_stats[idx]
+            mapped_stats = mapped_stats_list[idx]
             single_sent_with_stats = (
                 f"Sentence 1: {text}\n"
-                f"  - Arabic ratio: {stats['cs_ar_ratio']:.2f}%\n"
-                f"  - English ratio: {stats['cs_en_ratio']:.2f}%\n"
-                f"  - Arabic tokens: {stats['cs_ar_count']}\n"
-                f"  - English tokens: {stats['cs_en_count']}\n"
+                f"  - Matrix ratio: {mapped_stats['matrix_ratio']:.2f}%\n"
+                f"  - Embedded ratio: {mapped_stats['embedded_ratio']:.2f}%\n"
+                f"  - Matrix tokens: {mapped_stats['matrix_count']}\n"
+                f"  - Embedded tokens: {mapped_stats['embedded_count']}\n"
                 f"  - Is code-switched: {stats['is_code_switched']}\n"
             )
             return CSRatioAgent.invoke(
                 {
                     "cs_ratio": state.get("cs_ratio"),
-                    "target_en_ratio": target_en,
-                    "target_ar_ratio": target_ar,
+                    "target_matrix_ratio": target_matrix,
+                    "target_embedded_ratio": target_embedded,
                     "sentences_with_stats": single_sent_with_stats,
                 }
             )
@@ -868,18 +885,19 @@ def RunCSRatioAgent(state: AgentRunningState):
     for idx in range(len(texts)):
         item = batch_results[idx]
         stats = per_scenario_stats[idx]
+        mapped_stats = mapped_stats_list[idx]
 
         if not item:
             results.append({
                 "ratio_score": 0 if not stats["is_code_switched"] else 5,
-                "computed_ratio": f"{stats['cs_ar_ratio']:.2f}% : {stats['cs_en_ratio']:.2f}%",
+                "computed_ratio": f"{mapped_stats['matrix_ratio']:.2f}% : {mapped_stats['embedded_ratio']:.2f}%",
                 "notes": "monolingual" if not stats["is_code_switched"] else "code-switched"
             })
             continue
 
         results.append({
             "ratio_score": _safe_score(item.get("ratio_score")),
-            "computed_ratio": str(item.get("computed_ratio", f"{stats['cs_ar_ratio']:.2f}% : {stats['cs_en_ratio']:.2f}%")),
+            "computed_ratio": str(item.get("computed_ratio", f"{mapped_stats['matrix_ratio']:.2f}% : {mapped_stats['embedded_ratio']:.2f}%")),
             "notes": str(item.get("notes", "monolingual" if not stats["is_code_switched"] else "code-switched"))
         })
     

@@ -507,11 +507,11 @@ CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
             - Return a score for EACH sentence independently.
 
             Desired ratio: {cs_ratio}
-            Target English ratio: {target_en_ratio}%
-            Target Arabic ratio: {target_ar_ratio}%
+            Target matrix-language ratio: {target_matrix_ratio}%
+            Target embedded-language ratio: {target_embedded_ratio}%
 
             **For each sentence, you have**:
-            - Arabic ratio & English ratio (deterministic)
+            - Matrix ratio & Embedded ratio (deterministic)
             - Token counts (deterministic)
             - Whether it's code-switched (deterministic)
 
@@ -522,15 +522,10 @@ CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
                 ...
             ]
 
-            Scoring rule:
-            - If NOT code-switched -> ratio_score = 0, notes = "monolingual"
-            - Otherwise, score based on closeness to target ratio:
-              - diff <= 2% -> 10
-              - diff <= 5% -> 8
-              - diff <= 10% -> 6
-              - diff <= 15% -> 4
-              - diff <= 20% -> 2
-              - diff > 20% -> 0
+                        Scoring instruction:
+                        - Assign ratio_score (0-10) using your judgment based on the deterministic statistics and target ratio.
+                        - Keep scoring consistent across sentences in the same batch.
+                        - In notes, briefly justify the score using the matrix/embedded percentages.
 
             Sentences with stats:
             {sentences_with_stats}
@@ -538,6 +533,55 @@ CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
         )
     ]
 )
+
+
+# CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
+#     [
+#         (
+#             "assistant",
+#             """
+#             You are **CSRatioAgent**. You evaluate the *Code-Switching Ratio* (CS-Ratio) 
+#             using the provided deterministic analysis for MULTIPLE sentences.
+
+#             IMPORTANT:
+#             - Do NOT recompute ratios yourself.
+#             - Do NOT guess token counts.
+#             - Use ONLY the deterministic statistics provided for each sentence.
+#             - Return a score for EACH sentence independently.
+
+#             Desired ratio: {cs_ratio}
+#             Target matrix-language ratio: {target_matrix_ratio}%
+#             Target embedded-language ratio: {target_embedded_ratio}%
+
+#             **For each sentence, you have**:
+#             - Matrix ratio & Embedded ratio (deterministic)
+#             - Token counts (deterministic)
+#             - Whether it's code-switched (deterministic)
+
+#             **Return a JSON array** with one object per sentence:
+#             [
+#                 {{"ratio_score": <0-10>, "computed_ratio": "XX% : YY%", "notes": "..."}},
+#                 {{"ratio_score": <0-10>, "computed_ratio": "XX% : YY%", "notes": "..."}},
+#                 ...
+#             ]
+
+#             Scoring rule:
+#             - If NOT code-switched -> ratio_score = 0, notes = "monolingual"
+#             - Otherwise, score based on closeness to target ratio:
+#               - diff <= 2% -> 10
+#               - diff <= 5% -> 8
+#               - diff <= 10% -> 6
+#               - diff <= 15% -> 4
+#               - diff <= 20% -> 2
+#               - diff > 20% -> 0
+
+#             Sentences with stats:
+#             {sentences_with_stats}
+#             """,
+#         )
+#     ]
+# )
+
 
 
 

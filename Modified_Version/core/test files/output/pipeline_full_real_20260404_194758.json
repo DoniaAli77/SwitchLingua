@@ -1,0 +1,1273 @@
+{
+  "meta": {
+    "config": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\config\\config2.yaml",
+    "env_file": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\Modified_Version\\.env",
+    "tasks": [
+      "topic",
+      "sentiment",
+      "ner"
+    ],
+    "max_scenarios_per_task": 1,
+    "timestamp": "2026-04-04T19:46:30.720774"
+  },
+  "runs": [
+    {
+      "task": "topic",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 4,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "business",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا حقًا مهتم بمجال الأعمال. I think it's fascinating how companies grow.",
+          "عندما أتحدث مع أصدقائي عن المشاريع، they often get excited about the ideas.",
+          "في كل مرة أقرأ عن استراتيجيات التسويق، I can't help but feel inspired.",
+          "أحب أن أتعلم عن الاقتصاد العالمي. It really affects local businesses."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "topic",
+        "label": "business",
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.9125,
+          "notes": "Per-instance task validation; predicted_labels=['business']",
+          "predicted_label": "business",
+          "errors": []
+        },
+        "task_validation_results_per_instances": [
+          {
+            "passed": true,
+            "confidence": 0.95,
+            "notes": "The instance discusses interest in the business field and mentions company growth, which aligns well with the expected topic of business.",
+            "predicted_label": "business",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.9,
+            "notes": "The instance discusses projects and ideas in a business context, which aligns with the expected topic of business.",
+            "predicted_label": "business",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.9,
+            "notes": "The instance discusses marketing strategies, which is a relevant topic within the business domain.",
+            "predicted_label": "business",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.9,
+            "notes": "The instance discusses global economics and its impact on local businesses, which aligns well with the business topic.",
+            "predicted_label": "business",
+            "errors": []
+          }
+        ],
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with a smooth transition between Arabic and English."
+          },
+          {
+            "fluency_score": 8.0,
+            "errors": {},
+            "summary": "The sentence is mostly coherent, but the switch to English could be more fluid."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and maintains coherence across languages."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is well-structured and coherent, effectively combining both languages."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 8.75,
+          "errors": {},
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch from Arabic to English is smooth and maintains the context.",
+              "2": "The English part complements the Arabic sentence well."
+            },
+            "summary": "The sentence flows naturally, showcasing a strong bilingual integration."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The switch occurs in a logical context, making it relatable.",
+              "2": "The English phrase fits well with the Arabic sentence."
+            },
+            "summary": "The sentence is quite natural, though the switch could be slightly more fluid."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The English part adds depth to the Arabic sentence.",
+              "2": "The transition feels authentic and common among bilingual speakers."
+            },
+            "summary": "This sentence is very natural, effectively blending both languages."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The switch is appropriate and relevant to the topic.",
+              "2": "The English phrase enhances the meaning of the Arabic sentence."
+            },
+            "summary": "The sentence is natural, though the switch could be slightly more seamless."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.5,
+          "observations": {
+            "sentence_1": "{'1': 'The switch from Arabic to English is smooth and maintains the context.', '2': 'The English part complements the Arabic sentence well.'}",
+            "sentence_2": "{'1': 'The switch occurs in a logical context, making it relatable.', '2': 'The English phrase fits well with the Arabic sentence.'}",
+            "sentence_3": "{'1': 'The English part adds depth to the Arabic sentence.', '2': 'The transition feels authentic and common among bilingual speakers.'}",
+            "sentence_4": "{'1': 'The switch is appropriate and relevant to the topic.', '2': 'The English phrase enhances the meaning of the Arabic sentence.'}"
+          },
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 2.0,
+            "computed_ratio": "38.46% : 61.54%",
+            "notes": "Significant mismatch from target; embedded language dominates."
+          },
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "46.15% : 53.85%",
+            "notes": "Close to target but still a notable imbalance; embedded language is slightly higher."
+          },
+          {
+            "ratio_score": 6.0,
+            "computed_ratio": "50.00% : 50.00%",
+            "notes": "Balanced ratio, but still below target; equal distribution."
+          },
+          {
+            "ratio_score": 8.0,
+            "computed_ratio": "54.55% : 45.45%",
+            "notes": "Near target; matrix language is slightly higher but close to balance."
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence effectively combines Arabic and English, maintaining cultural relevance and clarity."
+          },
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "The use of 'they' may not be as culturally specific in Arabic contexts.",
+            "summary": "The sentence is mostly appropriate, but the pronoun could be more culturally aligned."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally appropriate and conveys a clear message."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally relevant and effectively communicates the idea."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 8.75,
+          "issues": "sentence_1: None | sentence_2: The use of 'they' may not be as culturally specific in Arabic contexts. | sentence_3: None | sentence_4: None",
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: [\"أنا حقًا مهتم بمجال الأعمال. I think it's fascinating how companies grow.\", 'عندما أتحدث مع أصدقائي عن المشاريع، they often get excited about the ideas.', \"في كل مرة أقرأ عن استراتيجيات التسويق، I can't help but feel inspired.\", 'أحب أن أتعلم عن الاقتصاد العالمي. It really affects local businesses.']\n    Sentence Scores: [7.6, 7.2, 8.4, 8.55]\n    Failing Sentence Indices (<8.0): [0, 1]\n    Fluency Per-Instance: [{'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with a smooth transition between Arabic and English.'}, {'fluency_score': 8.0, 'errors': {}, 'summary': 'The sentence is mostly coherent, but the switch to English could be more fluid.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and maintains coherence across languages.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is well-structured and coherent, effectively combining both languages.'}]\n    Fluency Result: {'fluency_score': 8.75, 'errors': {}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The switch from Arabic to English is smooth and maintains the context.', '2': 'The English part complements the Arabic sentence well.'}, 'summary': 'The sentence flows naturally, showcasing a strong bilingual integration.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The switch occurs in a logical context, making it relatable.', '2': 'The English phrase fits well with the Arabic sentence.'}, 'summary': 'The sentence is quite natural, though the switch could be slightly more fluid.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The English part adds depth to the Arabic sentence.', '2': 'The transition feels authentic and common among bilingual speakers.'}, 'summary': 'This sentence is very natural, effectively blending both languages.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The switch is appropriate and relevant to the topic.', '2': 'The English phrase enhances the meaning of the Arabic sentence.'}, 'summary': 'The sentence is natural, though the switch could be slightly more seamless.'}]\n    Naturalness Result: {'naturalness_score': 8.5, 'observations': {'sentence_1': \"{'1': 'The switch from Arabic to English is smooth and maintains the context.', '2': 'The English part complements the Arabic sentence well.'}\", 'sentence_2': \"{'1': 'The switch occurs in a logical context, making it relatable.', '2': 'The English phrase fits well with the Arabic sentence.'}\", 'sentence_3': \"{'1': 'The English part adds depth to the Arabic sentence.', '2': 'The transition feels authentic and common among bilingual speakers.'}\", 'sentence_4': \"{'1': 'The switch is appropriate and relevant to the topic.', '2': 'The English phrase enhances the meaning of the Arabic sentence.'}\"}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 2.0, 'computed_ratio': '38.46% : 61.54%', 'notes': 'Significant mismatch from target; embedded language dominates.'}, {'ratio_score': 4.0, 'computed_ratio': '46.15% : 53.85%', 'notes': 'Close to target but still a notable imbalance; embedded language is slightly higher.'}, {'ratio_score': 6.0, 'computed_ratio': '50.00% : 50.00%', 'notes': 'Balanced ratio, but still below target; equal distribution.'}, {'ratio_score': 8.0, 'computed_ratio': '54.55% : 45.45%', 'notes': 'Near target; matrix language is slightly higher but close to balance.'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence effectively combines Arabic and English, maintaining cultural relevance and clarity.'}, {'socio_cultural_score': 8.0, 'issues': \"The use of 'they' may not be as culturally specific in Arabic contexts.\", 'summary': 'The sentence is mostly appropriate, but the pronoun could be more culturally aligned.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally appropriate and conveys a clear message.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally relevant and effectively communicates the idea.'}]\n    Social Cultural Result: {'socio_cultural_score': 8.75, 'issues': \"sentence_1: None | sentence_2: The use of 'they' may not be as culturally specific in Arabic contexts. | sentence_3: None | sentence_4: None\", 'summary': 'Per-instance average across 4 sentence(s).'}\n    ",
+        "score": 7.9375,
+        "sentence_scores": [
+          7.6,
+          7.2,
+          8.4,
+          8.55
+        ],
+        "failing_sentence_indices": [
+          0,
+          1
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا حقًا مهتم بمجال الأعمال. I think it's fascinating how companies grow.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with a smooth transition between Arabic and English."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch from Arabic to English is smooth and maintains the context.",
+                "2": "The English part complements the Arabic sentence well."
+              },
+              "summary": "The sentence flows naturally, showcasing a strong bilingual integration."
+            },
+            "cs_ratio": {
+              "ratio_score": 2.0,
+              "computed_ratio": "38.46% : 61.54%",
+              "notes": "Significant mismatch from target; embedded language dominates."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence effectively combines Arabic and English, maintaining cultural relevance and clarity."
+            },
+            "weighted_score": 7.6,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.95,
+              "notes": "The instance discusses interest in the business field and mentions company growth, which aligns well with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          },
+          {
+            "index": 1,
+            "text": "عندما أتحدث مع أصدقائي عن المشاريع، they often get excited about the ideas.",
+            "fluency": {
+              "fluency_score": 8.0,
+              "errors": {},
+              "summary": "The sentence is mostly coherent, but the switch to English could be more fluid."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The switch occurs in a logical context, making it relatable.",
+                "2": "The English phrase fits well with the Arabic sentence."
+              },
+              "summary": "The sentence is quite natural, though the switch could be slightly more fluid."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "46.15% : 53.85%",
+              "notes": "Close to target but still a notable imbalance; embedded language is slightly higher."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "The use of 'they' may not be as culturally specific in Arabic contexts.",
+              "summary": "The sentence is mostly appropriate, but the pronoun could be more culturally aligned."
+            },
+            "weighted_score": 7.2,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses projects and ideas in a business context, which aligns with the expected topic of business.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          },
+          {
+            "index": 2,
+            "text": "في كل مرة أقرأ عن استراتيجيات التسويق، I can't help but feel inspired.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and maintains coherence across languages."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The English part adds depth to the Arabic sentence.",
+                "2": "The transition feels authentic and common among bilingual speakers."
+              },
+              "summary": "This sentence is very natural, effectively blending both languages."
+            },
+            "cs_ratio": {
+              "ratio_score": 6.0,
+              "computed_ratio": "50.00% : 50.00%",
+              "notes": "Balanced ratio, but still below target; equal distribution."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally appropriate and conveys a clear message."
+            },
+            "weighted_score": 8.4,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses marketing strategies, which is a relevant topic within the business domain.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          },
+          {
+            "index": 3,
+            "text": "أحب أن أتعلم عن الاقتصاد العالمي. It really affects local businesses.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is well-structured and coherent, effectively combining both languages."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The switch is appropriate and relevant to the topic.",
+                "2": "The English phrase enhances the meaning of the Arabic sentence."
+              },
+              "summary": "The sentence is natural, though the switch could be slightly more seamless."
+            },
+            "cs_ratio": {
+              "ratio_score": 8.0,
+              "computed_ratio": "54.55% : 45.45%",
+              "notes": "Near target; matrix language is slightly higher but close to balance."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally relevant and effectively communicates the idea."
+            },
+            "weighted_score": 8.55,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance discusses global economics and its impact on local businesses, which aligns well with the business topic.",
+              "predicted_label": "business",
+              "errors": []
+            }
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    },
+    {
+      "task": "sentiment",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 5,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أحب التكنولوجيا لأنها تجعل حياتنا أسهل, especially with all the new gadgets that come out every year.",
+          "دائما أشعر بالإلهام عندما أرى كيف يمكن أن تغير التكنولوجيا العالم, like the advancements in artificial intelligence.",
+          "التكنولوجيا تعزز من قدرتنا على التواصل, and I enjoy using social media to connect with my friends.",
+          "أنا متحمس للتطورات الجديدة في عالم الهواتف الذكية, they keep getting better and more innovative.",
+          "من الرائع كيف أن التكنولوجيا تجعل التعلم أسهل, مثل استخدام الإنترنت للوصول إلى المعلومات بسرعة."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "sentiment",
+        "label": "positive",
+        "task_constraints": {
+          "intensity": "low",
+          "ambiguity": "low"
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": true,
+          "confidence": 0.85,
+          "notes": "Per-instance task validation; predicted_labels=['positive']",
+          "predicted_label": "positive",
+          "errors": []
+        },
+        "task_validation_results_per_instances": [
+          {
+            "passed": true,
+            "confidence": 0.85,
+            "notes": "The sentiment expressed is positive, highlighting a love for technology and its benefits, which aligns with the expected positive label.",
+            "predicted_label": "positive",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.85,
+            "notes": "The instance expresses a positive sentiment about technology and inspiration, aligning with the expected positive label.",
+            "predicted_label": "positive",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.85,
+            "notes": "The instance expresses a positive sentiment about technology and social media, aligning with the expected positive label.",
+            "predicted_label": "positive",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.85,
+            "notes": "The sentiment expressed in the instance is positive, highlighting excitement about new smartphone developments, which aligns with the expected positive label.",
+            "predicted_label": "positive",
+            "errors": []
+          },
+          {
+            "passed": true,
+            "confidence": 0.85,
+            "notes": "The instance expresses a positive sentiment about technology and learning, aligning with the expected positive label.",
+            "predicted_label": "positive",
+            "errors": []
+          }
+        ],
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and coherent, with a smooth integration of Arabic and English."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence maintains grammatical correctness and coherence, effectively blending both languages."
+          },
+          {
+            "fluency_score": 10.0,
+            "errors": {},
+            "summary": "The sentence is fully coherent and grammatically correct, with a seamless mix of languages."
+          },
+          {
+            "fluency_score": 8.0,
+            "errors": {
+              "1": "The second clause lacks a proper conjunction to connect it to the first."
+            },
+            "summary": "The sentence is mostly coherent but could benefit from a clearer connection between clauses."
+          },
+          {
+            "fluency_score": 9.0,
+            "errors": {},
+            "summary": "The sentence is coherent and grammatically correct, effectively combining both languages."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 9.0,
+          "errors": {
+            "sentence_4": "{'1': 'The second clause lacks a proper conjunction to connect it to the first.'}"
+          },
+          "summary": "Per-instance average across 5 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch to English feels natural as it emphasizes the point about technology.",
+              "2": "The Arabic part sets a strong context for the English phrase."
+            },
+            "summary": "The sentence flows well, with a smooth transition between Arabic and English."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The English phrase complements the Arabic context effectively.",
+              "2": "The switch is appropriate and reflects common bilingual usage."
+            },
+            "summary": "The sentence is mostly natural, though the English part could be slightly more integrated."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The English phrase enhances the meaning of the Arabic sentence.",
+              "2": "The transition is seamless and feels authentic."
+            },
+            "summary": "This sentence demonstrates a natural blend of both languages."
+          },
+          {
+            "naturalness_score": 7.0,
+            "observations": {
+              "1": "The switch to English is relevant but feels slightly abrupt.",
+              "2": "The Arabic context is strong, but the English part could be better integrated."
+            },
+            "summary": "While the sentence is mostly natural, the transition could be smoother."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The English phrase fits well within the Arabic context.",
+              "2": "The switch feels authentic and reflects common bilingual expressions."
+            },
+            "summary": "This sentence is very natural, with a good balance between both languages."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 8.4,
+          "observations": {
+            "sentence_1": "{'1': 'The switch to English feels natural as it emphasizes the point about technology.', '2': 'The Arabic part sets a strong context for the English phrase.'}",
+            "sentence_2": "{'1': 'The English phrase complements the Arabic context effectively.', '2': 'The switch is appropriate and reflects common bilingual usage.'}",
+            "sentence_3": "{'1': 'The English phrase enhances the meaning of the Arabic sentence.', '2': 'The transition is seamless and feels authentic.'}",
+            "sentence_4": "{'1': 'The switch to English is relevant but feels slightly abrupt.', '2': 'The Arabic context is strong, but the English part could be better integrated.'}",
+            "sentence_5": "{'1': 'The English phrase fits well within the Arabic context.', '2': 'The switch feels authentic and reflects common bilingual expressions.'}"
+          },
+          "summary": "Per-instance average across 5 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 2.0,
+            "computed_ratio": "38.89% : 61.11%",
+            "notes": "Significant mismatch from target; high embedded ratio indicates strong code-switching."
+          },
+          {
+            "ratio_score": 8.0,
+            "computed_ratio": "64.71% : 35.29%",
+            "notes": "Close to target; matrix ratio is near the desired level."
+          },
+          {
+            "ratio_score": 2.0,
+            "computed_ratio": "35.29% : 64.71%",
+            "notes": "Significant mismatch from target; high embedded ratio indicates strong code-switching."
+          },
+          {
+            "ratio_score": 6.0,
+            "computed_ratio": "53.33% : 46.67%",
+            "notes": "Moderate mismatch; matrix ratio is somewhat close to target."
+          },
+          {
+            "ratio_score": 0.0,
+            "computed_ratio": "100.00% : 0.00%",
+            "notes": "Monolingual; no code-switching present, resulting in a very low score."
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence effectively blends Arabic and English, maintaining cultural relevance and appropriateness."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally appropriate and highlights the positive impact of technology."
+          },
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "None",
+            "summary": "The sentence is appropriate, though the use of 'social media' may vary in acceptance depending on context."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally relevant and reflects excitement about technological advancements."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally appropriate and emphasizes the benefits of technology in education."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 8.8,
+          "issues": "sentence_1: None | sentence_2: None | sentence_3: None | sentence_4: None | sentence_5: None",
+          "summary": "Per-instance average across 5 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أنا أحب التكنولوجيا لأنها تجعل حياتنا أسهل, especially with all the new gadgets that come out every year.', 'دائما أشعر بالإلهام عندما أرى كيف يمكن أن تغير التكنولوجيا العالم, like the advancements in artificial intelligence.', 'التكنولوجيا تعزز من قدرتنا على التواصل, and I enjoy using social media to connect with my friends.', 'أنا متحمس للتطورات الجديدة في عالم الهواتف الذكية, they keep getting better and more innovative.', 'من الرائع كيف أن التكنولوجيا تجعل التعلم أسهل, مثل استخدام الإنترنت للوصول إلى المعلومات بسرعة.']\n    Sentence Scores: [7.6, 8.55, 7.65, 7.6, 7.2]\n    Failing Sentence Indices (<8.0): [0, 2, 3, 4]\n    Fluency Per-Instance: [{'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and coherent, with a smooth integration of Arabic and English.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence maintains grammatical correctness and coherence, effectively blending both languages.'}, {'fluency_score': 10.0, 'errors': {}, 'summary': 'The sentence is fully coherent and grammatically correct, with a seamless mix of languages.'}, {'fluency_score': 8.0, 'errors': {'1': 'The second clause lacks a proper conjunction to connect it to the first.'}, 'summary': 'The sentence is mostly coherent but could benefit from a clearer connection between clauses.'}, {'fluency_score': 9.0, 'errors': {}, 'summary': 'The sentence is coherent and grammatically correct, effectively combining both languages.'}]\n    Fluency Result: {'fluency_score': 9.0, 'errors': {'sentence_4': \"{'1': 'The second clause lacks a proper conjunction to connect it to the first.'}\"}, 'summary': 'Per-instance average across 5 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The switch to English feels natural as it emphasizes the point about technology.', '2': 'The Arabic part sets a strong context for the English phrase.'}, 'summary': 'The sentence flows well, with a smooth transition between Arabic and English.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The English phrase complements the Arabic context effectively.', '2': 'The switch is appropriate and reflects common bilingual usage.'}, 'summary': 'The sentence is mostly natural, though the English part could be slightly more integrated.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The English phrase enhances the meaning of the Arabic sentence.', '2': 'The transition is seamless and feels authentic.'}, 'summary': 'This sentence demonstrates a natural blend of both languages.'}, {'naturalness_score': 7.0, 'observations': {'1': 'The switch to English is relevant but feels slightly abrupt.', '2': 'The Arabic context is strong, but the English part could be better integrated.'}, 'summary': 'While the sentence is mostly natural, the transition could be smoother.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The English phrase fits well within the Arabic context.', '2': 'The switch feels authentic and reflects common bilingual expressions.'}, 'summary': 'This sentence is very natural, with a good balance between both languages.'}]\n    Naturalness Result: {'naturalness_score': 8.4, 'observations': {'sentence_1': \"{'1': 'The switch to English feels natural as it emphasizes the point about technology.', '2': 'The Arabic part sets a strong context for the English phrase.'}\", 'sentence_2': \"{'1': 'The English phrase complements the Arabic context effectively.', '2': 'The switch is appropriate and reflects common bilingual usage.'}\", 'sentence_3': \"{'1': 'The English phrase enhances the meaning of the Arabic sentence.', '2': 'The transition is seamless and feels authentic.'}\", 'sentence_4': \"{'1': 'The switch to English is relevant but feels slightly abrupt.', '2': 'The Arabic context is strong, but the English part could be better integrated.'}\", 'sentence_5': \"{'1': 'The English phrase fits well within the Arabic context.', '2': 'The switch feels authentic and reflects common bilingual expressions.'}\"}, 'summary': 'Per-instance average across 5 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 2.0, 'computed_ratio': '38.89% : 61.11%', 'notes': 'Significant mismatch from target; high embedded ratio indicates strong code-switching.'}, {'ratio_score': 8.0, 'computed_ratio': '64.71% : 35.29%', 'notes': 'Close to target; matrix ratio is near the desired level.'}, {'ratio_score': 2.0, 'computed_ratio': '35.29% : 64.71%', 'notes': 'Significant mismatch from target; high embedded ratio indicates strong code-switching.'}, {'ratio_score': 6.0, 'computed_ratio': '53.33% : 46.67%', 'notes': 'Moderate mismatch; matrix ratio is somewhat close to target.'}, {'ratio_score': 0.0, 'computed_ratio': '100.00% : 0.00%', 'notes': 'Monolingual; no code-switching present, resulting in a very low score.'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence effectively blends Arabic and English, maintaining cultural relevance and appropriateness.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally appropriate and highlights the positive impact of technology.'}, {'socio_cultural_score': 8.0, 'issues': 'None', 'summary': \"The sentence is appropriate, though the use of 'social media' may vary in acceptance depending on context.\"}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally relevant and reflects excitement about technological advancements.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally appropriate and emphasizes the benefits of technology in education.'}]\n    Social Cultural Result: {'socio_cultural_score': 8.8, 'issues': 'sentence_1: None | sentence_2: None | sentence_3: None | sentence_4: None | sentence_5: None', 'summary': 'Per-instance average across 5 sentence(s).'}\n    ",
+        "score": 7.72,
+        "sentence_scores": [
+          7.6,
+          8.55,
+          7.65,
+          7.6,
+          7.2
+        ],
+        "failing_sentence_indices": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا أحب التكنولوجيا لأنها تجعل حياتنا أسهل, especially with all the new gadgets that come out every year.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and coherent, with a smooth integration of Arabic and English."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch to English feels natural as it emphasizes the point about technology.",
+                "2": "The Arabic part sets a strong context for the English phrase."
+              },
+              "summary": "The sentence flows well, with a smooth transition between Arabic and English."
+            },
+            "cs_ratio": {
+              "ratio_score": 2.0,
+              "computed_ratio": "38.89% : 61.11%",
+              "notes": "Significant mismatch from target; high embedded ratio indicates strong code-switching."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence effectively blends Arabic and English, maintaining cultural relevance and appropriateness."
+            },
+            "weighted_score": 7.6,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The sentiment expressed is positive, highlighting a love for technology and its benefits, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          },
+          {
+            "index": 1,
+            "text": "دائما أشعر بالإلهام عندما أرى كيف يمكن أن تغير التكنولوجيا العالم, like the advancements in artificial intelligence.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence maintains grammatical correctness and coherence, effectively blending both languages."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The English phrase complements the Arabic context effectively.",
+                "2": "The switch is appropriate and reflects common bilingual usage."
+              },
+              "summary": "The sentence is mostly natural, though the English part could be slightly more integrated."
+            },
+            "cs_ratio": {
+              "ratio_score": 8.0,
+              "computed_ratio": "64.71% : 35.29%",
+              "notes": "Close to target; matrix ratio is near the desired level."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally appropriate and highlights the positive impact of technology."
+            },
+            "weighted_score": 8.55,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The instance expresses a positive sentiment about technology and inspiration, aligning with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          },
+          {
+            "index": 2,
+            "text": "التكنولوجيا تعزز من قدرتنا على التواصل, and I enjoy using social media to connect with my friends.",
+            "fluency": {
+              "fluency_score": 10.0,
+              "errors": {},
+              "summary": "The sentence is fully coherent and grammatically correct, with a seamless mix of languages."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The English phrase enhances the meaning of the Arabic sentence.",
+                "2": "The transition is seamless and feels authentic."
+              },
+              "summary": "This sentence demonstrates a natural blend of both languages."
+            },
+            "cs_ratio": {
+              "ratio_score": 2.0,
+              "computed_ratio": "35.29% : 64.71%",
+              "notes": "Significant mismatch from target; high embedded ratio indicates strong code-switching."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "None",
+              "summary": "The sentence is appropriate, though the use of 'social media' may vary in acceptance depending on context."
+            },
+            "weighted_score": 7.65,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The instance expresses a positive sentiment about technology and social media, aligning with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          },
+          {
+            "index": 3,
+            "text": "أنا متحمس للتطورات الجديدة في عالم الهواتف الذكية, they keep getting better and more innovative.",
+            "fluency": {
+              "fluency_score": 8.0,
+              "errors": {
+                "1": "The second clause lacks a proper conjunction to connect it to the first."
+              },
+              "summary": "The sentence is mostly coherent but could benefit from a clearer connection between clauses."
+            },
+            "naturalness": {
+              "naturalness_score": 7.0,
+              "observations": {
+                "1": "The switch to English is relevant but feels slightly abrupt.",
+                "2": "The Arabic context is strong, but the English part could be better integrated."
+              },
+              "summary": "While the sentence is mostly natural, the transition could be smoother."
+            },
+            "cs_ratio": {
+              "ratio_score": 6.0,
+              "computed_ratio": "53.33% : 46.67%",
+              "notes": "Moderate mismatch; matrix ratio is somewhat close to target."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally relevant and reflects excitement about technological advancements."
+            },
+            "weighted_score": 7.6,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The sentiment expressed in the instance is positive, highlighting excitement about new smartphone developments, which aligns with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          },
+          {
+            "index": 4,
+            "text": "من الرائع كيف أن التكنولوجيا تجعل التعلم أسهل, مثل استخدام الإنترنت للوصول إلى المعلومات بسرعة.",
+            "fluency": {
+              "fluency_score": 9.0,
+              "errors": {},
+              "summary": "The sentence is coherent and grammatically correct, effectively combining both languages."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The English phrase fits well within the Arabic context.",
+                "2": "The switch feels authentic and reflects common bilingual expressions."
+              },
+              "summary": "This sentence is very natural, with a good balance between both languages."
+            },
+            "cs_ratio": {
+              "ratio_score": 0.0,
+              "computed_ratio": "100.00% : 0.00%",
+              "notes": "Monolingual; no code-switching present, resulting in a very low score."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally appropriate and emphasizes the benefits of technology in education."
+            },
+            "weighted_score": 7.2,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.85,
+              "notes": "The instance expresses a positive sentiment about technology and learning, aligning with the expected positive label.",
+              "predicted_label": "positive",
+              "errors": []
+            }
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    },
+    {
+      "task": "ner",
+      "scenario_index": 1,
+      "checks": {
+        "instances_count": 4,
+        "task_validator_exists": true,
+        "fluency_per_instances_ok": true,
+        "naturalness_per_instances_ok": true,
+        "csratio_per_instances_ok": true,
+        "social_per_instances_ok": true,
+        "has_aggregate_fluency": true,
+        "has_aggregate_naturalness": true,
+        "has_aggregate_social": true,
+        "score_matches_weighting": true,
+        "all_passed": true
+      },
+      "state": {
+        "topic": "tech",
+        "tense": "Present",
+        "perspective": "First Person",
+        "gender": "Male",
+        "age": "18-25",
+        "education_level": "College",
+        "cs_ratio": "70%",
+        "use_tools": false,
+        "conversation_type": "single_turn",
+        "first_language": "Arabic",
+        "second_language": "English",
+        "cs_function": "Expressive",
+        "cs_type": "Intrasentential",
+        "data_generation_result": [
+          "أنا أدرس في جامعة Stanford وأحب التكنولوجيا. كل يوم أتعلم أشياء جديدة عن شركات مثل Apple وGoogle.",
+          "عندما أستخدم برامج مثل Microsoft Office، أشعر أنني أعمل مع فرق مثل تلك الموجودة في Facebook.",
+          "في زيارتي إلى New York، كنت أبحث عن أماكن مثل Google وAmazon حيث يمكنني التعرف على أحدث الابتكارات.",
+          "أحب متابعة أخبار التكنولوجيا من مواقع مثل TechCrunch وأجد نفسي دائماً أقرأ عن أشخاص مثل Elon Musk وSundar Pichai."
+        ],
+        "response": "",
+        "refine_count": 0,
+        "task": "ner",
+        "annotations": [],
+        "task_constraints": {
+          "entity_types": [
+            "PER",
+            "ORG",
+            "LOC"
+          ],
+          "min_entities": 2,
+          "max_entities": 3,
+          "must_include_types": [
+            "PER",
+            "ORG"
+          ],
+          "allow_code_switched_entities": true
+        },
+        "news_article": "",
+        "news_dict": {},
+        "news_hash": [],
+        "mcp_result": "",
+        "task_validation_result": {
+          "passed": false,
+          "confidence": 0.825,
+          "notes": "Per-instance task validation",
+          "deterministic_notes": "",
+          "llm_notes": "Per-instance task validation",
+          "predicted_label": null,
+          "errors": [
+            "instance_1: Insufficient number of required entities: only 1 found.",
+            "instance_2: Not enough English entities to satisfy min_entities requirement.",
+            "instance_2: Missing required entity type: PER.",
+            "instance_3: Not enough English entities to satisfy min_entities requirement."
+          ]
+        },
+        "task_validation_results_per_instances": [
+          {
+            "passed": true,
+            "confidence": 0.9,
+            "notes": "The instance contains the required entities 'Stanford' (ORG) and 'Apple' (ORG), satisfying the constraints.",
+            "predicted_label": null,
+            "errors": []
+          },
+          {
+            "passed": false,
+            "confidence": 0.8,
+            "notes": "The generated instance contains only one English entity 'Microsoft Office' which is an ORG, but it lacks a second required entity. The Arabic entities do not count towards the required types.",
+            "predicted_label": null,
+            "errors": [
+              "Insufficient number of required entities: only 1 found."
+            ]
+          },
+          {
+            "passed": false,
+            "confidence": 0.8,
+            "notes": "The instance contains only one English entity (Google) and one Arabic entity (في زيارتي إلى New York). It does not meet the minimum requirement of two English entities (PER or ORG).",
+            "predicted_label": null,
+            "errors": [
+              "Not enough English entities to satisfy min_entities requirement.",
+              "Missing required entity type: PER."
+            ]
+          },
+          {
+            "passed": false,
+            "confidence": 0.8,
+            "notes": "The generated instance contains only one English entity (Elon Musk) and one Arabic entity (Sundar Pichai does not count as it is not in English script). The requirement for at least two English entities is not met.",
+            "predicted_label": null,
+            "errors": [
+              "Not enough English entities to satisfy min_entities requirement."
+            ]
+          }
+        ],
+        "fluency_results_per_instances": [
+          {
+            "fluency_score": 10.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and syntactically coherent."
+          },
+          {
+            "fluency_score": 10.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and syntactically coherent."
+          },
+          {
+            "fluency_score": 10.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and syntactically coherent."
+          },
+          {
+            "fluency_score": 10.0,
+            "errors": {},
+            "summary": "The sentence is grammatically correct and syntactically coherent."
+          }
+        ],
+        "fluency_result": {
+          "fluency_score": 10.0,
+          "errors": {},
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "naturalness_results_per_instances": [
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch between Arabic and English is smooth and reflects common usage among bilingual speakers.",
+              "2": "The mention of well-known tech companies adds authenticity."
+            },
+            "summary": "Highly natural sentence with effective code-switching."
+          },
+          {
+            "naturalness_score": 8.0,
+            "observations": {
+              "1": "The use of English software names is typical among Arabic speakers in tech contexts.",
+              "2": "The sentence flows well, but could be slightly more integrated."
+            },
+            "summary": "Natural sentence with minor room for improvement in integration."
+          },
+          {
+            "naturalness_score": 9.0,
+            "observations": {
+              "1": "The switch to English city names and company names is very common and feels authentic.",
+              "2": "The context of innovation aligns well with the bilingual experience."
+            },
+            "summary": "Very natural sentence with effective code-switching."
+          },
+          {
+            "naturalness_score": 10.0,
+            "observations": {
+              "1": "The integration of English names and terms is seamless and reflects real bilingual usage.",
+              "2": "The references to current figures in technology enhance the authenticity."
+            },
+            "summary": "Extremely natural sentence with perfect code-switching."
+          }
+        ],
+        "naturalness_result": {
+          "naturalness_score": 9.0,
+          "observations": {
+            "sentence_1": "{'1': 'The switch between Arabic and English is smooth and reflects common usage among bilingual speakers.', '2': 'The mention of well-known tech companies adds authenticity.'}",
+            "sentence_2": "{'1': 'The use of English software names is typical among Arabic speakers in tech contexts.', '2': 'The sentence flows well, but could be slightly more integrated.'}",
+            "sentence_3": "{'1': 'The switch to English city names and company names is very common and feels authentic.', '2': 'The context of innovation aligns well with the bilingual experience.'}",
+            "sentence_4": "{'1': 'The integration of English names and terms is seamless and reflects real bilingual usage.', '2': 'The references to current figures in technology enhance the authenticity.'}"
+          },
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "cs_ratio_results_per_instances": [
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "83.33% : 16.67%",
+            "notes": "High matrix ratio but significantly deviates from the target embedded ratio."
+          },
+          {
+            "ratio_score": 4.0,
+            "computed_ratio": "82.35% : 17.65%",
+            "notes": "Similar to Sentence 1, high matrix ratio with a notable gap in embedded ratio."
+          },
+          {
+            "ratio_score": 6.0,
+            "computed_ratio": "80.00% : 20.00%",
+            "notes": "Closer to target ratios, but still above the desired embedded ratio."
+          },
+          {
+            "ratio_score": 8.0,
+            "computed_ratio": "75.00% : 25.00%",
+            "notes": "Near target ratios, with a smaller gap in embedded ratio compared to others."
+          }
+        ],
+        "social_cultural_results_per_instances": [
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence aligns well with cultural norms and appropriately uses borrowed words."
+          },
+          {
+            "socio_cultural_score": 8.0,
+            "issues": "The mention of Facebook may not resonate with all audiences due to varying perceptions of the company.",
+            "summary": "Overall, the sentence is culturally appropriate but has a slight concern regarding the perception of Facebook."
+          },
+          {
+            "socio_cultural_score": 9.0,
+            "issues": "None",
+            "summary": "The sentence is culturally appropriate and effectively integrates borrowed words."
+          },
+          {
+            "socio_cultural_score": 10.0,
+            "issues": "None",
+            "summary": "The sentence is highly appropriate and aligns well with cultural norms."
+          }
+        ],
+        "social_cultural_result": {
+          "socio_cultural_score": 9.0,
+          "issues": "sentence_1: None | sentence_2: The mention of Facebook may not resonate with all audiences due to varying perceptions of the company. | sentence_3: None | sentence_4: None",
+          "summary": "Per-instance average across 4 sentence(s)."
+        },
+        "summary": "\n    data_generation_result: ['أنا أدرس في جامعة Stanford وأحب التكنولوجيا. كل يوم أتعلم أشياء جديدة عن شركات مثل Apple وGoogle.', 'عندما أستخدم برامج مثل Microsoft Office، أشعر أنني أعمل مع فرق مثل تلك الموجودة في Facebook.', 'في زيارتي إلى New York، كنت أبحث عن أماكن مثل Google وAmazon حيث يمكنني التعرف على أحدث الابتكارات.', 'أحب متابعة أخبار التكنولوجيا من مواقع مثل TechCrunch وأجد نفسي دائماً أقرأ عن أشخاص مثل Elon Musk وSundar Pichai.']\n    Sentence Scores: [8.3, 7.8, 8.7, 9.6]\n    Failing Sentence Indices (<8.0): [1]\n    Fluency Per-Instance: [{'fluency_score': 10.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and syntactically coherent.'}, {'fluency_score': 10.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and syntactically coherent.'}, {'fluency_score': 10.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and syntactically coherent.'}, {'fluency_score': 10.0, 'errors': {}, 'summary': 'The sentence is grammatically correct and syntactically coherent.'}]\n    Fluency Result: {'fluency_score': 10.0, 'errors': {}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    Naturalness Per-Instance: [{'naturalness_score': 9.0, 'observations': {'1': 'The switch between Arabic and English is smooth and reflects common usage among bilingual speakers.', '2': 'The mention of well-known tech companies adds authenticity.'}, 'summary': 'Highly natural sentence with effective code-switching.'}, {'naturalness_score': 8.0, 'observations': {'1': 'The use of English software names is typical among Arabic speakers in tech contexts.', '2': 'The sentence flows well, but could be slightly more integrated.'}, 'summary': 'Natural sentence with minor room for improvement in integration.'}, {'naturalness_score': 9.0, 'observations': {'1': 'The switch to English city names and company names is very common and feels authentic.', '2': 'The context of innovation aligns well with the bilingual experience.'}, 'summary': 'Very natural sentence with effective code-switching.'}, {'naturalness_score': 10.0, 'observations': {'1': 'The integration of English names and terms is seamless and reflects real bilingual usage.', '2': 'The references to current figures in technology enhance the authenticity.'}, 'summary': 'Extremely natural sentence with perfect code-switching.'}]\n    Naturalness Result: {'naturalness_score': 9.0, 'observations': {'sentence_1': \"{'1': 'The switch between Arabic and English is smooth and reflects common usage among bilingual speakers.', '2': 'The mention of well-known tech companies adds authenticity.'}\", 'sentence_2': \"{'1': 'The use of English software names is typical among Arabic speakers in tech contexts.', '2': 'The sentence flows well, but could be slightly more integrated.'}\", 'sentence_3': \"{'1': 'The switch to English city names and company names is very common and feels authentic.', '2': 'The context of innovation aligns well with the bilingual experience.'}\", 'sentence_4': \"{'1': 'The integration of English names and terms is seamless and reflects real bilingual usage.', '2': 'The references to current figures in technology enhance the authenticity.'}\"}, 'summary': 'Per-instance average across 4 sentence(s).'}\n    CSRatio Result: [{'ratio_score': 4.0, 'computed_ratio': '83.33% : 16.67%', 'notes': 'High matrix ratio but significantly deviates from the target embedded ratio.'}, {'ratio_score': 4.0, 'computed_ratio': '82.35% : 17.65%', 'notes': 'Similar to Sentence 1, high matrix ratio with a notable gap in embedded ratio.'}, {'ratio_score': 6.0, 'computed_ratio': '80.00% : 20.00%', 'notes': 'Closer to target ratios, but still above the desired embedded ratio.'}, {'ratio_score': 8.0, 'computed_ratio': '75.00% : 25.00%', 'notes': 'Near target ratios, with a smaller gap in embedded ratio compared to others.'}]\n    Social Cultural Per-Instance: [{'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence aligns well with cultural norms and appropriately uses borrowed words.'}, {'socio_cultural_score': 8.0, 'issues': 'The mention of Facebook may not resonate with all audiences due to varying perceptions of the company.', 'summary': 'Overall, the sentence is culturally appropriate but has a slight concern regarding the perception of Facebook.'}, {'socio_cultural_score': 9.0, 'issues': 'None', 'summary': 'The sentence is culturally appropriate and effectively integrates borrowed words.'}, {'socio_cultural_score': 10.0, 'issues': 'None', 'summary': 'The sentence is highly appropriate and aligns well with cultural norms.'}]\n    Social Cultural Result: {'socio_cultural_score': 9.0, 'issues': 'sentence_1: None | sentence_2: The mention of Facebook may not resonate with all audiences due to varying perceptions of the company. | sentence_3: None | sentence_4: None', 'summary': 'Per-instance average across 4 sentence(s).'}\n    ",
+        "score": 8.6,
+        "sentence_scores": [
+          8.3,
+          7.8,
+          8.7,
+          9.6
+        ],
+        "failing_sentence_indices": [
+          1
+        ],
+        "instance_refine_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "sentence_records": [
+          {
+            "index": 0,
+            "text": "أنا أدرس في جامعة Stanford وأحب التكنولوجيا. كل يوم أتعلم أشياء جديدة عن شركات مثل Apple وGoogle.",
+            "fluency": {
+              "fluency_score": 10.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and syntactically coherent."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch between Arabic and English is smooth and reflects common usage among bilingual speakers.",
+                "2": "The mention of well-known tech companies adds authenticity."
+              },
+              "summary": "Highly natural sentence with effective code-switching."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "83.33% : 16.67%",
+              "notes": "High matrix ratio but significantly deviates from the target embedded ratio."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence aligns well with cultural norms and appropriately uses borrowed words."
+            },
+            "weighted_score": 8.3,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": true,
+            "task_validation": {
+              "passed": true,
+              "confidence": 0.9,
+              "notes": "The instance contains the required entities 'Stanford' (ORG) and 'Apple' (ORG), satisfying the constraints.",
+              "predicted_label": null,
+              "errors": []
+            }
+          },
+          {
+            "index": 1,
+            "text": "عندما أستخدم برامج مثل Microsoft Office، أشعر أنني أعمل مع فرق مثل تلك الموجودة في Facebook.",
+            "fluency": {
+              "fluency_score": 10.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and syntactically coherent."
+            },
+            "naturalness": {
+              "naturalness_score": 8.0,
+              "observations": {
+                "1": "The use of English software names is typical among Arabic speakers in tech contexts.",
+                "2": "The sentence flows well, but could be slightly more integrated."
+              },
+              "summary": "Natural sentence with minor room for improvement in integration."
+            },
+            "cs_ratio": {
+              "ratio_score": 4.0,
+              "computed_ratio": "82.35% : 17.65%",
+              "notes": "Similar to Sentence 1, high matrix ratio with a notable gap in embedded ratio."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 8.0,
+              "issues": "The mention of Facebook may not resonate with all audiences due to varying perceptions of the company.",
+              "summary": "Overall, the sentence is culturally appropriate but has a slight concern regarding the perception of Facebook."
+            },
+            "weighted_score": 7.8,
+            "refine_count": 0,
+            "status": "fail",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The generated instance contains only one English entity 'Microsoft Office' which is an ORG, but it lacks a second required entity. The Arabic entities do not count towards the required types.",
+              "predicted_label": null,
+              "errors": [
+                "Insufficient number of required entities: only 1 found."
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "text": "في زيارتي إلى New York، كنت أبحث عن أماكن مثل Google وAmazon حيث يمكنني التعرف على أحدث الابتكارات.",
+            "fluency": {
+              "fluency_score": 10.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and syntactically coherent."
+            },
+            "naturalness": {
+              "naturalness_score": 9.0,
+              "observations": {
+                "1": "The switch to English city names and company names is very common and feels authentic.",
+                "2": "The context of innovation aligns well with the bilingual experience."
+              },
+              "summary": "Very natural sentence with effective code-switching."
+            },
+            "cs_ratio": {
+              "ratio_score": 6.0,
+              "computed_ratio": "80.00% : 20.00%",
+              "notes": "Closer to target ratios, but still above the desired embedded ratio."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 9.0,
+              "issues": "None",
+              "summary": "The sentence is culturally appropriate and effectively integrates borrowed words."
+            },
+            "weighted_score": 8.7,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The instance contains only one English entity (Google) and one Arabic entity (في زيارتي إلى New York). It does not meet the minimum requirement of two English entities (PER or ORG).",
+              "predicted_label": null,
+              "errors": [
+                "Not enough English entities to satisfy min_entities requirement.",
+                "Missing required entity type: PER."
+              ]
+            }
+          },
+          {
+            "index": 3,
+            "text": "أحب متابعة أخبار التكنولوجيا من مواقع مثل TechCrunch وأجد نفسي دائماً أقرأ عن أشخاص مثل Elon Musk وSundar Pichai.",
+            "fluency": {
+              "fluency_score": 10.0,
+              "errors": {},
+              "summary": "The sentence is grammatically correct and syntactically coherent."
+            },
+            "naturalness": {
+              "naturalness_score": 10.0,
+              "observations": {
+                "1": "The integration of English names and terms is seamless and reflects real bilingual usage.",
+                "2": "The references to current figures in technology enhance the authenticity."
+              },
+              "summary": "Extremely natural sentence with perfect code-switching."
+            },
+            "cs_ratio": {
+              "ratio_score": 8.0,
+              "computed_ratio": "75.00% : 25.00%",
+              "notes": "Near target ratios, with a smaller gap in embedded ratio compared to others."
+            },
+            "socio_cultural": {
+              "socio_cultural_score": 10.0,
+              "issues": "None",
+              "summary": "The sentence is highly appropriate and aligns well with cultural norms."
+            },
+            "weighted_score": 9.6,
+            "refine_count": 0,
+            "status": "pass",
+            "task_passed": false,
+            "task_validation": {
+              "passed": false,
+              "confidence": 0.8,
+              "notes": "The generated instance contains only one English entity (Elon Musk) and one Arabic entity (Sundar Pichai does not count as it is not in English script). The requirement for at least two English entities is not met.",
+              "predicted_label": null,
+              "errors": [
+                "Not enough English entities to satisfy min_entities requirement."
+              ]
+            }
+          }
+        ],
+        "records_consistency": {
+          "ok": true,
+          "mismatch_count": 0,
+          "mismatches": []
+        }
+      }
+    }
+  ]
+}
