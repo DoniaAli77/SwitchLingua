@@ -21,6 +21,9 @@ from prompt import (
     CS_RATIO_PROMPT,
     SOCIAL_CULTURAL_PROMPT,
     REFINER_PROMPT,
+    REFINER_TASK_TOPIC_PROMPT,
+    REFINER_TASK_SENTIMENT_PROMPT,
+    REFINER_TASK_NER_PROMPT,
 )
 from node_models import (
     AgentRunningState,
@@ -59,6 +62,7 @@ API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("API_KEY")
 API_BASE = os.getenv("OPENAI_BASE_URL") or os.getenv("API_BASE")
 MODEL = "gpt-4o-mini"
 OUTPUT_DIR = str(_CURRENT_FILE.parents[1] / "output")
+# Sentence-level cap: max refine attempts allowed per individual sentence.
 MAX_SENTENCE_REFINES = int(os.getenv("MAX_SENTENCE_REFINES", "1"))
 
 # assert API_KEY is not None, "OPENAI_API_KEY is not set"
@@ -511,7 +515,7 @@ def RunDataGenerationAgent(state: AgentRunningState):
     if not instances:
         raise RuntimeError("DataGenerationAgent produced no instances after retries")
 
-    # # ðŸ”¹ NEW PART STARTS HERE ðŸ”¹
+    # # NEW PART STARTS HERE
     # per_instance_stats = [compute_true_cs_stats(x) for x in instances]
 
     # # instances is usually a list of strings
@@ -523,7 +527,7 @@ def RunDataGenerationAgent(state: AgentRunningState):
     # cs_stats = compute_true_cs_stats(text_for_stats)
     # print("CS STATS:", cs_stats)
 
-    # # ðŸ”¹ NEW PART ENDS HERE ðŸ”¹
+    # # NEW PART ENDS HERE
 
     return {
         "data_generation_result": response["instances"],  # unchanged key
@@ -545,31 +549,14 @@ def RunFluencyAgent(state: AgentRunningState):
             },
         }
 
-    FluencyAgent = FLUENCY_PROMPT | ChatOpenAI(
+    llm = FLUENCY_PROMPT | ChatOpenAI(
         model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
-    )
-    response = FluencyAgent.invoke(
-        {"sentences_for_batch": _build_sentences_for_batch(texts)}
-    )
-    raw_batch_results = _extract_json_array(response)
-    if len(raw_batch_results) != len(texts):
-        raw_batch_results = _recover_results_per_sentence(
-            texts,
-            invoke_single=lambda idx, text: FluencyAgent.invoke(
-                {"sentences_for_batch": _build_sentences_for_batch([text])}
-            ),
-            agent_name="FluencyAgent",
-        )
-
-    batch_results = _normalize_batch_dict_results(
-        raw_batch_results,
-        expected_len=len(texts),
-        agent_name="FluencyAgent",
     )
 
     results = []
-    for idx in range(len(texts)):
-        item = batch_results[idx]
+    for text in texts:
+        response = llm.invoke({"sentence": text})
+        item = _extract_json_object(response)
         errors = item.get("errors", {})
         if not isinstance(errors, dict):
             if isinstance(errors, list):
@@ -613,31 +600,14 @@ def RunNaturalnessAgent(state: AgentRunningState):
             },
         }
 
-    NaturalnessAgent = NATURALNESS_PROMPT | ChatOpenAI(
+    llm = NATURALNESS_PROMPT | ChatOpenAI(
         model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
-    )
-    response = NaturalnessAgent.invoke(
-        {"sentences_for_batch": _build_sentences_for_batch(texts)}
-    )
-    raw_batch_results = _extract_json_array(response)
-    if len(raw_batch_results) != len(texts):
-        raw_batch_results = _recover_results_per_sentence(
-            texts,
-            invoke_single=lambda idx, text: NaturalnessAgent.invoke(
-                {"sentences_for_batch": _build_sentences_for_batch([text])}
-            ),
-            agent_name="NaturalnessAgent",
-        )
-
-    batch_results = _normalize_batch_dict_results(
-        raw_batch_results,
-        expected_len=len(texts),
-        agent_name="NaturalnessAgent",
     )
 
     results = []
-    for idx in range(len(texts)):
-        item = batch_results[idx]
+    for text in texts:
+        response = llm.invoke({"sentence": text})
+        item = _extract_json_object(response)
         observations = item.get("observations", {})
         if not isinstance(observations, dict):
             if isinstance(observations, list):
@@ -795,160 +765,52 @@ def _recover_results_per_sentence(
 
 
 def RunCSRatioAgent(state: AgentRunningState):
-    print("CSRatio received keys:", state.keys())
-    results = []
     texts = state.get("data_generation_result", [])
-    
     if not texts:
-        print("WARNING: No texts to evaluate in RunCSRatioAgent")
         return {"cs_ratio_results_per_instances": []}
-    
-    per_scenario_stats = [compute_true_cs_stats(x) for x in texts]
-    print("stats_list length:", len(per_scenario_stats))
-    print("stats_list:", per_scenario_stats)
 
     target_matrix, target_embedded = parse_target_ratios(state.get("cs_ratio"))
     matrix_is_arabic = _is_arabic_language(state.get("first_language", ""))
-    mapped_stats_list = [
-        {
+
+    llm = CS_RATIO_PROMPT | ChatOpenAI(
+        model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
+    )
+
+    results = []
+    for text in texts:
+        stats = compute_true_cs_stats(text)
+        mapped = {
             "matrix_ratio": stats.get("cs_ar_ratio", 0.0) if matrix_is_arabic else stats.get("cs_en_ratio", 0.0),
             "embedded_ratio": stats.get("cs_en_ratio", 0.0) if matrix_is_arabic else stats.get("cs_ar_ratio", 0.0),
             "matrix_count": stats.get("cs_ar_count", 0) if matrix_is_arabic else stats.get("cs_en_count", 0),
             "embedded_count": stats.get("cs_en_count", 0) if matrix_is_arabic else stats.get("cs_ar_count", 0),
         }
-        for stats in per_scenario_stats
-    ]
-    print('target', target_matrix, target_embedded)
-    
-    # Prepare batch data: combine sentences with their stats
-    sentences_with_stats = []
-    for i, (sent, stats, mapped_stats) in enumerate(zip(texts, per_scenario_stats, mapped_stats_list)):
-        sentences_with_stats.append(
-            f"Sentence {i+1}: {sent}\n"
-            f"  - Matrix ratio: {mapped_stats['matrix_ratio']:.2f}%\n"
-            f"  - Embedded ratio: {mapped_stats['embedded_ratio']:.2f}%\n"
-            f"  - Matrix tokens: {mapped_stats['matrix_count']}\n"
-            f"  - Embedded tokens: {mapped_stats['embedded_count']}\n"
+        sentence_with_stats = (
+            f"{text}\n"
+            f"  - Matrix ratio: {mapped['matrix_ratio']:.2f}%\n"
+            f"  - Embedded ratio: {mapped['embedded_ratio']:.2f}%\n"
+            f"  - Matrix tokens: {mapped['matrix_count']}\n"
+            f"  - Embedded tokens: {mapped['embedded_count']}\n"
             f"  - Is code-switched: {stats['is_code_switched']}\n"
         )
-    
-    sentences_with_stats_str = "\n".join(sentences_with_stats)
-    
-    # Batch call: all sentences at once
-    local_state = {
-        "cs_ratio": state.get("cs_ratio"),
-        "target_matrix_ratio": target_matrix,
-        "target_embedded_ratio": target_embedded,
-        "sentences_with_stats": sentences_with_stats_str,
-    }
-    
-    CSRatioAgent = CS_RATIO_PROMPT | ChatOpenAI(
-        model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
-    )
-    
-    response = CSRatioAgent.invoke(local_state)
-    
-    raw_batch_results = _extract_json_array(response)
-    if len(raw_batch_results) != len(texts):
-        def _invoke_single_cs(idx: int, text: str):
-            stats = per_scenario_stats[idx]
-            mapped_stats = mapped_stats_list[idx]
-            single_sent_with_stats = (
-                f"Sentence 1: {text}\n"
-                f"  - Matrix ratio: {mapped_stats['matrix_ratio']:.2f}%\n"
-                f"  - Embedded ratio: {mapped_stats['embedded_ratio']:.2f}%\n"
-                f"  - Matrix tokens: {mapped_stats['matrix_count']}\n"
-                f"  - Embedded tokens: {mapped_stats['embedded_count']}\n"
-                f"  - Is code-switched: {stats['is_code_switched']}\n"
-            )
-            return CSRatioAgent.invoke(
-                {
-                    "cs_ratio": state.get("cs_ratio"),
-                    "target_matrix_ratio": target_matrix,
-                    "target_embedded_ratio": target_embedded,
-                    "sentences_with_stats": single_sent_with_stats,
-                }
-            )
-
-        raw_batch_results = _recover_results_per_sentence(
-            texts,
-            invoke_single=_invoke_single_cs,
-            agent_name="CSRatioAgent",
-        )
-
-    batch_results = _normalize_batch_dict_results(
-        raw_batch_results,
-        expected_len=len(texts),
-        agent_name="CSRatioAgent",
-    )
-
-    for idx in range(len(texts)):
-        item = batch_results[idx]
-        stats = per_scenario_stats[idx]
-        mapped_stats = mapped_stats_list[idx]
-
-        if not item:
-            results.append({
-                "ratio_score": 0 if not stats["is_code_switched"] else 5,
-                "computed_ratio": f"{mapped_stats['matrix_ratio']:.2f}% : {mapped_stats['embedded_ratio']:.2f}%",
-                "notes": "monolingual" if not stats["is_code_switched"] else "code-switched"
-            })
-            continue
-
+        response = llm.invoke({
+            "cs_ratio": state.get("cs_ratio"),
+            "target_matrix_ratio": target_matrix,
+            "target_embedded_ratio": target_embedded,
+            "sentence_with_stats": sentence_with_stats,
+        })
+        item = _extract_json_object(response)
         results.append({
             "ratio_score": _safe_score(item.get("ratio_score")),
-            "computed_ratio": str(item.get("computed_ratio", f"{mapped_stats['matrix_ratio']:.2f}% : {mapped_stats['embedded_ratio']:.2f}%")),
-            "notes": str(item.get("notes", "monolingual" if not stats["is_code_switched"] else "code-switched"))
+            "computed_ratio": str(item.get("computed_ratio", f"{mapped['matrix_ratio']:.2f}% : {mapped['embedded_ratio']:.2f}%")),
+            "notes": str(item.get("notes", "monolingual" if not stats["is_code_switched"] else "code-switched")),
         })
-    
+
     return {"cs_ratio_results_per_instances": results}
 
 
 
 
-
-
-
-
-
-
-    # stats_list = state.get("cs_stats_per_instance", [])
-    # print("stats_list length:", len(stats_list))
-
-
-    # ########
-    # target_en, target_ar = parse_target_ratios(state.get("cs_ratio"))
-
-
-    # for sent, stats in zip(texts, stats_list):
-    #     local_state = {
-    #         "cs_ratio": state.get("cs_ratio"),
-    #         "target_en_ratio": target_en,
-    #         "target_ar_ratio": target_ar,
-    #         "data_generation_result": sent,  # pass single sentence
-    #         **stats,                         # deterministic ratios for this sentence
-    #     }
-    #     response_1=CSRatioAgent.invoke(local_state)
-    #     if not local_state.get("is_code_switched"):
-    #         set_field(response_1, "ratio_score", 0)
-    #         set_field(response_1, "notes", "monolingual")
-    #     if state.get("cs_ratio") == "70%":
-    #         assert abs(local_state["target_en_ratio"] - 0.30) < 1e-6
-    #     results.append(response_1)
-
-    return {
-      "cs_ratio_results_per_instances":results
-      # "cs_ratio_results_per_instance": results,
-      # "cs_ratio_result": results[0] if results else None
-    }
-
-    ################################################ grbiha
-    # # HARD RULE: if monolingual -> cap score
-    # if state.get("is_code_switched") is False:
-    #     response.ratio_score = min(response.ratio_score, 2.0)
-    #     response.notes = (response.notes or "") + " | Hard rule: monolingual output."
-
-    # return {"cs_ratio_result": response}
 
 
 def RunSocialCulturalAgent(state: AgentRunningState):
@@ -963,31 +825,14 @@ def RunSocialCulturalAgent(state: AgentRunningState):
             },
         }
 
-    SocialCulturalAgent = SOCIAL_CULTURAL_PROMPT | ChatOpenAI(
+    llm = SOCIAL_CULTURAL_PROMPT | ChatOpenAI(
         model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
-    )
-    response = SocialCulturalAgent.invoke(
-        {"sentences_for_batch": _build_sentences_for_batch(texts)}
-    )
-    raw_batch_results = _extract_json_array(response)
-    if len(raw_batch_results) != len(texts):
-        raw_batch_results = _recover_results_per_sentence(
-            texts,
-            invoke_single=lambda idx, text: SocialCulturalAgent.invoke(
-                {"sentences_for_batch": _build_sentences_for_batch([text])}
-            ),
-            agent_name="SocialCulturalAgent",
-        )
-
-    batch_results = _normalize_batch_dict_results(
-        raw_batch_results,
-        expected_len=len(texts),
-        agent_name="SocialCulturalAgent",
     )
 
     results = []
-    for idx in range(len(texts)):
-        item = batch_results[idx]
+    for text in texts:
+        response = llm.invoke({"sentence": text})
+        item = _extract_json_object(response)
         issues = item.get("issues", "")
         if isinstance(issues, list):
             issues = "; ".join([str(x) for x in issues])
@@ -1088,6 +933,22 @@ def AcceptanceAgent(state: AgentRunningState):
     return
 
 
+def _rescore_single_sentence(text: str, state: dict) -> float:
+    """Re-score one sentence by reusing the existing quality agents.
+    Returns weighted score using the same formula as compute_sentence_weighted_scores().
+    """
+    candidate_state = dict(state)
+    candidate_state["data_generation_result"] = [text]
+
+    candidate_state.update(RunFluencyAgent(candidate_state))
+    candidate_state.update(RunNaturalnessAgent(candidate_state))
+    candidate_state.update(RunCSRatioAgent(candidate_state))
+    candidate_state.update(RunSocialCulturalAgent(candidate_state))
+
+    scores = compute_sentence_weighted_scores(candidate_state)
+    return scores[0] if scores else 0.0
+
+
 def RunRefinerAgent(state: AgentRunningState):
     texts = state.get("data_generation_result", [])
     if not isinstance(texts, list) or not texts:
@@ -1098,6 +959,7 @@ def RunRefinerAgent(state: AgentRunningState):
         return {"instance_refine_counts": state.get("instance_refine_counts", [])}
 
     failing_indices = []
+    failure_reasons = {}  # index -> "task_fail" or "quality_fail"
     refine_counts = []
     for i, rec in enumerate(records):
         if not isinstance(rec, dict):
@@ -1105,9 +967,24 @@ def RunRefinerAgent(state: AgentRunningState):
             continue
         rc = int(rec.get("refine_count", 0) or 0)
         refine_counts.append(rc)
+
+        # Determine why this sentence is failing
+        task_val = rec.get("task_validation") if isinstance(rec.get("task_validation"), dict) else {}
+        if not task_val:
+            per_instance = state.get("task_validation_results_per_instances", [])
+            if isinstance(per_instance, list) and i < len(per_instance) and isinstance(per_instance[i], dict):
+                task_val = per_instance[i]
+        task_passed = bool(task_val.get("passed", True))  # default True if unknown
+
         weighted_score = rec.get("weighted_score")
-        if isinstance(weighted_score, (int, float)) and float(weighted_score) < 8.0:
+        quality_low = isinstance(weighted_score, (int, float)) and float(weighted_score) < 8.0
+
+        if not task_passed:
             failing_indices.append(i)
+            failure_reasons[i] = "task_fail"
+        elif quality_low:
+            failing_indices.append(i)
+            failure_reasons[i] = "quality_fail"
 
     eligible_indices = [
         idx
@@ -1120,9 +997,8 @@ def RunRefinerAgent(state: AgentRunningState):
     if not eligible_indices:
         return {"instance_refine_counts": refine_counts}
 
-    refiner = REFINER_PROMPT | ChatOpenAI(
-        model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
-    ).with_structured_output(GenerationResponse)
+    llm_refiner = ChatOpenAI(model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY).with_structured_output(GenerationResponse)
+    task_type = state.get("task", "")
 
     updated_texts = list(texts)
     for index in eligible_indices:
@@ -1149,9 +1025,32 @@ def RunRefinerAgent(state: AgentRunningState):
         single_state["social_cultural_result"] = soc_inst
         if task_val_inst:
             single_state["task_validation_result"] = task_val_inst
+        failure_reason = failure_reasons.get(index, "quality_fail")
+        single_state["failure_reason"] = failure_reason
+
+        # Select prompt based on failure reason and task type
+        if failure_reason == "task_fail":
+            if task_type == "topic":
+                single_state["topic"] = state.get("topic", "")
+                refiner = REFINER_TASK_TOPIC_PROMPT | llm_refiner
+            elif task_type == "sentiment":
+                single_state["label"] = state.get("label", "")
+                refiner = REFINER_TASK_SENTIMENT_PROMPT | llm_refiner
+            elif task_type == "ner":
+                constraints = state.get("task_constraints", {})
+                single_state["entity_types"] = ", ".join(constraints.get("entity_types", []))
+                refiner = REFINER_TASK_NER_PROMPT | llm_refiner
+            else:
+                refiner = REFINER_PROMPT | llm_refiner
+        else:
+            refiner = REFINER_PROMPT | llm_refiner
+
+        single_state["sentence"] = texts[index]
+        single_state["task_validation_feedback"] = task_val_inst.get("feedback", "") if task_val_inst else ""
         single_state["summary"] = (
             f"Sentence index: {index}\n"
             f"Original sentence: {texts[index]}\n"
+            f"Failure reason: {failure_reason}\n"
             f"Sentence score: {score_at_index}\n"
             f"Fluency: {flu_inst}\n"
             f"Naturalness: {nat_inst}\n"
@@ -1166,8 +1065,44 @@ def RunRefinerAgent(state: AgentRunningState):
         if isinstance(refined_instances, list) and refined_instances:
             candidate = refined_instances[0]
             if isinstance(candidate, str) and candidate.strip():
-                updated_texts[index] = candidate.strip()
-                applied = True
+                candidate = candidate.strip()
+
+                # --- Accept/Reject Guardrail ---
+                # Re-evaluate the candidate on task to detect regressions
+                task_prompt_map = {
+                    "topic": TASK_VALIDATION_TOPIC_PROMPT,
+                    "sentiment": TASK_VALIDATION_SENTIMENT_PROMPT,
+                    "ner": TASK_VALIDATION_NER_PROMPT,
+                }
+                val_prompt = task_prompt_map.get(task_type)
+                accept = True
+                before_quality_score = float(rec.get("weighted_score") or 0.0)
+
+                if val_prompt is not None and failure_reason == "quality_fail":
+                    # Task was passing before; make sure it still passes after refine
+                    candidate_state = dict(state)
+                    candidate_state["data_generation_result"] = [candidate]
+                    candidate_result = _invoke_task_validation_with_retry(candidate_state, val_prompt)
+                    if isinstance(candidate_result, dict) and not candidate_result.get("passed", True):
+                        accept = False  # Rollback: quality refine broke the task
+                    else:
+                        # Task still passes — now check quality didn't get worse
+                        after_quality_score = _rescore_single_sentence(candidate, state)
+                        if after_quality_score < before_quality_score:
+                            accept = False  # Rollback: quality regressed after refine
+
+                elif val_prompt is not None and failure_reason == "task_fail":
+                    # Task was failing before; accept only if it now passes
+                    # (quality regression is tolerated for task fixes — primary goal is task)
+                    candidate_state = dict(state)
+                    candidate_state["data_generation_result"] = [candidate]
+                    candidate_result = _invoke_task_validation_with_retry(candidate_state, val_prompt)
+                    if isinstance(candidate_result, dict) and not candidate_result.get("passed", True):
+                        accept = False  # Task still fails after refine; rollback
+
+                if accept:
+                    updated_texts[index] = candidate
+                    applied = True
         if applied:
             refine_counts[index] = int(refine_counts[index]) + 1
 

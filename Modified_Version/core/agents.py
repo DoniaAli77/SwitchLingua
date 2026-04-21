@@ -25,15 +25,17 @@ from datetime import datetime
 
 logger.add(f"logs/code_switching_agent_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 
+# Graph-level cap: max number of refinement loops for the whole scenario workflow.
 MAX_REFINER_ITERATIONS = 1
 ENABLE_TASK_VALIDATOR = os.getenv("ENABLE_TASK_VALIDATOR", "1").strip() == "1"
 
 
 def meet_criteria(state: AgentRunningState):
-    if state["score"] < 8 and state["refine_count"] < MAX_REFINER_ITERATIONS:
+    has_failing = bool(state.get("failing_sentence_indices"))
+    refine_count = int(state.get("refine_count", 0) or 0)
+    if has_failing and refine_count < MAX_REFINER_ITERATIONS:
         return "RefinerAgent"
-    else:
-        return "AcceptanceAgent"
+    return "AcceptanceAgent"
 
 
 def _TaskValidatorPassthrough(state: AgentRunningState):
@@ -83,7 +85,9 @@ class CodeSwitchingAgent:
             "SummarizeResult",
         )
         workflow.add_conditional_edges("SummarizeResult", meet_criteria)
-        workflow.add_edge("RefinerAgent", "SummarizeResult")
+        # After refinement, re-run all 4 quality agents so SummarizeResult
+        # gets fresh scores for the updated sentences (not stale pre-refine values).
+        workflow.add_edge("RefinerAgent", "FluencyAgent")
         workflow.add_edge("AcceptanceAgent", END)
         graph = workflow.compile()
         # workflow.add_edge("NewsGenerationAgent", END)
@@ -109,7 +113,7 @@ async def arun(scenario_k):
 
 
 async def main():
-    config: dict = load_config("../config/config_augmented_hindi_eng.yaml")
+    config: dict = load_config("../config/config2.yaml")
     scenarios: list[AgentRunningState] = generate_scenarios(config["pre_execute"])
     # shuffle scenarios
     random.shuffle(scenarios)

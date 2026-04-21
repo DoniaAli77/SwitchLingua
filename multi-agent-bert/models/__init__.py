@@ -8,6 +8,9 @@ from models.contracts import (
     ExplanationResult,
     RouteTarget,
     RoutingDecision,
+    SequenceLabelingResult,
+    TaskType,
+    TokenTag,
 )
 from models.state import PipelineState
 
@@ -20,4 +23,7 @@ __all__ = [
     "PipelineState",
     "RouteTarget",
     "RoutingDecision",
+    "SequenceLabelingResult",
+    "TaskType",
+    "TokenTag",
 ]

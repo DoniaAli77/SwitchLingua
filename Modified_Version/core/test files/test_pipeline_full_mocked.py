@@ -1,6 +1,5 @@
 import json
 import os
-import re
 import sys
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -35,11 +34,6 @@ class FakeChatOpenAI:
     def with_structured_output(self, _schema):
         return self
 
-    def _count_batch_sentences(self, payload: dict) -> int:
-        text = payload.get("sentences_for_batch") or payload.get("sentences_with_stats") or ""
-        matches = re.findall(r"(?m)^Sentence\s+\d+:", str(text))
-        return len(matches) if matches else 1
-
     def invoke(self, payload: dict):
         if self.mode in {"gen_topic", "gen_sentiment", "gen_ner"}:
             return {
@@ -59,47 +53,34 @@ class FakeChatOpenAI:
                 "errors": [],
             }
 
-        n = self._count_batch_sentences(payload)
-
+        # Per-sentence agents: each call returns a single JSON object
         if self.mode == "fluency":
-            arr = [
-                {"fluency_score": 8.0 + (i * 0.1), "errors": {}, "summary": f"fluency_{i+1}"}
-                for i in range(n)
-            ]
-            return SimpleNamespace(content=json.dumps(arr))
+            return SimpleNamespace(content=json.dumps(
+                {"fluency_score": 8.0, "errors": {}, "summary": "fluency_ok"}
+            ))
 
         if self.mode == "naturalness":
-            arr = [
-                {
-                    "naturalness_score": 7.5 + (i * 0.1),
-                    "observations": {"1": f"obs_{i+1}"},
-                    "summary": f"natural_{i+1}",
-                }
-                for i in range(n)
-            ]
-            return SimpleNamespace(content=json.dumps(arr))
+            return SimpleNamespace(content=json.dumps(
+                {"naturalness_score": 7.5, "observations": {"1": "obs_ok"}, "summary": "natural_ok"}
+            ))
 
         if self.mode == "cs_ratio":
-            arr = [
-                {
-                    "ratio_score": 6 + i,
-                    "computed_ratio": "60% : 40%",
-                    "notes": f"ratio_{i+1}",
-                }
-                for i in range(n)
-            ]
-            return SimpleNamespace(content=json.dumps(arr))
+            return SimpleNamespace(content=json.dumps(
+                {"ratio_score": 7, "computed_ratio": "70% : 30%", "notes": "ratio_ok"}
+            ))
 
         if self.mode == "social":
-            arr = [
-                {
-                    "socio_cultural_score": 8.0 + (i * 0.1),
-                    "issues": "",
-                    "summary": f"social_{i+1}",
-                }
-                for i in range(n)
-            ]
-            return SimpleNamespace(content=json.dumps(arr))
+            return SimpleNamespace(content=json.dumps(
+                {"socio_cultural_score": 8.0, "issues": "", "summary": "social_ok"}
+            ))
+
+        if self.mode == "refiner":
+            # Quality refiner: returns a single refined sentence
+            return {"instances": ["refined quality sentence for testing"]}
+
+        if self.mode == "refiner_task":
+            # Task-specific refiner: fixes task failure
+            return {"instances": ["refined task sentence for testing"]}
 
         raise RuntimeError(f"Unhandled fake mode: {self.mode}")
 
@@ -160,6 +141,11 @@ def run_task_pipeline(task: str) -> None:
     sum_out = node_engine.SummarizeResult(state)
     state.update(sum_out)
 
+    # Refiner runs after SummarizeResult (needs sentence_records to be built)
+    ref_out = node_engine.RunRefinerAgent(state)
+    if ref_out:
+        state.update(ref_out)
+
     n = len(state["data_generation_result"])
     assert n > 0, "No generated instances"
     assert len(state["fluency_results_per_instances"]) == n, "Fluency per-instance mismatch"
@@ -175,6 +161,11 @@ def run_task_pipeline(task: str) -> None:
     assert abs(state["score"] - expected) < 1e-9, "Summary score mismatch"
     assert "summary" in state and isinstance(state["summary"], str), "Missing summary"
     assert state["task_validation_result"].get("passed") is True, "Validation should pass"
+
+    # Refiner assertions: all sentences had score < 8.0 so all should be refined
+    counts = state.get("instance_refine_counts", [])
+    assert len(counts) == n, "Refine counts length mismatch"
+    assert all(c == 1 for c in counts), f"Expected all sentences refined once, got: {counts}"
 
     print(f"PASS task={task} instances={n} score={state['score']:.4f}")
 
@@ -200,6 +191,14 @@ def main() -> None:
         node_engine, "CS_RATIO_PROMPT", FakePrompt("cs_ratio")
     ), patch.object(
         node_engine, "SOCIAL_CULTURAL_PROMPT", FakePrompt("social")
+    ), patch.object(
+        node_engine, "REFINER_PROMPT", FakePrompt("refiner")
+    ), patch.object(
+        node_engine, "REFINER_TASK_TOPIC_PROMPT", FakePrompt("refiner_task")
+    ), patch.object(
+        node_engine, "REFINER_TASK_SENTIMENT_PROMPT", FakePrompt("refiner_task")
+    ), patch.object(
+        node_engine, "REFINER_TASK_NER_PROMPT", FakePrompt("refiner_task")
     ):
         print("Running full mocked pipeline tests...")
         for task in ["topic", "sentiment", "ner"]:

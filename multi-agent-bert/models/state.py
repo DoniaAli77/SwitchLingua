@@ -11,6 +11,8 @@ from models.contracts import (
     ConsensusResult,
     ExplanationResult,
     RoutingDecision,
+    SequenceLabelingResult,
+    TaskType,
 )
 
 
@@ -37,6 +39,7 @@ class TaskState:
     """Task configuration for generic classification use cases."""
 
     task_name: str = ""
+    task_type: TaskType = TaskType.CLASSIFICATION
     labels: List[str] = field(default_factory=list)
     label_descriptions: Dict[str, str] = field(default_factory=dict)
     threshold: float = 0.0
@@ -56,6 +59,7 @@ class ExecutionState:
     """Execution outputs produced during pipeline progression."""
 
     primary_result: Optional[ClassificationResult] = None
+    sequence_result: Optional[SequenceLabelingResult] = None
     routing_decision: Optional[RoutingDecision] = None
     consensus_result: Optional[ConsensusResult] = None
     explanation_result: Optional[ExplanationResult] = None

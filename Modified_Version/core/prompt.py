@@ -328,66 +328,109 @@ TASK_VALIDATION_NER_PROMPT = ChatPromptTemplate.from_messages(
 )
 
 
+# FLUENCY_PROMPT = ChatPromptTemplate.from_messages(
+#     [
+#         (
+#             "assistant",
+#             """
+#                         You are **FluencyAgent**. Evaluate grammatical correctness and syntactic coherence of a single code-switched sentence.
+
+#                         Checks:
+#                         - Free Morpheme Constraint (Poplack, 1980)
+#                         - Equivalence Constraint (Poplack, 1980)
+#                         - General grammatical/syntactic coherence
+
+#                         Return ONLY valid JSON (no extra prose) with this schema:
+#                         {{
+#                             "fluency_score": <0-10>,
+#                             "errors": {{"1": "...", "2": "..."}},
+#                             "summary": "..."
+#                         }}
+
+#                         Sentence:
+#                         {sentence}
+#             """,
+#         )
+#     ]
+# )
+
 FLUENCY_PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "assistant",
             """
-                        You are **FluencyAgent**. Evaluate grammatical correctness and syntactic coherence for MULTIPLE code-switched sentences.
+                        You are **FluencyAgent**. Evaluate grammatical correctness and syntactic coherence of a single code-switched sentence.
 
-                        IMPORTANT:
-                        - Evaluate each sentence independently.
-                        - Return one result object per sentence.
-                        - Output ONLY valid JSON array (no extra prose).
-
-                        Checks per sentence:
+                        Checks:
                         - Free Morpheme Constraint (Poplack, 1980)
                         - Equivalence Constraint (Poplack, 1980)
                         - General grammatical/syntactic coherence
 
-                        Return JSON array with this schema:
-                        [
-                            {{
-                                "fluency_score": <0-10>,
-                                "errors": {{"1": "...", "2": "..."}},
-                                "summary": "..."
-                            }}
-                        ]
+                        Return ONLY valid JSON (no extra prose) with this schema:
+                        {{
+                            "fluency_score": <0-10>,
+                            "errors": {{"1": "...", "2": "..."}},
+                            "summary": "..."
+                        }}
 
-                        Sentences:
-                        {sentences_for_batch}
+                        Sentence:
+                        {sentence}
             """,
         )
     ]
 )
+# NATURALNESS_PROMPT = ChatPromptTemplate.from_messages(
+#     [
+#         (
+#             "assistant",
+#             """
+#                         You are **NaturalnessAgent**. Evaluate naturalness for MULTIPLE code-switched sentences from a bilingual speaker perspective.
+
+#                         IMPORTANT:
+#                         - Evaluate each sentence independently.
+#                         - Return one result object per sentence.
+#                         - Output ONLY valid JSON array (no extra prose).
+
+#                         Consider per sentence:
+#                         - Intersentential / Intrasentential / Tag switching
+#                         - Whether switching sounds authentic in real bilingual usage
+
+#                         Return JSON array with this schema:
+#                         [
+#                             {{
+#                                 "naturalness_score": <0-10>,
+#                                 "observations": {{"1": "...", "2": "..."}},
+#                                 "summary": "..."
+#                             }}
+#                         ]
+
+#                         Sentences:
+#                         {sentences_for_batch}
+#             """,
+#         )
+#     ]
+# )
 
 NATURALNESS_PROMPT = ChatPromptTemplate.from_messages(
     [
         (
             "assistant",
             """
-                        You are **NaturalnessAgent**. Evaluate naturalness for MULTIPLE code-switched sentences from a bilingual speaker perspective.
+                        You are **NaturalnessAgent**. Evaluate naturalness of a single code-switched sentence from a bilingual speaker perspective.
 
-                        IMPORTANT:
-                        - Evaluate each sentence independently.
-                        - Return one result object per sentence.
-                        - Output ONLY valid JSON array (no extra prose).
-
-                        Consider per sentence:
+                        Consider:
                         - Intersentential / Intrasentential / Tag switching
                         - Whether switching sounds authentic in real bilingual usage
 
-                        Return JSON array with this schema:
-                        [
-                            {{
-                                "naturalness_score": <0-10>,
-                                "observations": {{"1": "...", "2": "..."}},
-                                "summary": "..."
-                            }}
-                        ]
+                        Return ONLY valid JSON (no extra prose) with this schema:
+                        {{
+                            "naturalness_score": <0-10>,
+                            "observations": {{"1": "...", "2": "..."}},
+                            "summary": "..."
+                        }}
 
-                        Sentences:
-                        {sentences_for_batch}
+                        Sentence:
+                        {sentence}
             """,
         )
     ]
@@ -497,38 +540,26 @@ CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
         (
             "assistant",
             """
-            You are **CSRatioAgent**. You evaluate the *Code-Switching Ratio* (CS-Ratio) 
-            using the provided deterministic analysis for MULTIPLE sentences.
+            You are **CSRatioAgent**. You evaluate the *Code-Switching Ratio* (CS-Ratio) of a single sentence
+            using the provided deterministic statistics.
 
             IMPORTANT:
             - Do NOT recompute ratios yourself.
             - Do NOT guess token counts.
-            - Use ONLY the deterministic statistics provided for each sentence.
-            - Return a score for EACH sentence independently.
+            - Use ONLY the deterministic statistics provided below.
 
             Desired ratio: {cs_ratio}
             Target matrix-language ratio: {target_matrix_ratio}%
             Target embedded-language ratio: {target_embedded_ratio}%
 
-            **For each sentence, you have**:
-            - Matrix ratio & Embedded ratio (deterministic)
-            - Token counts (deterministic)
-            - Whether it's code-switched (deterministic)
+            Sentence statistics:
+            {sentence_with_stats}
 
-            **Return a JSON array** with one object per sentence:
-            [
-                {{"ratio_score": <0-10>, "computed_ratio": "XX% : YY%", "notes": "..."}},
-                {{"ratio_score": <0-10>, "computed_ratio": "XX% : YY%", "notes": "..."}},
-                ...
-            ]
+            Return ONLY valid JSON (no extra prose) with this schema:
+            {{"ratio_score": <0-10>, "computed_ratio": "XX% : YY%", "notes": "..."}}
 
-                        Scoring instruction:
-                        - Assign ratio_score (0-10) using your judgment based on the deterministic statistics and target ratio.
-                        - Keep scoring consistent across sentences in the same batch.
-                        - In notes, briefly justify the score using the matrix/embedded percentages.
-
-            Sentences with stats:
-            {sentences_with_stats}
+            Scoring: assign ratio_score (0-10) based on how close the actual ratios are to the target.
+            In notes, briefly justify using the matrix/embedded percentages.
             """,
         )
     ]
@@ -617,6 +648,39 @@ CS_RATIO_PROMPT = ChatPromptTemplate.from_messages(
 
 
 
+# SOCIAL_CULTURAL_PROMPT = ChatPromptTemplate.from_messages(
+#     [
+#         (
+#             "assistant",
+#             """
+#                         You are **SocioCulturalAgent**. Evaluate cultural appropriateness for MULTIPLE code-switched sentences.
+
+#                         IMPORTANT:
+#                         - Evaluate each sentence independently.
+#                         - Return one result object per sentence.
+#                         - Output ONLY valid JSON array (no extra prose).
+
+#                         Check per sentence:
+#                         - Cultural norm alignment
+#                         - Borrowed-word appropriateness
+#                         - Potentially offensive or locally unnatural usage
+
+#                         Return JSON array with this schema:
+#                         [
+#                             {{
+#                                 "socio_cultural_score": <0-10>,
+#                                 "issues": "...",
+#                                 "summary": "..."
+#                             }}
+#                         ]
+
+#                         Sentences:
+#                         {sentences_for_batch}
+#             """,
+#         )
+#     ]
+# )
+
 
 
 
@@ -625,29 +689,22 @@ SOCIAL_CULTURAL_PROMPT = ChatPromptTemplate.from_messages(
         (
             "assistant",
             """
-                        You are **SocioCulturalAgent**. Evaluate cultural appropriateness for MULTIPLE code-switched sentences.
+                        You are **SocioCulturalAgent**. Evaluate cultural appropriateness of a single code-switched sentence.
 
-                        IMPORTANT:
-                        - Evaluate each sentence independently.
-                        - Return one result object per sentence.
-                        - Output ONLY valid JSON array (no extra prose).
-
-                        Check per sentence:
+                        Check:
                         - Cultural norm alignment
                         - Borrowed-word appropriateness
                         - Potentially offensive or locally unnatural usage
 
-                        Return JSON array with this schema:
-                        [
-                            {{
-                                "socio_cultural_score": <0-10>,
-                                "issues": "...",
-                                "summary": "..."
-                            }}
-                        ]
+                        Return ONLY valid JSON (no extra prose) with this schema:
+                        {{
+                            "socio_cultural_score": <0-10>,
+                            "issues": "...",
+                            "summary": "..."
+                        }}
 
-                        Sentences:
-                        {sentences_for_batch}
+                        Sentence:
+                        {sentence}
             """,
         )
     ]
@@ -675,6 +732,80 @@ REFINER_PROMPT = ChatPromptTemplate.from_messages(
             Here are the comments : {summary}
 
             Please refine the code-switched text based on the comments.
+            """,
+        )
+    ]
+)
+
+# Task-aware refiner prompts (used when task_fail=True)
+
+REFINER_TASK_TOPIC_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "assistant",
+            """
+            You are **RefinerAgent** fixing a code-switched sentence that failed topic classification.
+
+            Task: The sentence must clearly belong to the topic: **{topic}**
+
+            Original sentence: {sentence}
+            Task validation feedback: {task_validation_feedback}
+
+            Rewrite the sentence so that:
+            1. It clearly relates to the topic "{topic}".
+            2. It keeps the same code-switching style (mix of {first_language} and {second_language}).
+            3. It preserves the original meaning as much as possible.
+
+            Return only the refined sentence as a JSON object with key "instances" containing a list with one string.
+            Example: {{"instances": ["refined sentence here"]}}
+            """,
+        )
+    ]
+)
+
+REFINER_TASK_SENTIMENT_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "assistant",
+            """
+            You are **RefinerAgent** fixing a code-switched sentence that failed sentiment validation.
+
+            Task: The sentence must express **{label}** sentiment.
+
+            Original sentence: {sentence}
+            Task validation feedback: {task_validation_feedback}
+
+            Rewrite the sentence so that:
+            1. It clearly expresses {label} sentiment.
+            2. It keeps the same code-switching style (mix of {first_language} and {second_language}).
+            3. Do NOT flip the sentiment in any language part of the sentence.
+
+            Return only the refined sentence as a JSON object with key "instances" containing a list with one string.
+            Example: {{"instances": ["refined sentence here"]}}
+            """,
+        )
+    ]
+)
+
+REFINER_TASK_NER_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "assistant",
+            """
+            You are **RefinerAgent** fixing a code-switched sentence that failed NER (Named Entity Recognition) validation.
+
+            Task: The sentence must contain named entities of types: **{entity_types}**
+
+            Original sentence: {sentence}
+            Task validation feedback: {task_validation_feedback}
+
+            Rewrite the sentence so that:
+            1. It contains at least one named entity of the required types ({entity_types}).
+            2. It keeps the same code-switching style (mix of {first_language} and {second_language}).
+            3. Do NOT remove any existing named entities.
+
+            Return only the refined sentence as a JSON object with key "instances" containing a list with one string.
+            Example: {{"instances": ["refined sentence here"]}}
             """,
         )
     ]

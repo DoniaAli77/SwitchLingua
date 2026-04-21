@@ -23,8 +23,11 @@ class TaskConfig:
     """
 
     task_name: str
+    task_type: str = "classification"  # "classification" | "sequence_labeling"
     labels: List[str] = field(default_factory=list)
     label_descriptions: Dict[str, str] = field(default_factory=dict)
+    threshold: float = 0.5
+    contextual_use_prior_outputs: bool = False
 
     def is_allowed_label(self, label: str) -> bool:
         """Return True if label is part of the configured label space."""
@@ -39,6 +42,29 @@ class TaskConfig:
         if label not in self.labels:
             allowed = ", ".join(self.labels)
             raise ValueError(f"Invalid {field_name}: '{label}'. Allowed labels: [{allowed}]")
+
+
+@dataclass(slots=True)
+class TokenTag:
+    """Label assigned to a single token in a sequence-labeling task."""
+
+    token: str
+    tag: str
+    confidence: float = 0.0
+
+
+@dataclass(slots=True)
+class SequenceLabelingOutput:
+    """Agent output for sequence-labeling tasks such as NER.
+
+    ``tags`` contains one :class:`TokenTag` per input token in order.
+    Used in :attr:`AgentOutput.sequence_output` when
+    ``task_type == 'sequence_labeling'``.
+    """
+
+    tags: List[TokenTag] = field(default_factory=list)
+    notes: str = ""
+    features: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(slots=True)
@@ -63,10 +89,16 @@ class ModelOutput:
 
 @dataclass(slots=True)
 class AgentOutput:
-    """Output wrapper for specialist agents."""
+    """Output wrapper for specialist agents.
+
+    For classification tasks, populate ``model_output``.
+    For sequence-labeling tasks (NER), populate ``sequence_output`` instead.
+    Exactly one of the two should be set for any given agent run.
+    """
 
     agent_name: str
     model_output: ModelOutput = field(default_factory=ModelOutput)
+    sequence_output: Optional[SequenceLabelingOutput] = None
     notes: str = ""
     features: Dict[str, Any] = field(default_factory=dict)
 
@@ -125,6 +157,20 @@ class FinalOutput:
 
 
 @dataclass(slots=True)
+class HistoryEvent:
+    """A single structured entry in the pipeline execution history.
+
+    All fields are plain Python primitives so the history list remains
+    JSON-serializable without any custom encoder.
+    """
+
+    component: str
+    timestamp: str          # ISO 8601 UTC string
+    summary: str
+    outputs: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(slots=True)
 class PipelineState:
     """Shared mutable state passed through all pipeline components."""
 
@@ -144,6 +190,66 @@ class PipelineState:
     final_output: Optional[FinalOutput] = None
 
     extras: Dict[str, Any] = field(default_factory=dict)
+    history: List[HistoryEvent] = field(default_factory=list)
+
+    # ------------------------------------------------------------------
+    # History helpers
+    # ------------------------------------------------------------------
+
+    def append_history(
+        self,
+        component: str,
+        summary: str,
+        outputs: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Append a structured event to the execution history.
+
+        Parameters
+        ----------
+        component:
+            Name of the component writing this entry (e.g. ``"lexical_agent"``).
+        summary:
+            Human-readable one-line description of what happened.
+        outputs:
+            Key results from the component — must contain only JSON-serializable
+            values (str, int, float, bool, list, dict, None).
+        """
+        self.history.append(
+            HistoryEvent(
+                component=component,
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                summary=summary,
+                outputs=outputs or {},
+            )
+        )
+
+    def get_history(self) -> List[Dict[str, Any]]:
+        """Return the execution history as a list of plain dicts.
+
+        The returned structure is fully JSON-serializable and suitable
+        for logging, storage, or display.
+        """
+        return [
+            {
+                "component": e.component,
+                "timestamp": e.timestamp,
+                "summary": e.summary,
+                "outputs": e.outputs,
+            }
+            for e in self.history
+        ]
+
+    @property
+    def primary_model(self) -> ModelOutput:
+        """Alias for primary model output used by pipeline components."""
+
+        return self.primary_model_output
+
+    @primary_model.setter
+    def primary_model(self, value: ModelOutput) -> None:
+        """Set primary model output through compatibility alias."""
+
+        self.primary_model_output = value
 
     def validate_labels(self) -> None:
         """Validate all labels present in state against task-config labels."""
