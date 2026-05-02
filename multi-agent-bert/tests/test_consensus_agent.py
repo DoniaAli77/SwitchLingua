@@ -95,7 +95,12 @@ class TestExtractVote:
 class TestConsensusAgentInit:
     def test_default_weights_are_equal(self):
         agent = ConsensusAgent()
-        assert agent.weights == {"lexical": 1.0, "contextual": 1.0, "logic": 1.0}
+        assert agent.weights == {
+            "lexical": 1.0,
+            "contextual": 1.0,
+            "logic": 1.0,
+            "deliberation": 0.0,
+        }
 
     def test_custom_weights_merged(self):
         agent = ConsensusAgent(weights={"contextual": 2.0})

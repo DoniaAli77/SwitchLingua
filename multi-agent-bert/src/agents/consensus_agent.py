@@ -38,6 +38,7 @@ from src.agents.base_agent import BaseAgent
 from src.state.schema import (
     AgentOutput,
     ConsensusOutput,
+    DeliberationOutput,
     FinalOutput,
     ModelOutput,
     PipelineState,
@@ -52,6 +53,7 @@ _DEFAULT_WEIGHTS: Dict[str, float] = {
     "lexical": 1.0,
     "contextual": 1.0,
     "logic": 1.0,
+    "deliberation": 0.0,  # Off by default; set > 0 to include deliberation vote.
 }
 
 
@@ -101,6 +103,10 @@ class ConsensusAgent(BaseAgent[PipelineState]):
     Silence lexical::
 
         agent = ConsensusAgent(weights={"lexical": 0.0, "contextual": 1.0, "logic": 1.0})
+
+    Include deliberation at weight 1.5::
+
+        agent = ConsensusAgent(weights={"deliberation": 1.5})
     """
 
     def __init__(
@@ -111,10 +117,10 @@ class ConsensusAgent(BaseAgent[PipelineState]):
     ) -> None:
         super().__init__(name=name or "ConsensusAgent", logger=logger)
         raw: Dict[str, float] = {**_DEFAULT_WEIGHTS, **(weights or {})}
-        # Clamp negatives; keep only the three known slots.
+        # Clamp negatives; keep all four known slots.
         self.weights: Dict[str, float] = {
-            slot: max(0.0, raw.get(slot, 1.0))
-            for slot in ("lexical", "contextual", "logic")
+            slot: max(0.0, raw.get(slot, _DEFAULT_WEIGHTS.get(slot, 0.0)))
+            for slot in ("lexical", "contextual", "logic", "deliberation")
         }
 
     # ------------------------------------------------------------------
@@ -170,6 +176,30 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 f"{label} (weight={weight:.2f}, conf={confidence:.4f}, "
                 f"contribution={weight * confidence:.4f})"  # type: ignore[operator]
             )
+
+        # --- Optional deliberation vote ------------------------------------
+        delib_weight = self.weights["deliberation"]
+        if delib_weight > 0.0 and state.deliberation_output is not None:
+            d_label = state.deliberation_output.recommended_label
+            d_conf = state.deliberation_output.confidence
+            if (
+                d_label is not None
+                and d_conf is not None
+                and 0.0 <= d_conf <= 1.0
+                and task.is_allowed_label(d_label)
+            ):
+                scores[d_label] += delib_weight * d_conf  # type: ignore[operator]
+                active_weight_sum += delib_weight
+                vote_details["deliberation"] = (
+                    f"{d_label} (weight={delib_weight:.2f}, conf={d_conf:.4f}, "
+                    f"contribution={delib_weight * d_conf:.4f})"  # type: ignore[operator]
+                )
+            else:
+                self.logger.warning(
+                    "%s: deliberation output is unusable (label=%r, conf=%r); skipping.",
+                    self.name, d_label, d_conf,
+                )
+                vote_details["deliberation"] = "no vote"
 
         # --- No usable votes → fallback -------------------------------------
         if active_weight_sum == 0.0:

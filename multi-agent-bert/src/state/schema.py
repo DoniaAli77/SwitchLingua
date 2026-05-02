@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
+
+
+PipelineMode = Literal["primary_only", "paper_style", "full_agentic"]
 
 
 @dataclass(slots=True)
@@ -28,6 +31,8 @@ class TaskConfig:
     label_descriptions: Dict[str, str] = field(default_factory=dict)
     threshold: float = 0.5
     contextual_use_prior_outputs: bool = False
+    enable_deliberation: bool = False
+    pipeline_mode: PipelineMode = "full_agentic"
 
     def is_allowed_label(self, label: str) -> bool:
         """Return True if label is part of the configured label space."""
@@ -133,6 +138,21 @@ class ConsensusOutput:
 
 
 @dataclass(slots=True)
+class DeliberationOutput:
+    """Output of the optional deliberation stage.
+
+    The deliberation agent reads all specialist agent outputs and proposes
+    either a refined label recommendation or a justification for preferring
+    one label over the others.
+    """
+
+    recommended_label: Optional[str] = None
+    confidence: Optional[float] = None
+    justification: str = ""
+    mode: str = "justification"  # "recommendation" | "justification"
+
+
+@dataclass(slots=True)
 class ExplanationOutput:
     """Structured explainability payload for traceability and debugging."""
 
@@ -184,6 +204,7 @@ class PipelineState:
     lexical_output: Optional[AgentOutput] = None
     contextual_output: Optional[AgentOutput] = None
     logic_output: Optional[AgentOutput] = None
+    deliberation_output: Optional[DeliberationOutput] = None
 
     consensus_output: Optional[ConsensusOutput] = None
     explanation_output: Optional[ExplanationOutput] = None

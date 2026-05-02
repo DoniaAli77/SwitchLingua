@@ -10,7 +10,11 @@ Execution flow
 3b. If decision == ``"escalate"`` (slow path):
        LexicalAgent        — writes ``state.lexical_output``
        LogicAgent          — writes ``state.logic_output``
-    ContextualAgent     — writes ``state.contextual_output``
+       ContextualAgent     — writes ``state.contextual_output``
+       DeliberationAgent   — (optional) writes ``state.deliberation_output``
+                             when ``task_config.enable_deliberation`` is True
+                             and the orchestrator was constructed with a
+                             ``deliberation_agent`` instance.
        ConsensusAgent      — writes ``state.consensus_output`` + ``state.final_output``
        ExplainabilityAgent — writes a full escalated explanation
 
@@ -35,14 +39,19 @@ from typing import Any, Dict, Optional
 
 from src.agents.consensus_agent import ConsensusAgent
 from src.agents.contextual_agent import ContextualAgent
+from src.agents.deliberation_agent import DeliberationAgent
 from src.agents.explainability_agent import ExplainabilityAgent
 from src.agents.lexical_agent import LexicalAgent
 from src.agents.logic_agent import LogicAgent
 from src.models.mock_primary_classifier import MockPrimaryClassifier
 from src.pipeline.router import Router
-from src.state.schema import PipelineState
+from src.state.schema import ExplanationOutput, FinalOutput, PipelineMode, PipelineState
 
 _ESCALATE = "escalate"
+_PRIMARY_ONLY: PipelineMode = "primary_only"
+_PAPER_STYLE: PipelineMode = "paper_style"
+_FULL_AGENTIC: PipelineMode = "full_agentic"
+_ALLOWED_MODES = {_PRIMARY_ONLY, _PAPER_STYLE, _FULL_AGENTIC}
 
 log = logging.getLogger(__name__)
 
@@ -85,7 +94,7 @@ class PipelineOrchestrator:
 
     Parameters
     ----------
-    primary_classifier:
+    primary_classifier::
         Any object with a ``run(state) -> state`` method.  Use
         :class:`~src.models.mock_primary_classifier.MockPrimaryClassifier`
         in tests or demos and swap in a real model for production.
@@ -101,6 +110,11 @@ class PipelineOrchestrator:
         Required for the escalation path.
     explainability_agent:
         Used on both paths (short explanation on fast path, full on escalation).
+    deliberation_agent:
+        Optional.  When supplied **and** ``state.task_config.enable_deliberation``
+        is ``True``, the deliberation stage runs between the contextual stage and
+        the consensus stage.  Pass ``None`` (default) to keep deliberation off
+        regardless of the config flag.
     logger:
         Optional pre-configured logger.
     """
@@ -114,6 +128,7 @@ class PipelineOrchestrator:
         logic_agent: LogicAgent,
         consensus_agent: ConsensusAgent,
         explainability_agent: ExplainabilityAgent,
+        deliberation_agent: Optional[DeliberationAgent] = None,
         logger: Optional[logging.Logger] = None,
     ) -> None:
         self._primary = primary_classifier
@@ -123,6 +138,7 @@ class PipelineOrchestrator:
         self._logic = logic_agent
         self._consensus = consensus_agent
         self._explain = explainability_agent
+        self._deliberation = deliberation_agent
         self.logger = logger or log
 
     # ------------------------------------------------------------------
@@ -135,10 +151,12 @@ class PipelineOrchestrator:
         Returns the state after whichever stage last succeeded.  Check
         ``state.extras.get("pipeline_error")`` to detect failures.
         """
+        pipeline_mode = self._resolve_pipeline_mode(state)
         self.logger.info(
-            "Pipeline started — sample_id=%s task=%s",
+            "Pipeline started — sample_id=%s task=%s mode=%s",
             state.metadata.sample_id,
             state.task_config.task_name,
+            pipeline_mode,
         )
         state.append_history(
             component="orchestrator",
@@ -147,6 +165,7 @@ class PipelineOrchestrator:
                 "sample_id": state.metadata.sample_id,
                 "task": state.task_config.task_name,
                 "input_length": len(state.input_text),
+                "pipeline_mode": pipeline_mode,
             },
         )
 
@@ -155,34 +174,87 @@ class PipelineOrchestrator:
         if not ok:
             return state
 
-        # Stage 2: Router
-        state, ok = _run_stage("router", self._router.run, state)
-        if not ok:
-            return state
-
-        decision = state.routing_info.decision if state.routing_info else _ESCALATE
-
-        if decision != _ESCALATE:
-            # Fast path ─────────────────────────────────────────────────
-            self.logger.info(
-                "Decision: %s — skipping specialist agents", decision
+        if pipeline_mode == _PRIMARY_ONLY:
+            primary = state.primary_model_output
+            state.final_output = FinalOutput(
+                label=primary.label,
+                confidence=primary.confidence,
+                payload={
+                    "source": "primary_model",
+                    "probabilities": dict(primary.probabilities),
+                    "raw_text": primary.raw_text,
+                    "pipeline_mode": pipeline_mode,
+                },
             )
-            state, _ = _run_stage("explainability_agent", self._explain.run, state)
+            state.explanation_output = ExplanationOutput(
+                summary="Primary-only mode used. Router and specialist agents were skipped.",
+                evidence=[
+                    (
+                        "Final output came directly from the primary model "
+                        f"(label='{primary.label}', confidence={primary.confidence})."
+                    )
+                ],
+                caveats=[],
+            )
+            state.append_history(
+                component="orchestrator",
+                summary="Primary-only mode finalized output from primary classifier.",
+                outputs={
+                    "pipeline_mode": pipeline_mode,
+                    "router_ran": False,
+                    "specialist_agents_ran": False,
+                },
+            )
         else:
-            # Escalation path ────────────────────────────────────────────
-            self.logger.info("Decision: escalate — running specialist agents")
+            # Stage 2: Router
+            state, ok = _run_stage("router", self._router.run, state)
+            if not ok:
+                return state
 
-            for stage_name, agent in [
-                ("lexical_agent",      self._lexical),
-                ("logic_agent",        self._logic),
-                ("contextual_agent",   self._contextual),
-                ("consensus_agent",    self._consensus),
-            ]:
-                state, ok = _run_stage(stage_name, agent.run, state)
+            decision = state.routing_info.decision if state.routing_info else _ESCALATE
+
+            if decision != _ESCALATE:
+                # Fast path ─────────────────────────────────────────────────
+                self.logger.info(
+                    "Decision: %s — skipping specialist agents", decision
+                )
+                state, _ = _run_stage("explainability_agent", self._explain.run, state)
+            else:
+                # Escalation path ────────────────────────────────────────────
+                self.logger.info(
+                    "Decision: escalate — running specialist agents (mode=%s)",
+                    pipeline_mode,
+                )
+
+                stages = [
+                    ("lexical_agent", self._lexical),
+                    ("logic_agent", self._logic),
+                ]
+                if pipeline_mode == _FULL_AGENTIC:
+                    stages.append(("contextual_agent", self._contextual))
+
+                for stage_name, agent in stages:
+                    state, ok = _run_stage(stage_name, agent.run, state)
+                    if not ok:
+                        return state
+
+                # Optional deliberation stage (runs before consensus) in full-agentic only.
+                if (
+                    pipeline_mode == _FULL_AGENTIC
+                    and state.task_config.enable_deliberation
+                    and self._deliberation is not None
+                ):
+                    state, ok = _run_stage(
+                        "deliberation_agent", self._deliberation.run, state
+                    )
+                    if not ok:
+                        return state
+
+                state, ok = _run_stage("consensus_agent", self._consensus.run, state)
                 if not ok:
                     return state
 
-            state, _ = _run_stage("explainability_agent", self._explain.run, state)
+                state, _ = _run_stage("explainability_agent", self._explain.run, state)
 
         self.logger.info(
             "Pipeline finished — label=%s confidence=%s",
@@ -209,7 +281,15 @@ class PipelineOrchestrator:
                 "routing_decision": (
                     state.routing_info.decision if state.routing_info else None
                 ),
+                "pipeline_mode": pipeline_mode,
                 "history_length": len(state.history),
             },
         )
         return state
+
+    @staticmethod
+    def _resolve_pipeline_mode(state: PipelineState) -> PipelineMode:
+        mode = getattr(state.task_config, "pipeline_mode", _FULL_AGENTIC)
+        if mode not in _ALLOWED_MODES:
+            return _FULL_AGENTIC
+        return mode

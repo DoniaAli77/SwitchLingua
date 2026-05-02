@@ -146,7 +146,7 @@ import re
 def compute_true_cs_stats(text: str):
     if text is None:
         text = ""
-    print('hi ', text)
+
     ar_tokens = re.findall(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+', text)
     en_tokens = re.findall(r'[A-Za-z]+', text)
 
