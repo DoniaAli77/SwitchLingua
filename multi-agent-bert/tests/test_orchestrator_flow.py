@@ -110,7 +110,7 @@ def test_primary_only_skips_router_and_specialists() -> None:
     assert _has_mode_history(out, "primary_only")
 
 
-def test_paper_style_escalation_runs_lexical_and_logic_only() -> None:
+def test_paper_style_escalation_runs_lexical_logic_and_contextual() -> None:
     calls: List[str] = []
     orch = _build_orchestrator(calls=calls, primary_confidence=0.20)
     state = _make_state("paper_style", threshold=0.9, enable_deliberation=True)
@@ -122,10 +122,10 @@ def test_paper_style_escalation_runs_lexical_and_logic_only() -> None:
         "router",
         "lexical",
         "logic",
+        "contextual",
         "consensus",
         "explainability",
     ]
-    assert "contextual" not in calls
     assert "deliberation" not in calls
     assert out.routing_info is not None
     assert out.routing_info.decision == "escalate"

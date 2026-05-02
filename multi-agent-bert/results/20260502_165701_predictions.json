@@ -1,0 +1,512 @@
+[
+  {
+    "sample_id": "1",
+    "input_text": "الشركة launched a new product في السوق العالمي.",
+    "true_label": "business",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.2943147899899599,
+      "negative": 0.2289877311872623,
+      "neutral": 0.4766974788227779
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "2",
+    "input_text": "نحن نبحث عن investment opportunities في قطاع التقنية.",
+    "true_label": "business",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.17623526630664063,
+      "negative": 0.4888872466937213,
+      "neutral": 0.33487748699963804
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "3",
+    "input_text": "CEO الشركة أعلن عن merger مع منافسهم الرئيسي.",
+    "true_label": "business",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.41422652043793595,
+      "negative": 0.46142426799843933,
+      "neutral": 0.12434921156362475
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "4",
+    "input_text": "quarterly report أظهر profits غير متوقعة هذا الربع.",
+    "true_label": "business",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.4044999218437815,
+      "negative": 0.33665162416170463,
+      "neutral": 0.25884845399451395
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "5",
+    "input_text": "الطلاب يستخدمون online courses لتعلم programming.",
+    "true_label": "education",
+    "predicted_label": "neutral",
+    "confidence": 0.7030342754566548,
+    "probabilities": {
+      "positive": 0.09438818667453529,
+      "negative": 0.20257753786880991,
+      "neutral": 0.7030342754566548
+    },
+    "escalated": false,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "6",
+    "input_text": "المدرسة أطلقت new curriculum يشمل artificial intelligence.",
+    "true_label": "education",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.5242648894679149,
+      "negative": 0.12830129499394086,
+      "neutral": 0.3474338155381442
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "7",
+    "input_text": "حصلت على scholarship لإكمال master's degree في الخارج.",
+    "true_label": "education",
+    "predicted_label": "negative",
+    "confidence": 0.7170035453157271,
+    "probabilities": {
+      "positive": 0.03292923164509207,
+      "negative": 0.7170035453157271,
+      "neutral": 0.25006722303918094
+    },
+    "escalated": false,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "8",
+    "input_text": "الأطباء ينصحون بممارسة exercise يومياً للحفاظ على fitness.",
+    "true_label": "health",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.396465443880986,
+      "negative": 0.1871454024400739,
+      "neutral": 0.4163891536789401
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "9",
+    "input_text": "نظام diet متوازن مهم للحفاظ على healthy lifestyle.",
+    "true_label": "health",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.5195268888583788,
+      "negative": 0.21767487337553212,
+      "neutral": 0.26279823776608907
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "10",
+    "input_text": "تناول vitamins يومياً يحسن من immune system بشكل كبير.",
+    "true_label": "health",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.5723904055550593,
+      "negative": 0.07877172774711926,
+      "neutral": 0.34883786669782146
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "11",
+    "input_text": "اشتريت jacket جديد من online store بسعر مناسب.",
+    "true_label": "shopping",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.33680989893913105,
+      "negative": 0.23128385800837623,
+      "neutral": 0.43190624305249276
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "12",
+    "input_text": "تخفيضات Black Friday في المتاجر الإلكترونية رائعة.",
+    "true_label": "shopping",
+    "predicted_label": "positive",
+    "confidence": 0.6593274608509639,
+    "probabilities": {
+      "positive": 0.6593274608509639,
+      "negative": 0.11121649505131344,
+      "neutral": 0.22945604409772263
+    },
+    "escalated": false,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "13",
+    "input_text": "البضاعة وصلت بعد يومين، delivery كانت سريعة جداً.",
+    "true_label": "shopping",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.6145510270166404,
+      "negative": 0.06532731414628033,
+      "neutral": 0.3201216588370792
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "14",
+    "input_text": "الطبيب وصف لي medication جديد لعلاج الضغط.",
+    "true_label": "medical",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.3018375433848732,
+      "negative": 0.35494195437803977,
+      "neutral": 0.34322050223708706
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "15",
+    "input_text": "نتائج scan أظهرت أنه بحاجة إلى surgery بسيطة.",
+    "true_label": "medical",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.2651585159936865,
+      "negative": 0.35655446338062585,
+      "neutral": 0.3782870206256877
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "16",
+    "input_text": "المريض يحتاج إلى follow-up appointment الأسبوع القادم.",
+    "true_label": "medical",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.09431975169302456,
+      "negative": 0.3128110884476221,
+      "neutral": 0.5928691598593533
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "17",
+    "input_text": "فريقنا فاز في championship بعد تدريب شاق لأشهر.",
+    "true_label": "sports",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.2810508187240717,
+      "negative": 0.5561187685105895,
+      "neutral": 0.16283041276533877
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "18",
+    "input_text": "اللاعب أحرز hat-trick في آخر مباراة هذا الموسم.",
+    "true_label": "sports",
+    "predicted_label": "negative",
+    "confidence": 0.7156249548348655,
+    "probabilities": {
+      "positive": 0.2736593034448901,
+      "negative": 0.7156249548348655,
+      "neutral": 0.01071574172024435
+    },
+    "escalated": false,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "19",
+    "input_text": "تدريب gym يومياً يحسن من performance في الملعب.",
+    "true_label": "sports",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.274657182450832,
+      "negative": 0.27432105243788163,
+      "neutral": 0.4510217651112864
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "20",
+    "input_text": "الشركة أطلقت smartphone جديد بمواصفات قوية جداً.",
+    "true_label": "tech",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.4004711828533729,
+      "negative": 0.4113653921754773,
+      "neutral": 0.18816342497114977
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "21",
+    "input_text": "تحديث software الأخير أصلح كثيراً من bugs المزعجة.",
+    "true_label": "tech",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.4494118792476252,
+      "negative": 0.4650297676472206,
+      "neutral": 0.08555835310515421
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "22",
+    "input_text": "نظام cloud computing يوفر storage غير محدود للمستخدمين.",
+    "true_label": "tech",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.3238758283769006,
+      "negative": 0.05391818822960629,
+      "neutral": 0.622205983393493
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "23",
+    "input_text": "أجهزة AI الجديدة تستخدم machine learning للتعرف على الوجوه.",
+    "true_label": "tech",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.21306688628214915,
+      "negative": 0.49077949973090623,
+      "neutral": 0.2961536139869446
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "24",
+    "input_text": "سعر الـ dollar ارتفع مقابل العملات الأخرى اليوم.",
+    "true_label": "finance",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.590368096298661,
+      "negative": 0.3167782015012354,
+      "neutral": 0.09285370220010337
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "25",
+    "input_text": "المستثمرون قلقون من inflation وتأثيرها على portfolio.",
+    "true_label": "finance",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.3710669953656914,
+      "negative": 0.5103972994666438,
+      "neutral": 0.11853570516766473
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "26",
+    "input_text": "البنك يقدم loan بفائدة منخفضة لأصحاب المشاريع الصغيرة.",
+    "true_label": "finance",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.29695740408688603,
+      "negative": 0.5192682608111194,
+      "neutral": 0.18377433510199465
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "27",
+    "input_text": "نشرت post جديد على Instagram حصل على آلاف likes.",
+    "true_label": "social",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.33845227291572816,
+      "negative": 0.31178185350940096,
+      "neutral": 0.3497658735748708
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "28",
+    "input_text": "trending topic على Twitter كان عن الأحداث المحلية.",
+    "true_label": "social",
+    "predicted_label": "positive",
+    "confidence": 0.505555,
+    "probabilities": {
+      "positive": 0.435606161702663,
+      "negative": 0.2364716914242927,
+      "neutral": 0.32792214687304433
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "29",
+    "input_text": "group على WhatsApp يجمع أصدقاء الجامعة من كل مكان.",
+    "true_label": "social",
+    "predicted_label": "negative",
+    "confidence": 0.67337619355973,
+    "probabilities": {
+      "positive": 0.0780535596601666,
+      "negative": 0.67337619355973,
+      "neutral": 0.24857024678010345
+    },
+    "escalated": false,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "30",
+    "input_text": "حضرت online meetup مع community من مختلف الدول العربية.",
+    "true_label": "social",
+    "predicted_label": "neutral",
+    "confidence": 0.6601191541211727,
+    "probabilities": {
+      "positive": 0.00759918004128978,
+      "negative": 0.3322816658375375,
+      "neutral": 0.6601191541211727
+    },
+    "escalated": false,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  }
+]

@@ -7,16 +7,26 @@ Execution flow
                          when decision is ``"accept_primary"``)
 3a. If decision == ``"accept_primary"`` (fast path):
        ExplainabilityAgent — writes a short accepted-prediction explanation
-3b. If decision == ``"escalate"`` (slow path):
+3b. If decision == ``"escalate"`` (slow path, ``paper_style``):
        LexicalAgent        — writes ``state.lexical_output``
        LogicAgent          — writes ``state.logic_output``
        ContextualAgent     — writes ``state.contextual_output``
+       ConsensusAgent      — writes ``state.consensus_output`` + ``state.final_output``
+       ExplainabilityAgent — writes a full escalated explanation
+3c. If decision == ``"escalate"`` (slow path, ``full_agentic``):
+       Same stages as 3b, **plus**:
        DeliberationAgent   — (optional) writes ``state.deliberation_output``
                              when ``task_config.enable_deliberation`` is True
                              and the orchestrator was constructed with a
-                             ``deliberation_agent`` instance.
-       ConsensusAgent      — writes ``state.consensus_output`` + ``state.final_output``
-       ExplainabilityAgent — writes a full escalated explanation
+                             ``deliberation_agent`` instance.  Runs between
+                             ContextualAgent and ConsensusAgent.
+
+Mode summary
+------------
+* ``primary_only``  — primary classifier only; router and all specialist agents skipped.
+* ``paper_style``   — primary → router → (if escalated) lexical + logic + contextual
+                      → consensus → explainability.  No deliberation.
+* ``full_agentic``  — same as paper_style, plus optional DeliberationAgent before consensus.
 
 Error handling
 --------------
@@ -229,9 +239,8 @@ class PipelineOrchestrator:
                 stages = [
                     ("lexical_agent", self._lexical),
                     ("logic_agent", self._logic),
+                    ("contextual_agent", self._contextual),
                 ]
-                if pipeline_mode == _FULL_AGENTIC:
-                    stages.append(("contextual_agent", self._contextual))
 
                 for stage_name, agent in stages:
                     state, ok = _run_stage(stage_name, agent.run, state)

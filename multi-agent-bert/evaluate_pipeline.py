@@ -106,16 +106,138 @@ _DEFAULT_LABEL_DESCRIPTIONS = {
     "negative": "Text expressing negative or unfavorable sentiment.",
     "neutral":  "Text that is factual or carries no strong sentiment.",
 }
-_DEFAULT_KEYWORD_MAP = {
+# Sentiment keyword / rule maps
+_SENTIMENT_KEYWORD_MAP: Dict[str, List[str]] = {
     "positive": ["great", "excellent", "love", "amazing", "good"],
     "negative": ["terrible", "awful", "hate", "bad", "poor"],
     "neutral":  ["okay", "average", "fine", "normal"],
 }
-_DEFAULT_RULE_MAP = {
+_SENTIMENT_RULE_MAP: Dict[str, List[str]] = {
     "positive": [r"\b(great|excellent|amazing|love)\b"],
     "negative": [r"\b(terrible|awful|hate|bad)\b"],
     "neutral":  [r"\b(okay|average|fine)\b"],
 }
+
+# Topic keyword / rule maps (Arabic-English code-switched)
+_TOPIC_KEYWORD_MAP: Dict[str, List[str]] = {
+    "business":  [
+        "business", "company", "deal", "market", "profit", "revenue", "trade",
+        "\u0634\u0631\u0643\u0629", "\u062a\u062c\u0627\u0631\u0629", "\u0633\u0648\u0642",
+        "\u0631\u0628\u062d", "\u0635\u0641\u0642\u0629",
+    ],
+    "education": [
+        "school", "university", "study", "learn", "teacher", "class", "course",
+        "\u062a\u0639\u0644\u064a\u0645", "\u0645\u062f\u0631\u0633\u0629",
+        "\u062c\u0627\u0645\u0639\u0629", "\u062f\u0631\u0627\u0633\u0629",
+        "\u0637\u0627\u0644\u0628",
+    ],
+    "health":    [
+        "health", "doctor", "exercise", "diet", "wellness", "hospital", "fit",
+        "\u0635\u062d\u0629", "\u0645\u0633\u062a\u0634\u0641\u0649",
+        "\u0637\u0628\u064a\u0628", "\u063a\u0630\u0627\u0621",
+    ],
+    "shopping":  [
+        "shop", "buy", "purchase", "price", "discount", "sale", "product",
+        "\u062a\u0633\u0648\u0642", "\u0634\u0631\u0627\u0621", "\u0633\u0639\u0631",
+        "\u062e\u0635\u0645", "\u0645\u0646\u062a\u062c",
+    ],
+    "medical":   [
+        "medicine", "treatment", "clinic", "prescription", "diagnosis", "symptoms", "drug",
+        "\u0637\u0628", "\u0639\u0644\u0627\u062c", "\u0639\u064a\u0627\u062f\u0629",
+        "\u062f\u0648\u0627\u0621", "\u0623\u0639\u0631\u0627\u0636",
+    ],
+    "sports":    [
+        "sport", "football", "match", "team", "player", "score", "game",
+        "\u0631\u064a\u0627\u0636\u0629", "\u0643\u0631\u0629", "\u0645\u0628\u0627\u0631\u0627\u0629",
+        "\u0641\u0631\u064a\u0642", "\u0644\u0627\u0639\u0628",
+    ],
+    "tech":      [
+        "tech", "software", "app", "code", "device", "digital", "computer", "AI",
+        "\u062a\u0642\u0646\u064a\u0629", "\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",
+        "\u0628\u0631\u0646\u0627\u0645\u062c", "\u062a\u0637\u0628\u064a\u0642",
+        "\u0630\u0643\u0627\u0621",
+    ],
+    "finance":   [
+        "finance", "money", "investment", "bank", "loan", "budget", "stock",
+        "\u0645\u0627\u0644", "\u0627\u0633\u062a\u062b\u0645\u0627\u0631",
+        "\u0628\u0646\u0643", "\u0642\u0631\u0636", "\u0645\u064a\u0632\u0627\u0646\u064a\u0629",
+    ],
+    "social":    [
+        "social", "friend", "community", "media", "network", "post", "share",
+        "\u0627\u062c\u062a\u0645\u0627\u0639\u064a", "\u0635\u062f\u064a\u0642",
+        "\u0645\u062c\u062a\u0645\u0639", "\u062a\u0648\u0627\u0635\u0644",
+    ],
+}
+_TOPIC_RULE_MAP: Dict[str, List[str]] = {
+    "business":  [
+        r"\b(business|company|trade|market|profit|revenue|deal)\b",
+        r"(\u0634\u0631\u0643\u0629|\u062a\u062c\u0627\u0631\u0629|\u0633\u0648\u0642)",
+    ],
+    "education": [
+        r"\b(school|university|study|learn|course|teacher)\b",
+        r"(\u062a\u0639\u0644\u064a\u0645|\u0645\u062f\u0631\u0633\u0629|\u062c\u0627\u0645\u0639\u0629)",
+    ],
+    "health":    [
+        r"\b(health|doctor|hospital|wellness|exercise|diet)\b",
+        r"(\u0635\u062d\u0629|\u0645\u0633\u062a\u0634\u0641\u0649|\u0637\u0628\u064a\u0628)",
+    ],
+    "shopping":  [
+        r"\b(shop|buy|purchase|price|discount|sale|product)\b",
+        r"(\u062a\u0633\u0648\u0642|\u0634\u0631\u0627\u0621|\u062e\u0635\u0645)",
+    ],
+    "medical":   [
+        r"\b(medicine|treatment|clinic|prescription|diagnosis|symptoms)\b",
+        r"(\u0637\u0628|\u0639\u0644\u0627\u062c|\u0639\u064a\u0627\u062f\u0629)",
+    ],
+    "sports":    [
+        r"\b(sport|football|match|team|player|score|game)\b",
+        r"(\u0631\u064a\u0627\u0636\u0629|\u0643\u0631\u0629|\u0645\u0628\u0627\u0631\u0627\u0629)",
+    ],
+    "tech":      [
+        r"\b(tech|software|app|code|device|digital|computer|AI)\b",
+        r"(\u062a\u0642\u0646\u064a\u0629|\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627|\u0628\u0631\u0646\u0627\u0645\u062c)",
+    ],
+    "finance":   [
+        r"\b(finance|money|investment|bank|loan|budget|stock)\b",
+        r"(\u0645\u0627\u0644|\u0627\u0633\u062a\u062b\u0645\u0627\u0631|\u0628\u0646\u0643)",
+    ],
+    "social":    [
+        r"\b(social|friend|community|media|network|post|share)\b",
+        r"(\u0627\u062c\u062a\u0645\u0627\u0639\u064a|\u0635\u062f\u064a\u0642|\u0645\u062c\u062a\u0645\u0639)",
+    ],
+}
+
+# Backward-compat aliases (kept so any existing external references still work)
+_DEFAULT_KEYWORD_MAP = _SENTIMENT_KEYWORD_MAP
+_DEFAULT_RULE_MAP = _SENTIMENT_RULE_MAP
+
+
+def build_agent_knowledge_maps(
+    labels: List[str],
+) -> tuple:
+    """Return ``(keyword_map, rule_map)`` restricted to the active label list.
+
+    Looks up each label in the merged pool of sentiment and topic maps.  Labels
+    not found in any known map are silently omitted — agents handle an absent
+    key gracefully.
+
+    Parameters
+    ----------
+    labels:
+        The active task label list from ``TaskConfig.labels``.
+
+    Returns
+    -------
+    keyword_map:
+        Mapping of label → keyword list for :class:`~src.agents.lexical_agent.LexicalAgent`.
+    rule_map:
+        Mapping of label → regex-pattern list for :class:`~src.agents.logic_agent.LogicAgent`.
+    """
+    all_keywords = {**_SENTIMENT_KEYWORD_MAP, **_TOPIC_KEYWORD_MAP}
+    all_rules = {**_SENTIMENT_RULE_MAP, **_TOPIC_RULE_MAP}
+    keyword_map = {lbl: all_keywords[lbl] for lbl in labels if lbl in all_keywords}
+    rule_map = {lbl: all_rules[lbl] for lbl in labels if lbl in all_rules}
+    return keyword_map, rule_map
 
 
 # ---------------------------------------------------------------------------
@@ -186,16 +308,18 @@ def build_orchestrator(
     implementations when evaluating with actual model weights.
     """
     llm_client = MockLLMClient(
-        mode="heuristic",
+        mode="label_echo",
+        allowed_labels=task_config.labels,
     )
     deliberation_agent = DeliberationAgent() if enable_deliberation else None
+    keyword_map, rule_map = build_agent_knowledge_maps(task_config.labels)
 
     return PipelineOrchestrator(
         primary_classifier=MockPrimaryClassifier(mode="heuristic"),
         router=Router(),
-        lexical_agent=LexicalAgent(keyword_map=_DEFAULT_KEYWORD_MAP),
+        lexical_agent=LexicalAgent(keyword_map=keyword_map),
         contextual_agent=ContextualAgent(llm_client=llm_client),
-        logic_agent=LogicAgent(rule_map=_DEFAULT_RULE_MAP),
+        logic_agent=LogicAgent(rule_map=rule_map),
         consensus_agent=ConsensusAgent(),
         explainability_agent=ExplainabilityAgent(),
         deliberation_agent=deliberation_agent,
@@ -480,13 +604,14 @@ def _run_ablation_study(args, dataset, task_config: TaskConfig) -> int:
     log.info("Loaded %d ablation configs from '%s'.", len(configs), path)
 
     primary_clf = MockPrimaryClassifier(mode="heuristic")
-    llm_client = MockLLMClient(mode="heuristic")
+    llm_client = MockLLMClient(mode="label_echo", allowed_labels=task_config.labels)
+    keyword_map, rule_map = build_agent_knowledge_maps(task_config.labels)
 
     study = AblationStudy(
         task_config=task_config,
         primary_classifier=primary_clf,
-        keyword_map=_DEFAULT_KEYWORD_MAP,
-        rule_map=_DEFAULT_RULE_MAP,
+        keyword_map=keyword_map,
+        rule_map=rule_map,
         llm_client=llm_client,
         threshold=args.threshold,
         mode="full_pipeline",

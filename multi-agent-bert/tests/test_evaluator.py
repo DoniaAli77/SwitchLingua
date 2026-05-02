@@ -632,3 +632,198 @@ class TestCLIPipelineModeOverride:
         with open(metrics_files[0], encoding="utf-8") as fh:
             data = json.load(fh)
         assert data.get("meta", {}).get("pipeline_mode") == "primary_only"
+
+
+# ---------------------------------------------------------------------------
+# MockLLMClient mode validation in evaluate_pipeline.build_orchestrator
+# ---------------------------------------------------------------------------
+
+class TestBuildOrchestratorMockLLMClient:
+    """Verify build_orchestrator passes a valid MockLLMClient mode."""
+
+    def _make_task_config(self, labels=None):
+        from src.state.schema import TaskConfig
+        labels = labels or ["positive", "negative", "neutral"]
+        return TaskConfig(
+            task_name="test",
+            labels=labels,
+            label_descriptions={lbl: lbl for lbl in labels},
+        )
+
+    def test_build_orchestrator_uses_label_echo_mode(self):
+        """build_orchestrator must wire MockLLMClient with mode='label_echo'."""
+        import evaluate_pipeline
+        from src.llm.mock_client import MockLLMClient
+
+        task_config = self._make_task_config()
+        orchestrator = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.5,
+            enable_deliberation=False,
+        )
+        llm_client = orchestrator._contextual.llm_client
+        assert isinstance(llm_client, MockLLMClient)
+        assert llm_client.mode == "label_echo"
+
+    def test_build_orchestrator_passes_allowed_labels(self):
+        """build_orchestrator must pass task_config.labels as allowed_labels."""
+        import evaluate_pipeline
+        from src.llm.mock_client import MockLLMClient
+
+        labels = ["sports", "tech", "health"]
+        task_config = self._make_task_config(labels=labels)
+        orchestrator = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.5,
+            enable_deliberation=False,
+        )
+        llm_client = orchestrator._contextual.llm_client
+        assert isinstance(llm_client, MockLLMClient)
+        assert set(llm_client.allowed_labels) == set(labels)
+
+    def test_build_orchestrator_contextual_agent_returns_valid_label(self):
+        """ContextualAgent must return a label from task_config.labels (not 'unknown')."""
+        import evaluate_pipeline
+        from src.state.schema import (
+            PipelineState,
+            StateMetadata,
+            ModelOutput,
+            AgentOutput,
+            RoutingInfo,
+        )
+
+        labels = ["business", "finance", "tech"]
+        task_config = self._make_task_config(labels=labels)
+        orchestrator = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.5,
+            enable_deliberation=False,
+        )
+
+        # Build minimal state that triggers ContextualAgent
+        state = PipelineState(
+            input_text="buy stocks tech business",
+            task_config=task_config,
+            metadata=StateMetadata(sample_id="t1"),
+        )
+        state.lexical_output = AgentOutput(
+            agent_name="lexical",
+            model_output=ModelOutput(label=labels[0], confidence=0.4),
+        )
+        state.logic_output = AgentOutput(
+            agent_name="logic",
+            model_output=ModelOutput(label=labels[1], confidence=0.4),
+        )
+        state.routing_info = RoutingInfo(threshold=0.5, decision="escalate")
+
+        state = orchestrator._contextual.run(state)
+        output_label = state.contextual_output.model_output.label
+        assert output_label in labels, (
+            f"ContextualAgent returned '{output_label}' which is not in {labels}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# build_agent_knowledge_maps
+# ---------------------------------------------------------------------------
+
+class TestBuildAgentKnowledgeMaps:
+    """Verify build_agent_knowledge_maps returns correct, filtered maps."""
+
+    def test_sentiment_labels_return_sentiment_maps(self):
+        """Sentiment labels must resolve to the sentiment maps."""
+        import evaluate_pipeline
+
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(
+            ["positive", "negative", "neutral"]
+        )
+        assert set(km.keys()) == {"positive", "negative", "neutral"}
+        assert set(rm.keys()) == {"positive", "negative", "neutral"}
+        assert "great" in km["positive"]
+        assert any("great" in p or "excellent" in p for p in rm["positive"])
+
+    def test_topic_labels_return_topic_maps(self):
+        """Topic labels must resolve to the topic maps."""
+        import evaluate_pipeline
+
+        labels = ["business", "tech", "health"]
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(labels)
+        assert set(km.keys()) == set(labels)
+        assert set(rm.keys()) == set(labels)
+        assert "company" in km["business"]
+        assert "software" in km["tech"]
+        assert "doctor" in km["health"]
+
+    def test_arabic_keywords_present_for_topic_labels(self):
+        """Topic maps must contain Arabic keywords for code-switched input."""
+        import evaluate_pipeline
+
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(
+            ["education", "finance", "social"]
+        )
+        # education → تعليم
+        assert any("\u062a\u0639\u0644\u064a\u0645" in kw for kw in km["education"])
+        # finance → مال
+        assert any("\u0645\u0627\u0644" in kw for kw in km["finance"])
+        # social → اجتماعي
+        assert any("\u0627\u062c\u062a\u0645\u0627\u0639\u064a" in kw for kw in km["social"])
+
+    def test_maps_contain_only_active_labels(self):
+        """Returned maps must not contain labels absent from the input list."""
+        import evaluate_pipeline
+
+        labels = ["tech", "sports"]
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(labels)
+        assert set(km.keys()) == set(labels)
+        assert set(rm.keys()) == set(labels)
+        assert "business" not in km
+        assert "positive" not in rm
+
+    def test_unknown_labels_are_silently_omitted(self):
+        """Labels with no known map entry are omitted without raising."""
+        import evaluate_pipeline
+
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(
+            ["tech", "nonexistent_label_xyz"]
+        )
+        assert "tech" in km
+        assert "nonexistent_label_xyz" not in km
+        assert "nonexistent_label_xyz" not in rm
+
+    def test_all_nine_topic_labels_are_covered(self):
+        """All nine topic labels must have entries in both maps."""
+        import evaluate_pipeline
+
+        topic_labels = [
+            "business", "education", "health", "shopping", "medical",
+            "sports", "tech", "finance", "social",
+        ]
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(topic_labels)
+        assert set(km.keys()) == set(topic_labels), (
+            f"Missing from keyword_map: {set(topic_labels) - set(km.keys())}"
+        )
+        assert set(rm.keys()) == set(topic_labels), (
+            f"Missing from rule_map: {set(topic_labels) - set(rm.keys())}"
+        )
+
+    def test_build_orchestrator_wires_task_aware_maps(self):
+        """build_orchestrator must give LexicalAgent and LogicAgent task-filtered maps."""
+        import evaluate_pipeline
+        from src.state.schema import TaskConfig
+
+        labels = ["tech", "finance"]
+        task_config = TaskConfig(
+            task_name="test",
+            labels=labels,
+            label_descriptions={lbl: lbl for lbl in labels},
+        )
+        orch = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.5,
+            enable_deliberation=False,
+        )
+        lexical_km = orch._lexical.keyword_map
+        # LogicAgent compiles patterns into _compiled — check labels present there
+        logic_labels = {rule.label for rule in orch._logic._compiled}
+        assert set(lexical_km.keys()) == set(labels)
+        assert logic_labels == set(labels)
