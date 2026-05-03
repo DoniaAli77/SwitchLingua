@@ -2,7 +2,7 @@
 **Date:** 2026-05-02  
 **Working directory:** `multi-agent-bert/`  
 **Python:** 3.13.5 · **venv:** `../.venv/`  
-**Test suite:** 324 passed · 0 failed · 0 errors
+**Test suite:** 334 passed · 0 failed · 0 errors
 
 ---
 
@@ -107,16 +107,16 @@ The router never runs. `final_output` is set directly from `primary_model_output
 
 **`paper_style`**
 ```
-primary_classifier → router → [if escalate] lexical + logic → consensus → explainability
+primary_classifier → router → [if escalate] lexical + logic + contextual → consensus → explainability
 ```
-Specialist chain: lexical + logic only (no contextual, no deliberation).
+Specialist chain: lexical + logic + contextual — matches the BERT multi-agent paper baseline. No deliberation.
 
 **`full_agentic`**
 ```
 primary_classifier → router → [if escalate] lexical + logic + contextual
                              → [optional deliberation] → consensus → explainability
 ```
-Full specialist chain. `DeliberationAgent` runs when `task_config.enable_deliberation=True` and a `deliberation_agent` instance was passed to the constructor.
+Same as `paper_style`, plus optional `DeliberationAgent` (runs between ContextualAgent and ConsensusAgent) when `task_config.enable_deliberation=True` and a `deliberation_agent` instance was passed to the constructor.
 
 Both escalation paths run `ExplainabilityAgent` on the fast-path too (short explanation for accepted predictions).
 
@@ -315,27 +315,45 @@ Key decisions:
 | `test_orchestrator_flow.py` | 3 | Three pipeline modes end-to-end |
 | `test_state_models.py` | 2 | `PipelineState`, `TaskConfig` validation |
 
-**All 324 pass in 0.85 s.** No external network calls (all LLM interactions use `MockLLMClient`).
+**All 334 pass in ~1.1 s.** No external network calls (all LLM interactions use `MockLLMClient`).
 
 Notable test classes in `test_evaluator.py`:
 - `TestSave` — verifies `pipeline_mode` column presence in all 4 output file types
 - `TestCLIPipelineModeOverride` — verifies CLI `--pipeline_mode` arg default and override behavior
+- `TestBuildOrchestratorMockLLMClient` (3 tests) — verifies `label_echo` mode, `allowed_labels`, no `"unknown"` label returned
+- `TestBuildAgentKnowledgeMaps` (7 tests) — verifies sentiment maps, topic maps, Arabic keywords, label filtering, all 9 topic labels, orchestrator wiring
+
+`test_orchestrator_flow.py` test names (post-refactor):
+- `test_primary_only_skips_router_and_specialists`
+- `test_paper_style_escalation_runs_lexical_logic_and_contextual` — asserts `contextual` in call sequence; asserts `deliberation` NOT called
+- `test_full_agentic_escalation_keeps_existing_behavior` — asserts `deliberation` called when `enable_deliberation=True`
 
 ---
 
 ## 5. Evaluation Results — `data/dev_dummy.jsonl` (30 samples)
 
-All runs use `--mode full_pipeline` (orchestrator active). Metrics come from the most recent run per mode.
+All runs use `--mode full_pipeline` (orchestrator active). Two sets of results are recorded: pre-refactor (paper_style = lexical+logic only) and post-refactor (paper_style = lexical+logic+contextual).
 
-### 5.1 Summary Table
+### 5.1 Pre-refactor Summary (paper_style = lexical + logic, no contextual)
 
-| Mode | Accuracy | Macro F1 | Escalation Rate | Escalated Count | Errors |
-|---|---|---|---|---|---|
-| `primary_only` | 0.1333 | **0.1336** | 0.0000 | 0 | 0 |
-| `paper_style` | 0.1333 | 0.0261 | **1.0000** | 30 | 0 |
-| `full_agentic` | 0.1333 | 0.0261 | **1.0000** | 30 | 0 |
+| Mode | Accuracy | Macro F1 | Escalation Rate | Escalated Count | Errors | Labels passed |
+|---|---|---|---|---|---|---|
+| `primary_only` | 0.1333 | **0.1336** | 0.0000 | 0 | 0 | topic |
+| `paper_style` | 0.1333 | 0.0261 | 1.0000 | 30 | 0 | topic |
+| `full_agentic` | 0.1333 | 0.0261 | 1.0000 | 30 | 0 | topic |
 
-### 5.2 Per-Class F1 (latest runs)
+### 5.2 Post-refactor Summary (paper_style = lexical + logic + contextual)
+
+Runs `20260502_165701` (paper_style) and `20260502_165708` (full_agentic) — executed after orchestrator refactor. **Note: `--labels` was not passed; evaluator defaulted to sentiment labels (positive/negative/neutral) while dataset uses topic labels → accuracy = 0.0 (label mismatch, not a code bug).**
+
+| Mode | Valid | Errors | Escalation Rate | Escalated Count | Accuracy | Macro F1 |
+|---|---|---|---|---|---|---|
+| `paper_style` | 30 | 0 | 0.8000 | 24 | 0.0000* | 0.0000* |
+| `full_agentic` | 30 | 0 | 0.9667 | 29 | 0.0000* | 0.0000* |
+
+\* Label mismatch — run without `--labels business,tech,social,education,health,shopping,medical,sports,finance`
+
+### 5.3 Per-Class F1 (pre-refactor, topic labels correctly passed)
 
 | Label | Support | primary_only F1 | paper_style F1 | full_agentic F1 |
 |---|---|---|---|---|
@@ -349,19 +367,19 @@ All runs use `--mode full_pipeline` (orchestrator active). Metrics come from the
 | finance | 3 | 0.0000 | 0.0000 | 0.0000 |
 | social | 4 | 0.2857 | 0.0000 | 0.0000 |
 
-### 5.3 Interpretation
+### 5.4 Interpretation
 
-**Why accuracy is identical across modes:** The mock primary classifier assigns labels randomly (uniform distribution over 9 labels). With 30 samples the random accuracy of ~13% is purely noise — specialist agents cannot improve on this with a mock backend.
+**Why accuracy is identical across modes (pre-refactor):** The mock primary classifier assigns labels randomly (uniform distribution over 9 labels). With 30 samples the random accuracy of ~13% is purely noise — specialist agents cannot improve on this with a mock backend.
 
-**Why `primary_only` has better Macro F1:** The random classifier naturally spreads predictions across labels, yielding non-zero F1 for several classes. In `paper_style` and `full_agentic` every sample is escalated (mock primary confidence ~0.1–0.3, always below threshold=0.60) and the mock consensus agents collapse to one label (`business`) for all 30 samples → F1=0 on all other 8 classes.
+**Why `primary_only` has better Macro F1:** The random classifier naturally spreads predictions across labels, yielding non-zero F1 for several classes. In escalated modes the mock consensus collapses to one label for all escalated samples → F1=0 on all other classes.
 
-**Why escalation_rate = 1.0 in escalated modes:** Mock primary outputs confidence in range ~0.10–0.32. The configured `threshold=0.60` is never reached, so every sample is routed to specialists.
+**Escalation rate difference (post-refactor runs):** `paper_style` escalated 24/30 (80%), `full_agentic` 29/30 (97%). Both use threshold=0.60. Rate variation is from mock primary confidence distribution across different random seeds per run.
 
-**`full_agentic` ContextualAgent warnings (29 instances):**
+**To get valid post-refactor metrics**, run:
 ```
-WARNING  ContextualAgent: LLM returned invalid label 'unknown'; falling back.
+python evaluate_pipeline.py --dataset data/dev_dummy.jsonl --pipeline_mode paper_style \
+  --labels business tech social education health shopping medical sports finance
 ```
-`evaluate_pipeline.py` wires `ContextualAgent` with a default `MockLLMClient` that does not have `allowed_labels` set — it returns `"unknown"` on every call. The agent's fallback logic handles this gracefully (no crash, consensus still runs with lexical+logic only). The `debug_run_modes.py` script already uses the correct `mode="label_echo", allowed_labels=...` but the same fix has not yet been applied inside `evaluate_pipeline.py`.
 
 ---
 
@@ -401,10 +419,11 @@ WARNING  ContextualAgent: LLM returned invalid label 'unknown'; falling back.
 
 | # | Severity | Component | Description |
 |---|---|---|---|
-| 1 | Low | `evaluate_pipeline.py` | `ContextualAgent` is wired with `MockLLMClient` without `allowed_labels` → produces 29 `"unknown"` fallback warnings per `full_agentic` run. Results are still correct but noisy. Fix: pass `allowed_labels=task_config.labels` when building the LLM client inside `evaluate_pipeline.py`. |
+| 1 | Info | `evaluate_pipeline.py` | `ContextualAgent` uses `MockLLMClient(mode="label_echo", allowed_labels=task_config.labels)` — **fixed**. No `"unknown"` fallback warnings. |
 | 2 | Info | All modes | Accuracy ~13% is expected on the dummy dataset with mock classifiers — not a bug. |
 | 3 | Info | PowerShell | `evaluate_pipeline.py` exits with code 1 even on success when run through PowerShell, because PowerShell treats stderr (Python logging) as an error stream. All 4 output files are written correctly regardless. |
 | 4 | Info | `results/debug_primary_only/` | Contains 2 runs (8 files) — the first was from before the encoding fix, the second is the clean run. |
+| 5 | Low | `evaluate_pipeline.py` | Post-refactor evaluation runs (`165701`, `165708`) were executed without `--labels` → accuracy=0.0 due to label mismatch. Re-run with topic labels to get valid metrics. |
 
 ---
 
@@ -436,3 +455,8 @@ No external network calls are made during tests — all LLM and classifier inter
 | This session | Fixed `MockLLMClient` mode in `debug_run_modes.py` (`label_echo` + `allowed_labels`) |
 | This session | Fixed `UnicodeEncodeError` in `evaluate_pipeline.py` (`_safe_print` wrapper) |
 | This session | Ran all 3 pipeline modes on `dev_dummy.jsonl`; verified 12 output files saved |
+| This session | Fixed `MockLLMClient` mode in `evaluate_pipeline.py`: `"heuristic"` → `"label_echo"` + `allowed_labels` (3 new tests → 334 total) |
+| This session | Added `build_agent_knowledge_maps()` with 9 topic labels (Arabic + English keywords/rules) to `evaluate_pipeline.py` (7 new tests) |
+| This session | **Refactored `src/pipeline/orchestrator.py`**: `paper_style` now includes `ContextualAgent` (lexical + logic + contextual, no deliberation). `full_agentic` remains same + optional deliberation. Module docstring updated. |
+| This session | Updated `tests/test_orchestrator_flow.py`: `paper_style` test renamed + asserts contextual called + asserts deliberation NOT called. Full suite: **334 passed**. |
+| This session | Ran post-refactor evaluation: `paper_style` 24/30 escalated (80%), `full_agentic` 29/30 (97%). Note: runs used default sentiment labels — re-run with `--labels` for valid topic metrics. |

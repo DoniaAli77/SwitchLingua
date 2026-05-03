@@ -118,93 +118,151 @@ _SENTIMENT_RULE_MAP: Dict[str, List[str]] = {
     "neutral":  [r"\b(okay|average|fine)\b"],
 }
 
-# Topic keyword / rule maps (Arabic-English code-switched)
+# Manually curated topic keyword knowledge for Arabic-English code-switched
+# classification (Method 1: seed keyword maps).
+#
+# This operationalises the SwitchLingua paper's unspecified keyword-map
+# construction step.  Each label has:
+#   keywords_en  — English-script keywords for LexicalAgent
+#   keywords_ar  — Arabic-script keywords for LexicalAgent
+#   regex_rules  — Manually curated seed rules for LogicAgent (bilingual,
+#                  2–4 per label).  Rules use re.IGNORECASE | re.UNICODE.
+#                  An Arabic alternation rule is also auto-derived from
+#                  keywords_ar and appended when building _TOPIC_RULE_MAP.
+#
+#   Seed rules follow the paper's description that LogicAgent applies
+#   "task-specific pattern rules".  Since the paper does not specify how rules
+#   are constructed, these are hand-crafted to:
+#     (a) capture common single-topic keywords, and
+#     (b) capture short bilingual patterns (Arabic word + English gloss or
+#         vice-versa) typical of Arabic-English code-switching.
+#   They can be refined or replaced once training/dev data is available.
+#
+# To replace keyword maps with data-driven equivalents run:
+#   python scripts/build_keyword_map.py --input data/train.jsonl --output config/keyword_map.yaml
+_TOPIC_KNOWLEDGE: Dict[str, Dict[str, List[str]]] = {
+    "business": {
+        "keywords_en": ["company", "startup", "market", "business", "customer",
+                        "sales", "profit", "merger", "CEO", "product"],
+        "keywords_ar": ["شركة", "شركات", "سوق", "عميل", "عملاء",
+                        "مبيعات", "ربح", "أرباح", "إدارة", "منتج"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        # Rules capture co-occurrence of bilingual term pairs typical of code-switching.
+        "regex_rules": [
+            r"(company|شركة|startup).*(market|سوق|product|منتج)",
+            r"(profit|profits|ربح|أرباح).*(quarter|ربع|report|تقرير)",
+            r"(CEO|مدير).*(merger|استحواذ|اندماج)",
+        ],
+    },
+    "education": {
+        "keywords_en": ["school", "university", "student", "students", "exam",
+                        "course", "lecture", "assignment", "semester", "scholarship"],
+        "keywords_ar": ["مدرسة", "جامعة", "طالب", "طلاب", "امتحان",
+                        "اختبار", "محاضرة", "واجب", "ترم", "منحة"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(student|طلاب|طالب).*(course|كورس|lecture|محاضرة)",
+            r"(exam|امتحان|اختبار).*(university|جامعة|school|مدرسة)",
+            r"(assignment|واجب|semester|ترم).*(deadline|موعد|submit)",
+        ],
+    },
+    "health": {
+        "keywords_en": ["health", "fitness", "exercise", "diet", "vitamins",
+                        "wellness", "sleep", "nutrition", "immune", "lifestyle"],
+        "keywords_ar": ["صحة", "لياقة", "رياضة", "تمارين", "غذاء",
+                        "فيتامين", "مناعة", "نوم", "تغذية", "نمط حياة"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(exercise|تمارين|رياضة).*(fitness|لياقة|health|صحة)",
+            r"(diet|غذاء|nutrition|تغذية).*(healthy|صحي|lifestyle|نمط حياة)",
+            r"(vitamin|فيتامين|immune|مناعة).*(health|صحة|body|جسم)",
+        ],
+    },
+    "shopping": {
+        "keywords_en": ["buy", "bought", "store", "shop", "shopping",
+                        "order", "delivery", "discount", "cart", "price"],
+        "keywords_ar": ["اشتريت", "شراء", "متجر", "محل", "طلب",
+                        "توصيل", "خصم", "عربة", "سعر", "تخفيضات"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(buy|bought|اشتريت|شراء).*(store|shop|متجر|محل)",
+            r"(order|طلب).*(delivery|توصيل|وصل)",
+            r"(discount|خصم|تخفيضات).*(price|سعر|cart|عربة)",
+        ],
+    },
+    "medical": {
+        "keywords_en": ["doctor", "hospital", "patient", "medicine", "medication",
+                        "treatment", "surgery", "scan", "diagnosis", "appointment"],
+        "keywords_ar": ["طبيب", "دكتور", "مستشفى", "مريض", "دواء",
+                        "علاج", "عملية", "أشعة", "تشخيص", "موعد"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(doctor|دكتور|طبيب).*(patient|مريض|appointment|موعد)",
+            r"(medicine|medication|دواء|علاج).*(symptom|عرض|ألم|مرض)",
+            r"(scan|أشعة|diagnosis|تشخيص).*(surgery|عملية|treatment|علاج)",
+        ],
+    },
+    "sports": {
+        "keywords_en": ["match", "team", "player", "goal", "coach",
+                        "championship", "training", "football", "score", "gym"],
+        "keywords_ar": ["ماتش", "مباراة", "فريق", "لاعب", "هدف",
+                        "مدرب", "بطولة", "تدريب", "كورة", "ملعب"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(match|ماتش|مباراة).*(team|فريق|player|لاعب)",
+            r"(goal|هدف|score).*(match|مباراة|game)",
+            r"(coach|مدرب).*(training|تدريب|team|فريق)",
+        ],
+    },
+    "tech": {
+        "keywords_en": ["technology", "software", "app", "AI", "cloud",
+                        "programming", "device", "smartphone", "update", "bugs"],
+        "keywords_ar": ["تكنولوجيا", "تقنية", "برنامج", "تطبيق", "ذكاء اصطناعي",
+                        "موبايل", "تحديث", "أجهزة", "برمجة", "سحابة"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(software|برنامج|app|تطبيق).*(update|تحديث|bug|bugs)",
+            r"(AI|ذكاء اصطناعي|machine learning).*(system|نظام|model|موديل)",
+            r"(cloud|سحابة).*(storage|تخزين|server|سيرفر)",
+        ],
+    },
+    "finance": {
+        "keywords_en": ["money", "bank", "loan", "investment", "portfolio",
+                        "inflation", "dollar", "currency", "budget", "interest"],
+        "keywords_ar": ["مال", "فلوس", "بنك", "قرض", "استثمار",
+                        "محفظة", "تضخم", "دولار", "عملة", "ميزانية"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(bank|بنك).*(loan|قرض|interest|فائدة)",
+            r"(investment|استثمار|portfolio|محفظة).*(profit|ربح|risk|مخاطرة)",
+            r"(dollar|دولار|currency|عملة).*(inflation|تضخم|price|سعر)",
+        ],
+    },
+    "social": {
+        "keywords_en": ["social", "post", "Instagram", "Twitter", "WhatsApp",
+                        "group", "friend", "community", "likes", "meetup"],
+        "keywords_ar": ["اجتماعي", "بوست", "انستجرام", "تويتر", "واتساب",
+                        "جروب", "صديق", "أصدقاء", "مجتمع", "لايكات"],
+        # Manually curated seed rules — can be refined from training/dev data.
+        "regex_rules": [
+            r"(post|بوست).*(Instagram|انستجرام|Twitter|تويتر|likes|لايكات)",
+            r"(WhatsApp|واتساب|group|جروب).*(friend|صديق|أصدقاء|community)",
+            r"(meetup|لقاء|community|مجتمع).*(online|أونلاين|social|اجتماعي)",
+        ],
+    },
+}
+
+# Flatten _TOPIC_KNOWLEDGE into maps expected by build_agent_knowledge_maps().
+# keywords_en + keywords_ar are merged into a single flat list per label.
+# An Arabic alternation rule is auto-derived from keywords_ar and appended
+# alongside the user-defined English regex_rules.
 _TOPIC_KEYWORD_MAP: Dict[str, List[str]] = {
-    "business":  [
-        "business", "company", "deal", "market", "profit", "revenue", "trade",
-        "\u0634\u0631\u0643\u0629", "\u062a\u062c\u0627\u0631\u0629", "\u0633\u0648\u0642",
-        "\u0631\u0628\u062d", "\u0635\u0641\u0642\u0629",
-    ],
-    "education": [
-        "school", "university", "study", "learn", "teacher", "class", "course",
-        "\u062a\u0639\u0644\u064a\u0645", "\u0645\u062f\u0631\u0633\u0629",
-        "\u062c\u0627\u0645\u0639\u0629", "\u062f\u0631\u0627\u0633\u0629",
-        "\u0637\u0627\u0644\u0628",
-    ],
-    "health":    [
-        "health", "doctor", "exercise", "diet", "wellness", "hospital", "fit",
-        "\u0635\u062d\u0629", "\u0645\u0633\u062a\u0634\u0641\u0649",
-        "\u0637\u0628\u064a\u0628", "\u063a\u0630\u0627\u0621",
-    ],
-    "shopping":  [
-        "shop", "buy", "purchase", "price", "discount", "sale", "product",
-        "\u062a\u0633\u0648\u0642", "\u0634\u0631\u0627\u0621", "\u0633\u0639\u0631",
-        "\u062e\u0635\u0645", "\u0645\u0646\u062a\u062c",
-    ],
-    "medical":   [
-        "medicine", "treatment", "clinic", "prescription", "diagnosis", "symptoms", "drug",
-        "\u0637\u0628", "\u0639\u0644\u0627\u062c", "\u0639\u064a\u0627\u062f\u0629",
-        "\u062f\u0648\u0627\u0621", "\u0623\u0639\u0631\u0627\u0636",
-    ],
-    "sports":    [
-        "sport", "football", "match", "team", "player", "score", "game",
-        "\u0631\u064a\u0627\u0636\u0629", "\u0643\u0631\u0629", "\u0645\u0628\u0627\u0631\u0627\u0629",
-        "\u0641\u0631\u064a\u0642", "\u0644\u0627\u0639\u0628",
-    ],
-    "tech":      [
-        "tech", "software", "app", "code", "device", "digital", "computer", "AI",
-        "\u062a\u0642\u0646\u064a\u0629", "\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627",
-        "\u0628\u0631\u0646\u0627\u0645\u062c", "\u062a\u0637\u0628\u064a\u0642",
-        "\u0630\u0643\u0627\u0621",
-    ],
-    "finance":   [
-        "finance", "money", "investment", "bank", "loan", "budget", "stock",
-        "\u0645\u0627\u0644", "\u0627\u0633\u062a\u062b\u0645\u0627\u0631",
-        "\u0628\u0646\u0643", "\u0642\u0631\u0636", "\u0645\u064a\u0632\u0627\u0646\u064a\u0629",
-    ],
-    "social":    [
-        "social", "friend", "community", "media", "network", "post", "share",
-        "\u0627\u062c\u062a\u0645\u0627\u0639\u064a", "\u0635\u062f\u064a\u0642",
-        "\u0645\u062c\u062a\u0645\u0639", "\u062a\u0648\u0627\u0635\u0644",
-    ],
+    label: d["keywords_en"] + d["keywords_ar"]
+    for label, d in _TOPIC_KNOWLEDGE.items()
 }
 _TOPIC_RULE_MAP: Dict[str, List[str]] = {
-    "business":  [
-        r"\b(business|company|trade|market|profit|revenue|deal)\b",
-        r"(\u0634\u0631\u0643\u0629|\u062a\u062c\u0627\u0631\u0629|\u0633\u0648\u0642)",
-    ],
-    "education": [
-        r"\b(school|university|study|learn|course|teacher)\b",
-        r"(\u062a\u0639\u0644\u064a\u0645|\u0645\u062f\u0631\u0633\u0629|\u062c\u0627\u0645\u0639\u0629)",
-    ],
-    "health":    [
-        r"\b(health|doctor|hospital|wellness|exercise|diet)\b",
-        r"(\u0635\u062d\u0629|\u0645\u0633\u062a\u0634\u0641\u0649|\u0637\u0628\u064a\u0628)",
-    ],
-    "shopping":  [
-        r"\b(shop|buy|purchase|price|discount|sale|product)\b",
-        r"(\u062a\u0633\u0648\u0642|\u0634\u0631\u0627\u0621|\u062e\u0635\u0645)",
-    ],
-    "medical":   [
-        r"\b(medicine|treatment|clinic|prescription|diagnosis|symptoms)\b",
-        r"(\u0637\u0628|\u0639\u0644\u0627\u062c|\u0639\u064a\u0627\u062f\u0629)",
-    ],
-    "sports":    [
-        r"\b(sport|football|match|team|player|score|game)\b",
-        r"(\u0631\u064a\u0627\u0636\u0629|\u0643\u0631\u0629|\u0645\u0628\u0627\u0631\u0627\u0629)",
-    ],
-    "tech":      [
-        r"\b(tech|software|app|code|device|digital|computer|AI)\b",
-        r"(\u062a\u0642\u0646\u064a\u0629|\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627|\u0628\u0631\u0646\u0627\u0645\u062c)",
-    ],
-    "finance":   [
-        r"\b(finance|money|investment|bank|loan|budget|stock)\b",
-        r"(\u0645\u0627\u0644|\u0627\u0633\u062a\u062b\u0645\u0627\u0631|\u0628\u0646\u0643)",
-    ],
-    "social":    [
-        r"\b(social|friend|community|media|network|post|share)\b",
-        r"(\u0627\u062c\u062a\u0645\u0627\u0639\u064a|\u0635\u062f\u064a\u0642|\u0645\u062c\u062a\u0645\u0639)",
-    ],
+    label: d["regex_rules"] + ["(" + "|".join(d["keywords_ar"]) + ")"]
+    for label, d in _TOPIC_KNOWLEDGE.items()
 }
 
 # Backward-compat aliases (kept so any existing external references still work)
@@ -306,12 +364,34 @@ def build_orchestrator(
 
     Swap out ``MockPrimaryClassifier`` and ``MockLLMClient`` for real
     implementations when evaluating with actual model weights.
+
+    ``ContextualAgent`` uses a ``label_echo`` client so it returns a valid
+    task label from the prompt text.  ``DeliberationAgent`` (when enabled)
+    uses a ``fixed`` client that returns a well-formed JSON response, because
+    deliberation expects structured output that ``label_echo`` cannot produce.
     """
     llm_client = MockLLMClient(
         mode="label_echo",
         allowed_labels=task_config.labels,
     )
-    deliberation_agent = DeliberationAgent() if enable_deliberation else None
+
+    if enable_deliberation:
+        import json as _json
+        _delib_label = task_config.labels[0]
+        _delib_response = _json.dumps({
+            "recommended_label": _delib_label,
+            "confidence": 0.75,
+            "justification": "Mock deliberation: defaulting to first available label.",
+            "mode": "recommendation",
+        })
+        deliberation_llm = MockLLMClient(
+            mode="fixed",
+            fixed_response=_delib_response,
+        )
+        deliberation_agent: DeliberationAgent | None = DeliberationAgent(llm_client=deliberation_llm)
+    else:
+        deliberation_agent = None
+
     keyword_map, rule_map = build_agent_knowledge_maps(task_config.labels)
 
     return PipelineOrchestrator(
@@ -456,7 +536,7 @@ def main(argv: List[str] | None = None) -> int:
         help=(
             "Pipeline execution mode used by the orchestrator. "
             "'primary_only' skips router and specialist agents, "
-            "'paper_style' uses lexical+logic only on escalation, "
+            "'paper_style' uses lexical+logic+contextual on escalation, no deliberation, "
             "'full_agentic' uses lexical+logic+contextual (and optional deliberation). "
             "(default: full_agentic)"
         ),
@@ -625,11 +705,11 @@ def _run_ablation_study(args, dataset, task_config: TaskConfig) -> int:
 
     paths = study.save(report, output_dir=args.output_dir)
 
-    print(f"\n{'─' * 60}")
-    print("  Saved files:")
+    _safe_print(f"\n{'─' * 60}")
+    _safe_print("  Saved files:")
     for key, p in paths.items():
-        print(f"    {key}: {p}")
-    print("─" * 60)
+        _safe_print(f"    {key}: {p}")
+    _safe_print("─" * 60)
 
     return 0
 

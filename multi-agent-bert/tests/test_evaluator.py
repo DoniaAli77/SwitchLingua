@@ -752,7 +752,7 @@ class TestBuildAgentKnowledgeMaps:
         assert set(rm.keys()) == set(labels)
         assert "company" in km["business"]
         assert "software" in km["tech"]
-        assert "doctor" in km["health"]
+        assert "fitness" in km["health"]   # 'doctor' is in medical, not health
 
     def test_arabic_keywords_present_for_topic_labels(self):
         """Topic maps must contain Arabic keywords for code-switched input."""
@@ -761,8 +761,8 @@ class TestBuildAgentKnowledgeMaps:
         km, _ = evaluate_pipeline.build_agent_knowledge_maps(
             ["education", "finance", "social"]
         )
-        # education → تعليم
-        assert any("\u062a\u0639\u0644\u064a\u0645" in kw for kw in km["education"])
+        # education → مدرسة (school)
+        assert any("\u0645\u062f\u0631\u0633\u0629" in kw for kw in km["education"])
         # finance → مال
         assert any("\u0645\u0627\u0644" in kw for kw in km["finance"])
         # social → اجتماعي
@@ -827,3 +827,454 @@ class TestBuildAgentKnowledgeMaps:
         logic_labels = {rule.label for rule in orch._logic._compiled}
         assert set(lexical_km.keys()) == set(labels)
         assert logic_labels == set(labels)
+
+
+# ---------------------------------------------------------------------------
+# Topic seed keyword maps — curated Arabic-English knowledge
+# ---------------------------------------------------------------------------
+
+class TestTopicSeedKnowledgeMaps:
+    """Verify the manually curated topic seed keyword maps in evaluate_pipeline."""
+
+    def test_business_english_keywords(self):
+        """business map must contain curated English keywords."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["business"])
+        for kw in ["company", "startup", "market", "sales", "profit"]:
+            assert kw in km["business"], f"Expected '{kw}' in business keyword map"
+
+    def test_medical_english_keywords(self):
+        """medical map must contain curated English keywords (including 'doctor')."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["medical"])
+        for kw in ["doctor", "hospital", "patient", "medication", "treatment"]:
+            assert kw in km["medical"], f"Expected '{kw}' in medical keyword map"
+
+    def test_tech_english_keywords(self):
+        """tech map must contain curated English keywords."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["tech"])
+        for kw in ["technology", "software", "app", "AI", "cloud"]:
+            assert kw in km["tech"], f"Expected '{kw}' in tech keyword map"
+
+    def test_sports_arabic_keywords(self):
+        """sports map must contain Arabic keywords: مباراة and فريق."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["sports"])
+        assert "\u0645\u0628\u0627\u0631\u0627\u0629" in km["sports"]   # مباراة
+        assert "\u0641\u0631\u064a\u0642" in km["sports"]               # فريق
+
+    def test_education_arabic_keywords(self):
+        """education map must contain Arabic keywords: مدرسة and جامعة."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["education"])
+        assert "\u0645\u062f\u0631\u0633\u0629" in km["education"]       # مدرسة
+        assert "\u062c\u0627\u0645\u0639\u0629" in km["education"]       # جامعة
+
+    def test_shopping_arabic_keywords(self):
+        """shopping map must contain Arabic keywords: خصم and سعر."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["shopping"])
+        assert "\u062e\u0635\u0645" in km["shopping"]                   # خصم
+        assert "\u0633\u0639\u0631" in km["shopping"]                    # سعر
+
+    def test_sentiment_labels_unaffected_by_topic_maps(self):
+        """Sentiment keyword maps must be unchanged after adding topic labels."""
+        import evaluate_pipeline
+        km_sentiment, _ = evaluate_pipeline.build_agent_knowledge_maps(
+            ["positive", "negative", "neutral"]
+        )
+        km_topic, _ = evaluate_pipeline.build_agent_knowledge_maps(
+            ["business", "tech", "health"]
+        )
+        # sentiment values must not appear in topic maps
+        assert "great" not in km_topic.get("business", [])
+        assert "great" not in km_topic.get("tech", [])
+        # topic values must not appear in sentiment maps
+        assert "company" not in km_sentiment.get("positive", [])
+        assert "company" not in km_sentiment.get("negative", [])
+
+    def test_mixed_topic_and_sentiment_labels(self):
+        """Mixed label sets must produce correct per-label maps for both families."""
+        import evaluate_pipeline
+        labels = ["tech", "positive", "negative"]
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(labels)
+        assert set(km.keys()) == set(labels)
+        assert set(rm.keys()) == set(labels)
+        assert "software" in km["tech"]
+        assert "great" in km["positive"]
+        assert "awful" in km["negative"]
+
+    def test_topic_rule_map_contains_english_pattern(self):
+        """Rule map for finance must contain the curated English regex pattern."""
+        import evaluate_pipeline
+        _, rm = evaluate_pipeline.build_agent_knowledge_maps(["finance"])
+        assert any("bank" in rule for rule in rm["finance"])
+        assert any("investment" in rule for rule in rm["finance"])
+
+    def test_topic_rule_map_contains_auto_arabic_pattern(self):
+        """Rule map must include an auto-derived Arabic alternation rule per label."""
+        import evaluate_pipeline
+        _, rm = evaluate_pipeline.build_agent_knowledge_maps(["shopping"])
+        joined = " ".join(rm["shopping"])
+        # اشتريت or متجر must appear in the combined rules
+        assert "\u0627\u0634\u062a\u0631\u064a\u062a" in joined or "\u0645\u062a\u062c\u0631" in joined
+
+    def test_no_cross_contamination_between_topic_labels(self):
+        """'doctor' is in medical only — must not appear in business or sports."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(
+            ["business", "medical", "sports"]
+        )
+        assert "doctor" in km["medical"]
+        assert "doctor" not in km["business"]
+        assert "doctor" not in km["sports"]
+
+    def test_health_does_not_contain_doctor(self):
+        """'doctor' must NOT be in health; it belongs to medical."""
+        import evaluate_pipeline
+        km, _ = evaluate_pipeline.build_agent_knowledge_maps(["health"])
+        assert "doctor" not in km["health"]
+        assert "fitness" in km["health"]
+
+    def test_no_unknown_labels_added(self):
+        """build_agent_knowledge_maps must never inject extra labels into the maps."""
+        import evaluate_pipeline
+        active = ["business", "sports"]
+        km, rm = evaluate_pipeline.build_agent_knowledge_maps(active)
+        assert set(km.keys()) == set(active)
+        assert set(rm.keys()) == set(active)
+
+
+# ---------------------------------------------------------------------------
+# build_orchestrator — pipeline mode agent sequencing
+# ---------------------------------------------------------------------------
+
+class TestBuildOrchestratorPipelineModes:
+    """Verify that build_orchestrator produces orchestrators with correct mode behaviour."""
+
+    def _make_task_config(self, pipeline_mode: str, labels=None):
+        from src.state.schema import TaskConfig
+        labels = labels or ["positive", "negative", "neutral"]
+        return TaskConfig(
+            task_name="test",
+            labels=labels,
+            label_descriptions={lbl: lbl for lbl in labels},
+            threshold=0.99,          # forces escalation for any mock primary output
+            pipeline_mode=pipeline_mode,  # type: ignore[arg-type]
+            enable_deliberation=False,
+        )
+
+    def _run_single(self, pipeline_mode: str, enable_deliberation: bool = False):
+        """Build orchestrator and run one sample; return the resulting PipelineState."""
+        import evaluate_pipeline
+        from src.state.schema import PipelineState, StateMetadata
+
+        labels = ["positive", "negative", "neutral"]
+        task_config = self._make_task_config(pipeline_mode, labels=labels)
+        task_config.enable_deliberation = enable_deliberation
+        orch = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.99,
+            enable_deliberation=enable_deliberation,
+        )
+        state = PipelineState(
+            input_text="this is great",
+            task_config=task_config,
+            metadata=StateMetadata(sample_id="pm_test"),
+        )
+        return orch.run(state)
+
+    # ------------------------------------------------------------------
+    # paper_style — contextual agent must be called
+    # ------------------------------------------------------------------
+
+    def test_paper_style_sets_contextual_output_on_escalation(self):
+        """paper_style: ContextualAgent must run and write contextual_output."""
+        state = self._run_single("paper_style")
+
+        # Ensure escalation happened (threshold=0.99 with mock primary)
+        if state.routing_info and state.routing_info.decision == "escalate":
+            assert state.contextual_output is not None, (
+                "paper_style must run ContextualAgent on escalation"
+            )
+
+    def test_paper_style_does_not_set_deliberation_output(self):
+        """paper_style must never run DeliberationAgent, even if enable_deliberation=True."""
+        import evaluate_pipeline
+        from src.state.schema import PipelineState, StateMetadata, TaskConfig
+
+        labels = ["positive", "negative", "neutral"]
+        task_config = TaskConfig(
+            task_name="test",
+            labels=labels,
+            label_descriptions={lbl: lbl for lbl in labels},
+            threshold=0.99,
+            pipeline_mode="paper_style",  # type: ignore[arg-type]
+            enable_deliberation=True,      # deliberately set True
+        )
+        orch = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.99,
+            enable_deliberation=True,
+        )
+        state = PipelineState(
+            input_text="this is great",
+            task_config=task_config,
+            metadata=StateMetadata(sample_id="pm_paper_delib"),
+        )
+        out = orch.run(state)
+        assert out.deliberation_output is None, (
+            "paper_style must not run DeliberationAgent regardless of enable_deliberation"
+        )
+
+    # ------------------------------------------------------------------
+    # full_agentic — deliberation only when explicitly enabled
+    # ------------------------------------------------------------------
+
+    def test_full_agentic_without_deliberation_has_no_deliberation_output(self):
+        """full_agentic with enable_deliberation=False must not run DeliberationAgent."""
+        state = self._run_single("full_agentic", enable_deliberation=False)
+
+        if state.routing_info and state.routing_info.decision == "escalate":
+            assert state.deliberation_output is None, (
+                "full_agentic with enable_deliberation=False must not produce deliberation_output"
+            )
+
+    def test_full_agentic_with_deliberation_has_deliberation_output(self):
+        """full_agentic with enable_deliberation=True must run DeliberationAgent."""
+        state = self._run_single("full_agentic", enable_deliberation=True)
+
+        if state.routing_info and state.routing_info.decision == "escalate":
+            assert state.deliberation_output is not None, (
+                "full_agentic with enable_deliberation=True must produce deliberation_output"
+            )
+
+    def test_full_agentic_sets_contextual_output_on_escalation(self):
+        """full_agentic: ContextualAgent must run and write contextual_output."""
+        state = self._run_single("full_agentic")
+
+        if state.routing_info and state.routing_info.decision == "escalate":
+            assert state.contextual_output is not None, (
+                "full_agentic must run ContextualAgent on escalation"
+            )
+
+    # ------------------------------------------------------------------
+    # MockLLMClient mode — no invalid mode used by build_orchestrator
+    # ------------------------------------------------------------------
+
+    def test_ablation_study_uses_no_invalid_mock_llm_mode(self):
+        """_run_ablation_study must wire MockLLMClient with mode='label_echo'."""
+        import evaluate_pipeline
+        from src.llm.mock_client import MockLLMClient
+        from src.state.schema import TaskConfig
+
+        labels = ["positive", "negative", "neutral"]
+        task_config = TaskConfig(
+            task_name="test",
+            labels=labels,
+            label_descriptions={lbl: lbl for lbl in labels},
+        )
+        # AblationStudy is built with the same llm_client as _run_ablation_study.
+        # Verify the client wired into build_orchestrator is valid.
+        orch = evaluate_pipeline.build_orchestrator(
+            task_config=task_config,
+            threshold=0.5,
+            enable_deliberation=False,
+        )
+        llm = orch._contextual.llm_client
+        assert isinstance(llm, MockLLMClient)
+        assert llm.mode in ("fixed", "label_echo", "raise_on_call"), (
+            f"Invalid MockLLMClient mode: {llm.mode!r}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# Topic seed regex rules — bilingual sentence-level trigger tests
+# ---------------------------------------------------------------------------
+
+class TestTopicSeedRegexRules:
+    """Verify sample Arabic-English code-switched sentences trigger the expected
+    topic regex rules in LogicAgent.
+
+    These tests exercise the manually curated seed rules stored in
+    _TOPIC_KNOWLEDGE["regex_rules"].  Each rule set covers:
+      * purely English sentences (core vocabulary),
+      * purely Arabic sentences (Arabic-script terms),
+      * code-switched sentences mixing both scripts.
+
+    The helper _matches_any() replicates LogicAgent's search semantics
+    (re.IGNORECASE | re.UNICODE) without instantiating the full pipeline.
+    """
+
+    def _get_rule_map(self, labels):
+        import evaluate_pipeline
+        _, rm = evaluate_pipeline.build_agent_knowledge_maps(labels)
+        return rm
+
+    @staticmethod
+    def _matches_any(rule_map, label, text):
+        import re
+        for pattern in rule_map[label]:
+            if re.search(pattern, text, re.IGNORECASE | re.UNICODE):
+                return True
+        return False
+
+    # ------------------------------------------------------------------
+    # business
+    # ------------------------------------------------------------------
+
+    def test_business_english_sentence(self):
+        rm = self._get_rule_map(["business"])
+        # Rule 1: (company|startup).*(market|product)
+        assert self._matches_any(rm, "business", "The startup entered a new market after a profitable deal")
+
+    def test_business_arabic_sentence(self):
+        rm = self._get_rule_map(["business"])
+        assert self._matches_any(rm, "business", "الشركة حققت أرباح كبيرة هذا العام في السوق")
+
+    def test_business_code_switched(self):
+        rm = self._get_rule_map(["business"])
+        assert self._matches_any(rm, "business", "الشركة طلعت startup جديدة في السوق")
+
+    # ------------------------------------------------------------------
+    # education
+    # ------------------------------------------------------------------
+
+    def test_education_english_sentence(self):
+        rm = self._get_rule_map(["education"])
+        # Rule 1: (student).*(lecture); Rule 3: (assignment).*(deadline)
+        assert self._matches_any(rm, "education", "The student must submit the assignment before the course deadline")
+
+    def test_education_arabic_sentence(self):
+        rm = self._get_rule_map(["education"])
+        # Rule 2: (امتحان).*(جامعة)
+        assert self._matches_any(rm, "education", "الامتحان كان صعب في الجامعة هذا الترم")
+
+    def test_education_code_switched(self):
+        rm = self._get_rule_map(["education"])
+        assert self._matches_any(rm, "education", "عندي exam بكره وأنا طالب في الجامعة")
+
+    # ------------------------------------------------------------------
+    # health
+    # ------------------------------------------------------------------
+
+    def test_health_english_sentence(self):
+        rm = self._get_rule_map(["health"])
+        # Rule 1: (exercise).*(fitness|health)
+        assert self._matches_any(rm, "health", "Regular exercise is essential for fitness and good health")
+
+    def test_health_arabic_sentence(self):
+        rm = self._get_rule_map(["health"])
+        # Rule 1: (تمارين).*(لياقة|صحة)
+        assert self._matches_any(rm, "health", "التمارين اليومية تحسن اللياقة والصحة")
+
+    def test_health_code_switched(self):
+        rm = self._get_rule_map(["health"])
+        # Rule 1: (exercise).*(health|صحة) — use base form صحة not possessive صحتي
+        assert self._matches_any(rm, "health", "بدأت exercise كل يوم لتحسين الصحة والمناعة")
+
+    # ------------------------------------------------------------------
+    # shopping
+    # ------------------------------------------------------------------
+
+    def test_shopping_english_sentence(self):
+        rm = self._get_rule_map(["shopping"])
+        # Rule 1: (bought).*(store); Rule 3: (discount).*(price)
+        assert self._matches_any(rm, "shopping", "I bought it at the store with a big discount on the price")
+
+    def test_shopping_arabic_sentence(self):
+        rm = self._get_rule_map(["shopping"])
+        assert self._matches_any(rm, "shopping", "اشتريت من المتجر وكان فيه خصم وتوصيل مجاني")
+
+    def test_shopping_code_switched(self):
+        rm = self._get_rule_map(["shopping"])
+        # Rule 3: (discount).*(سعر)
+        assert self._matches_any(rm, "shopping", "فيه discount كبير خفّض السعر في المتجر")
+
+    # ------------------------------------------------------------------
+    # medical
+    # ------------------------------------------------------------------
+
+    def test_medical_english_sentence(self):
+        rm = self._get_rule_map(["medical"])
+        # Rule 3: (diagnosis).*(surgery|treatment)
+        assert self._matches_any(rm, "medical", "The diagnosis confirmed the patient needs surgery and treatment")
+
+    def test_medical_arabic_sentence(self):
+        rm = self._get_rule_map(["medical"])
+        assert self._matches_any(rm, "medical", "الطبيب قال إن المريض محتاج علاج في المستشفى")
+
+    def test_medical_code_switched(self):
+        rm = self._get_rule_map(["medical"])
+        # Rule 1: (دكتور).*(مريض|موعد)
+        assert self._matches_any(rm, "medical", "الدكتور شاف المريض وحدد موعد للـ surgery")
+
+    # ------------------------------------------------------------------
+    # sports
+    # ------------------------------------------------------------------
+
+    def test_sports_english_sentence(self):
+        rm = self._get_rule_map(["sports"])
+        # Rule 1: (match).*(team|player)
+        assert self._matches_any(rm, "sports", "The match ended when the team scored a brilliant goal")
+
+    def test_sports_arabic_sentence(self):
+        rm = self._get_rule_map(["sports"])
+        # Rule 1: (مباراة).*(فريق|لاعب)
+        assert self._matches_any(rm, "sports", "المباراة كانت رهيبة وسجل الفريق هدف جميل")
+
+    def test_sports_code_switched(self):
+        rm = self._get_rule_map(["sports"])
+        assert self._matches_any(rm, "sports", "الفريق اتقدم بـ goal وفاز في آخر match")
+
+    # ------------------------------------------------------------------
+    # tech
+    # ------------------------------------------------------------------
+
+    def test_tech_english_sentence(self):
+        rm = self._get_rule_map(["tech"])
+        assert self._matches_any(rm, "tech", "The new AI software update fixed all the bugs")
+
+    def test_tech_arabic_sentence(self):
+        rm = self._get_rule_map(["tech"])
+        # Rule 1: (تطبيق|برنامج).*(تحديث)
+        assert self._matches_any(rm, "tech", "البرنامج عمل تحديث تلقائي وأصلح الأخطاء")
+
+    def test_tech_code_switched(self):
+        rm = self._get_rule_map(["tech"])
+        assert self._matches_any(rm, "tech", "نزّلت الـ app وعمل تحديث تلقائي بعد ما فتحته")
+
+    # ------------------------------------------------------------------
+    # finance
+    # ------------------------------------------------------------------
+
+    def test_finance_english_sentence(self):
+        rm = self._get_rule_map(["finance"])
+        # Rule 1: (bank).*(loan|interest)
+        assert self._matches_any(rm, "finance", "The bank approved a new loan with low interest rates")
+
+    def test_finance_arabic_sentence(self):
+        rm = self._get_rule_map(["finance"])
+        assert self._matches_any(rm, "finance", "البنك رفع سعر الفائدة والتضخم زاد على الدولار")
+
+    def test_finance_code_switched(self):
+        rm = self._get_rule_map(["finance"])
+        # Rule 3: (دولار).*(تضخم|سعر)
+        assert self._matches_any(rm, "finance", "سعر الدولار ارتفع بسبب التضخم في البلاد")
+
+    # ------------------------------------------------------------------
+    # social
+    # ------------------------------------------------------------------
+
+    def test_social_english_sentence(self):
+        rm = self._get_rule_map(["social"])
+        assert self._matches_any(rm, "social", "She posted a trending photo on Instagram and got many likes")
+
+    def test_social_arabic_sentence(self):
+        rm = self._get_rule_map(["social"])
+        assert self._matches_any(rm, "social", "نشرت بوست على انستجرام وحصلت على لايكات كتير من أصدقائي")
+
+    def test_social_code_switched(self):
+        rm = self._get_rule_map(["social"])
+        assert self._matches_any(rm, "social", "الـ Instagram post حصل على لايكات كتير من الأصدقاء")

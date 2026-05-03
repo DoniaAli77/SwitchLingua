@@ -113,7 +113,8 @@ class PipelineOrchestrator:
     lexical_agent:
         Required for the escalation path.
     contextual_agent:
-        Required for the escalation path.
+        LLM-backed contextual agent used in ``full_agentic`` mode (and in
+        ``paper_style`` mode when *paper_contextual_agent* is ``None``).
     logic_agent:
         Required for the escalation path.
     consensus_agent:
@@ -125,6 +126,11 @@ class PipelineOrchestrator:
         is ``True``, the deliberation stage runs between the contextual stage and
         the consensus stage.  Pass ``None`` (default) to keep deliberation off
         regardless of the config flag.
+    paper_contextual_agent:
+        Optional non-LLM contextual agent (e.g.
+        :class:`~src.agents.transformer_contextual_agent.TransformerContextualAgent`)
+        used **only** in ``paper_style`` mode.  When ``None`` (default), the
+        orchestrator falls back to *contextual_agent* for backward compatibility.
     logger:
         Optional pre-configured logger.
     """
@@ -139,6 +145,7 @@ class PipelineOrchestrator:
         consensus_agent: ConsensusAgent,
         explainability_agent: ExplainabilityAgent,
         deliberation_agent: Optional[DeliberationAgent] = None,
+        paper_contextual_agent: Optional[Any] = None,
         logger: Optional[logging.Logger] = None,
     ) -> None:
         self._primary = primary_classifier
@@ -149,6 +156,7 @@ class PipelineOrchestrator:
         self._consensus = consensus_agent
         self._explain = explainability_agent
         self._deliberation = deliberation_agent
+        self._paper_contextual = paper_contextual_agent
         self.logger = logger or log
 
     # ------------------------------------------------------------------
@@ -236,10 +244,19 @@ class PipelineOrchestrator:
                     pipeline_mode,
                 )
 
+                # In paper_style mode, use the non-LLM paper_contextual_agent
+                # when one is provided; otherwise fall back to contextual_agent
+                # for full backward compatibility.
+                contextual_for_mode = (
+                    self._paper_contextual
+                    if (pipeline_mode == _PAPER_STYLE and self._paper_contextual is not None)
+                    else self._contextual
+                )
+
                 stages = [
                     ("lexical_agent", self._lexical),
                     ("logic_agent", self._logic),
-                    ("contextual_agent", self._contextual),
+                    ("contextual_agent", contextual_for_mode),
                 ]
 
                 for stage_name, agent in stages:
