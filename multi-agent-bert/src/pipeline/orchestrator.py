@@ -24,9 +24,14 @@ Execution flow
 Mode summary
 ------------
 * ``primary_only``  — primary classifier only; router and all specialist agents skipped.
-* ``paper_style``   — primary → router → (if escalated) lexical + logic + contextual
+* ``paper_style``   — primary → router → (if escalated) lexical + logic + paper_contextual
                       → consensus → explainability.  No deliberation.
-* ``full_agentic``  — same as paper_style, plus optional DeliberationAgent before consensus.
+                      Uses the non-LLM specialist agents to stay close to the reference
+                      BERT multi-agent framework.
+* ``full_agentic``  — primary → router → (if escalated) llm_lexical + llm_logic + contextual
+                      → (optional) deliberation → consensus → explainability.
+                      Uses LLM-backed specialist agents when provided; otherwise falls
+                      back to the keyword/regex agents for backward compatibility.
 
 Error handling
 --------------
@@ -52,6 +57,9 @@ from src.agents.contextual_agent import ContextualAgent
 from src.agents.deliberation_agent import DeliberationAgent
 from src.agents.explainability_agent import ExplainabilityAgent
 from src.agents.lexical_agent import LexicalAgent
+from src.agents.llm_explainability_agent import LLMExplainabilityAgent
+from src.agents.llm_lexical_agent import LLMLexicalAgent
+from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.logic_agent import LogicAgent
 from src.models.mock_primary_classifier import MockPrimaryClassifier
 from src.pipeline.router import Router
@@ -131,6 +139,18 @@ class PipelineOrchestrator:
         :class:`~src.agents.transformer_contextual_agent.TransformerContextualAgent`)
         used **only** in ``paper_style`` mode.  When ``None`` (default), the
         orchestrator falls back to *contextual_agent* for backward compatibility.
+    llm_lexical_agent:
+        Optional LLM-backed lexical agent used **only** in ``full_agentic`` mode.
+        When ``None`` (default), the orchestrator falls back to *lexical_agent*
+        for backward compatibility.
+    llm_logic_agent:
+        Optional LLM-backed logic agent used **only** in ``full_agentic`` mode.
+        When ``None`` (default), the orchestrator falls back to *logic_agent*
+        for backward compatibility.
+    llm_explainability_agent:
+        Optional LLM-backed explainability agent used **only** in ``full_agentic``
+        mode.  When ``None`` (default), the orchestrator falls back to
+        *explainability_agent* for backward compatibility.
     logger:
         Optional pre-configured logger.
     """
@@ -146,6 +166,9 @@ class PipelineOrchestrator:
         explainability_agent: ExplainabilityAgent,
         deliberation_agent: Optional[DeliberationAgent] = None,
         paper_contextual_agent: Optional[Any] = None,
+        llm_lexical_agent: Optional[LLMLexicalAgent] = None,
+        llm_logic_agent: Optional[LLMLogicAgent] = None,
+        llm_explainability_agent: Optional[LLMExplainabilityAgent] = None,
         logger: Optional[logging.Logger] = None,
     ) -> None:
         self._primary = primary_classifier
@@ -157,6 +180,9 @@ class PipelineOrchestrator:
         self._explain = explainability_agent
         self._deliberation = deliberation_agent
         self._paper_contextual = paper_contextual_agent
+        self._llm_lexical = llm_lexical_agent
+        self._llm_logic = llm_logic_agent
+        self._llm_explain = llm_explainability_agent
         self.logger = logger or log
 
     # ------------------------------------------------------------------
@@ -236,6 +262,7 @@ class PipelineOrchestrator:
                 self.logger.info(
                     "Decision: %s — skipping specialist agents", decision
                 )
+                # Fast path and paper_style always use template explainability.
                 state, _ = _run_stage("explainability_agent", self._explain.run, state)
             else:
                 # Escalation path ────────────────────────────────────────────
@@ -244,18 +271,36 @@ class PipelineOrchestrator:
                     pipeline_mode,
                 )
 
-                # In paper_style mode, use the non-LLM paper_contextual_agent
-                # when one is provided; otherwise fall back to contextual_agent
-                # for full backward compatibility.
-                contextual_for_mode = (
-                    self._paper_contextual
-                    if (pipeline_mode == _PAPER_STYLE and self._paper_contextual is not None)
-                    else self._contextual
-                )
+                # Resolve per-mode specialist agents.
+                #
+                # paper_style: use the non-LLM baseline agents to stay close to
+                #   the reference BERT multi-agent framework.
+                # full_agentic: use LLM-backed specialist agents when provided;
+                #   fall back to keyword/regex agents for backward compatibility.
+                if pipeline_mode == _PAPER_STYLE:
+                    lexical_for_mode = self._lexical
+                    logic_for_mode = self._logic
+                    contextual_for_mode = (
+                        self._paper_contextual
+                        if self._paper_contextual is not None
+                        else self._contextual
+                    )
+                else:  # full_agentic
+                    lexical_for_mode = (
+                        self._llm_lexical
+                        if self._llm_lexical is not None
+                        else self._lexical
+                    )
+                    logic_for_mode = (
+                        self._llm_logic
+                        if self._llm_logic is not None
+                        else self._logic
+                    )
+                    contextual_for_mode = self._contextual
 
                 stages = [
-                    ("lexical_agent", self._lexical),
-                    ("logic_agent", self._logic),
+                    ("lexical_agent", lexical_for_mode),
+                    ("logic_agent", logic_for_mode),
                     ("contextual_agent", contextual_for_mode),
                 ]
 
@@ -280,7 +325,18 @@ class PipelineOrchestrator:
                 if not ok:
                     return state
 
-                state, _ = _run_stage("explainability_agent", self._explain.run, state)
+                # In full_agentic mode, use the LLM explainability agent when
+                # provided; otherwise fall back to the template agent for both
+                # paper_style and full_agentic backward compatibility.
+                explain_for_mode = (
+                    self._llm_explain
+                    if (
+                        pipeline_mode == _FULL_AGENTIC
+                        and self._llm_explain is not None
+                    )
+                    else self._explain
+                )
+                state, _ = _run_stage("explainability_agent", explain_for_mode.run, state)
 
         self.logger.info(
             "Pipeline finished — label=%s confidence=%s",

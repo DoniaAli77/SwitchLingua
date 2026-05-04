@@ -1,7 +1,8 @@
 """Non-LLM contextual agent for paper_style pipeline mode.
 
-Approximates the "contextual agent" described in the SwitchLingua paper (BERT /
-RoBERTa / XLNet) without requiring a fine-tuned model or an LLM API call.
+Approximates the "contextual agent" described in the reference BERT multi-agent
+framework (BERT / RoBERTa / XLNet) without requiring a fine-tuned model or an
+LLM API call.
 
 Two operating modes
 -------------------

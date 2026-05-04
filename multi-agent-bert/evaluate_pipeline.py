@@ -76,6 +76,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from src.agents.consensus_agent import ConsensusAgent
 from src.agents.contextual_agent import ContextualAgent
 from src.agents.deliberation_agent import DeliberationAgent
+from src.agents.llm_explainability_agent import LLMExplainabilityAgent
+from src.agents.llm_lexical_agent import LLMLexicalAgent
+from src.agents.llm_logic_agent import LLMLogicAgent
+from src.agents.transformer_contextual_agent import TransformerContextualAgent
 from src.agents.explainability_agent import ExplainabilityAgent
 from src.agents.lexical_agent import LexicalAgent
 from src.agents.logic_agent import LogicAgent
@@ -102,9 +106,47 @@ log = logging.getLogger("evaluate_pipeline")
 # ---------------------------------------------------------------------------
 _DEFAULT_LABELS = ["positive", "negative", "neutral"]
 _DEFAULT_LABEL_DESCRIPTIONS = {
+    # --- Sentiment labels ---
     "positive": "Text expressing positive or favorable sentiment.",
     "negative": "Text expressing negative or unfavorable sentiment.",
     "neutral":  "Text that is factual or carries no strong sentiment.",
+    # --- Topic labels (Arabic-English bilingual, for code-switched classification) ---
+    "business": (
+        "Discussions about companies, startups, markets, products, mergers, and corporate strategy. "
+        "شركة، سوق، منتج، استحواذ، اندماج، أرباح، CEO، عمل تجاري، مشروع."
+    ),
+    "education": (
+        "Topics related to learning, schools, universities, courses, exams, assignments, and academic life. "
+        "تعليم، جامعة، مدرسة، كورس، محاضرة، امتحان، واجب، طالب، ترم."
+    ),
+    "health": (
+        "Conversations about physical wellness, fitness, exercise, diet, nutrition, vitamins, and healthy lifestyle. "
+        "صحة، رياضة، تمارين، لياقة، تغذية، غذاء، فيتامين، نمط حياة صحي."
+    ),
+    "shopping": (
+        "Buying goods online or in stores, orders, delivery, discounts, prices, and cart items. "
+        "تسوق، شراء، متجر، محل، طلب، توصيل، خصم، تخفيضات، سعر، عربة."
+    ),
+    "medical": (
+        "Clinical healthcare topics: doctors, patients, diagnoses, medications, symptoms, surgeries, and treatments. "
+        "طبيب، دكتور، مريض، دواء، علاج، تشخيص، أشعة، عملية، موعد، مرض."
+    ),
+    "sports": (
+        "Matches, teams, players, scores, goals, coaches, training sessions, and sporting events. "
+        "رياضة، مباراة، فريق، لاعب، هدف، ماتش، مدرب، تدريب، نتيجة."
+    ),
+    "tech": (
+        "Software, apps, AI, machine learning, cloud computing, updates, bugs, and technology systems. "
+        "تكنولوجيا، برنامج، تطبيق، ذكاء اصطناعي، سحابة، تحديث، نظام، موديل."
+    ),
+    "finance": (
+        "Banking, loans, investments, portfolios, currency, inflation, interest rates, and financial markets. "
+        "بنك، قرض، فائدة، استثمار، محفظة، دولار، عملة، تضخم، ربح، مخاطرة."
+    ),
+    "social": (
+        "Social media posts, platforms, communities, friend groups, meetups, and online interaction. "
+        "تواصل اجتماعي، بوست، انستجرام، تويتر، واتساب، جروب، صديق، مجتمع، لقاء."
+    ),
 }
 # Sentiment keyword / rule maps
 _SENTIMENT_KEYWORD_MAP: Dict[str, List[str]] = {
@@ -394,6 +436,15 @@ def build_orchestrator(
 
     keyword_map, rule_map = build_agent_knowledge_maps(task_config.labels)
 
+    paper_contextual_agent = TransformerContextualAgent(mode="tfidf")
+
+    # LLM-backed specialist agents for full_agentic mode.
+    # Both use the same label_echo client as the contextual agent so tests
+    # can verify they are called without a real LLM backend.
+    llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
+    llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
+    llm_explainability_agent = LLMExplainabilityAgent(llm_client=llm_client)
+
     return PipelineOrchestrator(
         primary_classifier=MockPrimaryClassifier(mode="heuristic"),
         router=Router(),
@@ -403,6 +454,10 @@ def build_orchestrator(
         consensus_agent=ConsensusAgent(),
         explainability_agent=ExplainabilityAgent(),
         deliberation_agent=deliberation_agent,
+        paper_contextual_agent=paper_contextual_agent,
+        llm_lexical_agent=llm_lexical_agent,
+        llm_logic_agent=llm_logic_agent,
+        llm_explainability_agent=llm_explainability_agent,
     )
 
 
