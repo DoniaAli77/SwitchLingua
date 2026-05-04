@@ -26,7 +26,6 @@ from src.models.mock_primary_classifier import MockPrimaryClassifier
 from src.pipeline.orchestrator import PipelineOrchestrator
 from src.pipeline.router import Router
 from src.state.schema import PipelineState, StateMetadata, TaskConfig
-from utils.debug import print_debug_summary
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -162,6 +161,23 @@ def print_error(result: dict) -> None:
     print(f"  {_DASH}")
 
 
+def _print_sample_summary(mode: str, state: PipelineState) -> None:
+    """Print the four fields requested for each sample."""
+    final = state.final_output
+    routing = state.routing_info
+
+    label      = final.label      if final   else "N/A"
+    confidence = f"{final.confidence:.3f}" if (final and final.confidence is not None) else "N/A"
+    decision   = routing.decision if routing else "N/A"
+    components = [e.component for e in state.history]
+
+    print(f"  Mode       : {mode}")
+    print(f"  Final label: {label}  (conf={confidence})")
+    print(f"  Routing    : {decision}")
+    print(f"  History    : {' → '.join(components) if components else '(empty)'}")
+    print(f"  {_DASH}")
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -189,7 +205,7 @@ def main() -> None:
                 index=idx,
             )
             if state is not None:
-                print_debug_summary(state)
+                _print_sample_summary(mode, state)
             else:
                 print_error(result)
 
