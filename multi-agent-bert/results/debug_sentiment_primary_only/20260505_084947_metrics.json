@@ -1,0 +1,44 @@
+{
+  "run_id": "20260505_084947",
+  "mode": "full_pipeline",
+  "timestamp": "2026-05-05T08:49:47.050563+00:00",
+  "num_samples": 30,
+  "accuracy": 0.3,
+  "macro_f1": 0.296992,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.111111,
+      "recall": 0.1,
+      "f1": 0.105263,
+      "support": 10
+    },
+    {
+      "label": "negative",
+      "precision": 0.272727,
+      "recall": 0.3,
+      "f1": 0.285714,
+      "support": 10
+    },
+    {
+      "label": "neutral",
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5,
+      "support": 10
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 30,
+    "error_samples": 0
+  }
+}

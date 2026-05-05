@@ -79,6 +79,10 @@ from src.agents.deliberation_agent import DeliberationAgent
 from src.agents.llm_explainability_agent import LLMExplainabilityAgent
 from src.agents.llm_lexical_agent import LLMLexicalAgent
 from src.agents.llm_logic_agent import LLMLogicAgent
+from src.agents.ner_consensus_agent import NERConsensusAgent
+from src.agents.ner_contextual_agent import NERContextualAgent
+from src.agents.ner_lexical_agent import NERLexicalAgent
+from src.agents.ner_logic_agent import NERLogicAgent
 from src.agents.transformer_contextual_agent import TransformerContextualAgent
 from src.agents.explainability_agent import ExplainabilityAgent
 from src.agents.lexical_agent import LexicalAgent
@@ -86,6 +90,7 @@ from src.agents.logic_agent import LogicAgent
 from src.config.loader import load_task_bundle
 from src.evaluation.ablation import AblationConfig, AblationReport, AblationStudy
 from src.evaluation.evaluator import EvalReport, Evaluator
+from src.evaluation.ner_evaluator import NEREvaluator, NERReport
 from src.llm.mock_client import MockLLMClient
 from src.models.mock_primary_classifier import MockPrimaryClassifier
 from src.pipeline.orchestrator import PipelineOrchestrator
@@ -345,8 +350,8 @@ def build_agent_knowledge_maps(
 # Dataset loading
 # ---------------------------------------------------------------------------
 
-def load_dataset(path: str) -> List[Dict[str, str]]:
-    """Load a JSONL file and return a list of sample dicts.
+def load_classification_dataset(path: str) -> List[Dict[str, str]]:
+    """Load a classification JSONL file (``text`` + ``label`` per line).
 
     Each line must be a valid JSON object with at minimum ``"text"`` and
     ``"label"`` keys.  The optional ``"id"`` key is used as the sample
@@ -392,6 +397,95 @@ def load_dataset(path: str) -> List[Dict[str, str]]:
 
     log.info("Loaded %d samples from '%s' (%d skipped).", len(samples), path, errors)
     return samples
+
+
+def load_sequence_labeling_dataset(
+    path: str,
+    valid_tags: List[str],
+) -> List[Dict]:
+    """Load a sequence-labeling JSONL file (``text`` + ``tokens`` + ``tags``).
+
+    Each line must be a valid JSON object with ``"text"``, ``"tokens"``, and
+    ``"tags"`` keys.  The optional ``"id"`` key is used as the sample
+    identifier.
+
+    Validation per sample:
+
+    * ``len(tokens) == len(tags)`` — must hold exactly.
+    * Every tag must be present in ``valid_tags``.
+
+    Lines that fail validation are skipped and counted as errors.
+
+    Raises
+    ------
+    FileNotFoundError
+        If ``path`` does not exist.
+    ValueError
+        If ``valid_tags`` is empty, or the file contains no valid samples.
+    """
+    if not valid_tags:
+        raise ValueError("valid_tags must not be empty.")
+
+    p = Path(path)
+    if not p.exists():
+        raise FileNotFoundError(f"Dataset file not found: {path}")
+
+    valid_tag_set = set(valid_tags)
+    samples: List[Dict] = []
+    errors = 0
+    with open(p, encoding="utf-8") as fh:
+        for lineno, line in enumerate(fh, start=1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError as exc:
+                log.warning("Line %d — JSON parse error: %s", lineno, exc)
+                errors += 1
+                continue
+            if "text" not in obj or "tokens" not in obj or "tags" not in obj:
+                log.warning(
+                    "Line %d — missing 'text', 'tokens', or 'tags' keys, skipping.",
+                    lineno,
+                )
+                errors += 1
+                continue
+            tokens = obj["tokens"]
+            tags = obj["tags"]
+            if len(tokens) != len(tags):
+                log.warning(
+                    "Line %d — len(tokens)=%d != len(tags)=%d, skipping.",
+                    lineno,
+                    len(tokens),
+                    len(tags),
+                )
+                errors += 1
+                continue
+            unknown = [t for t in tags if t not in valid_tag_set]
+            if unknown:
+                log.warning(
+                    "Line %d — unknown tag(s) %s, skipping.",
+                    lineno,
+                    sorted(set(unknown)),
+                )
+                errors += 1
+                continue
+            samples.append(obj)
+
+    if not samples:
+        raise ValueError(
+            f"No valid samples found in '{path}'. "
+            f"{errors} line(s) had errors."
+        )
+
+    log.info("Loaded %d samples from '%s' (%d skipped).", len(samples), path, errors)
+    return samples
+
+
+def load_dataset(path: str) -> List[Dict[str, str]]:
+    """Backward-compatible alias for :func:`load_classification_dataset`."""
+    return load_classification_dataset(path)
 
 
 # ---------------------------------------------------------------------------
@@ -462,6 +556,15 @@ def build_orchestrator(
     llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
     llm_explainability_agent = LLMExplainabilityAgent(llm_client=llm_client)
 
+    # NER-path agents — wired with the task labels so they can validate tags.
+    # Gazetteers / rule maps are intentionally empty here; override via
+    # ner_lexical_agent / ner_logic_agent constructor kwargs when real entity
+    # lists are available.
+    ner_lexical     = NERLexicalAgent()
+    ner_logic       = NERLogicAgent()
+    ner_contextual  = NERContextualAgent()
+    ner_consensus   = NERConsensusAgent()
+
     return PipelineOrchestrator(
         primary_classifier=MockPrimaryClassifier(mode="heuristic"),
         router=Router(),
@@ -475,6 +578,10 @@ def build_orchestrator(
         llm_lexical_agent=llm_lexical_agent,
         llm_logic_agent=llm_logic_agent,
         llm_explainability_agent=llm_explainability_agent,
+        ner_lexical_agent=ner_lexical,
+        ner_logic_agent=ner_logic,
+        ner_contextual_agent=ner_contextual,
+        ner_consensus_agent=ner_consensus,
     )
 
 
@@ -488,6 +595,30 @@ def _safe_print(text: str) -> None:
         print(text)
     except UnicodeEncodeError:
         print(text.encode(sys.stdout.encoding or "ascii", errors="replace").decode(sys.stdout.encoding or "ascii", errors="replace"))
+
+
+def _print_ner_report(report: NERReport) -> None:
+    sep = "─" * 60
+    _safe_print(f"\n{sep}")
+    _safe_print("  NER Evaluation Report")
+    _safe_print(sep)
+    _safe_print(f"  Run ID         : {report.run_id}")
+    _safe_print(f"  Timestamp      : {report.timestamp}")
+    _safe_print(f"  Samples        : {report.num_samples}")
+    _safe_print(f"  Total tokens   : {report.num_tokens}")
+    _safe_print(f"  Errors         : {report.meta.get('error_samples', 0)}")
+    _safe_print(sep)
+    _safe_print(f"  Token accuracy : {report.token_accuracy:.4f}")
+    _safe_print(f"  Macro F1       : {report.macro_f1:.4f}")
+    _safe_print(sep)
+    _safe_print(f"  {'Tag':<12}  {'Precision':>10}  {'Recall':>8}  {'F1':>8}  {'Support':>8}")
+    _safe_print(f"  {'─'*12}  {'─'*10}  {'─'*8}  {'─'*8}  {'─'*8}")
+    for m in report.per_tag:
+        _safe_print(
+            f"  {m.label:<12}  {m.precision:>10.4f}  {m.recall:>8.4f}"
+            f"  {m.f1:>8.4f}  {m.support:>8d}"
+        )
+    _safe_print(sep)
 
 
 def _print_report(report: EvalReport) -> None:
@@ -673,16 +804,8 @@ def main(argv: List[str] | None = None) -> int:
         logging.getLogger().setLevel(logging.DEBUG)
 
     # ------------------------------------------------------------------
-    # Load dataset.
-    # ------------------------------------------------------------------
-    try:
-        dataset = load_dataset(args.dataset)
-    except (FileNotFoundError, ValueError) as exc:
-        log.error("%s", exc)
-        return 1
-
-    # ------------------------------------------------------------------
-    # Build task config — config file takes priority over hardcoded maps.
+    # Build task config — must happen before loading the dataset so we
+    # know whether to load a classification or NER dataset format.
     # ------------------------------------------------------------------
     keyword_map: Dict[str, List[str]] | None = None
     rule_map: Dict[str, List[str]] | None = None
@@ -725,6 +848,40 @@ def main(argv: List[str] | None = None) -> int:
             enable_deliberation=args.deliberation,
             pipeline_mode=args.pipeline_mode if args.pipeline_mode is not None else "full_agentic",
         )
+
+    # ------------------------------------------------------------------
+    # NER path — sequence_labeling tasks get their own dataset loader
+    # and evaluator.  Ablation is not supported for NER.
+    # ------------------------------------------------------------------
+    if task_config.task_type == "sequence_labeling":
+        if args.ablation_config:
+            log.error(
+                "Ablation study is not supported for sequence_labeling tasks."
+            )
+            return 1
+        try:
+            ner_dataset = load_sequence_labeling_dataset(
+                args.dataset, task_config.labels
+            )
+        except (FileNotFoundError, ValueError) as exc:
+            log.error("%s", exc)
+            return 1
+        return _run_ner_evaluation(
+            args=args,
+            dataset=ner_dataset,
+            task_config=task_config,
+            keyword_map=keyword_map,
+            rule_map=rule_map,
+        )
+
+    # ------------------------------------------------------------------
+    # Classification path — load dataset now that we know the task type.
+    # ------------------------------------------------------------------
+    try:
+        dataset = load_dataset(args.dataset)
+    except (FileNotFoundError, ValueError) as exc:
+        log.error("%s", exc)
+        return 1
 
     # ------------------------------------------------------------------
     # Ablation study path.
@@ -782,6 +939,44 @@ def main(argv: List[str] | None = None) -> int:
         _safe_print(f"  [{mode}]")
         for key, path in paths.items():
             _safe_print(f"    {key}: {path}")
+    _safe_print("─" * 60)
+
+    return 0
+
+
+def _run_ner_evaluation(
+    args,
+    dataset: List[Dict],
+    task_config: TaskConfig,
+    keyword_map: Dict[str, List[str]] | None = None,
+    rule_map: Dict[str, List[str]] | None = None,
+) -> int:
+    """Run NER evaluation using :class:`~src.evaluation.ner_evaluator.NEREvaluator`."""
+    orchestrator = build_orchestrator(
+        task_config=task_config,
+        threshold=task_config.threshold,
+        enable_deliberation=task_config.enable_deliberation,
+        keyword_map=keyword_map,
+        rule_map=rule_map,
+    )
+
+    evaluator = NEREvaluator(
+        task_config=task_config,
+        orchestrator=orchestrator,
+        run_id=args.run_id,
+    )
+
+    log.info("Running NER evaluation — %d samples", len(dataset))
+    report = evaluator.evaluate(dataset)
+
+    _print_ner_report(report)
+
+    paths = evaluator.save(report, output_dir=args.output_dir)
+
+    _safe_print(f"\n{'─' * 60}")
+    _safe_print("  Saved files:")
+    for key, path in paths.items():
+        _safe_print(f"    {key}: {path}")
     _safe_print("─" * 60)
 
     return 0

@@ -61,6 +61,10 @@ from src.agents.llm_explainability_agent import LLMExplainabilityAgent
 from src.agents.llm_lexical_agent import LLMLexicalAgent
 from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.logic_agent import LogicAgent
+from src.agents.ner_consensus_agent import NERConsensusAgent
+from src.agents.ner_contextual_agent import NERContextualAgent
+from src.agents.ner_lexical_agent import NERLexicalAgent
+from src.agents.ner_logic_agent import NERLogicAgent
 from src.models.mock_primary_classifier import MockPrimaryClassifier
 from src.pipeline.router import Router
 from src.state.schema import ExplanationOutput, FinalOutput, PipelineMode, PipelineState
@@ -151,6 +155,18 @@ class PipelineOrchestrator:
         Optional LLM-backed explainability agent used **only** in ``full_agentic``
         mode.  When ``None`` (default), the orchestrator falls back to
         *explainability_agent* for backward compatibility.
+    ner_lexical_agent:
+        NER-specific lexical (gazetteer) agent.  Used on the NER path in all
+        modes except ``primary_only``.  When ``None`` a default
+        :class:`~src.agents.ner_lexical_agent.NERLexicalAgent` (empty gazetteer)
+        is created automatically.
+    ner_logic_agent:
+        NER-specific logic (regex-rule) agent.  Same defaulting behaviour as
+        *ner_lexical_agent*.
+    ner_contextual_agent:
+        NER-specific contextual (heuristic) agent.  Same defaulting behaviour.
+    ner_consensus_agent:
+        NER consensus agent.  Same defaulting behaviour.
     logger:
         Optional pre-configured logger.
     """
@@ -169,6 +185,10 @@ class PipelineOrchestrator:
         llm_lexical_agent: Optional[LLMLexicalAgent] = None,
         llm_logic_agent: Optional[LLMLogicAgent] = None,
         llm_explainability_agent: Optional[LLMExplainabilityAgent] = None,
+        ner_lexical_agent: Optional[NERLexicalAgent] = None,
+        ner_logic_agent: Optional[NERLogicAgent] = None,
+        ner_contextual_agent: Optional[NERContextualAgent] = None,
+        ner_consensus_agent: Optional[NERConsensusAgent] = None,
         logger: Optional[logging.Logger] = None,
     ) -> None:
         self._primary = primary_classifier
@@ -183,6 +203,12 @@ class PipelineOrchestrator:
         self._llm_lexical = llm_lexical_agent
         self._llm_logic = llm_logic_agent
         self._llm_explain = llm_explainability_agent
+        # NER-path agents (lazy defaults created here so callers don't need to
+        # supply them when not running sequence-labeling tasks).
+        self._ner_lexical: NERLexicalAgent = ner_lexical_agent or NERLexicalAgent()
+        self._ner_logic: NERLogicAgent = ner_logic_agent or NERLogicAgent()
+        self._ner_contextual: NERContextualAgent = ner_contextual_agent or NERContextualAgent()
+        self._ner_consensus: NERConsensusAgent = ner_consensus_agent or NERConsensusAgent()
         self.logger = logger or log
 
     # ------------------------------------------------------------------
@@ -212,6 +238,10 @@ class PipelineOrchestrator:
                 "pipeline_mode": pipeline_mode,
             },
         )
+
+        # Dispatch to the appropriate path based on task_type.
+        if state.task_config.task_type == "sequence_labeling":
+            return self._run_ner_path(state, pipeline_mode)
 
         # Stage 1: Primary classifier
         state, ok = _run_stage("primary_classifier", self._primary.run, state)
@@ -364,6 +394,104 @@ class PipelineOrchestrator:
                     state.routing_info.decision if state.routing_info else None
                 ),
                 "pipeline_mode": pipeline_mode,
+                "history_length": len(state.history),
+            },
+        )
+        return state
+
+    # ------------------------------------------------------------------
+    # NER path
+    # ------------------------------------------------------------------
+
+    def _run_ner_path(
+        self,
+        state: PipelineState,
+        pipeline_mode: PipelineMode,
+    ) -> PipelineState:
+        """Execute the sequence-labeling (NER) pipeline and return final state.
+
+        Modes
+        -----
+        primary_only
+            Runs only the primary classifier if it can produce a
+            ``sequence_output`` (i.e. it is NER-aware).  In the common case
+            (classification-only primary model), the primary stage is skipped
+            and an empty FinalOutput is written so downstream consumers always
+            have a well-formed state.
+
+        paper_style / full_agentic
+            NERLexicalAgent → NERLogicAgent → NERContextualAgent →
+            NERConsensusAgent → ExplainabilityAgent.
+
+            Both modes run the same deterministic NER agents.  The distinction
+            is preserved so future LLM-backed NER agents can be slotted into
+            ``full_agentic`` without breaking this interface.
+        """
+        self.logger.info(
+            "NER path — mode=%s task=%s",
+            pipeline_mode,
+            state.task_config.task_name,
+        )
+
+        if pipeline_mode == _PRIMARY_ONLY:
+            # Try primary classifier; if it writes a sequence_output in
+            # lexical_output or similar, fine — otherwise give a clean empty output.
+            state, ok = _run_stage("primary_classifier", self._primary.run, state)
+            if not ok:
+                return state
+            # Primary classifiers are classification-only in the current codebase.
+            # Write a minimal final_output so callers never get None.
+            if state.final_output is None:
+                state.final_output = FinalOutput(
+                    payload={
+                        "source": "primary_model_ner_stub",
+                        "pipeline_mode": pipeline_mode,
+                        "note": (
+                            "primary_only mode on NER task: "
+                            "no sequence output from primary model."
+                        ),
+                    }
+                )
+            state.append_history(
+                component="orchestrator",
+                summary="NER primary-only mode: primary stage ran; specialist agents skipped.",
+                outputs={"pipeline_mode": pipeline_mode, "specialist_agents_ran": False},
+            )
+            return state
+
+        # paper_style and full_agentic: run all four NER specialist agents.
+        ner_stages = [
+            ("ner_lexical_agent",    self._ner_lexical),
+            ("ner_logic_agent",      self._ner_logic),
+            ("ner_contextual_agent", self._ner_contextual),
+            ("ner_consensus_agent",  self._ner_consensus),
+        ]
+        for stage_name, agent in ner_stages:
+            state, ok = _run_stage(stage_name, agent.run, state)
+            if not ok:
+                return state
+
+        # Explainability — use LLM explainability in full_agentic when present.
+        explain_for_mode = (
+            self._llm_explain
+            if (pipeline_mode == _FULL_AGENTIC and self._llm_explain is not None)
+            else self._explain
+        )
+        state, _ = _run_stage("explainability_agent", explain_for_mode.run, state)
+
+        self.logger.info(
+            "NER pipeline finished — token_count=%s",
+            state.final_output.payload.get("token_count") if state.final_output else None,
+        )
+        state.append_history(
+            component="orchestrator",
+            summary="NER pipeline finished.",
+            outputs={
+                "pipeline_mode": pipeline_mode,
+                "token_count": (
+                    state.final_output.payload.get("token_count")
+                    if state.final_output else None
+                ),
                 "history_length": len(state.history),
             },
         )

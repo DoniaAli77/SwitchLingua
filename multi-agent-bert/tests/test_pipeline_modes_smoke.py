@@ -1,14 +1,35 @@
 """Smoke tests for the three pipeline modes.
 
-These tests verify pipeline *integrity* — that each mode produces the
-expected set of outputs and leaves the state in a consistent shape.
-Accuracy is not checked here.
+These tests verify pipeline *integrity* — that each mode:
+  - produces the expected outputs
+  - wires the correct concrete agent class for each role
+  - does NOT invoke agents that belong to a different mode
+
+Agent identity is verified via ``state.history`` component names, which each
+agent writes using ``self.name`` (defaulting to ``self.__class__.__name__``).
+
+Expected history component names
+---------------------------------
+  primary_classifier          → "primary_classifier"
+  router                      → "router"
+  LexicalAgent                → "LexicalAgent"
+  LogicAgent                  → "LogicAgent"
+  ContextualAgent (LLM)       → "ContextualAgent"
+  TransformerContextualAgent  → "TransformerContextualAgent"
+  ConsensusAgent              → "ConsensusAgent"
+  ExplainabilityAgent         → "ExplainabilityAgent"
+  LLMLexicalAgent             → "LLMLexicalAgent"
+  LLMLogicAgent               → "LLMLogicAgent"
+  LLMExplainabilityAgent      → "LLMExplainabilityAgent"
+  DeliberationAgent           → "DeliberationAgent"
 
 Labels used: business, education, sports, tech (topic classification).
 
 A high routing threshold (0.99) ensures the mock primary classifier's
 heuristic confidence always falls below it, forcing escalation in both
 paper_style and full_agentic modes.
+
+Accuracy is never tested here.
 """
 
 from __future__ import annotations
@@ -90,11 +111,22 @@ class TestPrimaryOnly:
     def result(self) -> PipelineState:
         return _build("primary_only")
 
+    # -- Outputs ----------------------------------------------------------
+
     def test_final_output_not_none(self, result: PipelineState) -> None:
         assert result.final_output is not None
 
     def test_final_label_in_labels(self, result: PipelineState) -> None:
         assert result.final_output.label in _LABELS
+
+    def test_explanation_output_not_none(self, result: PipelineState) -> None:
+        """primary_only mode writes an inline explanation without running any agent."""
+        assert result.explanation_output is not None
+
+    def test_explanation_output_indicates_primary_only(self, result: PipelineState) -> None:
+        """Explanation summary must signal that specialist agents were skipped."""
+        summary = result.explanation_output.summary.lower()
+        assert "primary" in summary or "skipped" in summary
 
     def test_routing_info_is_none(self, result: PipelineState) -> None:
         """Router is skipped in primary_only mode."""
@@ -115,6 +147,30 @@ class TestPrimaryOnly:
     def test_no_pipeline_error(self, result: PipelineState) -> None:
         assert "pipeline_error" not in result.extras
 
+    # -- History: what ran ------------------------------------------------
+
+    def test_primary_classifier_in_history(self, result: PipelineState) -> None:
+        assert "primary_classifier" in _history_components(result)
+
+    # -- History: what must NOT have run ----------------------------------
+
+    def test_router_not_in_history(self, result: PipelineState) -> None:
+        assert "router" not in _history_components(result)
+
+    def test_no_specialist_agents_in_history(self, result: PipelineState) -> None:
+        """None of the escalation-path agents should appear in history."""
+        should_be_absent = {
+            "LexicalAgent", "LLMLexicalAgent",
+            "LogicAgent", "LLMLogicAgent",
+            "ContextualAgent", "TransformerContextualAgent",
+            "DeliberationAgent",
+            "ConsensusAgent",
+        }
+        ran = set(_history_components(result))
+        assert ran.isdisjoint(should_be_absent), (
+            f"Unexpected agents in primary_only history: {ran & should_be_absent}"
+        )
+
 
 # ===========================================================================
 # paper_style
@@ -125,6 +181,8 @@ class TestPaperStyle:
     @pytest.fixture(scope="class")
     def result(self) -> PipelineState:
         return _build("paper_style")
+
+    # -- Outputs ----------------------------------------------------------
 
     def test_routing_decision_is_escalate(self, result: PipelineState) -> None:
         assert result.routing_info is not None
@@ -152,13 +210,43 @@ class TestPaperStyle:
         """paper_style never runs deliberation."""
         assert result.deliberation_output is None
 
-    def test_history_contains_transformer_contextual_agent(self, result: PipelineState) -> None:
-        """paper_style should use TransformerContextualAgent as the contextual agent."""
-        components = _history_components(result)
-        assert "TransformerContextualAgent" in components
-
     def test_no_pipeline_error(self, result: PipelineState) -> None:
         assert "pipeline_error" not in result.extras
+
+    # -- History: concrete classes that must have run ---------------------
+
+    def test_history_contains_lexical_agent(self, result: PipelineState) -> None:
+        """paper_style uses the keyword-based LexicalAgent, not LLMLexicalAgent."""
+        assert "LexicalAgent" in _history_components(result)
+
+    def test_history_contains_logic_agent(self, result: PipelineState) -> None:
+        """paper_style uses the regex-based LogicAgent, not LLMLogicAgent."""
+        assert "LogicAgent" in _history_components(result)
+
+    def test_history_contains_transformer_contextual_agent(self, result: PipelineState) -> None:
+        """paper_style uses TransformerContextualAgent as the contextual agent."""
+        assert "TransformerContextualAgent" in _history_components(result)
+
+    def test_history_contains_consensus_agent(self, result: PipelineState) -> None:
+        assert "ConsensusAgent" in _history_components(result)
+
+    def test_history_contains_explainability_agent(self, result: PipelineState) -> None:
+        """paper_style uses the template ExplainabilityAgent, not LLMExplainabilityAgent."""
+        assert "ExplainabilityAgent" in _history_components(result)
+
+    # -- History: LLM / deliberation agents must NOT have run ------------
+
+    def test_llm_lexical_agent_not_in_history(self, result: PipelineState) -> None:
+        assert "LLMLexicalAgent" not in _history_components(result)
+
+    def test_llm_logic_agent_not_in_history(self, result: PipelineState) -> None:
+        assert "LLMLogicAgent" not in _history_components(result)
+
+    def test_llm_explainability_not_in_history(self, result: PipelineState) -> None:
+        assert "LLMExplainabilityAgent" not in _history_components(result)
+
+    def test_deliberation_agent_not_in_history(self, result: PipelineState) -> None:
+        assert "DeliberationAgent" not in _history_components(result)
 
 
 # ===========================================================================
@@ -170,6 +258,8 @@ class TestFullAgenticNoDeliberation:
     @pytest.fixture(scope="class")
     def result(self) -> PipelineState:
         return _build("full_agentic", enable_deliberation=False)
+
+    # -- Outputs ----------------------------------------------------------
 
     def test_routing_decision_is_escalate(self, result: PipelineState) -> None:
         assert result.routing_info is not None
@@ -200,6 +290,45 @@ class TestFullAgenticNoDeliberation:
     def test_no_pipeline_error(self, result: PipelineState) -> None:
         assert "pipeline_error" not in result.extras
 
+    # -- History: concrete classes that must have run ---------------------
+
+    def test_history_contains_llm_lexical_agent(self, result: PipelineState) -> None:
+        """full_agentic uses LLMLexicalAgent, not the keyword-based LexicalAgent."""
+        assert "LLMLexicalAgent" in _history_components(result)
+
+    def test_history_contains_llm_logic_agent(self, result: PipelineState) -> None:
+        """full_agentic uses LLMLogicAgent, not the regex-based LogicAgent."""
+        assert "LLMLogicAgent" in _history_components(result)
+
+    def test_history_contains_contextual_agent(self, result: PipelineState) -> None:
+        """full_agentic uses the LLM-backed ContextualAgent."""
+        assert "ContextualAgent" in _history_components(result)
+
+    def test_history_contains_consensus_agent(self, result: PipelineState) -> None:
+        assert "ConsensusAgent" in _history_components(result)
+
+    def test_history_contains_llm_explainability_agent(self, result: PipelineState) -> None:
+        """full_agentic uses LLMExplainabilityAgent when provided."""
+        assert "LLMExplainabilityAgent" in _history_components(result)
+
+    # -- History: wrong-mode agents must NOT have run --------------------
+
+    def test_deliberation_agent_not_in_history(self, result: PipelineState) -> None:
+        """enable_deliberation=False → DeliberationAgent must not run."""
+        assert "DeliberationAgent" not in _history_components(result)
+
+    def test_transformer_contextual_not_in_history(self, result: PipelineState) -> None:
+        """TransformerContextualAgent belongs to paper_style only."""
+        assert "TransformerContextualAgent" not in _history_components(result)
+
+    def test_keyword_lexical_not_in_history(self, result: PipelineState) -> None:
+        """LexicalAgent (keyword-based) must not run when LLMLexicalAgent is wired."""
+        assert "LexicalAgent" not in _history_components(result)
+
+    def test_regex_logic_not_in_history(self, result: PipelineState) -> None:
+        """LogicAgent (regex-based) must not run when LLMLogicAgent is wired."""
+        assert "LogicAgent" not in _history_components(result)
+
 
 # ===========================================================================
 # full_agentic — with deliberation
@@ -210,6 +339,8 @@ class TestFullAgenticWithDeliberation:
     @pytest.fixture(scope="class")
     def result(self) -> PipelineState:
         return _build("full_agentic", enable_deliberation=True)
+
+    # -- Outputs ----------------------------------------------------------
 
     def test_routing_decision_is_escalate(self, result: PipelineState) -> None:
         assert result.routing_info is not None
@@ -239,3 +370,36 @@ class TestFullAgenticWithDeliberation:
 
     def test_no_pipeline_error(self, result: PipelineState) -> None:
         assert "pipeline_error" not in result.extras
+
+    # -- History: concrete classes that must have run ---------------------
+
+    def test_history_contains_llm_lexical_agent(self, result: PipelineState) -> None:
+        assert "LLMLexicalAgent" in _history_components(result)
+
+    def test_history_contains_llm_logic_agent(self, result: PipelineState) -> None:
+        assert "LLMLogicAgent" in _history_components(result)
+
+    def test_history_contains_contextual_agent(self, result: PipelineState) -> None:
+        assert "ContextualAgent" in _history_components(result)
+
+    def test_history_contains_deliberation_agent(self, result: PipelineState) -> None:
+        """enable_deliberation=True → DeliberationAgent must appear in history."""
+        assert "DeliberationAgent" in _history_components(result)
+
+    def test_history_contains_consensus_agent(self, result: PipelineState) -> None:
+        assert "ConsensusAgent" in _history_components(result)
+
+    def test_history_contains_llm_explainability_agent(self, result: PipelineState) -> None:
+        assert "LLMExplainabilityAgent" in _history_components(result)
+
+    # -- History: wrong-mode agents must NOT have run --------------------
+
+    def test_transformer_contextual_not_in_history(self, result: PipelineState) -> None:
+        """TransformerContextualAgent belongs to paper_style only."""
+        assert "TransformerContextualAgent" not in _history_components(result)
+
+    def test_keyword_lexical_not_in_history(self, result: PipelineState) -> None:
+        assert "LexicalAgent" not in _history_components(result)
+
+    def test_regex_logic_not_in_history(self, result: PipelineState) -> None:
+        assert "LogicAgent" not in _history_components(result)

@@ -1,0 +1,512 @@
+[
+  {
+    "sample_id": "sent_01",
+    "input_text": "The new phone is great, شاشتها رائعة و الأداء ممتاز بالفعل.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.840877,
+    "probabilities": {
+      "positive": 0.3134515613829327,
+      "negative": 0.335127323334829,
+      "neutral": 0.35142111528223835
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_02",
+    "input_text": "أنا مبسوط جداً بالخدمة, the staff were wonderful and very helpful.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.833333,
+    "probabilities": {
+      "positive": 0.07180656782752899,
+      "negative": 0.4907617754922335,
+      "neutral": 0.43743165668023754
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_03",
+    "input_text": "I love this restaurant, الأكل لذيذ والجو fantastic.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.44246112458547654,
+      "negative": 0.4449357925261327,
+      "neutral": 0.11260308288839081
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_04",
+    "input_text": "الفيلم كان amazing, قصة excellent وممثلين رائعين.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.5352459616594527,
+      "negative": 0.03406473057257775,
+      "neutral": 0.4306893077679695
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_05",
+    "input_text": "Best experience ever, الخدمة كانت ممتازة وسريعة جداً.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.555555,
+    "probabilities": {
+      "positive": 0.49149529853025753,
+      "negative": 0.4285125363743548,
+      "neutral": 0.0799921650953876
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_06",
+    "input_text": "هذا المنتج wonderful, I would highly recommend it to everyone.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.053813469410969816,
+      "negative": 0.16455559190694033,
+      "neutral": 0.7816309386820899
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_07",
+    "input_text": "The class was fantastic, الأستاذ شرح بطريقة جيدة وواضحة.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.43899839586221506,
+      "negative": 0.19143467180011067,
+      "neutral": 0.3695669323376743
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_08",
+    "input_text": "سعيد جداً بالنتيجة, the team did an amazing job this season.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.49895762054373527,
+      "negative": 0.10526679461416429,
+      "neutral": 0.39577558484210046
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_09",
+    "input_text": "القهوة كانت great, I will definitely come back again.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.2498903290318639,
+      "negative": 0.6378559263475998,
+      "neutral": 0.11225374462053626
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_10",
+    "input_text": "Excellent update, التطبيق أصبح أسرع بكثير وأكثر استقراراً.",
+    "true_label": "positive",
+    "predicted_label": "positive",
+    "confidence": 0.777778,
+    "probabilities": {
+      "positive": 0.3451088798205656,
+      "negative": 0.37304598890485413,
+      "neutral": 0.2818451312745803
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_11",
+    "input_text": "The delivery was terrible, الطلب وصل متأخر جداً وكان مكسور.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.2254741432921526,
+      "negative": 0.4612665178073518,
+      "neutral": 0.3132593389004955
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_12",
+    "input_text": "أنا زعلان من الخدمة, the staff were awful and very rude.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.2569149361839469,
+      "negative": 0.3756675838110724,
+      "neutral": 0.36741748000498065
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_13",
+    "input_text": "I hate this app, يتوقف دايماً ولا يعمل بشكل صحيح أبداً.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.009393811578977831,
+      "negative": 0.7564678361144594,
+      "neutral": 0.23413835230656274
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_14",
+    "input_text": "الطعام كان horrible, worst meal I have had in a long time.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.4538959460745773,
+      "negative": 0.125018585265907,
+      "neutral": 0.4210854686595158
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_15",
+    "input_text": "Very bad customer service, ما ردوا علي ولم يحلوا المشكلة.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.016482164687979944,
+      "negative": 0.8714142728428954,
+      "neutral": 0.11210356246912466
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_16",
+    "input_text": "هذا المنتج رهيب, the quality is so poor it broke after one day.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.840877,
+    "probabilities": {
+      "positive": 0.2791441758161791,
+      "negative": 0.7035763531534521,
+      "neutral": 0.017279471030368795
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_17",
+    "input_text": "The movie was disgusting, قصة سيئة وممثلين بدون موهبة.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.333333,
+    "probabilities": {
+      "positive": 0.326478048958268,
+      "negative": 0.1541339142233532,
+      "neutral": 0.5193880368183789
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_18",
+    "input_text": "مروع جداً هذا التطبيق, it crashes every time I open it.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 1.0,
+    "probabilities": {
+      "positive": 0.0891924225510022,
+      "negative": 0.5680538270629559,
+      "neutral": 0.3427537503860419
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_19",
+    "input_text": "Worst hotel ever, الغرفة كانت بشعة وغير نظيفة للأسف.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.5180945426789978,
+      "negative": 0.38010826977670065,
+      "neutral": 0.10179718754430139
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_20",
+    "input_text": "لا أنصح بهذا المطعم أبداً, the food was awful and overpriced.",
+    "true_label": "negative",
+    "predicted_label": "negative",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.8616954945752948,
+      "negative": 0.02516160101393962,
+      "neutral": 0.1131429044107656
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_21",
+    "input_text": "The meeting is scheduled for Tuesday, الاجتماع يوم الثلاثاء الساعة 10.",
+    "true_label": "neutral",
+    "predicted_label": "neutral",
+    "confidence": 0.333333,
+    "probabilities": {
+      "positive": 0.30754226806853624,
+      "negative": 0.08698653347830795,
+      "neutral": 0.6054711984531559
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_22",
+    "input_text": "الطقس اليوم moderate, temperatures are around 25 degrees.",
+    "true_label": "neutral",
+    "predicted_label": "neutral",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.46417902139608774,
+      "negative": 0.3857399375608777,
+      "neutral": 0.15008104104303455
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_23",
+    "input_text": "The report includes three sections, التقرير يحتوي على ثلاثة أقسام.",
+    "true_label": "neutral",
+    "predicted_label": "positive",
+    "confidence": 0.222222,
+    "probabilities": {
+      "positive": 0.22270183495410856,
+      "negative": 0.41718054949459143,
+      "neutral": 0.36011761555129995
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_24",
+    "input_text": "المتجر يفتح الساعة التاسعة, it closes at nine in the evening.",
+    "true_label": "neutral",
+    "predicted_label": "positive",
+    "confidence": 0.333333,
+    "probabilities": {
+      "positive": 0.29482888791334844,
+      "negative": 0.6415619473364513,
+      "neutral": 0.06360916475020026
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_25",
+    "input_text": "The package weighs two kilograms, الطرد وزنه كيلوغرامان تقريباً.",
+    "true_label": "neutral",
+    "predicted_label": "positive",
+    "confidence": 0.333333,
+    "probabilities": {
+      "positive": 0.4806966840625866,
+      "negative": 0.16351088807106456,
+      "neutral": 0.3557924278663488
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_26",
+    "input_text": "قرأت المقالة كاملاً, the article covered an average of ten topics.",
+    "true_label": "neutral",
+    "predicted_label": "neutral",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.3730710912014021,
+      "negative": 0.28865205810478006,
+      "neutral": 0.33827685069381785
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_27",
+    "input_text": "The bus arrives every 30 minutes, الحافلة تأتي كل نصف ساعة.",
+    "true_label": "neutral",
+    "predicted_label": "positive",
+    "confidence": 0.333333,
+    "probabilities": {
+      "positive": 0.14748444073618644,
+      "negative": 0.4807918271704758,
+      "neutral": 0.3717237320933377
+    },
+    "escalated": true,
+    "correct": false,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_28",
+    "input_text": "هذه المعلومات عادية ومتاحة, the data is publicly available online.",
+    "true_label": "neutral",
+    "predicted_label": "neutral",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.4272993374841008,
+      "negative": 0.35463048803245384,
+      "neutral": 0.21807017448344537
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_29",
+    "input_text": "The update is a normal maintenance release, تحديث صيانة اعتيادي.",
+    "true_label": "neutral",
+    "predicted_label": "neutral",
+    "confidence": 1.0,
+    "probabilities": {
+      "positive": 0.34532080382074803,
+      "negative": 0.20308404201673846,
+      "neutral": 0.45159515416251345
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  },
+  {
+    "sample_id": "sent_30",
+    "input_text": "الموعد fine, we can reschedule if needed without any problem.",
+    "true_label": "neutral",
+    "predicted_label": "neutral",
+    "confidence": 0.666667,
+    "probabilities": {
+      "positive": 0.28203145718901856,
+      "negative": 0.49648577087767615,
+      "neutral": 0.2214827719333054
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "paper_style"
+  }
+]
