@@ -83,6 +83,7 @@ from src.agents.transformer_contextual_agent import TransformerContextualAgent
 from src.agents.explainability_agent import ExplainabilityAgent
 from src.agents.lexical_agent import LexicalAgent
 from src.agents.logic_agent import LogicAgent
+from src.config.loader import load_task_bundle
 from src.evaluation.ablation import AblationConfig, AblationReport, AblationStudy
 from src.evaluation.evaluator import EvalReport, Evaluator
 from src.llm.mock_client import MockLLMClient
@@ -401,6 +402,8 @@ def build_orchestrator(
     task_config: TaskConfig,
     threshold: float,
     enable_deliberation: bool,
+    keyword_map: Dict[str, List[str]] | None = None,
+    rule_map: Dict[str, List[str]] | None = None,
 ) -> PipelineOrchestrator:
     """Build a fully-wired orchestrator using mock components.
 
@@ -411,6 +414,15 @@ def build_orchestrator(
     task label from the prompt text.  ``DeliberationAgent`` (when enabled)
     uses a ``fixed`` client that returns a well-formed JSON response, because
     deliberation expects structured output that ``label_echo`` cannot produce.
+
+    Parameters
+    ----------
+    keyword_map:
+        Optional pre-built keyword map from the config loader.  When ``None``
+        the legacy :func:`build_agent_knowledge_maps` is used as a fallback.
+    rule_map:
+        Optional pre-built rule map from the config loader.  When ``None``
+        the legacy :func:`build_agent_knowledge_maps` is used as a fallback.
     """
     llm_client = MockLLMClient(
         mode="label_echo",
@@ -434,7 +446,12 @@ def build_orchestrator(
     else:
         deliberation_agent = None
 
-    keyword_map, rule_map = build_agent_knowledge_maps(task_config.labels)
+    # Use caller-supplied maps (from config loader) when available;
+    # fall back to the legacy hardcoded knowledge maps otherwise.
+    if keyword_map is None or rule_map is None:
+        _kw, _rl = build_agent_knowledge_maps(task_config.labels)
+        keyword_map = keyword_map if keyword_map is not None else _kw
+        rule_map = rule_map if rule_map is not None else _rl
 
     paper_contextual_agent = TransformerContextualAgent(mode="tfidf")
 
@@ -580,20 +597,40 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument(
         "--threshold",
         type=float,
-        default=0.65,
+        default=None,
         metavar="FLOAT",
-        help="Router confidence threshold for escalation. (default: 0.65)",
+        help="Router confidence threshold for escalation. Overrides config when set. (default: 0.65 or config value)",
     )
     parser.add_argument(
         "--pipeline_mode",
-        default="full_agentic",
+        default=None,
         choices=["primary_only", "paper_style", "full_agentic"],
         help=(
             "Pipeline execution mode used by the orchestrator. "
             "'primary_only' skips router and specialist agents, "
             "'paper_style' uses lexical+logic+contextual on escalation, no deliberation, "
             "'full_agentic' uses lexical+logic+contextual (and optional deliberation). "
-            "(default: full_agentic)"
+            "Overrides config when set. (default: full_agentic or config value)"
+        ),
+    )
+    parser.add_argument(
+        "--config",
+        default=None,
+        metavar="PATH",
+        help=(
+            "Path to a pipeline YAML config file (e.g. src/config/default.yaml). "
+            "When supplied, task labels, descriptions, and agent knowledge maps "
+            "are read from the config.  CLI flags --threshold, --pipeline_mode, "
+            "and --active_task override config values when explicitly provided."
+        ),
+    )
+    parser.add_argument(
+        "--active_task",
+        default=None,
+        metavar="TASK",
+        help=(
+            "Override the active_task key from the config file. "
+            "Example: --active_task topic_classification"
         ),
     )
     parser.add_argument(
@@ -602,8 +639,8 @@ def main(argv: List[str] | None = None) -> int:
         default=None,
         metavar="LABEL",
         help=(
-            "Space-separated list of class labels. "
-            "Defaults to: positive negative neutral"
+            "Space-separated list of class labels used as a fallback when "
+            "--config is not provided. Defaults to: positive negative neutral"
         ),
     )
     parser.add_argument(
@@ -645,20 +682,49 @@ def main(argv: List[str] | None = None) -> int:
         return 1
 
     # ------------------------------------------------------------------
-    # Build task config.
+    # Build task config — config file takes priority over hardcoded maps.
     # ------------------------------------------------------------------
-    labels = args.labels if args.labels else list(_DEFAULT_LABELS)
-    task_config = TaskConfig(
-        task_name="evaluation",
-        labels=labels,
-        label_descriptions={
-            lbl: _DEFAULT_LABEL_DESCRIPTIONS.get(lbl, lbl)
-            for lbl in labels
-        },
-        threshold=args.threshold,
-        enable_deliberation=args.deliberation,
-        pipeline_mode=args.pipeline_mode,
-    )
+    keyword_map: Dict[str, List[str]] | None = None
+    rule_map: Dict[str, List[str]] | None = None
+
+    if args.config:
+        try:
+            bundle = load_task_bundle(
+                args.config,
+                active_task=args.active_task,
+                # Pass CLI overrides only when they differ from argparse defaults,
+                # i.e. when the user explicitly provided the flag.
+                pipeline_mode=args.pipeline_mode if args.pipeline_mode is not None else None,
+                threshold=args.threshold if args.threshold is not None else None,
+                enable_deliberation=True if args.deliberation else None,
+            )
+        except (FileNotFoundError, KeyError, ValueError) as exc:
+            log.error("Failed to load config '%s': %s", args.config, exc)
+            return 1
+        task_config = bundle.task_config
+        keyword_map = bundle.keyword_map
+        rule_map = bundle.rule_map
+        log.info(
+            "Config loaded — task=%s labels=%s pipeline_mode=%s threshold=%.2f",
+            bundle.active_task,
+            task_config.labels,
+            task_config.pipeline_mode,
+            task_config.threshold,
+        )
+    else:
+        # Legacy path: build TaskConfig from CLI flags / hardcoded defaults.
+        labels = args.labels if args.labels else list(_DEFAULT_LABELS)
+        task_config = TaskConfig(
+            task_name="evaluation",
+            labels=labels,
+            label_descriptions={
+                lbl: _DEFAULT_LABEL_DESCRIPTIONS.get(lbl, lbl)
+                for lbl in labels
+            },
+            threshold=args.threshold if args.threshold is not None else 0.65,
+            enable_deliberation=args.deliberation,
+            pipeline_mode=args.pipeline_mode if args.pipeline_mode is not None else "full_agentic",
+        )
 
     # ------------------------------------------------------------------
     # Ablation study path.
@@ -668,6 +734,8 @@ def main(argv: List[str] | None = None) -> int:
             args=args,
             dataset=dataset,
             task_config=task_config,
+            keyword_map=keyword_map,
+            rule_map=rule_map,
         )
 
     # ------------------------------------------------------------------
@@ -681,8 +749,10 @@ def main(argv: List[str] | None = None) -> int:
 
     orchestrator = build_orchestrator(
         task_config=task_config,
-        threshold=args.threshold,
-        enable_deliberation=args.deliberation,
+        threshold=task_config.threshold,
+        enable_deliberation=task_config.enable_deliberation,
+        keyword_map=keyword_map,
+        rule_map=rule_map,
     )
 
     saved_paths: Dict[str, Dict[str, str]] = {}
@@ -717,7 +787,13 @@ def main(argv: List[str] | None = None) -> int:
     return 0
 
 
-def _run_ablation_study(args, dataset, task_config: TaskConfig) -> int:
+def _run_ablation_study(
+    args,
+    dataset,
+    task_config: TaskConfig,
+    keyword_map: Dict[str, List[str]] | None = None,
+    rule_map: Dict[str, List[str]] | None = None,
+) -> int:
     """Load ablation configs and run a full ablation study."""
     path = args.ablation_config
     try:
@@ -740,7 +816,10 @@ def _run_ablation_study(args, dataset, task_config: TaskConfig) -> int:
 
     primary_clf = MockPrimaryClassifier(mode="heuristic")
     llm_client = MockLLMClient(mode="label_echo", allowed_labels=task_config.labels)
-    keyword_map, rule_map = build_agent_knowledge_maps(task_config.labels)
+    if keyword_map is None or rule_map is None:
+        _kw, _rl = build_agent_knowledge_maps(task_config.labels)
+        keyword_map = keyword_map if keyword_map is not None else _kw
+        rule_map = rule_map if rule_map is not None else _rl
 
     study = AblationStudy(
         task_config=task_config,
