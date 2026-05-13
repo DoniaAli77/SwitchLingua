@@ -42,8 +42,9 @@ from utils import compute_true_cs_stats  # noqa: E402
 
 OUT_ROOT  = ROOT / "experiments" / "outputs" / "switchlingua"
 OUT_DIR   = OUT_ROOT / "per_sentence"
-SYSTEM_B  = OUT_ROOT / "system_b" / "Arabic.jsonl"
-SYSTEM_A  = OUT_ROOT / "system_a" / "Arabic.jsonl"
+SYSTEM_B  = OUT_ROOT / "system_b_modified_mini"   / "Arabic.jsonl"
+SYSTEM_C  = OUT_ROOT / "system_c_original_mini"   / "Arabic.jsonl"
+SYSTEM_A  = OUT_ROOT / "system_a_original_gpt4o"  / "Arabic.jsonl"
 
 
 def _iter_jsonl(path: pathlib.Path):
@@ -84,9 +85,15 @@ def analyse_b() -> list[dict]:
         nat_scores     = [_extract_scalar(nat_per[i])     for i in range(len(sentences)) if i < len(nat_per)]
         cs_scores      = [_extract_scalar(cs_per[i])      for i in range(len(sentences)) if i < len(cs_per)]
 
-        def safe_mean(lst): return statistics.mean(lst) if lst else None
-        def safe_std(lst):  return statistics.stdev(lst) if len(lst) > 1 else 0.0
-        def safe_min(lst):  return min(lst) if lst else None
+        def safe_mean(lst):
+            vals = [v for v in lst if v is not None]
+            return statistics.mean(vals) if vals else None
+        def safe_std(lst):
+            vals = [v for v in lst if v is not None]
+            return statistics.stdev(vals) if len(vals) > 1 else 0.0
+        def safe_min(lst):
+            vals = [v for v in lst if v is not None]
+            return min(vals) if vals else None
 
         rows.append({
             "system": "System_B",

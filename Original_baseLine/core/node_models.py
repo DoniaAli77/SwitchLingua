@@ -59,3 +59,4 @@ class AgentRunningState(TypedDict):
 
     news_hash: set
     news_dict: dict
+    mcp_result: str

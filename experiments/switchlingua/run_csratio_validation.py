@@ -41,9 +41,9 @@ from utils import compute_true_cs_stats  # noqa: E402
 # ---------------------------------------------------------------------------
 OUT_ROOT = ROOT / "experiments" / "outputs" / "switchlingua"
 SYSTEMS = {
-    "a": OUT_ROOT / "system_a" / "Arabic.jsonl",
-    "b": OUT_ROOT / "system_b" / "Arabic.jsonl",
-    "c": OUT_ROOT / "system_c" / "Arabic.jsonl",
+    "a": OUT_ROOT / "system_a_original_gpt4o"  / "Arabic.jsonl",
+    "b": OUT_ROOT / "system_b_modified_mini"   / "Arabic.jsonl",
+    "c": OUT_ROOT / "system_c_original_mini"   / "Arabic.jsonl",
 }
 CSRATIO_OUT = OUT_ROOT / "csratio"
 

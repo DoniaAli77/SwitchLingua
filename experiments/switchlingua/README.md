@@ -25,13 +25,16 @@ All experiment outputs go under:
 
 ```
 experiments/outputs/switchlingua/
-├── system_a/          ← System A JSONL outputs
-├── system_b/          ← System B JSONL outputs
-├── system_c/          ← System C JSONL outputs
-├── human_eval/        ← Human evaluation sheets (CSV/XLSX)
-├── ablation/          ← Ablation run outputs
-├── csratio/           ← CS ratio validation outputs
-└── per_sentence/      ← Per-sentence vs scenario analysis outputs
+├── system_a_original_gpt4o/   ← System A JSONL outputs
+├── system_b_modified_mini/    ← System B JSONL outputs
+├── system_c_original_mini/    ← System C JSONL outputs
+├── human_eval/                ← Human evaluation sheets (CSV/XLSX)
+├── ablations/                 ← Ablation run outputs
+├── csratio/                   ← CS ratio validation outputs
+├── refinement/                ← Refinement strategy comparison outputs
+├── per_sentence/              ← Per-sentence vs scenario analysis outputs
+├── cost_quality/              ← Token cost vs quality score outputs
+└── failure_analysis/          ← Failure case analysis outputs
 ```
 
 ---
@@ -72,20 +75,51 @@ python experiments/switchlingua/score_ablation.py
 
 ---
 
+## Design Principles
+
+- Experiment scripts call existing pipeline code where possible and do not
+  duplicate logic that already exists in `core/`.
+- Core pipeline logic (`Original_baseLine/core/` and `Modified_Version/core/`)
+  must **not** be changed by experiment scripts. A thin wrapper (monkey-patch
+  of `node_engine.MODEL` and `node_engine.OUTPUT_DIR`) is the only permitted
+  form of integration.
+- Legacy/sample outputs (`Original_baseLine/output/`, `Original_baseLine/Sample/`,
+  any `Modified_Version/output/` folder) are **not** used for thesis results.
+  All fresh results are written under `experiments/outputs/switchlingua/`.
+
+---
+
 ## Import Convention
 
-Scripts add the workspace root to `sys.path` so they can reach both core packages:
+Neither `Original_baseLine/core/` nor `Modified_Version/core/` contain
+`__init__.py`, so package-style imports do **not** work at runtime.
+Scripts must insert the target core directory onto `sys.path` and use bare
+module imports:
 
 ```python
-import sys, pathlib
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
+import sys
+from pathlib import Path
 
-# Original_baseLine core
-from Original_baseLine.core.agents import CodeSwitchingAgent as BaselineAgent
-from Original_baseLine.core.utils  import load_config as baseline_load_config, generate_scenarios as baseline_scenarios
+ROOT          = Path(__file__).resolve().parents[2]
+BASELINE_CORE = ROOT / "Original_baseLine" / "core"
+MODIFIED_CORE = ROOT / "Modified_Version"  / "core"
 
-# Modified_Version core
-from Modified_Version.core.agents import CodeSwitchingAgent as ModifiedAgent
-from Modified_Version.core.utils  import load_config, generate_scenarios, compute_true_cs_stats
+# ---- to use Original_baseLine ----
+sys.path.insert(0, str(BASELINE_CORE))
+from run_french import CodeSwitchingAgent as BaselineAgent   # bare import
+from utils      import load_config, generate_scenarios       # bare import
+import node_engine as _ne
+_ne.MODEL      = "gpt-4o"          # or "gpt-4o-mini" for System C
+_ne.OUTPUT_DIR = str(ROOT / "experiments" / "outputs" / "switchlingua" / "system_a_original_gpt4o")
+
+# ---- to use Modified_Version ----
+sys.path.insert(0, str(MODIFIED_CORE))
+from run_french import CodeSwitchingAgent as ModifiedAgent   # bare import
+from utils      import load_config, generate_scenarios, compute_true_cs_stats
+import node_engine as _ne
+_ne.MODEL      = "gpt-4o-mini"
+_ne.OUTPUT_DIR = str(ROOT / "experiments" / "outputs" / "switchlingua" / "system_b_modified_mini")
 ```
+
+See `pipeline_wrappers.py` for the `_activate_core()` helper that handles
+module eviction when both cores need to be used in the same process.

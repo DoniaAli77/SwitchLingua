@@ -44,9 +44,9 @@ except ImportError:
 
 OUT_ROOT = ROOT / "experiments" / "outputs" / "switchlingua"
 SYSTEMS = {
-    "System_A": OUT_ROOT / "system_a" / "Arabic.jsonl",
-    "System_B": OUT_ROOT / "system_b" / "Arabic.jsonl",
-    "System_C": OUT_ROOT / "system_c" / "Arabic.jsonl",
+    "System_A": OUT_ROOT / "system_a_original_gpt4o"  / "Arabic.jsonl",
+    "System_B": OUT_ROOT / "system_b_modified_mini"   / "Arabic.jsonl",
+    "System_C": OUT_ROOT / "system_c_original_mini"   / "Arabic.jsonl",
 }
 HUMAN_EVAL_DIR = OUT_ROOT / "human_eval"
 

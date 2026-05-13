@@ -35,9 +35,9 @@ sys.path.insert(0, str(ROOT))
 
 OUT_ROOT = ROOT / "experiments" / "outputs" / "switchlingua"
 JSONL = {
-    "System_A": (OUT_ROOT / "system_a" / "Arabic.jsonl", "gpt-4o"),
-    "System_B": (OUT_ROOT / "system_b" / "Arabic.jsonl", "gpt-4o-mini"),
-    "System_C": (OUT_ROOT / "system_c" / "Arabic.jsonl", "gpt-4o-mini"),
+    "System_A": (OUT_ROOT / "system_a_original_gpt4o"  / "Arabic.jsonl", "gpt-4o"),
+    "System_B": (OUT_ROOT / "system_b_modified_mini"   / "Arabic.jsonl", "gpt-4o-mini"),
+    "System_C": (OUT_ROOT / "system_c_original_mini"   / "Arabic.jsonl", "gpt-4o-mini"),
 }
 
 PRICING = {

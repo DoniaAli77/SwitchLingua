@@ -38,9 +38,9 @@ from utils import compute_true_cs_stats, weighting_scheme  # noqa: E402
 
 OUT_ROOT = ROOT / "experiments" / "outputs" / "switchlingua"
 JSONL = {
-    "System_A": OUT_ROOT / "system_a" / "Arabic.jsonl",
-    "System_B": OUT_ROOT / "system_b" / "Arabic.jsonl",
-    "System_C": OUT_ROOT / "system_c" / "Arabic.jsonl",
+    "System_A": OUT_ROOT / "system_a_original_gpt4o"  / "Arabic.jsonl",
+    "System_B": OUT_ROOT / "system_b_modified_mini"   / "Arabic.jsonl",
+    "System_C": OUT_ROOT / "system_c_original_mini"   / "Arabic.jsonl",
 }
 
 # Agent score keys shared across systems (best-effort — fall back to None)
