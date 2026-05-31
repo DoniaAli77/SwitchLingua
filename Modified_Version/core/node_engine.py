@@ -1103,8 +1103,12 @@ def RunRefinerAgent(state: AgentRunningState):
                 if accept:
                     updated_texts[index] = candidate
                     applied = True
-        if applied:
-            refine_counts[index] = int(refine_counts[index]) + 1
+        # Count every refinement ATTEMPT against the per-sentence budget — whether or not
+        # the guardrail accepted the new text. Otherwise a sentence that cannot be safely
+        # improved (e.g. fixing wording would break required NER entities) keeps its
+        # refine_count at 0, so meet_criteria re-routes to the refiner forever (infinite loop).
+        # After the budget is spent the sentence is accepted as 'budget_exhausted'.
+        refine_counts[index] = int(refine_counts[index]) + 1
 
     return {
         "data_generation_result": updated_texts,
