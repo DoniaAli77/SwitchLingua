@@ -1,0 +1,36 @@
+{
+  "input": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\experiments\\outputs\\switchlingua\\per_sentence\\validation_raw\\Arabic.jsonl",
+  "per_task": 40,
+  "results": [
+    {
+      "task": "topic",
+      "n": 40,
+      "task_correct_pct": 100.0,
+      "task_correct_method": "blind relevance (LLM)",
+      "cs_validity_pct": 100.0,
+      "cs_ratio_mae_vs_70": 23.27,
+      "fluency_mean": 8.35,
+      "naturalness_mean": 8.07
+    },
+    {
+      "task": "sentiment",
+      "n": 40,
+      "task_correct_pct": 72.5,
+      "task_correct_method": "blind re-classification (LLM)",
+      "cs_validity_pct": 87.5,
+      "cs_ratio_mae_vs_70": 22.06,
+      "fluency_mean": 8.05,
+      "naturalness_mean": 8.05
+    },
+    {
+      "task": "ner",
+      "n": 35,
+      "task_correct_pct": 45.7,
+      "task_correct_method": "blind entity extraction (LLM) + constraint check",
+      "cs_validity_pct": 97.1,
+      "cs_ratio_mae_vs_70": 13.84,
+      "fluency_mean": 8.4,
+      "naturalness_mean": 8.54
+    }
+  ]
+}
