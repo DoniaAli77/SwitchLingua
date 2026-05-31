@@ -174,13 +174,37 @@ failures — needs validator ON + task-failing sentences (a separate Test 6b-tas
 
 ---
 
+## 6.5 Test 1 — Task-aware generation quality (automated; human confirmation pending)
+`run_task_aware_eval.py` on the fresh pre-refinement sample (no regeneration). 40 sentences per
+task (35 for NER). Task correctness = **blind gpt-4o-mini judge** not shown the target (sentiment =
+re-classification; topic = relevance; NER = entity extraction + deterministic constraint check).
+CS validity and CS-ratio are **deterministic** (objective). Fluency/naturalness are the pipeline's
+own per-sentence judge scores. Outputs: `task_aware_eval/` (summary.csv/.json, details.jsonl, report.md).
+
+| Task | n | Task-correct % (blind LLM) | CS-valid % (objective) | CS-ratio MAE vs 70% (objective) | Fluency | Naturalness |
+|------|--:|--:|--:|--:|--:|--:|
+| topic | 40 | 100.0 | 100.0 | 23.3 | 8.35 | 8.07 |
+| sentiment | 40 | 72.5 | 87.5 | 22.1 | 8.05 | 8.05 |
+| NER | 35 | 45.7 | 97.1 | 13.8 | 8.40 | 8.54 |
+
+**Reading:** strong surface quality (CS validity 87–100%, fluency/naturalness ~8) but weaker constraint
+satisfaction — sentiment moderate, **NER poor**, and the realized CS ratio is **far from the 70% target**
+(off by ~14–23 points). **Fluency/naturalness stay ~8 even where the task fails**, so quality scoring alone
+does not detect task-level failures — motivating the task-aware validation and deterministic CS-ratio
+components. **Caveat:** task-correctness is a blind LLM judge (NER/sentiment may be partly measurement
+artifacts); needs human confirmation via `human_eval/consolidated_annotation_sheet.csv`. CS-validity and
+CS-ratio are objective.
+
 ## 7. Overall scorecard
 
 | Claim | Evidence | Verdict |
 |-------|----------|---------|
-| Per-sentence scoring **catches** weak sentences aggregate scoring hides | 41.5% of scenarios at bar 7 (Step 2) | ✅ supported |
+| Per-sentence scoring **catches** weak sentences aggregate scoring hides | 41.5% (54-scen Step 2); **35.6%** on the larger 101-scen calibration at bar 7 | ✅ supported |
 | Refining a caught weak sentence **improves** it | +0.60, 79/87 (90.8%), p≈0 (Test 6a) | ✅ supported |
-| Humans confirm masked sentences are genuinely weaker | Step 3 built, not run | 🟡 pending |
+| Task-aware generation produces valid task data | topic 100%, sentiment 72.5%, **NER 45.7%** (blind LLM, Test 1); CS-valid 87–100% | 🟡 mixed (topic strong, NER weak); human-confirm pending |
+| Pipeline hits the requested CS ratio (70%) | CS-ratio MAE ≈ 14–23 pts off target (objective, Test 1) | ❌ off-target |
+| Quality scoring alone detects task failures | fluency/naturalness ~8 even where task fails (Test 1) | ❌ → motivates task-aware validation |
+| Humans confirm masked sentences are genuinely weaker | Step 3 / consolidated sheet built, not run | 🟡 pending |
 | Your refiner makes **better rewrites** than the original's | tie, p=0.53 (Test 6b) | ❌ not supported |
 | At bar 8 (pipeline default) masking occurs | 0% on this model | ❌ (bar must be calibrated ~7) |
 
