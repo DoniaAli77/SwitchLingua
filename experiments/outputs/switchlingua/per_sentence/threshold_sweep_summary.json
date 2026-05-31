@@ -1,0 +1,125 @@
+{
+  "input_data": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\experiments\\outputs\\switchlingua\\per_sentence\\validation_raw\\Arabic.jsonl",
+  "scenarios_total": 104,
+  "scenarios_usable": 101,
+  "scenarios_excluded": 3,
+  "sentences_usable": 458,
+  "operating_threshold": 7.0,
+  "threshold_sweep": [
+    6.5,
+    7.0,
+    7.5,
+    8.0,
+    8.5
+  ],
+  "cs_verdict_available": true,
+  "results": [
+    {
+      "threshold": 6.5,
+      "total_scenarios": 101,
+      "total_sentences": 458,
+      "accepted_scenarios_aggregate": 100,
+      "accepted_sentences_aggregate": 454,
+      "masked_scenarios": 24,
+      "masking_rate_overall_pct": 23.8,
+      "masking_rate_overall_ci95": [
+        16.5,
+        32.9
+      ],
+      "masking_rate_among_accepted_pct": 24.0,
+      "weak_sentence_leakage_pct": 6.6,
+      "monolingual_leakage_pct": 2.9,
+      "valid_cs_rate_pct": 97.1,
+      "persentence_accepted_scenarios": 76
+    },
+    {
+      "threshold": 7.0,
+      "total_scenarios": 101,
+      "total_sentences": 458,
+      "accepted_scenarios_aggregate": 64,
+      "accepted_sentences_aggregate": 281,
+      "masked_scenarios": 36,
+      "masking_rate_overall_pct": 35.6,
+      "masking_rate_overall_ci95": [
+        27.0,
+        45.4
+      ],
+      "masking_rate_among_accepted_pct": 56.2,
+      "weak_sentence_leakage_pct": 16.4,
+      "monolingual_leakage_pct": 2.1,
+      "valid_cs_rate_pct": 97.9,
+      "persentence_accepted_scenarios": 28
+    },
+    {
+      "threshold": 7.5,
+      "total_scenarios": 101,
+      "total_sentences": 458,
+      "accepted_scenarios_aggregate": 8,
+      "accepted_sentences_aggregate": 28,
+      "masked_scenarios": 8,
+      "masking_rate_overall_pct": 7.9,
+      "masking_rate_overall_ci95": [
+        4.1,
+        14.9
+      ],
+      "masking_rate_among_accepted_pct": 100.0,
+      "weak_sentence_leakage_pct": 32.1,
+      "monolingual_leakage_pct": 0.0,
+      "valid_cs_rate_pct": 100.0,
+      "persentence_accepted_scenarios": 0
+    },
+    {
+      "threshold": 8.0,
+      "total_scenarios": 101,
+      "total_sentences": 458,
+      "accepted_scenarios_aggregate": 0,
+      "accepted_sentences_aggregate": 0,
+      "masked_scenarios": 0,
+      "masking_rate_overall_pct": 0.0,
+      "masking_rate_overall_ci95": [
+        -0.0,
+        3.7
+      ],
+      "masking_rate_among_accepted_pct": 0.0,
+      "weak_sentence_leakage_pct": 0.0,
+      "monolingual_leakage_pct": null,
+      "valid_cs_rate_pct": null,
+      "persentence_accepted_scenarios": 0
+    },
+    {
+      "threshold": 8.5,
+      "total_scenarios": 101,
+      "total_sentences": 458,
+      "accepted_scenarios_aggregate": 0,
+      "accepted_sentences_aggregate": 0,
+      "masked_scenarios": 0,
+      "masking_rate_overall_pct": 0.0,
+      "masking_rate_overall_ci95": [
+        -0.0,
+        3.7
+      ],
+      "masking_rate_among_accepted_pct": 0.0,
+      "weak_sentence_leakage_pct": 0.0,
+      "monolingual_leakage_pct": null,
+      "valid_cs_rate_pct": null,
+      "persentence_accepted_scenarios": 0
+    }
+  ],
+  "excluded_scenarios": [
+    {
+      "index": 96,
+      "n_sentences": 1,
+      "task": "ner"
+    },
+    {
+      "index": 99,
+      "n_sentences": 1,
+      "task": "ner"
+    },
+    {
+      "index": 100,
+      "n_sentences": 1,
+      "task": "ner"
+    }
+  ]
+}

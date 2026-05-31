@@ -24,7 +24,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[4]
 MODIFIED_CORE = ROOT / "Modified_Version" / "core"
-CONFIG = ROOT / "Modified_Version" / "config" / "config2.yaml"
+CONFIG_DEFAULT = ROOT / "Modified_Version" / "config" / "config2.yaml"
 HERE = pathlib.Path(__file__).resolve().parent
 
 # --- env: load .env, win over stale Windows vars (same as master runner) ---
@@ -63,7 +63,7 @@ def _activate_modified_core():
     importlib.invalidate_caches()
 
 
-async def run(mode: str, count: int, out: str, task: str | None = None):
+async def run(mode: str, count: int, out: str, task: str | None = None, config: str | None = None):
     _activate_modified_core()
     import run_french as rf
     import utils as ut
@@ -71,7 +71,9 @@ async def run(mode: str, count: int, out: str, task: str | None = None):
 
     # Point the model + output folder
     ne.MODEL = "gpt-4o-mini"
-    out_dir = HERE / out
+    out_dir = pathlib.Path(out)            # absolute path used as-is; otherwise under HERE
+    if not out_dir.is_absolute():
+        out_dir = HERE / out
     out_dir.mkdir(parents=True, exist_ok=True)
     ne.OUTPUT_DIR = str(out_dir)
 
@@ -91,7 +93,7 @@ async def run(mode: str, count: int, out: str, task: str | None = None):
         ne.MAX_SENTENCE_REFINES = 1
 
     # Build scenarios across ALL 3 code-switch types
-    cfg = ut.load_config(str(CONFIG))
+    cfg = ut.load_config(str(config or CONFIG_DEFAULT))
     cfg["pre_execute"]["shared"]["cs_type"] = CS_TYPES_ALL
     scenarios = ut.generate_scenarios(cfg["pre_execute"])
     if task:
@@ -128,6 +130,9 @@ if __name__ == "__main__":
                         "(default: step1_raw_data or step1_fixed_data)")
     p.add_argument("--task", default=None, choices=["topic", "sentiment", "ner"],
                    help="only generate scenarios for this task")
+    p.add_argument("--config", default=None,
+                   help="generation config YAML (default: Modified_Version/config/config2.yaml). "
+                        "--out may be an absolute path.")
     a = p.parse_args()
     out = a.out or ("step1_raw_data" if a.mode == "raw" else "step1_fixed_data")
-    asyncio.run(run(a.mode, a.count, out, task=a.task))
+    asyncio.run(run(a.mode, a.count, out, task=a.task, config=a.config))

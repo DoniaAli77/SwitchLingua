@@ -72,23 +72,35 @@ the budget (MAX_SENTENCE_REFINES=1) is spent the sentence is accepted as `budget
 
 **Definition:** a *masking* scenario = aggregate score ≥ bar (average rule ACCEPTS the whole scenario)
 **but** at least one sentence < bar (per-sentence rule CATCHES a weak sentence the average hides).
-**Method:** `step2_count_masking.py` on RAW data; 53 usable scenarios (≥2 sentences).
+**Method:** `step2_count_masking.py` on RAW data. **Exclusion:** scenarios with <2 sentences are
+excluded (a single-sentence scenario cannot "hide" anything). Exactly **1 scenario excluded** —
+scenario index 49 (NER, 1 sentence) — leaving **53 usable** of 54.
 Both decision rules applied to the **same** per-sentence scores → isolates only the rule (average vs each).
 
+**Score distribution (RAW, 245 sentences):** mean **7.057**, **median 7.000**, IQR 6.8–7.3, range 5.9–8.15.
+Scenario aggregates: mean 7.053, median 7.08, **max 7.71** (no scenario reaches 8).
+
 ### Masking rate by threshold (RAW, 53 scenarios)
-| Bar | Masking scenarios | Masking rate | Both accept | Both refine |
-|-----|-------------------|-------------|-------------|-------------|
-| 6.5 | 16 | 30.2% | 37 | 0 |
-| **7.0** | **22** | **41.5%** | 12 | 19 |
-| 7.5 | 2 | 3.8% | 1 | 50 |
-| 8.0 (pipeline default) | 0 | 0.0% | 0 | 53 |
-| 8.5 | 0 | 0.0% | 0 | 53 |
+| Bar | Masking scenarios | Masking rate | 95% CI (Wilson) | Both accept | Both refine |
+|-----|-------------------|-------------|-----------------|-------------|-------------|
+| 6.5 | 16 | 30.2% | 19.5–43.5% | 37 | 0 |
+| **7.0** | **22** | **41.5%** | **29.3–54.9%** | 12 | 19 |
+| 7.5 | 2 | 3.8% | — | 1 | 50 |
+| 8.0 (pipeline default) | 0 | 0.0% | — | 0 | 53 |
+| 8.5 | 0 | 0.0% | — | 0 | 53 |
 
 **Key finding:** masking is threshold-dependent. At the pipeline default bar (8.0) there is **0% masking
-on this data** because gpt-4o-mini sentences are uniformly mediocre (~7), so every aggregate is < 8 and
-the average rule refines everything anyway. Masking appears when the bar sits *inside* the score band:
-at the calibrated operating bar **7.0, 41.5%** of scenarios hide a weak sentence the aggregate accepts.
-**Average intra-scenario spread (max−min) = 0.794 (max 1.75).**
+on this data** — *because the maximum scenario aggregate is only 7.71*, the default bar sits **above the
+model's entire aggregate range** and is effectively inoperative for gpt-4o-mini.
+
+**Threshold justification (anti-bias):** the operating bar **7.0 = the median sentence quality**
+(median 7.000, mean 7.057) — a principled, data-driven choice, **not** tuned to maximize masking. The
+full curve is reported for transparency.
+
+**Threshold sensitivity (honest limitation):** because the scores are tightly packed (IQR 6.8–7.3,
+avg intra-scenario spread 0.794), the masking rate is sensitive to the bar — 41.5% at 7.0 but 3.8% at
+7.5. This fragility is a direct consequence of gpt-4o-mini's uniform quality; a stronger generator
+(wider quality spread) would make masking robust across a broader band of thresholds.
 
 **Output:** `step2_counts/masking_by_threshold.csv`, `masking_cases.csv` (30 masked sentences at bar 7),
 `spread_per_scenario.csv`.
@@ -119,7 +131,7 @@ test; monolingual-leak %; inter-annotator Cohen's kappa + Spearman if ≥2 annot
 
 ## 6. Refiner effectiveness (the FIX)
 
-### 6.1 Cross-run before/after (Step 4) — CONFOUNDED null, superseded
+### 6.1 Cross-run before/after (Step 4) — APPENDIX-ONLY SANITY CHECK (confounded, do not interpret)
 `step4_before_after.py`: RAW (off) vs FIXED (on) datasets.
 mean sentence 7.057→7.007; mean worst-per-scenario 6.674→6.602; % sentences below 7: 35.5→43.4;
 % scenarios fully accepted (all ≥7): 24.1→18.5; **Mann-Whitney p = 0.25 (not significant)**.
@@ -130,13 +142,14 @@ generation randomness swamps the refiner's effect. Replaced by the within-senten
 `refiner_clean_test.py`: for the **same** weak sentence, score the original (fresh), refine it, score the
 result (fresh) — no cross-run confound. ~9 API calls/sentence.
 
-| Sample | Mean before | Mean after | Mean Δ | Improved | Sign-test p |
-|--------|------------|-----------|--------|----------|-------------|
+| Sample | Mean before | Mean after | Mean Δ (95% CI) | Improved (95% CI) | Sign-test p |
+|--------|------------|-----------|-----------------|-------------------|-------------|
 | 5 (smoke) | 6.07 | 7.03 | +0.96 | 5/5 (100%) | 0.025 |
 | 30 weakest | 6.41 | 7.17 | +0.77 | 29/30 (96.7%) | ≈0 |
-| **ALL 87 weak (score<7)** | **6.64** | **7.24** | **+0.60** | **79/87 (90.8%)** | **≈0** |
+| **ALL 87 weak (score<7)** | **6.64** | **7.24** | **+0.60 (0.51–0.68)** | **79/87 (90.8%, CI 82.9–95.3%)** | **≈0** |
 
 **Conclusion:** once a weak sentence is handed to the refiner, it is genuinely improved ~91% of the time.
+The improvement is both statistically significant (p≈0) and of practical magnitude (Δ≈+0.6, CI excludes 0).
 **Output:** `step4_final_picture/refiner_within_sentence.csv`.
 
 ### 6.3 Test 6b — YOUR refiner vs ORIGINAL refiner — TIE (honest null)
@@ -144,15 +157,17 @@ result (fresh) — no cross-run confound. ~9 API calls/sentence.
 holding prompt/model/sentence constant. Each weak sentence refined twice: with **per-sentence feedback**
 (its own scores) vs **aggregate feedback** (scenario-average scores). 30 weak sentences, ~14 calls each.
 
-| Method | Mean improvement | Wins |
-|--------|------------------|------|
-| YOURS (per-sentence feedback) | +0.747 | 10 |
-| ORIGINAL (aggregate feedback) | +0.808 | 13 |
+| Method | Mean improvement (95% CI) | Wins |
+|--------|---------------------------|------|
+| YOURS (per-sentence feedback) | +0.747 (0.60–0.89) | 10 |
+| ORIGINAL (aggregate feedback) | +0.808 (0.65–0.97) | 13 |
 | ties | | 7 |
-| **Sign-test p = 0.53 → no difference** | | |
+| **Paired diff (YOURS−ORIG) = −0.062, 95% CI −0.25 to +0.13 → straddles 0** | | |
+| **Sign-test p = 0.53; YOURS win-share 10/23 = 43% (CI 26–63%)** | | |
 
-**Conclusion:** per-sentence *feedback* does NOT produce better rewrites than aggregate feedback. The
-refiners are equivalent at the rewrite step. **Therefore the contribution is NOT "a better refiner."**
+**Conclusion:** per-sentence *feedback* does NOT produce better rewrites than aggregate feedback —
+the CI of the paired difference straddles 0 and the win-share CI straddles 50%. The
+refiners are statistically equivalent at the rewrite step. **Therefore the contribution is NOT "a better refiner."**
 **Output:** `step4_final_picture/refiner_headtohead.csv`.
 **NOT YET TESTED:** the *task-aware* refiner prompts (REFINER_TASK_*), which trigger only on task
 failures — needs validator ON + task-failing sentences (a separate Test 6b-task).
@@ -185,8 +200,10 @@ Spearman rank correlation, sign test (binomial normal approximation), Cohen's ka
 
 ## 9. Limitations / open items
 1. **Human validation (Step 3) not yet run** — the CONFIRM step depends on it.
-2. **Single model (gpt-4o-mini)** — uniformly mediocre quality (~7); masking at the default bar 8 is 0%.
-   A stronger generator (gpt-4o) would widen the quality spread and likely show masking at higher bars.
+2. **Single model (gpt-4o-mini)** — uniformly mediocre quality (median 7.0, max aggregate 7.71), so the
+   default bar 8 is above the whole range (0% masking there). Masking is reported at the median-quality
+   bar 7.0 but is **threshold-sensitive** (41.5% at 7.0 → 3.8% at 7.5) because scores are tightly packed.
+   A stronger generator (gpt-4o) would widen the spread and make masking robust across more thresholds.
 3. **Cross-run before/after is confounded** — only the within-sentence test (6a) is valid for the refiner.
 4. **Task-aware refiner untested** (Test 6b-task) — needs validator ON + task-failing sentences.
 5. **Task imbalance** (sentiment 36 vs topic 12 vs NER 6) and **single refinement pass** (MAX=1).
