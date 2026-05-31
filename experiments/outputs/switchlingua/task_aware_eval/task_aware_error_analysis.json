@@ -1,0 +1,125 @@
+{
+  "input": "C:\\Users\\Eng.Donia\\Documents\\matser\\SwitchLingua\\experiments\\outputs\\switchlingua\\task_aware_eval\\task_aware_details.jsonl",
+  "ner_constraints": {
+    "min": 2,
+    "max": 3,
+    "must_include": [
+      "PER",
+      "ORG"
+    ]
+  },
+  "sentiment": {
+    "n": 40,
+    "confusion_matrix": {
+      "positive": {
+        "positive": 12,
+        "negative": 0,
+        "neutral": 0
+      },
+      "negative": {
+        "positive": 0,
+        "negative": 15,
+        "neutral": 0
+      },
+      "neutral": {
+        "positive": 11,
+        "negative": 0,
+        "neutral": 2
+      }
+    },
+    "per_label_accuracy_pct": {
+      "positive": 100.0,
+      "negative": 100.0,
+      "neutral": 15.4
+    },
+    "n_errors": 11
+  },
+  "ner": {
+    "n": 35,
+    "n_failed": 19,
+    "failure_categories": {
+      "no_entities": 0,
+      "too_few": 7,
+      "too_many": 2,
+      "missing_PER": 9,
+      "missing_ORG": 10
+    },
+    "note": "required: 2-3 entities incl. PER+ORG (read from source data)"
+  },
+  "quality_mismatch": {
+    "n_task_correct": 85,
+    "n_task_wrong": 30,
+    "high_quality_but_wrong_count": 27,
+    "high_quality_but_wrong_pct_of_wrong": 90.0,
+    "mean_fluency_correct": 8.21,
+    "mean_fluency_wrong": 8.4,
+    "mean_naturalness_correct": 8.15,
+    "mean_naturalness_wrong": 8.37,
+    "examples": [
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "text": "في الكلية, I often collaborate مع زملائي على مشاريع تقنية."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "text": "أعتقد أن المعرفة في finance مفيدة جداً في الحياة اليومية, especially when it comes to budgeting."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "text": "أحب تناول الفواكه والخضروات, because they provide essential nutrients for my body."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 9.0,
+        "naturalness": 8.0,
+        "text": "أنا أشجع فريقي المفضل في الدوري, and I hope they win this season."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "text": "في كل يوم، أمارس الرياضة قليلاً، because it helps me feel more energized."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 9.0,
+        "naturalness": 8.0,
+        "text": "أستمتع بتجربة الأجهزة الجديدة. They always seem to have features that make tasks more convenient."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "text": "أنا أدرس finance في الجامعة, and I find it really interesting."
+      },
+      {
+        "task": "sentiment",
+        "target_label": "neutral",
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "text": "في الجامعة، أتعلم الكثير عن nutrition وكيفية الحفاظ على صحة جيدة."
+      }
+    ]
+  },
+  "cs_ratio": {
+    "n": 115,
+    "within_10_pct": 26.1,
+    "within_15_pct": 37.4,
+    "within_20_pct": 55.7,
+    "mean_abs_err": 19.98,
+    "median_abs_err": 20.0
+  }
+}
