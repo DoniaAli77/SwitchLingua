@@ -15,7 +15,7 @@
     {
       "task": "sentiment",
       "n": 40,
-      "task_correct_pct": 72.5,
+      "task_correct_pct": 70.0,
       "task_correct_method": "blind re-classification (LLM)",
       "cs_validity_pct": 87.5,
       "cs_ratio_mae_vs_70": 22.06,
@@ -25,8 +25,8 @@
     {
       "task": "ner",
       "n": 35,
-      "task_correct_pct": 45.7,
-      "task_correct_method": "blind entity extraction (LLM) + constraint check",
+      "task_correct_pct": 62.9,
+      "task_correct_method": "constraint-aware entity extraction (LLM JSON) + deterministic check",
       "cs_validity_pct": 97.1,
       "cs_ratio_mae_vs_70": 13.84,
       "fluency_mean": 8.4,

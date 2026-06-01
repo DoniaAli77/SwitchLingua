@@ -1,0 +1,217 @@
+{
+  "reference": "Test 1 blind LLM judge",
+  "validator": "real TaskValidatorAgent (gpt-4o-mini)",
+  "quality_threshold": 7.0,
+  "n_evaluated": 115,
+  "unmatched_quality": 0,
+  "missing_validator_verdict": 0,
+  "by_scope": {
+    "overall": {
+      "quality_only": {
+        "n_eval": 115,
+        "accepted": 86,
+        "accepted_pct": 74.8,
+        "task_correct_among_accepted_pct": 79.1,
+        "task_wrong_accepted": 18,
+        "fp_rate_pct": 72.0,
+        "fn_rate_pct": 24.4,
+        "tp": 68,
+        "fp": 18,
+        "fn": 22,
+        "tn": 7
+      },
+      "quality_plus_validator": {
+        "n_eval": 115,
+        "accepted": 62,
+        "accepted_pct": 53.9,
+        "task_correct_among_accepted_pct": 90.3,
+        "task_wrong_accepted": 6,
+        "fp_rate_pct": 24.0,
+        "fn_rate_pct": 37.8,
+        "tp": 56,
+        "fp": 6,
+        "fn": 34,
+        "tn": 19
+      }
+    },
+    "topic": {
+      "quality_only": {
+        "n_eval": 40,
+        "accepted": 33,
+        "accepted_pct": 82.5,
+        "task_correct_among_accepted_pct": 100.0,
+        "task_wrong_accepted": 0,
+        "fp_rate_pct": null,
+        "fn_rate_pct": 17.5,
+        "tp": 33,
+        "fp": 0,
+        "fn": 7,
+        "tn": 0
+      },
+      "quality_plus_validator": {
+        "n_eval": 40,
+        "accepted": 33,
+        "accepted_pct": 82.5,
+        "task_correct_among_accepted_pct": 100.0,
+        "task_wrong_accepted": 0,
+        "fp_rate_pct": null,
+        "fn_rate_pct": 17.5,
+        "tp": 33,
+        "fp": 0,
+        "fn": 7,
+        "tn": 0
+      }
+    },
+    "sentiment": {
+      "quality_only": {
+        "n_eval": 40,
+        "accepted": 22,
+        "accepted_pct": 55.0,
+        "task_correct_among_accepted_pct": 77.3,
+        "task_wrong_accepted": 5,
+        "fp_rate_pct": 41.7,
+        "fn_rate_pct": 39.3,
+        "tp": 17,
+        "fp": 5,
+        "fn": 11,
+        "tn": 7
+      },
+      "quality_plus_validator": {
+        "n_eval": 40,
+        "accepted": 22,
+        "accepted_pct": 55.0,
+        "task_correct_among_accepted_pct": 77.3,
+        "task_wrong_accepted": 5,
+        "fp_rate_pct": 41.7,
+        "fn_rate_pct": 39.3,
+        "tp": 17,
+        "fp": 5,
+        "fn": 11,
+        "tn": 7
+      }
+    },
+    "ner": {
+      "quality_only": {
+        "n_eval": 35,
+        "accepted": 31,
+        "accepted_pct": 88.6,
+        "task_correct_among_accepted_pct": 58.1,
+        "task_wrong_accepted": 13,
+        "fp_rate_pct": 100.0,
+        "fn_rate_pct": 18.2,
+        "tp": 18,
+        "fp": 13,
+        "fn": 4,
+        "tn": 0
+      },
+      "quality_plus_validator": {
+        "n_eval": 35,
+        "accepted": 7,
+        "accepted_pct": 20.0,
+        "task_correct_among_accepted_pct": 85.7,
+        "task_wrong_accepted": 1,
+        "fp_rate_pct": 7.7,
+        "fn_rate_pct": 72.7,
+        "tp": 6,
+        "fp": 1,
+        "fn": 16,
+        "tn": 12
+      }
+    }
+  },
+  "validator_vs_reference": {
+    "agreement_pct": 75.7,
+    "validator_precision_pct": 85.2,
+    "validator_recall_pct": 83.3,
+    "tp": 75,
+    "fp": 13,
+    "fn": 15,
+    "tn": 12
+  },
+  "high_quality_but_wrong": {
+    "count": 17,
+    "caught_by_validator": 11,
+    "examples": [
+      {
+        "task": "sentiment",
+        "quality_score": 8.4,
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "validator_passed": true,
+        "text": "في الكلية, I often collaborate مع زملائي على مشاريع تقنية."
+      },
+      {
+        "task": "sentiment",
+        "quality_score": 7.3,
+        "fluency": 9.0,
+        "naturalness": 8.0,
+        "validator_passed": true,
+        "text": "أنا أشجع فريقي المفضل في الدوري, and I hope they win this season."
+      },
+      {
+        "task": "sentiment",
+        "quality_score": 7.0,
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "validator_passed": true,
+        "text": "في كل يوم، أمارس الرياضة قليلاً، because it helps me feel more energized."
+      },
+      {
+        "task": "sentiment",
+        "quality_score": 7.1,
+        "fluency": 9.0,
+        "naturalness": 8.0,
+        "validator_passed": true,
+        "text": "أستمتع بتجربة الأجهزة الجديدة. They always seem to have features that make tasks more convenient."
+      },
+      {
+        "task": "sentiment",
+        "quality_score": 7.0,
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "validator_passed": true,
+        "text": "أحب كيف أن التكنولوجيا تتطور بسرعة, because it offers new opportunities for learning."
+      },
+      {
+        "task": "ner",
+        "quality_score": 7.3,
+        "fluency": 9.0,
+        "naturalness": 8.0,
+        "validator_passed": false,
+        "text": "أنا أحب ممارسة كرة السلة مع أصدقائي, especially when we play at the Los Angeles courts."
+      },
+      {
+        "task": "ner",
+        "quality_score": 7.8,
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "validator_passed": false,
+        "text": "أنا أشرب الكثير من الماء كل يوم. When I visited Cairo, I learned عن أهمية hydration من خلال محاضرة في جامعة القاهرة."
+      },
+      {
+        "task": "ner",
+        "quality_score": 7.5,
+        "fluency": 10.0,
+        "naturalness": 9.0,
+        "validator_passed": false,
+        "text": "أحب الذهاب إلى صالة الألعاب الرياضية في شيكاغو, حيث ألتقي بأصدقائي هناك."
+      },
+      {
+        "task": "ner",
+        "quality_score": 7.0,
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "validator_passed": false,
+        "text": "لعبة كرة القدم هي المفضلة لدي, especially when I watch Barcelona play live."
+      },
+      {
+        "task": "ner",
+        "quality_score": 7.8,
+        "fluency": 8.0,
+        "naturalness": 8.0,
+        "validator_passed": false,
+        "text": "عندما أذهب إلى الرياضة، I focus on my health. أتابع برامج مثل MyFitnessPal التي تساعدني في الحفاظ على لياقتي."
+      }
+    ]
+  }
+}

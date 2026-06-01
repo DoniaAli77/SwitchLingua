@@ -87,30 +87,85 @@ def topic_relevant(text, topic):
     return None
 
 
-def ner_ok(text, constraints):
-    """Blind LLM entity extraction (script-agnostic — the task allows code-switched entities),
-    then a deterministic constraint check. The English-only deterministic policy is NOT used
-    because it unfairly ignores Arabic-script entities that this task permits."""
-    c = constraints or {}
-    must = [str(t).strip().upper() for t in (c.get("must_include_types", []) or [])]
-    mn = int(c.get("min_entities", 0) or 0)
-    mx = int(c.get("max_entities", 10**9) or 10**9)
-    msg = ("Extract every named entity in this Arabic-English sentence and label each as "
-           "PER (person), ORG (organization), or LOC (location). Count entities in EITHER "
-           "language/script. Output only lines of the form 'TYPE: entity'. If none, output NONE.\n\n" + text)
+def _parse_entities_json(raw):
+    """Robustly parse {"entities":[{"text","type"}]} from an LLM response. Returns list | None."""
+    import re
+    s = (raw or "").strip()
+    s = re.sub(r"```(?:json)?", "", s).replace("```", "").strip()  # strip code fences
+    a, b = s.find("{"), s.rfind("}")
+    if a == -1 or b == -1 or b <= a:
+        return None
     try:
-        out = _llm.invoke(msg).content
-    except Exception:
-        return None, {}, None
-    counts = {"PER": 0, "ORG": 0, "LOC": 0}
-    for line in out.splitlines():
-        t = line.split(":", 1)[0].strip().upper()
+        obj = json.loads(s[a:b + 1])
+    except (json.JSONDecodeError, ValueError, TypeError):
+        return None
+    ents = obj.get("entities") if isinstance(obj, dict) else None
+    if not isinstance(ents, list):
+        return None
+    out = []
+    for e in ents:
+        if isinstance(e, dict) and str(e.get("type", "")).strip():
+            out.append({"text": str(e.get("text", "")).strip(),
+                        "type": str(e.get("type", "")).strip().upper()})
+    return out
+
+
+def ner_ok(text, constraints):
+    """CONSTRAINT-AWARE NER judge. Allowed types, count range, must-include types, and the
+    script policy are all built dynamically from the task constraints (NOT hardcoded). The judge
+    returns strict JSON; validation is then deterministic against the same constraints.
+    Returns a dict with passed / entity_counts / total_entities / missing_required_types /
+    disallowed_types / count_valid / parse_error."""
+    c = constraints or {}
+    def _scalar(v, default):
+        v = v[0] if isinstance(v, list) and v else v
+        return default if v is None else v
+    allowed = [str(t).strip().upper() for t in (c.get("entity_types") or ["PER", "ORG", "LOC"])]
+    must = [str(t).strip().upper() for t in (c.get("must_include_types") or [])]
+    mn = int(_scalar(c.get("min_entities"), 0) or 0)
+    mx = int(_scalar(c.get("max_entities"), 10 ** 9) or 10 ** 9)
+    allow_cs = bool(_scalar(c.get("allow_code_switched_entities"), True))
+
+    script_rule = ("Entities may be in Arabic script, English/Latin script, or mixed script — count all of them."
+                   if allow_cs else
+                   "Only English/Latin-script entities count; do NOT count Arabic-script entities.")
+    err = {"passed": None, "entity_counts": {}, "total_entities": None,
+           "missing_required_types": [], "disallowed_types": [], "count_valid": None}
+    prompt = (
+        "You are an NER judge. Extract the named entities from the sentence below.\n"
+        f"Allowed entity types (use ONLY these): {', '.join(allowed)}.\n"
+        f"{script_rule}\n"
+        f"(Context: the task requires {mn}-{mx} entities"
+        + (f", and must include at least one of each: {', '.join(must)}." if must else ".") + "\n"
+        "Return STRICT JSON ONLY, no prose, in exactly this form:\n"
+        '{"entities": [{"text": "<entity surface text>", "type": "<one allowed type>"}]}\n'
+        'If there are no entities, return {"entities": []}.\n\n'
+        f"Sentence: {text}"
+    )
+    try:
+        raw = _llm.invoke(prompt).content
+    except Exception as e:
+        return {**err, "parse_error": f"llm_error:{type(e).__name__}"}
+    ents = _parse_entities_json(raw)
+    if ents is None:
+        return {**err, "parse_error": "json_parse_failed"}
+
+    counts = {t: 0 for t in allowed}
+    disallowed = {}
+    for e in ents:
+        t = e["type"]
         if t in counts:
             counts[t] += 1
-    total = sum(counts.values())
-    has_must = all(counts.get(t, 0) > 0 for t in must) if must else True
-    passed = has_must and (mn <= total <= mx)
-    return bool(passed), counts, total
+        else:
+            disallowed[t] = disallowed.get(t, 0) + 1
+    total = sum(counts.values())                       # only allowed-type entities count toward range
+    missing = [t for t in must if counts.get(t, 0) == 0]
+    disallowed_types = sorted(disallowed)
+    count_valid = (mn <= total <= mx)
+    passed = bool(count_valid and not missing and not disallowed_types)
+    return {"passed": passed, "entity_counts": counts, "total_entities": total,
+            "missing_required_types": missing, "disallowed_types": disallowed_types,
+            "count_valid": count_valid, "parse_error": None}
 
 
 def cs_ratio_error(stats):
@@ -179,9 +234,15 @@ def main():
                 if ok is not None: task_correct.append(ok)
                 rec_detail.update(topic_relevant=ok, task_correct=ok)
             elif task == "ner":
-                ok, counts, total = ner_ok(it["text"], it["constraints"])
+                nres = ner_ok(it["text"], it["constraints"])
+                ok = nres["passed"]
                 if ok is not None: task_correct.append(ok)
-                rec_detail.update(ner_passed=ok, entity_counts=counts, total_entities=total, task_correct=ok)
+                rec_detail.update(ner_passed=ok, entity_counts=nres["entity_counts"],
+                                  total_entities=nres["total_entities"],
+                                  missing_required_types=nres["missing_required_types"],
+                                  disallowed_types=nres["disallowed_types"],
+                                  count_valid=nres["count_valid"],
+                                  parse_error=nres["parse_error"], task_correct=ok)
             details.append(rec_detail)
 
         def pct(flags):
@@ -192,7 +253,7 @@ def main():
             "task_correct_pct": pct(task_correct),
             "task_correct_method": {"sentiment": "blind re-classification (LLM)",
                                      "topic": "blind relevance (LLM)",
-                                     "ner": "blind entity extraction (LLM) + constraint check"}[task],
+                                     "ner": "constraint-aware entity extraction (LLM JSON) + deterministic check"}[task],
             "cs_validity_pct": pct(cs_valid),
             "cs_ratio_mae_vs_70": round(statistics.mean(ratio_err), 2) if ratio_err else None,
             "fluency_mean": round(statistics.mean(flu_v), 2) if flu_v else None,
@@ -231,6 +292,11 @@ def main():
           "is pending** via `human_eval/consolidated_annotation_sheet.csv`.\n",
           "- The English-only deterministic NER policy was deliberately NOT used (it ignores Arabic-script entities "
           "this task permits, giving unfairly low scores).\n",
+          "- **The NER judge is CONSTRAINT-AWARE**: allowed entity types, the min/max count range, the "
+          "must-include types, and the script policy (Arabic/English/mixed) are generated dynamically from the "
+          "sample's task constraints — nothing is hardcoded. The judge returns strict JSON; validation is "
+          "deterministic (per-sentence fields: entity_counts, total_entities, missing_required_types, "
+          "disallowed_types, count_valid, parse_error).\n",
           "- Fluency/naturalness are the pipeline's own per-sentence judge scores (for reference).\n",
           "- Sample reuses the fresh pre-refinement validation set; no regeneration.\n"]
     (OUT / "task_aware_report.md").write_text("\n".join(L), encoding="utf-8")
