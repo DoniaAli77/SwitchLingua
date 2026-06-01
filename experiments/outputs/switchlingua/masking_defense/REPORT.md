@@ -184,16 +184,54 @@ own per-sentence judge scores. Outputs: `task_aware_eval/` (summary.csv/.json, d
 | Task | n | Task-correct % (blind LLM) | CS-valid % (objective) | CS-ratio MAE vs 70% (objective) | Fluency | Naturalness |
 |------|--:|--:|--:|--:|--:|--:|
 | topic | 40 | 100.0 | 100.0 | 23.3 | 8.35 | 8.07 |
-| sentiment | 40 | 72.5 | 87.5 | 22.1 | 8.05 | 8.05 |
-| NER | 35 | 45.7 | 97.1 | 13.8 | 8.40 | 8.54 |
+| sentiment | 40 | 70.0 | 87.5 | 22.1 | 8.05 | 8.05 |
+| NER | 35 | **62.9** (was 45.7) | 97.1 | 13.8 | 8.40 | 8.54 |
+
+**NER judge correction (v2):** the original NER judge hardcoded PER/ORG/LOC and parsed loose text lines.
+It was rebuilt to be **constraint-aware** — allowed types, min/max count, must-include types, and script
+policy are derived from each sample's task constraints; the judge returns strict JSON and validation is
+deterministic (fields saved: entity_counts, total_entities, missing_required_types, disallowed_types,
+count_valid, parse_error). On the same sentences this moved NER **45.7% → 62.9% with 0 parse errors**
+(the old judge was unfairly low, not the model improving). Remaining NER failures: **11/13 are missing a
+PERSON entity** — the generator under-produces PER. (sentiment 72.5%→70.0% is ~1-sentence noise.)
 
 **Reading:** strong surface quality (CS validity 87–100%, fluency/naturalness ~8) but weaker constraint
-satisfaction — sentiment moderate, **NER poor**, and the realized CS ratio is **far from the 70% target**
-(off by ~14–23 points). **Fluency/naturalness stay ~8 even where the task fails**, so quality scoring alone
-does not detect task-level failures — motivating the task-aware validation and deterministic CS-ratio
-components. **Caveat:** task-correctness is a blind LLM judge (NER/sentiment may be partly measurement
-artifacts); needs human confirmation via `human_eval/consolidated_annotation_sheet.csv`. CS-validity and
+satisfaction — sentiment moderate (drag is the neutral class), **NER missing PERSON entities**, and the
+realized CS ratio is **far from the 70% target** (off by ~14–23 points). **Fluency/naturalness stay ~8 even
+where the task fails**, so quality scoring alone does not detect task-level failures — motivating the
+task-aware validation and deterministic CS-ratio components. **Caveat:** task-correctness is a blind LLM
+judge; needs human confirmation via `human_eval/consolidated_annotation_sheet.csv`. CS-validity and
 CS-ratio are objective.
+
+## 6.6 Test 2 — TaskValidatorAgent necessity & effectiveness (real validator)
+`run_task_validator_necessity.py` replays two acceptance policies over the Test 1 results — **no
+regeneration**, but the **real TaskValidatorAgent is run** on the existing sentences (not an oracle).
+Three separate signals: reference task-correctness = Test 1 blind judge; validator = real
+TaskValidatorAgent verdict; quality = per-sentence weighted score ≥ 7.0. Policy A = quality_only;
+Policy B = quality AND validator. Verdicts cached (`validator_verdicts.jsonl`); reference swappable for
+human labels via `--labels`. Outputs: `task_validator/` (summary.csv/.json, report.md).
+
+| | A: quality-only | B: quality + validator |
+|---|--:|--:|
+| accepted | 86 | 62 |
+| task-correct among accepted (precision) | 79.1% | **90.3%** |
+| task-WRONG accepted | 18 | **6** |
+| false-accept (of all wrong) | 72.0% | 24.0% |
+| false-reject (of all correct) | — | 37.8% |
+
+Validator as a standalone task detector (vs reference): precision **85.2%**, recall **83.3%**, agreement 75.7%.
+
+**Per-task (the key finding):**
+| Task | task-wrong accepted A→B | false-accept A→B |
+|------|--:|--:|
+| topic | 0 → 0 | — (validator only over-rejects, FN 17.5%) |
+| sentiment | 5 → 5 | 45.5% → 45.5% (**no effect** — neutral errors slip past both) |
+| NER | 17 → 4 | 89.5% → 21.1% (**validator earns its keep here**) |
+
+**Reading:** adding the real (fallible) TaskValidator cuts task-wrong accepts 18→6 and lifts precision
+79.1%→90.3%, but the benefit is **concentrated in NER**, **null for sentiment** (neutral class evades
+both quality and validator), and it **over-rejects topic**. Honest claim: the validator is worth it
+*specifically for entity-constrained tasks (NER)*, not as a blanket gate.
 
 ## 7. Overall scorecard
 
@@ -201,7 +239,8 @@ CS-ratio are objective.
 |-------|----------|---------|
 | Per-sentence scoring **catches** weak sentences aggregate scoring hides | 41.5% (54-scen Step 2); **35.6%** on the larger 101-scen calibration at bar 7 | ✅ supported |
 | Refining a caught weak sentence **improves** it | +0.60, 79/87 (90.8%), p≈0 (Test 6a) | ✅ supported |
-| Task-aware generation produces valid task data | topic 100%, sentiment 72.5%, **NER 45.7%** (blind LLM, Test 1); CS-valid 87–100% | 🟡 mixed (topic strong, NER weak); human-confirm pending |
+| Task-aware generation produces valid task data | topic 100%, sentiment 70%, **NER 62.9%** (constraint-aware judge, Test 1 v2); CS-valid 87–100% | 🟡 mixed (topic strong; sentiment=neutral drag; NER under-produces PER); human-confirm pending |
+| TaskValidator reduces task-wrong accepts | precision 79.1%→90.3%, task-wrong 18→6 (Test 2, real validator); benefit concentrated in NER | ✅ supported (NER); ❌ no effect on sentiment |
 | Pipeline hits the requested CS ratio (70%) | CS-ratio MAE ≈ 14–23 pts off target (objective, Test 1) | ❌ off-target |
 | Quality scoring alone detects task failures | fluency/naturalness ~8 even where task fails (Test 1) | ❌ → motivates task-aware validation |
 | Humans confirm masked sentences are genuinely weaker | Step 3 / consolidated sheet built, not run | 🟡 pending |
