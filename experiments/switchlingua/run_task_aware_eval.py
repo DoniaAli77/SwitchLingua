@@ -124,13 +124,20 @@ def ner_ok(text, constraints):
     must = [str(t).strip().upper() for t in (c.get("must_include_types") or [])]
     mn = int(_scalar(c.get("min_entities"), 0) or 0)
     mx = int(_scalar(c.get("max_entities"), 10 ** 9) or 10 ** 9)
-    allow_cs = bool(_scalar(c.get("allow_code_switched_entities"), True))
+    # Script policy (Option A): required TARGET entities must be English-script tokens only by default.
+    # Driven by `target_entities_script` (default "english"); the older ambiguous
+    # `allow_code_switched_entities` flag is NOT used for the script decision.
+    script = str(_scalar(c.get("target_entities_script"), "english")).strip().lower()
+    english_only = (script == "english")
 
-    script_rule = ("Entities may be in Arabic script, English/Latin script, or mixed script — count all of them."
-                   if allow_cs else
-                   "Only English/Latin-script entities count; do NOT count Arabic-script entities.")
+    script_rule = ("Required entities must be English/Latin-script tokens (ASCII letters) only — e.g. "
+                   "'Elon Musk', 'Google', 'Cairo'. Arabic-script names in the sentence are CONTEXT and "
+                   "do NOT count toward the required entity types; do not list them."
+                   if english_only else
+                   "Entities may be in Arabic script, English/Latin script, or mixed script — count all of them.")
     err = {"passed": None, "entity_counts": {}, "total_entities": None,
-           "missing_required_types": [], "disallowed_types": [], "count_valid": None}
+           "missing_required_types": [], "disallowed_types": [], "count_valid": None,
+           "arabic_script_ignored": 0, "target_entities_script": script}
     prompt = (
         "You are an NER judge. Extract the named entities from the sentence below.\n"
         f"Allowed entity types (use ONLY these): {', '.join(allowed)}.\n"
@@ -150,22 +157,32 @@ def ner_ok(text, constraints):
     if ents is None:
         return {**err, "parse_error": "json_parse_failed"}
 
+    import re as _re
+    def _is_english_script(s):
+        return bool(_re.search(r"[A-Za-z]", s)) and not _re.search(r"[؀-ۿ]", s)
+
     counts = {t: 0 for t in allowed}
     disallowed = {}
+    arabic_ignored = 0
     for e in ents:
+        # Deterministically enforce the English-only target policy regardless of what the LLM listed.
+        if english_only and not _is_english_script(e.get("text", "")):
+            arabic_ignored += 1
+            continue
         t = e["type"]
         if t in counts:
             counts[t] += 1
         else:
             disallowed[t] = disallowed.get(t, 0) + 1
-    total = sum(counts.values())                       # only allowed-type entities count toward range
+    total = sum(counts.values())                       # only allowed-type, policy-valid entities count
     missing = [t for t in must if counts.get(t, 0) == 0]
     disallowed_types = sorted(disallowed)
     count_valid = (mn <= total <= mx)
     passed = bool(count_valid and not missing and not disallowed_types)
     return {"passed": passed, "entity_counts": counts, "total_entities": total,
             "missing_required_types": missing, "disallowed_types": disallowed_types,
-            "count_valid": count_valid, "parse_error": None}
+            "count_valid": count_valid, "arabic_script_ignored": arabic_ignored,
+            "target_entities_script": script, "parse_error": None}
 
 
 def cs_ratio_error(stats):
@@ -242,6 +259,8 @@ def main():
                                   missing_required_types=nres["missing_required_types"],
                                   disallowed_types=nres["disallowed_types"],
                                   count_valid=nres["count_valid"],
+                                  arabic_script_ignored=nres.get("arabic_script_ignored", 0),
+                                  target_entities_script=nres.get("target_entities_script", "english"),
                                   parse_error=nres["parse_error"], task_correct=ok)
             details.append(rec_detail)
 
@@ -292,11 +311,12 @@ def main():
           "is pending** via `human_eval/consolidated_annotation_sheet.csv`.\n",
           "- The English-only deterministic NER policy was deliberately NOT used (it ignores Arabic-script entities "
           "this task permits, giving unfairly low scores).\n",
-          "- **The NER judge is CONSTRAINT-AWARE**: allowed entity types, the min/max count range, the "
-          "must-include types, and the script policy (Arabic/English/mixed) are generated dynamically from the "
-          "sample's task constraints — nothing is hardcoded. The judge returns strict JSON; validation is "
-          "deterministic (per-sentence fields: entity_counts, total_entities, missing_required_types, "
-          "disallowed_types, count_valid, parse_error).\n",
+          "- **The NER judge is CONSTRAINT-AWARE and follows an ENGLISH-ONLY target policy (Option A)**: allowed "
+          "types, min/max count, and must-include types are read from the sample constraints; required TARGET "
+          "entities must be English/Latin-script (matching the generation and TaskValidator prompts). Arabic-script "
+          "names are CONTEXT and do not count (deterministically filtered: arabic_script_ignored). The judge returns "
+          "strict JSON; validation is deterministic (fields: entity_counts, total_entities, missing_required_types, "
+          "disallowed_types, count_valid, arabic_script_ignored, target_entities_script, parse_error).\n",
           "- Fluency/naturalness are the pipeline's own per-sentence judge scores (for reference).\n",
           "- Sample reuses the fresh pre-refinement validation set; no regeneration.\n"]
     (OUT / "task_aware_report.md").write_text("\n".join(L), encoding="utf-8")

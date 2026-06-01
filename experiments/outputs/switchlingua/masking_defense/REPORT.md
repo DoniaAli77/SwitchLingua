@@ -185,15 +185,14 @@ own per-sentence judge scores. Outputs: `task_aware_eval/` (summary.csv/.json, d
 |------|--:|--:|--:|--:|--:|--:|
 | topic | 40 | 100.0 | 100.0 | 23.3 | 8.35 | 8.07 |
 | sentiment | 40 | 70.0 | 87.5 | 22.1 | 8.05 | 8.05 |
-| NER | 35 | **62.9** (was 45.7) | 97.1 | 13.8 | 8.40 | 8.54 |
+| NER | 35 | **40.0** (English-only, final) | 97.1 | 13.8 | 8.40 | 8.54 |
 
-**NER judge correction (v2):** the original NER judge hardcoded PER/ORG/LOC and parsed loose text lines.
-It was rebuilt to be **constraint-aware** — allowed types, min/max count, must-include types, and script
-policy are derived from each sample's task constraints; the judge returns strict JSON and validation is
-deterministic (fields saved: entity_counts, total_entities, missing_required_types, disallowed_types,
-count_valid, parse_error). On the same sentences this moved NER **45.7% → 62.9% with 0 parse errors**
-(the old judge was unfairly low, not the model improving). Remaining NER failures: **11/13 are missing a
-PERSON entity** — the generator under-produces PER. (sentiment 72.5%→70.0% is ~1-sentence noise.)
+**NER judge evolution (3 numbers — read carefully):**
+- **45.7%** — original judge: hardcoded PER/ORG/LOC, parsed loose "TYPE: entity" text lines (fragile, under-counted).
+- **62.9%** — constraint-aware but **lenient**: read types/range/must from constraints, strict JSON, 0 parse errors — but it followed the config's (contradictory) `allow_code_switched_entities: true` and **counted Arabic-script entities the pipeline does not accept**. Diagnostic only, NOT final.
+- **40.0%** — **final, pipeline-consistent (Option A, English-only target entities):** required entities must be English/Latin-script (matching the generation + TaskValidator prompts); Arabic-script names are context and don't count (config now `target_entities_script: english`, `allow_code_switched_entities: false`). The judge enforces this deterministically (regex filter, field `arabic_script_ignored`).
+
+**Why 40% < 62.9%:** the drop is mostly that the judge no longer extracts Arabic-script names at all, so failures surface as **missing_PER (19/21 failures)**. Honest reading: under the pipeline's real English-only policy, the model **rarely produces English-script PERSON entities** (e.g. "Elon Musk") — it writes person references in Arabic inside the Arabic-matrix sentence. NER is the weakest task at 40%, a genuine *generation* gap. (sentiment 72.5%→70.0% is ~1-sentence noise.)
 
 **Reading:** strong surface quality (CS validity 87–100%, fluency/naturalness ~8) but weaker constraint
 satisfaction — sentiment moderate (drag is the neutral class), **NER missing PERSON entities**, and the
@@ -211,15 +210,17 @@ TaskValidatorAgent verdict; quality = per-sentence weighted score ≥ 7.0. Polic
 Policy B = quality AND validator. Verdicts cached (`validator_verdicts.jsonl`); reference swappable for
 human labels via `--labels`. Outputs: `task_validator/` (summary.csv/.json, report.md).
 
+(Numbers below use the final English-only NER reference, so they are fully consistent with §6.5.)
+
 | | A: quality-only | B: quality + validator |
 |---|--:|--:|
 | accepted | 86 | 62 |
-| task-correct among accepted (precision) | 79.1% | **90.3%** |
-| task-WRONG accepted | 18 | **6** |
-| false-accept (of all wrong) | 72.0% | 24.0% |
-| false-reject (of all correct) | — | 37.8% |
+| task-correct among accepted (precision) | 70.9% | **85.5%** |
+| task-WRONG accepted | 25 | **9** |
+| false-accept (of all wrong) | 78.1% | 28.1% |
+| false-reject (of all correct) | — | 36.1% |
 
-Validator as a standalone task detector (vs reference): precision **85.2%**, recall **83.3%**, agreement 75.7%.
+Validator as a standalone task detector (vs reference): precision **83.0%**, recall **88.0%**, agreement 78.3%.
 
 **Per-task (the key finding):**
 | Task | task-wrong accepted A→B | false-accept A→B |
@@ -239,8 +240,8 @@ both quality and validator), and it **over-rejects topic**. Honest claim: the va
 |-------|----------|---------|
 | Per-sentence scoring **catches** weak sentences aggregate scoring hides | 41.5% (54-scen Step 2); **35.6%** on the larger 101-scen calibration at bar 7 | ✅ supported |
 | Refining a caught weak sentence **improves** it | +0.60, 79/87 (90.8%), p≈0 (Test 6a) | ✅ supported |
-| Task-aware generation produces valid task data | topic 100%, sentiment 70%, **NER 62.9%** (constraint-aware judge, Test 1 v2); CS-valid 87–100% | 🟡 mixed (topic strong; sentiment=neutral drag; NER under-produces PER); human-confirm pending |
-| TaskValidator reduces task-wrong accepts | precision 79.1%→90.3%, task-wrong 18→6 (Test 2, real validator); benefit concentrated in NER | ✅ supported (NER); ❌ no effect on sentiment |
+| Task-aware generation produces valid task data | topic 100%, sentiment 70%, **NER 40%** (English-only, final); CS-valid 87–100% | 🟡 mixed (topic strong; sentiment=neutral drag; NER weak — under-produces English-script PER); human-confirm pending |
+| TaskValidator reduces task-wrong accepts | precision 70.9%→85.5%, task-wrong 25→9 (Test 2, real validator, English-only ref); benefit concentrated in NER | ✅ supported (NER); ❌ no effect on sentiment |
 | Pipeline hits the requested CS ratio (70%) | CS-ratio MAE ≈ 14–23 pts off target (objective, Test 1) | ❌ off-target |
 | Quality scoring alone detects task failures | fluency/naturalness ~8 even where task fails (Test 1) | ❌ → motivates task-aware validation |
 | Humans confirm masked sentences are genuinely weaker | Step 3 / consolidated sheet built, not run | 🟡 pending |
