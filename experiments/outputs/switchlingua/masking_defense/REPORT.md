@@ -202,6 +202,27 @@ task-aware validation and deterministic CS-ratio components. **Caveat:** task-co
 judge; needs human confirmation via `human_eval/consolidated_annotation_sheet.csv`. CS-validity and
 CS-ratio are objective.
 
+### 6.5.1 NER PER-prompt repair (diagnosed → fixed → promoted)
+Diagnostic chain: Test 1 flagged NER weak → error analysis localized it to **missing_PER** → a
+constraint-difficulty run (`ner_constraint_difficulty_*`) showed ORG is easy (90%) but **PERSON is the
+bottleneck** (and difficulty is non-monotonic, so it's not just "too many constraints"). A controlled
+before/after pilot (`ner_per_prompt_repair/`, 50/arm, Wilson CIs, core prompt untouched — variant in the
+harness) then tested adding an explicit **English-script PERSON requirement + self-check** with
+Arabic-friendly Latin names (Ahmed Ali, Sarah Hassan, …):
+
+| arm | task-correct % (95% CI) | missing_PER | CS-ratio MAE | fluency / naturalness |
+|---|---|---|---|---|
+| current prompt | 22.5% (12.3–37.5) | 70% | 18.0 | 8.32 / 8.4 |
+| **PER-focused prompt** | **56.8% (42.2–70.3)** | **25%** | 15.95 | 8.61 / 8.52 |
+
+**CIs do not overlap → a real improvement (+34 pts), not run-to-run noise; no CS-ratio/naturalness
+regression.** This repair was **promoted into the core `DATA_GENERATION_NER_PROMPT`** (generation prompt
+only; TaskValidator, evaluation policy, and config unchanged). Post-promotion checks: mocked pipeline
+tests pass, a real 12-sentence NER smoke parses and the TaskValidator still returns verdicts. Caveats:
+still LLM-judged (human spot-check pending); absolute NER % is noisy run-to-run (~22–60% same config), so
+the trustworthy result is the within-pilot **delta**, and the model still occasionally writes the person
+name in Arabic script (which the English-only policy correctly rejects).
+
 ## 6.6 Test 2 — TaskValidatorAgent necessity & effectiveness (real validator)
 `run_task_validator_necessity.py` replays two acceptance policies over the Test 1 results — **no
 regeneration**, but the **real TaskValidatorAgent is run** on the existing sentences (not an oracle).
