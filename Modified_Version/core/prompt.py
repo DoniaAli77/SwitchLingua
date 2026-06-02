@@ -156,10 +156,12 @@ DATA_GENERATION_SENTIMENT_PROMPT = ChatPromptTemplate.from_messages(
 )
 
 
-# NOTE (2026-06-01): section 11 (PERSON-entity requirement) was promoted into this prompt after a
-# controlled 50/arm before-after pilot showed it improved English-only NER correctness from ~22% to ~57%
-# (Wilson CIs non-overlapping; missing_PER 70%->25%; no CS-ratio/naturalness regression). Generation-prompt
-# change only — TaskValidator prompts, evaluation policy, and config were not changed.
+# NOTE (2026-06-01): NER entity guidance is now GENERIC and config-driven via the {ner_entity_guidance}
+# placeholder (section 11). The block is built dynamically per scenario by node_engine.build_ner_entity_guidance()
+# from per-type metadata (DEFAULT_ENTITY_GUIDANCE, overridable by task_constraints['entity_type_guidance']),
+# so adding a new entity tag requires NO prompt edit. This generalizes the earlier PER-only repair (which had
+# improved English-only NER ~22%->~57% in a 50/arm pilot, missing_PER 70%->25%) to all required entity types.
+# Generation-prompt change only — TaskValidator prompts, evaluation policy, and config were not changed.
 DATA_GENERATION_NER_PROMPT = ChatPromptTemplate.from_messages(
     [
         (
@@ -208,26 +210,22 @@ DATA_GENERATION_NER_PROMPT = ChatPromptTemplate.from_messages(
             - MUST_INCLUDE_TYPES is a hard requirement by default: regardless of which types appear in must_include_types, every generated instance must contain all of them.
             - Apply must_include_types dynamically from {task_constraints}; do not hardcode PER/ORG/LOC assumptions.
             - The total number of entities in each instance must be between min_entities and max_entities.
-            - Prefer using explicit named entities (full names for PER, real organization names for ORG, and clear locations for LOC).
-            - Do not output generic references when a named entity is required.
+            - Prefer explicit named entities of the required types (see the per-type guidance in section 11); do not output generic references when a named entity is required.
             - NER target entities MUST be in English-script tokens only (ASCII letters), not Arabic-script entity names.
-            - For PER use English full names (e.g., "Elon Musk", "Sundar Pichai").
-            - For ORG use English organization names (e.g., "Google", "Microsoft", "Apple").
-            - For LOC use English location names (e.g., "Dubai", "London", "Cairo").
+            - Per-type descriptions, script rules, and examples are supplied dynamically in section 11; do not hardcode or assume any specific entity type here.
             - Before finalizing, self-check each instance against must_include_types and regenerate if any required type is missing.
 
             10. News Article:
             - News Article: {news_article}
 
-            11. ADDITIONAL STRICT PERSON-ENTITY REQUIREMENT (English-script):
-            - Every instance MUST contain at least one English-script FULL PERSON name written in Latin letters whenever PER is required by must_include_types.
-              Use natural names such as "Ahmed Ali", "Sarah Hassan", "Omar Khaled", "Mona Ibrahim", or "Elon Musk".
-            - Do NOT write required PERSON or ORGANIZATION entities in Arabic script; only the surrounding context may be Arabic.
-            - If ORG is required, also include at least one English-script organization name such as "Google", "Microsoft", "Apple", or "Cairo University".
-            - SELF-CHECK each instance before finalizing:
-              (1) at least one English-script full PERSON name appears when PER is required,
-              (2) at least one English-script ORGANIZATION appears when ORG is required,
-              (3) the total number of named entities is within min_entities..max_entities.
+            11. REQUIRED ENTITY GUIDANCE (auto-generated from config for the required entity types):
+            {ner_entity_guidance}
+            - Follow the guidance above for EVERY required entity type; each required type MUST appear in the instance, written per its script rule.
+            - Required entities must NOT be written in Arabic script; only the surrounding context may be Arabic.
+            - Do NOT copy the example entities repeatedly — generate natural, varied entities of each required type.
+            - SELF-CHECK each instance before finalizing and regenerate if any check fails:
+              (1) every required entity type is present and written in the required script,
+              (2) the total number of named entities is within min_entities..max_entities.
 
             Now, generate code-switched NER data that satisfies all constraints.
             """,

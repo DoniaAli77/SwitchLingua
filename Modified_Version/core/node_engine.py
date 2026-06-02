@@ -157,7 +157,61 @@ def RunSentimentDataGenerationAgent(state: AgentRunningState):
     return _invoke_generation_with_retry(state, DATA_GENERATION_SENTIMENT_PROMPT)
 
 
+# --- Generic, config-driven NER entity guidance -----------------------------------------
+# Per-type metadata in ONE place (overridable by task_constraints["entity_type_guidance"]).
+# Add a new tag here (or in config) — never in the prompt text.
+DEFAULT_ENTITY_GUIDANCE = {
+    "PER":     {"description": "a named person, preferably a full first and last name",
+                "script_rule": "must be written in English/Latin letters",
+                "examples": ["Ahmed Ali", "Sarah Hassan", "Omar Khaled", "Mona Ibrahim", "Elon Musk"]},
+    "ORG":     {"description": "a company, university, institution, brand, or organization",
+                "script_rule": "must be written in English/Latin letters",
+                "examples": ["Google", "Microsoft", "Apple", "Cairo University"]},
+    "LOC":     {"description": "a city, country, district, landmark, or place",
+                "script_rule": "must be written in English/Latin letters",
+                "examples": ["Cairo", "Dubai", "London", "New York"]},
+    "PRODUCT": {"description": "a named product, app, software, platform, device, or service",
+                "script_rule": "must be written in English/Latin letters",
+                "examples": ["iPhone 15", "ChatGPT", "Windows", "Photoshop"]},
+    "EVENT":   {"description": "a named event, conference, tournament, festival, campaign, or public occasion",
+                "script_rule": "must be written in English/Latin letters",
+                "examples": ["World Cup", "Olympics", "Black Friday", "Cairo Book Fair", "Gitex Global"]},
+}
+
+
+def build_ner_entity_guidance(task_constraints) -> str:
+    """Build a dynamic guidance block for ONLY the required entity types, from per-type metadata.
+    Source priority: task_constraints['entity_type_guidance'][TYPE] -> DEFAULT_ENTITY_GUIDANCE[TYPE]
+    -> generic fallback. Script rule defaults to target_entities_script (english -> Latin only)."""
+    c = task_constraints or {}
+    def _scalar(v, d):
+        v = v[0] if isinstance(v, list) and v else v
+        return d if v is None else v
+    must = [str(t).strip().upper() for t in (c.get("must_include_types") or [])]
+    types = must or [str(t).strip().upper() for t in (c.get("entity_types") or [])]
+    script = str(_scalar(c.get("target_entities_script"), "english")).strip().lower()
+    cfg_guidance = c.get("entity_type_guidance") or {}
+    default_rule = ("must be written in English/Latin letters" if script == "english"
+                    else "may be written in Arabic or English script")
+    lines = []
+    for t in types:
+        g = cfg_guidance.get(t) or cfg_guidance.get(t.lower()) or DEFAULT_ENTITY_GUIDANCE.get(t) or {}
+        desc = g.get("description", f"a named entity of type {t}")
+        rule = g.get("script_rule", default_rule)
+        ex = g.get("examples") or []
+        ex_str = f" Examples: {', '.join(str(e) for e in ex[:5])}." if ex else ""
+        lines.append(f"- {t}: {desc}; {rule}.{ex_str}")
+    return "Required entity guidance:\n" + "\n".join(lines) if lines else "No specific entity types required."
+
+
 def RunNERDataGenerationAgent(state: AgentRunningState):
+    # Inject dynamic per-type guidance for the required entity types (fills {ner_entity_guidance}).
+    # Config-driven: scenario-level entity_type_guidance (from YAML) overrides DEFAULT_ENTITY_GUIDANCE.
+    state = dict(state)
+    cons = dict(state.get("task_constraints", {}) or {})
+    if state.get("entity_type_guidance"):
+        cons.setdefault("entity_type_guidance", state["entity_type_guidance"])
+    state["ner_entity_guidance"] = build_ner_entity_guidance(cons)
     return _invoke_generation_with_retry(state, DATA_GENERATION_NER_PROMPT)
 
 

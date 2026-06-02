@@ -149,10 +149,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--single-n", type=int, default=20)
     ap.add_argument("--pair-n", type=int, default=18)
+    ap.add_argument("--only", default=None, help="comma-separated variant names to run (subset)")
+    ap.add_argument("--suffix", default="", help="output filename suffix (preserves baseline files)")
     a = ap.parse_args()
+    only = set(x.strip() for x in a.only.split(",")) if a.only else None
 
     summaries = []
     for name, (must, mn, mx) in GROUP1.items():
+        if only and name not in only:
+            continue
         print(f"[G1 {name}] generating {a.single_n} ...")
         rows = run_variant(name, must, mn, mx, a.single_n)
         summaries.append(summarize("single", name, must, mn, mx, rows))
@@ -160,6 +165,8 @@ def main():
         print(f"   -> task_correct={s['task_correct_pct']}% missing={s['missing_required']} "
               f"disallowed={s['disallowed_type_count']} CS={s['cs_validity_pct']}%")
     for name, (must, mn, mx) in GROUP2.items():
+        if only and name not in only:
+            continue
         print(f"[G2 {name}] generating {a.pair_n} ...")
         rows = run_variant(name, must, mn, mx, a.pair_n)
         summaries.append(summarize("pairwise", name, must, mn, mx, rows))
@@ -167,7 +174,8 @@ def main():
         print(f"   -> task_correct={s['task_correct_pct']}% missing={s['missing_required']} "
               f"disallowed={s['disallowed_type_count']} CS={s['cs_validity_pct']}%")
 
-    with open(OUT / "ner_tag_coverage_summary.csv", "w", newline="", encoding="utf-8-sig") as f:
+    suf = a.suffix
+    with open(OUT / f"ner_tag_coverage{suf}_summary.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=list(summaries[0].keys())); w.writeheader(); w.writerows(summaries)
 
     L = ["# NER Tag Coverage / Generalization (explanatory — does NOT change Test 1)\n",
@@ -193,7 +201,7 @@ def main():
           "- **disallowed** = entities the judge labeled outside the allowed set (should be ~0).\n",
           "- Small n (18–20) → wide CIs and run-to-run variance; read this as coverage breadth, not precise rates. "
           "Does NOT change the main Test 1 NER number.\n"]
-    (OUT / "ner_tag_coverage_report.md").write_text("\n".join(L), encoding="utf-8")
+    (OUT / f"ner_tag_coverage{suf}_report.md").write_text("\n".join(L), encoding="utf-8")
     print(f"\nwrote ner_tag_coverage_summary.csv / report.md -> {OUT}")
 
 

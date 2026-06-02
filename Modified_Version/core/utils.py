@@ -122,6 +122,9 @@ def generate_scenarios(pre_execute: dict) -> list[AgentRunningState]:
         allow_cs_entities_list: List[bool] = ner_cfg.get(
             "allow_code_switched_entities", [True]
         )
+        _tscript = ner_cfg.get("target_entities_script", ["english"])
+        target_entities_script = _tscript[0] if isinstance(_tscript, list) and _tscript else _tscript
+        entity_type_guidance = ner_cfg.get("entity_type_guidance", {}) or {}
         for base in base_scenarios:
             for min_e, max_e, allow_cs_entities in itertools.product(
                 min_entities_list, max_entities_list, allow_cs_entities_list
@@ -129,12 +132,16 @@ def generate_scenarios(pre_execute: dict) -> list[AgentRunningState]:
                 scenario = dict(base)
                 scenario["task"] = "ner"
                 scenario["annotations"] = []
+                # carried as a scenario field (NOT inside task_constraints) so the dynamic guidance
+                # builder can use it without bloating the {task_constraints} dump in the prompt.
+                scenario["entity_type_guidance"] = entity_type_guidance
                 scenario["task_constraints"] = {
                     "entity_types": entity_types,
                     "min_entities": min_e,
                     "max_entities": max_e,
                     "must_include_types": must_include_types,
                     "allow_code_switched_entities": allow_cs_entities,
+                    "target_entities_script": target_entities_script,
                 }
                 all_scenarios.append(scenario)
 
