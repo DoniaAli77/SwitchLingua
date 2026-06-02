@@ -33,3 +33,24 @@ Policy: English-only target entities, allow_code_switched_context, refiner OFF, 
 - **disallowed** = entities the judge labeled outside the allowed set (should be ~0).
 
 - Small n (18–20) → wide CIs and run-to-run variance; read this as coverage breadth, not precise rates. Does NOT change the main Test 1 NER number.
+
+## Findings (this run)
+- **ORG generalizes best** — single_ORG 80% (missing 3/20). The model reliably emits English-script organizations.
+- **EVENT is the hardest type** — single_EVENT 39% (missing 11/18), and EVENT drags down every pair it appears in:
+  EVENT_LOC 25% (EVENT missing 11/16), PER_EVENT 11% (EVENT missing 7/9). The model rarely produces
+  English-script event names.
+- **LOC is only moderate (44%)** despite being intuitively easy — likely the same Arabic-script issue as PER:
+  the model writes locations in Arabic ("القاهرة") rather than "Cairo", which the English-only policy rejects.
+- **PER-only stays hard (30%) but PER-in-pairs is easier** (PER_LOC 70%, PER_ORG 56%) — consistent with the
+  earlier non-monotonic finding (more required types/slots → the model actually includes the person).
+- **disallowed_type_count = 0 everywhere** → failures are always a MISSING required type, never a wrong type.
+- **Recurring root cause:** the model defaults to **Arabic-script** entity names for types with natural Arabic
+  forms (PER, LOC, EVENT); the English-only target policy correctly rejects those → high "missing". ORG (and
+  to a degree PRODUCT) are produced in Latin script more naturally, so they generalize better.
+
+## Caveats
+- **Pairwise group is under-powered** (n=9–16, below the 18 target — the generator returns fewer instances per
+  scenario under tight 2-type constraints). Treat Group-2 point estimates as *suggestive*; the CIs are wide.
+  Re-run with more topics/scenarios for firmer pairwise numbers if needed.
+- Single-tag n=18–20 is also small. Everything is LLM-judged (blind extractor). Does NOT change the Test 1 number.
+- Ranking is the robust signal (ORG best → EVENT worst), not the exact percentages.
