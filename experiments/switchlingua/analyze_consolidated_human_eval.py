@@ -1,68 +1,16 @@
 """
-analyze_consolidated_human_eval.py
-==================================
-Analyze the filled consolidated human-annotation sheet(s). One sheet, four analyses:
-  1. By task: label/task correctness, CS validity, fluency mean, naturalness mean, acceptability rate
-  2. Masked vs non-masked: differences in acceptability, CS validity, fluency, naturalness (+ Mann-Whitney p)
-  3. Pipeline agreement: false positives / false negatives / agreement vs human acceptability (+ kappa)
-  4. NER: entity correctness, BIO validity, boundary correctness
-
-No scipy (numpy + math). Auto-detects filled sheets in the human_eval/ folder.
+analyze_consolidated_human_eval.py — analyze the filled consolidated human-annotation sheet(s).
+Computes the 9 requested analyses. No scipy (numpy + math). Auto-detects filled sheets.
 
 Usage:
-  python experiments/switchlingua/analyze_consolidated_human_eval.py
+  python experiments/switchlingua/analyze_consolidated_human_eval.py            # auto-detect
   python experiments/switchlingua/analyze_consolidated_human_eval.py annotator1.csv annotator2.csv
 """
-import csv
-import math
-import pathlib
-import sys
+import csv, math, pathlib, sys
 import numpy as np
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-DIR = ROOT / "experiments" / "outputs" / "switchlingua" / "human_eval"
-
-
-def _norm_cdf(z):
-    return 0.5 * (1 + math.erf(z / math.sqrt(2)))
-
-
-def mann_whitney_p(a, b):
-    a, b = [x for x in a if x is not None], [x for x in b if x is not None]
-    n1, n2 = len(a), len(b)
-    if n1 == 0 or n2 == 0:
-        return float("nan")
-    allv = np.array(a + b, float)
-    order = np.argsort(allv, kind="mergesort")
-    ranks = np.empty(len(allv)); sv = allv[order]; i = 0
-    while i < len(sv):
-        j = i
-        while j + 1 < len(sv) and sv[j + 1] == sv[i]:
-            j += 1
-        for k in range(i, j + 1):
-            ranks[order[k]] = (i + j) / 2.0 + 1
-        i = j + 1
-    u1 = ranks[:n1].sum() - n1 * (n1 + 1) / 2.0
-    _, counts = np.unique(allv, return_counts=True)
-    n = n1 + n2; tie = (counts ** 3 - counts).sum()
-    sigma = math.sqrt(n1 * n2 / 12.0 * ((n + 1) - tie / (n * (n - 1)))) if n > 1 else 0
-    if sigma == 0:
-        return float("nan")
-    return 2 * (1 - _norm_cdf(abs((u1 - n1 * n2 / 2.0) / sigma)))
-
-
-def cohen_kappa(a, b):
-    pairs = [(x, y) for x, y in zip(a, b) if x and y]
-    if not pairs:
-        return float("nan")
-    cats = sorted({c for p in pairs for c in p})
-    idx = {c: i for i, c in enumerate(cats)}
-    m = np.zeros((len(cats), len(cats)))
-    for x, y in pairs:
-        m[idx[x], idx[y]] += 1
-    tot = m.sum(); po = np.trace(m) / tot
-    pe = sum(m[i].sum() * m[:, i].sum() for i in range(len(cats))) / (tot * tot)
-    return float((po - pe) / (1 - pe)) if (1 - pe) else float("nan")
+DIR = pathlib.Path(__file__).resolve().parents[2] / "experiments" / "outputs" / "switchlingua" / "human_eval"
+SHEET = "consolidated_human_annotation_sheet.csv"
 
 
 def yn(v):
@@ -78,122 +26,168 @@ def num(v):
         return None
 
 
+def rate(flags):
+    f = [x for x in flags if x is not None]
+    return (round(100 * sum(x == "yes" for x in f) / len(f), 1), len(f)) if f else (None, 0)
+
+
 def mean(xs):
     xs = [x for x in xs if x is not None]
-    return round(float(np.mean(xs)), 3) if xs else None
+    return round(float(np.mean(xs)), 2) if xs else None
 
 
-def rate(flags):
-    flags = [f for f in flags if f is not None]
-    return round(100 * sum(f == "yes" for f in flags) / len(flags), 1) if flags else None
+def agree(a, b):
+    p = [(x, y) for x, y in zip(a, b) if x is not None and y is not None]
+    return (round(100 * sum(x == y for x, y in p) / len(p), 1), len(p)) if p else (None, 0)
+
+
+def kappa(a, b):
+    p = [(x, y) for x, y in zip(a, b) if x and y]
+    if not p:
+        return None
+    cats = sorted({c for q in p for c in q})
+    idx = {c: i for i, c in enumerate(cats)}
+    m = np.zeros((len(cats), len(cats)))
+    for x, y in p:
+        m[idx[x], idx[y]] += 1
+    tot = m.sum(); po = np.trace(m) / tot
+    pe = sum(m[i].sum() * m[:, i].sum() for i in range(len(cats))) / (tot * tot)
+    return round(float((po - pe) / (1 - pe)), 3) if (1 - pe) else None
+
+
+def mann_whitney_p(a, b):
+    a, b = [x for x in a if x is not None], [x for x in b if x is not None]
+    if not a or not b:
+        return None
+    allv = np.array(a + b, float); order = np.argsort(allv, kind="mergesort")
+    ranks = np.empty(len(allv)); sv = allv[order]; i = 0
+    while i < len(sv):
+        j = i
+        while j + 1 < len(sv) and sv[j + 1] == sv[i]:
+            j += 1
+        for k in range(i, j + 1):
+            ranks[order[k]] = (i + j) / 2.0 + 1
+        i = j + 1
+    n1, n2 = len(a), len(b)
+    u1 = ranks[:n1].sum() - n1 * (n1 + 1) / 2.0
+    _, c = np.unique(allv, return_counts=True); n = n1 + n2; tie = (c ** 3 - c).sum()
+    sig = math.sqrt(n1 * n2 / 12.0 * ((n + 1) - tie / (n * (n - 1)))) if n > 1 else 0
+    if sig == 0:
+        return None
+    z = (u1 - n1 * n2 / 2.0) / sig
+    return round(2 * (1 - 0.5 * (1 + math.erf(abs(z) / math.sqrt(2)))), 4)
 
 
 def load(path):
-    rows = []
+    out = []
     for r in csv.DictReader(path.open(encoding="utf-8-sig")):
-        rows.append({
-            "task": (r.get("task") or "").strip(),
-            "masked": yn(r.get("masked_case")),
-            "pipeline_accepted": yn(r.get("pipeline_accepted")),
-            "is_cs": yn(r.get("is_code_switched_yes_no")),
-            "task_correct": yn(r.get("label_or_task_correct_yes_no")),
-            "fluency": num(r.get("fluency_1_10")),
-            "naturalness": num(r.get("naturalness_1_10")),
-            "acceptable": yn(r.get("overall_acceptable_yes_no")),
-            "entities_correct": yn(r.get("entities_correct_yes_no")),
-            "bio_valid": yn(r.get("bio_valid_yes_no")),
-            "boundary_correct": yn(r.get("boundary_correct_yes_no")),
-        })
-    return rows
+        out.append(r)
+    return out
 
 
-def find_filled():
-    res = []
-    for p in sorted(DIR.glob("*.csv")):
-        if p.name == "analysis_summary.csv":
-            continue
-        rows = load(p)
-        if any(r["acceptable"] is not None or r["fluency"] is not None for r in rows):
-            res.append(p)
-    return res
+def judge_correct(r):
+    """Was the AI judge 'correct' vs the target (derived from pipeline label)?"""
+    t = r["task"]; lab = (r.get("pipeline_task_correct_or_judge_label") or "").strip().lower()
+    tgt = (r.get("target_label") or "").strip().lower()
+    if t == "sentiment":
+        return "yes" if lab == tgt else "no"
+    if t == "topic":
+        return "yes" if lab == "relevant" else "no"
+    if t == "ner":
+        return "yes" if lab == "pass" else "no"
+    return None
 
 
 def analyse(name, rows):
     print(f"\n===== {name} ({len(rows)} rows) =====")
+    filled = [r for r in rows if yn(r.get("human_overall_acceptable")) is not None or num(r.get("human_fluency_1_5")) is not None]
+    if not filled:
+        print("  (no human ratings filled in this sheet)"); return
+    rows = filled
 
-    # 1) by task
-    print("\n[1] By task")
-    print(f"  {'task':10} {'n':>3} {'task_correct%':>13} {'CS_valid%':>10} {'fluency':>8} {'natural':>8} {'accept%':>8}")
+    # 1) human task correctness by task
+    print("[1] Human task-correct % by task:")
     for task in ("topic", "sentiment", "ner"):
         tr = [r for r in rows if r["task"] == task]
-        if not tr:
-            continue
-        print(f"  {task:10} {len(tr):>3} {str(rate([r['task_correct'] for r in tr])):>13} "
-              f"{str(rate([r['is_cs'] for r in tr])):>10} {str(mean([r['fluency'] for r in tr])):>8} "
-              f"{str(mean([r['naturalness'] for r in tr])):>8} {str(rate([r['acceptable'] for r in tr])):>8}")
+        pc, n = rate([yn(r.get("human_task_correct")) for r in tr])
+        print(f"    {task:9} {pc}%  (n={n})")
+    # 2) CS validity, 3) acceptability (overall)
+    print(f"[2] Human CS-valid: {rate([yn(r.get('human_cs_valid')) for r in rows])[0]}%")
+    print(f"[3] Human overall-acceptable: {rate([yn(r.get('human_overall_acceptable')) for r in rows])[0]}%")
 
-    # 2) masked vs non-masked
-    print("\n[2] Masked vs non-masked")
-    mk = [r for r in rows if r["masked"] == "yes"]
-    nm = [r for r in rows if r["masked"] == "no"]
-    print(f"  acceptability:  masked={rate([r['acceptable'] for r in mk])}%  non-masked={rate([r['acceptable'] for r in nm])}%")
-    print(f"  CS validity:    masked={rate([r['is_cs'] for r in mk])}%  non-masked={rate([r['is_cs'] for r in nm])}%")
-    print(f"  fluency:        masked={mean([r['fluency'] for r in mk])}  non-masked={mean([r['fluency'] for r in nm])}"
-          f"  (MW p={round(mann_whitney_p([r['fluency'] for r in mk],[r['fluency'] for r in nm]),4)})")
-    print(f"  naturalness:    masked={mean([r['naturalness'] for r in mk])}  non-masked={mean([r['naturalness'] for r in nm])}"
-          f"  (MW p={round(mann_whitney_p([r['naturalness'] for r in mk],[r['naturalness'] for r in nm]),4)})")
+    # 4) AI judge vs human agreement (task correctness; + sentiment label kappa)
+    jc = [judge_correct(r) for r in rows]
+    hc = [yn(r.get("human_task_correct")) for r in rows]
+    a, n = agree(jc, hc)
+    print(f"[4] AI-judge vs human (task-correct): agreement {a}% (n={n}), kappa {kappa(jc, hc)}")
+    sent = [r for r in rows if r["task"] == "sentiment"]
+    sj = [(r.get('pipeline_task_correct_or_judge_label') or '').strip().lower() or None for r in sent]
+    sh = [(r.get('human_sentiment_label') or '').strip().lower() or None for r in sent]
+    print(f"    sentiment label (judge vs human): agreement {agree(sj, sh)[0]}% (n={agree(sj,sh)[1]}), kappa {kappa(sj, sh)}")
 
-    # 3) pipeline agreement (pipeline_accepted vs human acceptable)
-    print("\n[3] Pipeline vs human acceptability")
-    fp = fn = agree = n = 0
-    pa, ha = [], []
-    for r in rows:
-        if r["pipeline_accepted"] is None or r["acceptable"] is None:
-            continue
-        n += 1; pa.append(r["pipeline_accepted"]); ha.append(r["acceptable"])
-        if r["pipeline_accepted"] == r["acceptable"]:
-            agree += 1
-        elif r["pipeline_accepted"] == "yes" and r["acceptable"] == "no":
-            fp += 1     # pipeline accepted, human rejects
-        elif r["pipeline_accepted"] == "no" and r["acceptable"] == "yes":
-            fn += 1     # pipeline rejected, human accepts
-    if n:
-        print(f"  n={n}  agreement={round(100*agree/n,1)}%  false_positives={fp} ({round(100*fp/n,1)}%)  "
-              f"false_negatives={fn} ({round(100*fn/n,1)}%)  kappa={round(cohen_kappa(pa,ha),3)}")
+    # 5) TaskValidator vs human
+    vv = [yn(r.get("task_validator_passed")) for r in rows]
+    print(f"[5] TaskValidator vs human (task-correct): agreement {agree(vv, hc)[0]}% (n={agree(vv,hc)[1]}), kappa {kappa(vv, hc)}")
+
+    # 6) masked vs non-masked human quality
+    mk = [r for r in rows if (r.get("masked_case") or "").strip().lower() == "yes"]
+    nm = [r for r in rows if (r.get("masked_case") or "").strip().lower() == "no"]
+    print("[6] Masked vs non-masked (human):")
+    print(f"    acceptable:  masked={rate([yn(r.get('human_overall_acceptable')) for r in mk])[0]}%  non={rate([yn(r.get('human_overall_acceptable')) for r in nm])[0]}%")
+    print(f"    fluency:     masked={mean([num(r.get('human_fluency_1_5')) for r in mk])}  non={mean([num(r.get('human_fluency_1_5')) for r in nm])}"
+          f"  (MW p={mann_whitney_p([num(r.get('human_fluency_1_5')) for r in mk],[num(r.get('human_fluency_1_5')) for r in nm])})")
+    print(f"    naturalness: masked={mean([num(r.get('human_naturalness_1_5')) for r in mk])}  non={mean([num(r.get('human_naturalness_1_5')) for r in nm])}")
+
+    # 7) neutral sentiment dispute resolution
+    disp = [r for r in sent if "DISPUTED" in (r.get("notes_for_annotator") or "")]
+    if disp:
+        from collections import Counter
+        hlab = Counter((r.get("human_sentiment_label") or "").strip().lower() for r in disp if r.get("human_sentiment_label"))
+        agreed_target = sum(1 for r in disp if (r.get("human_sentiment_label") or "").strip().lower() == (r.get("target_label") or "").strip().lower())
+        print(f"[7] Neutral disputes ({len(disp)}): human labels {dict(hlab)}; human agrees with TARGET (neutral) on {agreed_target}/{len(disp)}"
+              f" -> {'generator/target right (judge wrong)' if agreed_target>len(disp)/2 else 'judge right (generator failed neutral)'}")
     else:
-        print("  (no comparable rows)")
+        print("[7] Neutral disputes: none in filled rows")
 
-    # 4) NER
+    # 8) NER human correctness + English-script compliance
     ner = [r for r in rows if r["task"] == "ner"]
-    print("\n[4] NER")
     if ner:
-        print(f"  n={len(ner)}  entities_correct={rate([r['entities_correct'] for r in ner])}%  "
-              f"bio_valid={rate([r['bio_valid'] for r in ner])}%  boundary_correct={rate([r['boundary_correct'] for r in ner])}%")
+        print(f"[8] NER human: ner_correct {rate([yn(r.get('human_ner_correct')) for r in ner])[0]}%, "
+              f"required_types_present {rate([yn(r.get('required_entity_types_present')) for r in ner])[0]}%, "
+              f"required_english_script {rate([yn(r.get('required_entities_english_script')) for r in ner])[0]}%")
     else:
-        print("  (no NER rows)")
+        print("[8] NER: no rows")
+
+    # 9) CS-ratio: human Arabic ratio vs deterministic
+    errs = []
+    for r in rows:
+        ar, en, ot = num(r.get("human_arabic_token_count")), num(r.get("human_english_token_count")), num(r.get("human_other_token_count"))
+        det = num(r.get("cs_ratio_deterministic"))
+        if ar is not None and en is not None and det is not None:
+            tot = ar + en + (ot or 0)
+            if tot > 0:
+                errs.append(abs(100 * ar / tot - det))
+    if errs:
+        print(f"[9] CS-ratio: human-vs-deterministic Arabic% MAE = {round(float(np.mean(errs)),2)} (n={len(errs)})")
+    else:
+        print("[9] CS-ratio: no token counts filled")
 
 
 def main():
     sheets = [pathlib.Path(a) for a in sys.argv[1:]]
-    sheets = [p if p.is_absolute() else (DIR / p) for p in sheets] or find_filled()
+    sheets = [p if p.is_absolute() else (DIR / p) for p in sheets]
     if not sheets:
-        print(f"No FILLED sheet found in {DIR}.")
-        print("Annotators fill consolidated_annotation_sheet.csv, save as annotator1.csv, then re-run.")
-        return
-    all_rows = {}
+        sheets = [p for p in sorted(DIR.glob("*.csv")) if p.name != "analysis_summary.csv"]
+    any_filled = False
     for p in sheets:
+        if not p.exists():
+            continue
         rows = load(p)
+        if any(yn(r.get("human_overall_acceptable")) is not None or num(r.get("human_fluency_1_5")) is not None for r in rows):
+            any_filled = True
         analyse(p.name, rows)
-        all_rows[p.name] = rows
-
-    # inter-annotator agreement on overall_acceptable (if >=2)
-    if len(sheets) >= 2:
-        a, b = sheets[0].name, sheets[1].name
-        ra = {i: r["acceptable"] for i, r in enumerate(all_rows[a])}
-        rb = {i: r["acceptable"] for i, r in enumerate(all_rows[b])}
-        ids = [i for i in ra if ra[i] and rb.get(i)]
-        k = cohen_kappa([ra[i] for i in ids], [rb[i] for i in ids])
-        print(f"\n===== inter-annotator agreement (overall_acceptable, {a} vs {b}): kappa={round(k,3)} =====")
+    if not any_filled:
+        print(f"\nNo FILLED ratings yet. Annotators fill {SHEET}, save as annotator1.csv in\n  {DIR}\nthen re-run.")
 
 
 if __name__ == "__main__":
