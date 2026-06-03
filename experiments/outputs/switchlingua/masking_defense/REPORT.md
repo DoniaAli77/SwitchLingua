@@ -223,6 +223,42 @@ still LLM-judged (human spot-check pending); absolute NER % is noisy run-to-run 
 the trustworthy result is the within-pilot **delta**, and the model still occasionally writes the person
 name in Arabic script (which the English-only policy correctly rejects).
 
+### 6.5.2 Final NER dev checkpoint (FROZEN)
+**Old issue.** NER task-correctness was low under the English-only policy (Test 1: 40%). Error analysis +
+a constraint-difficulty sweep localized it to **missing English-script entities — especially PER, then
+EVENT and LOC** (the model writes these in Arabic, which the policy rejects); ORG was already easy.
+
+**Fix.** A **generic, config-driven entity-guidance builder**: `node_engine.build_ner_entity_guidance()`
+reads `must_include_types` + per-type metadata (`DEFAULT_ENTITY_GUIDANCE`, overridable by
+`ner.entity_type_guidance` in config: description / script_rule / examples) and injects a dynamic block for
+ONLY the required types into the NER prompt via `{ner_entity_guidance}`. `prompt.py` has **zero hardcoded
+tag examples**; unknown tags get a safe fallback.
+
+**Why better than hardcoded prompt examples.** Scalable (add a tag in config, never the prompt), task-aware
+(only the required types are described), consistent with the English-only policy, and testable in isolation.
+
+**Validation (generic vs baseline; missing-type drops are the robust signal):**
+LOC 44→63%, PRODUCT 45→85%, **EVENT 39→84%** (missing EVENT 61%→5%), EVENT_LOC 25→83%.
+**PER_EVENT remains hard** (11→22%): two Arabic-natural hard types compete for 2–3 entity slots (fixing
+EVENT cost PER) — left unoptimized by design. A controlled same-session A/B confirmed **no PER regression**
+from generalizing (generic 53% ≈ the PER pilot's 57%; an alarming 25% smoke was a low variance draw).
+
+**Final verification.** Relevant tests pass: NER-guidance regression (5/5), task-generation mock, full
+pipeline mock, per-instance scoring, refiner-guardrail (after updating 2 assertions that encoded the
+*pre-loop-fix* behaviour — a rolled-back refine now spends the budget, count→1, to prevent the NER infinite
+loop). `test_pipeline_output_reviewer` is a CLI utility (excluded); `*_real.py` need live API (skipped).
+**Real core-pipeline smoke** (CodeSwitchingAgent graph, **real TaskValidator ON, refiner OFF**, English-only,
+n=12): generated 12, **parse 12/12, CS-validity 12/12, fluency/naturalness 8.8/8.5, no errors**; task_correct
+3/12 (25%, PER variance); **the real NER validator passed 0/12 — i.e. it is much stricter than the judge**
+(an honest observation, consistent with NER difficulty). n was below the 20–30 target (the real pipeline
+returned ~2 sentences/scenario).
+
+**Caveats.** All NER scoring is LLM-judged (human confirmation pending); small n; pairwise variants
+under-powered; same-config NER % is noisy run-to-run — trust deltas and missing-type drops, not absolutes.
+
+**Status: NER FROZEN** — implemented, generic, tested. Known limitation: PER_EVENT / competing hard types
+under 2–3 entity slots. No further NER prompt changes unless tests break.
+
 ## 6.6 Test 2 — TaskValidatorAgent necessity & effectiveness (real validator)
 `run_task_validator_necessity.py` replays two acceptance policies over the Test 1 results — **no
 regeneration**, but the **real TaskValidatorAgent is run** on the existing sentences (not an oracle).

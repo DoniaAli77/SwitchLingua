@@ -213,8 +213,12 @@ def test_refiner_quality_fail_rollback():
 
     assert texts[0] == original, \
         f"Rollback expected original {original!r}, got: {texts[0]!r}"
-    assert counts[0] == 0, \
-        f"Refine count should stay 0 after rollback, got: {counts[0]}"
+    # NOTE (updated after the NER infinite-loop fix): a rolled-back attempt MUST still spend the
+    # per-sentence refine budget (count -> 1), otherwise meet_criteria keeps re-routing the sentence
+    # to the refiner forever (the original NER hang). Rollback preserves the TEXT (asserted above);
+    # the COUNT advances so the budget is exhausted and the sentence is accepted as 'budget_exhausted'.
+    assert counts[0] == 1, \
+        f"After a rolled-back attempt the budget must be spent (count=1) to avoid an infinite refine loop, got: {counts[0]}"
     print("PASS test_refiner_quality_fail_rollback")
 
 
@@ -364,8 +368,10 @@ def test_refiner_quality_regression_rollback():
 
     assert texts[0] == original, \
         f"Quality regression rollback expected original, got: {texts[0]!r}"
-    assert counts[0] == 0, \
-        f"Refine count should stay 0 after quality-regression rollback, got: {counts[0]}"
+    # NOTE (updated after the NER infinite-loop fix): a rolled-back attempt still spends the budget
+    # (count -> 1) so the refine loop terminates; only the TEXT is reverted (asserted above).
+    assert counts[0] == 1, \
+        f"After a rolled-back attempt the budget must be spent (count=1) to avoid an infinite loop, got: {counts[0]}"
     print("PASS test_refiner_quality_regression_rollback")
 
 
