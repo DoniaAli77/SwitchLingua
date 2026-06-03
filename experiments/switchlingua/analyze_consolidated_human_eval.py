@@ -139,7 +139,11 @@ def analyse(name, rows):
     print(f"    naturalness: masked={mean([num(r.get('human_naturalness_1_5')) for r in mk])}  non={mean([num(r.get('human_naturalness_1_5')) for r in nm])}")
 
     # 7) neutral sentiment dispute resolution
-    disp = [r for r in sent if "DISPUTED" in (r.get("notes_for_annotator") or "")]
+    # Disputed = sentiment rows where the AI judge label disagreed with the target (robust in blind mode;
+    # does not rely on the sanitized note text). Focus on neutral targets.
+    disp = [r for r in sent
+            if (r.get("target_label") or "").strip().lower() == "neutral"
+            and (r.get("pipeline_task_correct_or_judge_label") or "").strip().lower() not in ("", "neutral")]
     if disp:
         from collections import Counter
         hlab = Counter((r.get("human_sentiment_label") or "").strip().lower() for r in disp if r.get("human_sentiment_label"))
@@ -173,11 +177,34 @@ def analyse(name, rows):
         print("[9] CS-ratio: no token counts filled")
 
 
+def _resolve(p):
+    p = pathlib.Path(p)
+    return p if p.is_absolute() else (DIR / p)
+
+
 def main():
-    sheets = [pathlib.Path(a) for a in sys.argv[1:]]
-    sheets = [p if p.is_absolute() else (DIR / p) for p in sheets]
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--annotations", default=None, help="completed BLIND sheet (human ratings)")
+    ap.add_argument("--key", default=None, help="key file with hidden metadata (merge by sample_id)")
+    ap.add_argument("sheets", nargs="*", help="full filled sheet(s); or omit to auto-detect")
+    a = ap.parse_args()
+
+    # Blind mode: merge completed BLIND annotations with the hidden KEY by sample_id.
+    if a.annotations and a.key:
+        ann = load(_resolve(a.annotations))
+        key = {r.get("sample_id"): r for r in load(_resolve(a.key))}
+        merged = [{**key.get(r.get("sample_id"), {}), **r} for r in ann]  # key metadata + blind+human cols
+        if not any(yn(r.get("human_overall_acceptable")) is not None or num(r.get("human_fluency_1_5")) is not None for r in merged):
+            print("BLIND annotations not filled yet (no human ratings)."); return
+        analyse(f"BLIND {pathlib.Path(a.annotations).name} + key", merged)
+        return
+
+    # Full-sheet / auto-detect mode (unchanged).
+    sheets = [_resolve(p) for p in a.sheets]
     if not sheets:
-        sheets = [p for p in sorted(DIR.glob("*.csv")) if p.name != "analysis_summary.csv"]
+        sheets = [p for p in sorted(DIR.glob("*.csv"))
+                  if p.name not in {"analysis_summary.csv", "consolidated_human_annotation_key.csv"}]
     any_filled = False
     for p in sheets:
         if not p.exists():
@@ -187,7 +214,8 @@ def main():
             any_filled = True
         analyse(p.name, rows)
     if not any_filled:
-        print(f"\nNo FILLED ratings yet. Annotators fill {SHEET}, save as annotator1.csv in\n  {DIR}\nthen re-run.")
+        print(f"\nNo FILLED ratings yet. Fill the BLIND sheet, save as *_completed.csv, then run:\n"
+              f"  python analyze_consolidated_human_eval.py --annotations <completed_BLIND.csv> --key consolidated_human_annotation_key.csv")
 
 
 if __name__ == "__main__":
