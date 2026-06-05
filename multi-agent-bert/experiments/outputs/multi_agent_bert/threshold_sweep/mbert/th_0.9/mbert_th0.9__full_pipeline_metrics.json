@@ -1,0 +1,44 @@
+{
+  "run_id": "mbert_th0.9__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-05T23:45:33.499954+00:00",
+  "num_samples": 818,
+  "accuracy": 0.738386,
+  "macro_f1": 0.710076,
+  "escalation_rate": 0.224939,
+  "escalated_count": 184,
+  "escalated_accuracy": 0.271739,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.709402,
+      "recall": 0.914601,
+      "f1": 0.799037,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.836207,
+      "recall": 0.492386,
+      "f1": 0.619808,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.747863,
+      "recall": 0.678295,
+      "f1": 0.711382,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "paper_style",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
