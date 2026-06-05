@@ -93,6 +93,7 @@ from src.evaluation.evaluator import EvalReport, Evaluator
 from src.evaluation.ner_evaluator import NEREvaluator, NERReport
 from src.llm.mock_client import MockLLMClient
 from src.models.mock_primary_classifier import MockPrimaryClassifier
+from src.models.primary_transformer_classifier import PrimaryTransformerClassifier
 from src.pipeline.orchestrator import PipelineOrchestrator
 from src.pipeline.router import Router
 from src.state.schema import TaskConfig
@@ -489,6 +490,68 @@ def load_dataset(path: str) -> List[Dict[str, str]]:
 
 
 # ---------------------------------------------------------------------------
+# Primary-classifier factory
+# ---------------------------------------------------------------------------
+
+# Valid values for the --primary_model flag.
+PRIMARY_MODEL_CHOICES = ("mock", "transformer")
+
+
+def build_primary_classifier(
+    primary_model: str = "mock",
+    *,
+    transformer_checkpoint: str | None = None,
+    device: str = "cpu",
+    label_map: Dict[int, str] | None = None,
+):
+    """Return the primary classifier selected by ``primary_model``.
+
+    This is the single seam that decides between the mock classifier (default,
+    used by every test) and the real Hugging Face transformer classifier.
+
+    Parameters
+    ----------
+    primary_model:
+        ``"mock"`` → :class:`~src.models.mock_primary_classifier.MockPrimaryClassifier`
+        (heuristic mode).  ``"transformer"`` →
+        :class:`~src.models.primary_transformer_classifier.PrimaryTransformerClassifier`,
+        loaded eagerly from ``transformer_checkpoint``.
+    transformer_checkpoint:
+        HF Hub id or local checkpoint directory.  **Required** when
+        ``primary_model == "transformer"``; ignored otherwise.
+    device:
+        Torch device string for the transformer model (default ``"cpu"``).
+    label_map:
+        Optional ``{class_index: label_string}`` override for the transformer.
+
+    Notes
+    -----
+    The transformer branch is the *only* place that triggers a model download /
+    load.  It is never reached unless the caller explicitly passes
+    ``primary_model="transformer"``, so unit tests (which keep the default)
+    never touch ``torch``/``transformers``.
+    """
+    if primary_model == "mock":
+        return MockPrimaryClassifier(mode="heuristic")
+    if primary_model == "transformer":
+        if not transformer_checkpoint:
+            raise ValueError(
+                "primary_model='transformer' requires a checkpoint; "
+                "pass --transformer_checkpoint <hf-id-or-local-path>."
+            )
+        # from_pretrained() loads the model immediately (may download weights).
+        return PrimaryTransformerClassifier.from_pretrained(
+            checkpoint=transformer_checkpoint,
+            label_map=label_map,
+            device=device,
+        )
+    raise ValueError(
+        f"Unknown primary_model {primary_model!r}; "
+        f"expected one of {PRIMARY_MODEL_CHOICES}."
+    )
+
+
+# ---------------------------------------------------------------------------
 # Orchestrator factory
 # ---------------------------------------------------------------------------
 
@@ -498,6 +561,7 @@ def build_orchestrator(
     enable_deliberation: bool,
     keyword_map: Dict[str, List[str]] | None = None,
     rule_map: Dict[str, List[str]] | None = None,
+    primary_classifier=None,
 ) -> PipelineOrchestrator:
     """Build a fully-wired orchestrator using mock components.
 
@@ -547,6 +611,12 @@ def build_orchestrator(
         keyword_map = keyword_map if keyword_map is not None else _kw
         rule_map = rule_map if rule_map is not None else _rl
 
+    # Primary classifier — defaults to the mock so every existing caller/test
+    # keeps mock behaviour.  main() injects a real transformer here only when
+    # --primary_model transformer is explicitly requested.
+    if primary_classifier is None:
+        primary_classifier = MockPrimaryClassifier(mode="heuristic")
+
     paper_contextual_agent = TransformerContextualAgent(mode="tfidf")
 
     # LLM-backed specialist agents for full_agentic mode.
@@ -566,7 +636,7 @@ def build_orchestrator(
     ner_consensus   = NERConsensusAgent()
 
     return PipelineOrchestrator(
-        primary_classifier=MockPrimaryClassifier(mode="heuristic"),
+        primary_classifier=primary_classifier,
         router=Router(),
         lexical_agent=LexicalAgent(keyword_map=keyword_map),
         contextual_agent=ContextualAgent(llm_client=llm_client),
@@ -781,6 +851,32 @@ def main(argv: List[str] | None = None) -> int:
         help="Enable the optional deliberation stage on the escalation path.",
     )
     parser.add_argument(
+        "--primary_model",
+        default="mock",
+        choices=list(PRIMARY_MODEL_CHOICES),
+        help=(
+            "Which primary classifier to use. 'mock' (default) uses the "
+            "non-deterministic MockPrimaryClassifier and downloads nothing. "
+            "'transformer' loads a real Hugging Face model from "
+            "--transformer_checkpoint (requires torch + transformers)."
+        ),
+    )
+    parser.add_argument(
+        "--transformer_checkpoint",
+        default=None,
+        metavar="PATH_OR_ID",
+        help=(
+            "Hugging Face model id or local checkpoint directory for the real "
+            "primary classifier. Required when --primary_model transformer."
+        ),
+    )
+    parser.add_argument(
+        "--transformer_device",
+        default="cpu",
+        metavar="DEVICE",
+        help="Torch device for the transformer primary model (default: cpu).",
+    )
+    parser.add_argument(
         "--ablation_config",
         default=None,
         metavar="PATH",
@@ -850,6 +946,26 @@ def main(argv: List[str] | None = None) -> int:
         )
 
     # ------------------------------------------------------------------
+    # Build the primary classifier once (mock by default).  Constructing it
+    # here means a transformer load failure (e.g. missing torch) is reported
+    # before any dataset work, and the same instance is reused by every path.
+    # ------------------------------------------------------------------
+    try:
+        primary_classifier = build_primary_classifier(
+            args.primary_model,
+            transformer_checkpoint=args.transformer_checkpoint,
+            device=args.transformer_device,
+        )
+    except (ValueError, ImportError, OSError) as exc:
+        log.error("Failed to build primary classifier: %s", exc)
+        return 1
+    if args.primary_model != "mock":
+        log.warning(
+            "Using REAL primary classifier (%s, checkpoint=%s) — results are "
+            "no longer mock.", args.primary_model, args.transformer_checkpoint,
+        )
+
+    # ------------------------------------------------------------------
     # NER path — sequence_labeling tasks get their own dataset loader
     # and evaluator.  Ablation is not supported for NER.
     # ------------------------------------------------------------------
@@ -872,6 +988,7 @@ def main(argv: List[str] | None = None) -> int:
             task_config=task_config,
             keyword_map=keyword_map,
             rule_map=rule_map,
+            primary_classifier=primary_classifier,
         )
 
     # ------------------------------------------------------------------
@@ -893,6 +1010,7 @@ def main(argv: List[str] | None = None) -> int:
             task_config=task_config,
             keyword_map=keyword_map,
             rule_map=rule_map,
+            primary_classifier=primary_classifier,
         )
 
     # ------------------------------------------------------------------
@@ -910,6 +1028,7 @@ def main(argv: List[str] | None = None) -> int:
         enable_deliberation=task_config.enable_deliberation,
         keyword_map=keyword_map,
         rule_map=rule_map,
+        primary_classifier=primary_classifier,
     )
 
     saved_paths: Dict[str, Dict[str, str]] = {}
@@ -950,6 +1069,7 @@ def _run_ner_evaluation(
     task_config: TaskConfig,
     keyword_map: Dict[str, List[str]] | None = None,
     rule_map: Dict[str, List[str]] | None = None,
+    primary_classifier=None,
 ) -> int:
     """Run NER evaluation using :class:`~src.evaluation.ner_evaluator.NEREvaluator`."""
     orchestrator = build_orchestrator(
@@ -958,6 +1078,7 @@ def _run_ner_evaluation(
         enable_deliberation=task_config.enable_deliberation,
         keyword_map=keyword_map,
         rule_map=rule_map,
+        primary_classifier=primary_classifier,
     )
 
     evaluator = NEREvaluator(
@@ -988,6 +1109,7 @@ def _run_ablation_study(
     task_config: TaskConfig,
     keyword_map: Dict[str, List[str]] | None = None,
     rule_map: Dict[str, List[str]] | None = None,
+    primary_classifier=None,
 ) -> int:
     """Load ablation configs and run a full ablation study."""
     path = args.ablation_config
@@ -1009,7 +1131,7 @@ def _run_ablation_study(
 
     log.info("Loaded %d ablation configs from '%s'.", len(configs), path)
 
-    primary_clf = MockPrimaryClassifier(mode="heuristic")
+    primary_clf = primary_classifier or MockPrimaryClassifier(mode="heuristic")
     llm_client = MockLLMClient(mode="label_echo", allowed_labels=task_config.labels)
     if keyword_map is None or rule_map is None:
         _kw, _rl = build_agent_knowledge_maps(task_config.labels)
