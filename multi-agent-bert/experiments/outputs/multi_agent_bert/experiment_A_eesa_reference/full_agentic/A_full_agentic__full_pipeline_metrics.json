@@ -1,0 +1,44 @@
+{
+  "run_id": "A_full_agentic__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-05T21:55:44.885934+00:00",
+  "num_samples": 818,
+  "accuracy": 0.795844,
+  "macro_f1": 0.778773,
+  "escalation_rate": 0.057457,
+  "escalated_count": 47,
+  "escalated_accuracy": 0.404255,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.829016,
+      "recall": 0.881543,
+      "f1": 0.854473,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.798742,
+      "recall": 0.64467,
+      "f1": 0.713483,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.747253,
+      "recall": 0.790698,
+      "f1": 0.768362,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

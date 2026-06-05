@@ -1,39 +1,40 @@
 # Experiment C — Sentiment Data MERGE Report
 
-Combined **1** source(s) into one de-duplicated, label-balanced sentiment dataset. Pilot_v1 + daily runs; NER frozen/untouched; pipeline & prompts unchanged.
+Combined **2** source(s) into one de-duplicated, label-balanced sentiment dataset. Pilot_v1 + daily runs; NER frozen/untouched; pipeline & prompts unchanged.
 
 ## Scenario coverage (resume manifest)
 - requested (full design): **324** scenarios
-- completed so far: **130**
-- remaining: **194**
-- observed yield: **0.88** kept examples / completed scenario
+- completed so far: **140**
+- remaining: **184**
+- observed yield: **0.85** kept examples / completed scenario
 
 ## Sources merged
 | source | rows in | 
 |---|--:|
 | pilot_v1 | 114 |
+| run_20260606 | 6 |
 
 ## Merged dataset (pre-balance, cross-source de-duplicated)
-- unique examples: **114**  (cross-source duplicates removed: **0**)
+- unique examples: **119**  (cross-source duplicates removed: **1**)
 
 **By label:**
 | label | count |
 |---|--:|
 | positive | 38 |
-| negative | 38 |
-| neutral | 38 |
+| negative | 41 |
+| neutral | 40 |
 
 **By topic:**
 | topic | count |
 |---|--:|
-| sports | 18 |
+| sports | 19 |
 | shopping | 18 |
 | social | 17 |
+| tech | 14 |
 | medical | 13 |
-| education | 12 |
-| tech | 12 |
+| education | 13 |
 | finance | 11 |
-| business | 9 |
+| business | 10 |
 | health | 4 |
 
 ## Balanced training set (down-sampled to 38/label)
@@ -45,35 +46,35 @@ Combined **1** source(s) into one de-duplicated, label-balanced sentiment datase
 | **TOTAL** | **114** |
 
 ## Cumulative funnel (aggregated across source stats.json)
-- raw by label: {'neutral': 176, 'negative': 226, 'positive': 238}
-- kept by label: {'positive': 38, 'neutral': 38, 'negative': 38}
+- raw by label: {'neutral': 201, 'negative': 240, 'positive': 249}
+- kept by label: {'positive': 38, 'neutral': 41, 'negative': 41}
 - filtering loss by reason:
 
 | reason | count |
 |---|--:|
 | empty_text | 0 |
-| validator_failed | 19 |
-| not_cs_valid | 445 |
-| low_quality | 32 |
+| validator_failed | 20 |
+| not_cs_valid | 481 |
+| low_quality | 39 |
 | duplicate | 0 |
 
 ## Kept by topic (cumulative)
 | topic | kept |
 |---|--:|
-| sports | 18 |
+| sports | 19 |
 | shopping | 18 |
 | social | 17 |
+| tech | 14 |
 | medical | 13 |
-| education | 12 |
-| tech | 12 |
+| education | 13 |
 | finance | 11 |
-| business | 9 |
+| business | 11 |
 | health | 4 |
 
-## Estimated remaining work (target = 150/label)
-- current smallest label: **38** (need **112** more/label)
-- estimated additional KEPT examples needed: **~336**
-- estimated additional SCENARIOS to run: **~383** (at current yield; 194 scenarios remain in the 324-design — run across days under the daily quota)
+## Estimated remaining work (target = 100/label)
+- current smallest label: **38** (need **62** more/label)
+- estimated additional KEPT examples needed: **~186**
+- estimated additional SCENARIOS to run: **~219** (at current yield; 184 scenarios remain in the 324-design — run across days under the daily quota)
 
 ## Outputs
 - `merged/switchlingua_sentiment_train_merged.csv` / `.jsonl` — balanced, ready for Experiment C.

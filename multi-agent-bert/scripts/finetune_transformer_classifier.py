@@ -218,7 +218,14 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         help="Weight decay.")
     parser.add_argument("--seed", type=int, default=42, help="Random seed.")
     parser.add_argument("--fp16", action="store_true", default=False,
-                        help="Enable fp16 (GPU only).")
+                        help="Enable fp16 mixed precision (GPU only).")
+    parser.add_argument("--grad_accum", type=int, default=1, metavar="N",
+                        help="Gradient accumulation steps. Effective batch = "
+                             "batch_size * grad_accum. Use to simulate a larger "
+                             "batch on a small GPU.")
+    parser.add_argument("--gradient_checkpointing", action="store_true", default=False,
+                        help="Trade compute for VRAM (recompute activations in "
+                             "backward). Helps fit large models on small GPUs.")
     return parser.parse_args(argv)
 
 
@@ -311,6 +318,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         num_train_epochs=args.epochs,
         per_device_train_batch_size=args.batch_size,
         per_device_eval_batch_size=args.batch_size,
+        gradient_accumulation_steps=args.grad_accum,
+        gradient_checkpointing=args.gradient_checkpointing,
         learning_rate=args.lr,
         weight_decay=args.weight_decay,
         seed=args.seed,
@@ -347,6 +356,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             "base_checkpoint": args.base_checkpoint,
             "epochs": args.epochs,
             "batch_size": args.batch_size,
+            "grad_accum": args.grad_accum,
+            "effective_batch": args.batch_size * args.grad_accum,
+            "fp16": args.fp16,
+            "gradient_checkpointing": args.gradient_checkpointing,
             "lr": args.lr,
             "train_samples": len(train_rows),
             "train_runtime_sec": round(train_result.metrics.get("train_runtime", 0.0), 2),
