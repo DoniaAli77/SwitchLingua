@@ -1,0 +1,40 @@
+{
+  "raw_instances": 640,
+  "raw_by_label": {
+    "neutral": 176,
+    "negative": 226,
+    "positive": 238
+  },
+  "kept": 114,
+  "kept_by_label": {
+    "positive": 38,
+    "neutral": 38,
+    "negative": 38
+  },
+  "kept_by_topic": {
+    "medical": 13,
+    "finance": 11,
+    "sports": 18,
+    "social": 17,
+    "education": 12,
+    "tech": 12,
+    "shopping": 18,
+    "health": 4,
+    "business": 9
+  },
+  "loss_by_reason": {
+    "empty_text": 0,
+    "validator_failed": 19,
+    "not_cs_valid": 445,
+    "low_quality": 32,
+    "duplicate": 0
+  },
+  "duplicates_removed": 0,
+  "source": "pilot_v1",
+  "date": "first_run",
+  "requested": 132,
+  "completed": 132,
+  "skipped_resumed": 0,
+  "failed": null,
+  "note": "kept counts reflect the preserved 114-sentence balanced pilot; funnel is informational."
+}
