@@ -2,8 +2,9 @@ import os
 import sys
 
 
-REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-CORE_DIR = os.path.join(REPO_ROOT, "drive_code", "core")
+# core/ is the parent of this "test files" dir; utils.py lives directly there
+# (the old "drive_code/core" sub-path no longer exists in the current layout).
+CORE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if CORE_DIR not in sys.path:
     sys.path.insert(0, CORE_DIR)
 
