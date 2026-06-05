@@ -1,0 +1,44 @@
+{
+  "run_id": "sanity_full_agentic__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-05T14:55:43.285059+00:00",
+  "num_samples": 30,
+  "accuracy": 0.366667,
+  "macro_f1": 0.279654,
+  "escalation_rate": 0.8,
+  "escalated_count": 24,
+  "escalated_accuracy": 0.333333,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.36,
+      "recall": 0.9,
+      "f1": 0.514286,
+      "support": 10
+    },
+    {
+      "label": "negative",
+      "precision": 0.25,
+      "recall": 0.1,
+      "f1": 0.142857,
+      "support": 10
+    },
+    {
+      "label": "neutral",
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.181818,
+      "support": 10
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 30,
+    "error_samples": 0
+  }
+}

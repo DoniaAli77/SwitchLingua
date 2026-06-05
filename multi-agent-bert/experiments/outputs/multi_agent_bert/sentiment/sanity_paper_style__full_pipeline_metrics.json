@@ -1,0 +1,44 @@
+{
+  "run_id": "sanity_paper_style__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-05T14:55:42.950749+00:00",
+  "num_samples": 30,
+  "accuracy": 0.8,
+  "macro_f1": 0.805211,
+  "escalation_rate": 0.766667,
+  "escalated_count": 23,
+  "escalated_accuracy": 0.913043,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.642857,
+      "recall": 0.9,
+      "f1": 0.75,
+      "support": 10
+    },
+    {
+      "label": "negative",
+      "precision": 0.888889,
+      "recall": 0.8,
+      "f1": 0.842105,
+      "support": 10
+    },
+    {
+      "label": "neutral",
+      "precision": 1.0,
+      "recall": 0.7,
+      "f1": 0.823529,
+      "support": 10
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "paper_style",
+    "valid_samples": 30,
+    "error_samples": 0
+  }
+}
