@@ -291,6 +291,32 @@ Validator as a standalone task detector (vs reference): precision **83.0%**, rec
 both quality and validator), and it **over-rejects topic**. Honest claim: the validator is worth it
 *specifically for entity-constrained tasks (NER)*, not as a blanket gate.
 
+## 6.7 Test 4 — CS-ratio MEASUREMENT validation (PARTIAL; human counts pending)
+`run_csratio_partial_validation.py` compares CS-ratio **measurement methods** on a **fixed 30-sentence
+set** (20 real sentences sampled across topic/sentiment/NER/masked/control + 10 controlled edge cases).
+**This is NOT a generation comparison — no pipeline was run.** Methods: (1) our deterministic counter
+`compute_true_cs_stats`; (2) original-style **LLM-only** counting (gpt-4o-mini, temp 0.7, **repeated 3×**
+to measure instability); (3) human manual counts (**columns blank → PENDING**). The script skips
+human-reference metrics gracefully and reports instability + det-vs-LLM disagreement only.
+Outputs: `csratio/` (validation_set.csv, validation_details.jsonl, llm_repeats.jsonl,
+partial_summary.csv, partial_report.md).
+
+| signal | value |
+|---|--:|
+| LLM-only repeats **disagree** across the 3 runs | **12/30 (40%)** |
+| mean per-sentence LLM std (Arabic count / Arabic %) | 0.60 tokens / **2.32%** |
+| deterministic counter variance | **0 (exact, free, reproducible)** |
+| det vs LLM **is_code_switched** mismatch | 0/30 |
+| mean det-vs-LLM Arabic-% abs diff | 5.04% |
+| monolingual edge cases correct (det / LLM) | 2/2 / 2/2 |
+
+**Reading:** the two methods **agree on the binary code-switch decision** (0/30 mismatch) and roughly on
+the ratio (~5% mean gap), but the **LLM-only method is unstable** — 40% of sentences get a *different*
+count on a re-run of the *same* sentence, whereas the deterministic counter is exact and free. Worst
+wobble is on long mixed sentences (e.g. CS005 ratio std 2.6% with a 17-pt det-vs-LLM gap). **Which method
+is more accurate is still PENDING** the manual human token counts; this partial run only establishes that
+the baseline LLM measurement is non-reproducible while ours is deterministic.
+
 ## 7. Overall scorecard
 
 | Claim | Evidence | Verdict |
@@ -300,6 +326,7 @@ both quality and validator), and it **over-rejects topic**. Honest claim: the va
 | Task-aware generation produces valid task data | topic 100%, sentiment 70%, **NER 40%** (English-only, final); CS-valid 87–100% | 🟡 mixed (topic strong; sentiment=neutral drag; NER weak — under-produces English-script PER); human-confirm pending |
 | TaskValidator reduces task-wrong accepts | precision 70.9%→85.5%, task-wrong 25→9 (Test 2, real validator, English-only ref); benefit concentrated in NER | ✅ supported (NER); ❌ no effect on sentiment |
 | Pipeline hits the requested CS ratio (70%) | CS-ratio MAE ≈ 14–23 pts off target (objective, Test 1) | ❌ off-target |
+| Deterministic CS counter is more reliable than LLM-only counting | LLM-only disagrees with itself on 40% of sentences (Test 4, partial); deterministic = 0 variance; accuracy vs human PENDING | 🟡 reproducibility shown; accuracy pending |
 | Quality scoring alone detects task failures | fluency/naturalness ~8 even where task fails (Test 1) | ❌ → motivates task-aware validation |
 | Humans confirm masked sentences are genuinely weaker | Step 3 / consolidated sheet built, not run | 🟡 pending |
 | Your refiner makes **better rewrites** than the original's | tie, p=0.53 (Test 6b) | ❌ not supported |
@@ -329,6 +356,9 @@ Spearman rank correlation, sign test (binomial normal approximation), Cohen's ka
 4. **Task-aware refiner untested** (Test 6b-task) — needs validator ON + task-failing sentences.
 5. **Task imbalance** (sentiment 36 vs topic 12 vs NER 6) and **single refinement pass** (MAX=1).
 6. **MASKED subset for humans = 13/50** (pilot); larger pool (30/103) available for more power.
+7. **Test 4 CS-ratio accuracy PENDING human counts** — the partial run shows the LLM-only counter is
+   non-reproducible (40% self-disagreement) vs our 0-variance deterministic counter, but *which is more
+   accurate* needs the manual Arabic/English/other token counts (blank columns in `csratio_validation_set.csv`).
 
 ## 10. File index (experiments/outputs/switchlingua/masking_defense/)
 - `PLAN.md` — step-by-step log (plain language) · `EVALUATION_PLAN.md` — full 6-test plan
