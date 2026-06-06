@@ -92,6 +92,7 @@ from src.evaluation.ablation import AblationConfig, AblationReport, AblationStud
 from src.evaluation.evaluator import EvalReport, Evaluator
 from src.evaluation.ner_evaluator import NEREvaluator, NERReport
 from src.llm.mock_client import MockLLMClient
+from src.llm.openai_client import OpenAIClient
 from src.models.mock_primary_classifier import MockPrimaryClassifier
 from src.models.primary_transformer_classifier import PrimaryTransformerClassifier
 from src.pipeline.orchestrator import PipelineOrchestrator
@@ -552,6 +553,41 @@ def build_primary_classifier(
 
 
 # ---------------------------------------------------------------------------
+# LLM-client factory (full_agentic specialist agents)
+# ---------------------------------------------------------------------------
+
+# Valid values for the --llm_client flag.
+LLM_CLIENT_CHOICES = ("mock", "openai")
+
+
+def build_llm_client(
+    llm_client: str = "mock",
+    *,
+    llm_model: str = "gpt-4o-mini",
+    allowed_labels: List[str] | None = None,
+):
+    """Return the LLM client used by the ``full_agentic`` specialist agents.
+
+    ``"mock"`` (default, used by every test) returns the offline
+    :class:`~src.llm.mock_client.MockLLMClient` in ``label_echo`` mode.
+    ``"openai"`` returns a real :class:`~src.llm.openai_client.OpenAIClient`
+    — the only branch that performs network calls / spends money, and only
+    reachable when the caller explicitly passes ``llm_client="openai"``.
+
+    Note: this client is wired into the LLM lexical/logic/contextual/
+    explainability agents, which run **only** in ``full_agentic`` mode and only
+    on escalated samples. It does not affect ``paper_style`` (non-LLM agents).
+    """
+    if llm_client == "mock":
+        return MockLLMClient(mode="label_echo", allowed_labels=allowed_labels or [])
+    if llm_client == "openai":
+        return OpenAIClient(model=llm_model)
+    raise ValueError(
+        f"Unknown llm_client {llm_client!r}; expected one of {LLM_CLIENT_CHOICES}."
+    )
+
+
+# ---------------------------------------------------------------------------
 # Orchestrator factory
 # ---------------------------------------------------------------------------
 
@@ -562,6 +598,7 @@ def build_orchestrator(
     keyword_map: Dict[str, List[str]] | None = None,
     rule_map: Dict[str, List[str]] | None = None,
     primary_classifier=None,
+    llm_client=None,
 ) -> PipelineOrchestrator:
     """Build a fully-wired orchestrator using mock components.
 
@@ -582,10 +619,14 @@ def build_orchestrator(
         Optional pre-built rule map from the config loader.  When ``None``
         the legacy :func:`build_agent_knowledge_maps` is used as a fallback.
     """
-    llm_client = MockLLMClient(
-        mode="label_echo",
-        allowed_labels=task_config.labels,
-    )
+    # LLM client for full_agentic specialist agents — defaults to the mock so
+    # every existing caller/test keeps mock behaviour.  main() injects a real
+    # OpenAI client here only when --llm_client openai is explicitly requested.
+    if llm_client is None:
+        llm_client = MockLLMClient(
+            mode="label_echo",
+            allowed_labels=task_config.labels,
+        )
 
     if enable_deliberation:
         import json as _json
@@ -877,6 +918,23 @@ def main(argv: List[str] | None = None) -> int:
         help="Torch device for the transformer primary model (default: cpu).",
     )
     parser.add_argument(
+        "--llm_client",
+        default="mock",
+        choices=list(LLM_CLIENT_CHOICES),
+        help=(
+            "LLM backend for the full_agentic specialist agents. 'mock' "
+            "(default) uses the offline MockLLMClient and spends nothing. "
+            "'openai' calls the real OpenAI API (needs OPENAI_API_KEY) — only "
+            "on escalated samples. No effect in primary_only/paper_style."
+        ),
+    )
+    parser.add_argument(
+        "--llm_model",
+        default="gpt-4o-mini",
+        metavar="MODEL",
+        help="OpenAI model id when --llm_client openai (default: gpt-4o-mini).",
+    )
+    parser.add_argument(
         "--ablation_config",
         default=None,
         metavar="PATH",
@@ -966,6 +1024,25 @@ def main(argv: List[str] | None = None) -> int:
         )
 
     # ------------------------------------------------------------------
+    # Build the LLM client for full_agentic specialist agents (mock default).
+    # ------------------------------------------------------------------
+    try:
+        llm_client = build_llm_client(
+            args.llm_client,
+            llm_model=args.llm_model,
+            allowed_labels=task_config.labels,
+        )
+    except (ValueError, ImportError) as exc:
+        log.error("Failed to build LLM client: %s", exc)
+        return 1
+    if args.llm_client != "mock":
+        log.warning(
+            "Using REAL LLM client (%s, model=%s) for full_agentic agents — "
+            "this calls the API and spends money on escalated samples.",
+            args.llm_client, args.llm_model,
+        )
+
+    # ------------------------------------------------------------------
     # NER path — sequence_labeling tasks get their own dataset loader
     # and evaluator.  Ablation is not supported for NER.
     # ------------------------------------------------------------------
@@ -989,6 +1066,7 @@ def main(argv: List[str] | None = None) -> int:
             keyword_map=keyword_map,
             rule_map=rule_map,
             primary_classifier=primary_classifier,
+            llm_client=llm_client,
         )
 
     # ------------------------------------------------------------------
@@ -1011,6 +1089,7 @@ def main(argv: List[str] | None = None) -> int:
             keyword_map=keyword_map,
             rule_map=rule_map,
             primary_classifier=primary_classifier,
+            llm_client=llm_client,
         )
 
     # ------------------------------------------------------------------
@@ -1029,6 +1108,7 @@ def main(argv: List[str] | None = None) -> int:
         keyword_map=keyword_map,
         rule_map=rule_map,
         primary_classifier=primary_classifier,
+        llm_client=llm_client,
     )
 
     saved_paths: Dict[str, Dict[str, str]] = {}
@@ -1060,7 +1140,34 @@ def main(argv: List[str] | None = None) -> int:
             _safe_print(f"    {key}: {path}")
     _safe_print("─" * 60)
 
+    _report_llm_usage(llm_client, args.output_dir, args.run_id)
+
     return 0
+
+
+def _report_llm_usage(llm_client, output_dir: str, run_id: str | None) -> None:
+    """Print and persist OpenAI token usage / cost when a real client was used."""
+    summary = getattr(llm_client, "usage_summary", None)
+    if summary is None:
+        return
+    usage = summary()
+    _safe_print(f"\n{'─' * 60}")
+    _safe_print("  LLM usage (real client)")
+    _safe_print(f"    model            : {usage['model']}")
+    _safe_print(f"    OpenAI calls     : {usage['calls']}")
+    _safe_print(f"    prompt tokens    : {usage['prompt_tokens']}")
+    _safe_print(f"    completion tokens: {usage['completion_tokens']}")
+    _safe_print(f"    total tokens     : {usage['total_tokens']}")
+    _safe_print(f"    est. cost (USD)  : ${usage['est_cost_usd']}")
+    _safe_print("─" * 60)
+    try:
+        out = Path(output_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        fname = f"{run_id}__llm_usage.json" if run_id else "llm_usage.json"
+        (out / fname).write_text(json.dumps(usage, indent=2), encoding="utf-8")
+        log.info("LLM usage written to %s", out / fname)
+    except OSError as exc:
+        log.warning("Could not write LLM usage file: %s", exc)
 
 
 def _run_ner_evaluation(
@@ -1070,6 +1177,7 @@ def _run_ner_evaluation(
     keyword_map: Dict[str, List[str]] | None = None,
     rule_map: Dict[str, List[str]] | None = None,
     primary_classifier=None,
+    llm_client=None,
 ) -> int:
     """Run NER evaluation using :class:`~src.evaluation.ner_evaluator.NEREvaluator`."""
     orchestrator = build_orchestrator(
@@ -1079,6 +1187,7 @@ def _run_ner_evaluation(
         keyword_map=keyword_map,
         rule_map=rule_map,
         primary_classifier=primary_classifier,
+        llm_client=llm_client,
     )
 
     evaluator = NEREvaluator(
@@ -1110,6 +1219,7 @@ def _run_ablation_study(
     keyword_map: Dict[str, List[str]] | None = None,
     rule_map: Dict[str, List[str]] | None = None,
     primary_classifier=None,
+    llm_client=None,
 ) -> int:
     """Load ablation configs and run a full ablation study."""
     path = args.ablation_config
@@ -1132,7 +1242,8 @@ def _run_ablation_study(
     log.info("Loaded %d ablation configs from '%s'.", len(configs), path)
 
     primary_clf = primary_classifier or MockPrimaryClassifier(mode="heuristic")
-    llm_client = MockLLMClient(mode="label_echo", allowed_labels=task_config.labels)
+    if llm_client is None:
+        llm_client = MockLLMClient(mode="label_echo", allowed_labels=task_config.labels)
     if keyword_map is None or rule_map is None:
         _kw, _rl = build_agent_knowledge_maps(task_config.labels)
         keyword_map = keyword_map if keyword_map is not None else _kw
