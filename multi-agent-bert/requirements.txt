@@ -1,4 +1,8 @@
 pytest>=8.0.0
 PyYAML>=6.0.0
 torch>=2.0.0
-transformers>=4.30.0
+# transformers 5.x requires torch features absent in torch 2.6 (torch.float8_e8m0fnu);
+# mBERT/XLM-R Experiment A were run with transformers 4.57.6. Pin <5 until torch is upgraded.
+transformers>=4.30.0,<5
+# Optional, only for the real-LLM full_agentic pilot (--llm_client openai):
+# openai>=1.0.0

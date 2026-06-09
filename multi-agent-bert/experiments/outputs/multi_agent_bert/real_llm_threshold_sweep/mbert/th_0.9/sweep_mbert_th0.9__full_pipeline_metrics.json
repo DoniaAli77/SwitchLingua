@@ -1,0 +1,44 @@
+{
+  "run_id": "sweep_mbert_th0.9__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-09T10:01:59.028899+00:00",
+  "num_samples": 818,
+  "accuracy": 0.821516,
+  "macro_f1": 0.809515,
+  "escalation_rate": 0.224939,
+  "escalated_count": 184,
+  "escalated_accuracy": 0.641304,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.884615,
+      "recall": 0.887052,
+      "f1": 0.885832,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.820225,
+      "recall": 0.741117,
+      "f1": 0.778667,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.73913,
+      "recall": 0.790698,
+      "f1": 0.764045,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
