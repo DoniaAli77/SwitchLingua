@@ -1,0 +1,44 @@
+{
+  "run_id": "sweep_xlmr_th0.9__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-09T10:47:59.776732+00:00",
+  "num_samples": 818,
+  "accuracy": 0.844743,
+  "macro_f1": 0.833025,
+  "escalation_rate": 0.232274,
+  "escalated_count": 190,
+  "escalated_accuracy": 0.647368,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.867684,
+      "recall": 0.939394,
+      "f1": 0.902116,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.827411,
+      "recall": 0.827411,
+      "f1": 0.827411,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.820175,
+      "recall": 0.724806,
+      "f1": 0.769547,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

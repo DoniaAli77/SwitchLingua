@@ -17,3 +17,8 @@
 /scripts
 .DS_Store
 *.pdf
+
+# Model checkpoints / training artifacts (too large for GitHub's 100 MB limit)
+multi-agent-bert/experiments/checkpoints/
+*.safetensors
+*.bin
