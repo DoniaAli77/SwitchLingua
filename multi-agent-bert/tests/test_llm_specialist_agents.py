@@ -225,20 +225,22 @@ class TestLLMLexicalAgent:
         event = next(e for e in state.history if e.component == "LLMLexicalAgent")
         assert event.outputs.get("fallback") is False
 
-    def test_invalid_json_triggers_fallback(self) -> None:
+    def test_invalid_json_triggers_abstain(self) -> None:
         agent = LLMLexicalAgent(llm_client=_FixedClient("not json at all"))
         state = _make_state()
         state = agent.run(state)
         assert state.lexical_output is not None
-        assert state.lexical_output.features.get("fallback") is True
+        assert state.lexical_output.features.get("abstained") is True
 
-    def test_invalid_json_label_is_valid_task_label(self) -> None:
+    def test_invalid_json_abstains_label_none(self) -> None:
         agent = LLMLexicalAgent(llm_client=_FixedClient("not json at all"))
         state = _make_state()
         state = agent.run(state)
-        assert state.lexical_output.model_output.label in _LABELS
+        # Abstain, not labels[0]:
+        assert state.lexical_output.model_output.label is None
+        assert state.lexical_output.model_output.probabilities == {}
 
-    def test_invalid_label_triggers_fallback(self) -> None:
+    def test_invalid_label_triggers_abstain(self) -> None:
         bad = json.dumps({
             "label": "UNKNOWN_LABEL",
             "confidence": 0.9,
@@ -248,9 +250,9 @@ class TestLLMLexicalAgent:
         agent = LLMLexicalAgent(llm_client=_FixedClient(bad))
         state = _make_state()
         state = agent.run(state)
-        assert state.lexical_output.features.get("fallback") is True
+        assert state.lexical_output.features.get("abstained") is True
 
-    def test_invalid_label_fallback_uses_valid_label(self) -> None:
+    def test_invalid_label_abstains_label_none(self) -> None:
         bad = json.dumps({
             "label": "INVENTED",
             "confidence": 0.9,
@@ -260,14 +262,14 @@ class TestLLMLexicalAgent:
         agent = LLMLexicalAgent(llm_client=_FixedClient(bad))
         state = _make_state()
         state = agent.run(state)
-        assert state.lexical_output.model_output.label in _LABELS
+        assert state.lexical_output.model_output.label is None  # NOT labels[0]
 
-    def test_missing_key_triggers_fallback(self) -> None:
+    def test_missing_key_triggers_abstain(self) -> None:
         incomplete = json.dumps({"label": "tech", "confidence": 0.8})
         agent = LLMLexicalAgent(llm_client=_FixedClient(incomplete))
         state = _make_state()
         state = agent.run(state)
-        assert state.lexical_output.features.get("fallback") is True
+        assert state.lexical_output.features.get("abstained") is True
 
     def test_llm_client_error_propagates(self) -> None:
         agent = LLMLexicalAgent(llm_client=_RaisingClient())
@@ -343,19 +345,20 @@ class TestLLMLogicAgent:
         event = next(e for e in state.history if e.component == "LLMLogicAgent")
         assert event.outputs.get("fallback") is False
 
-    def test_invalid_json_triggers_fallback(self) -> None:
+    def test_invalid_json_triggers_abstain(self) -> None:
         agent = LLMLogicAgent(llm_client=_FixedClient("{broken"))
         state = _make_state()
         state = agent.run(state)
-        assert state.logic_output.features.get("fallback") is True
+        assert state.logic_output.features.get("abstained") is True
 
-    def test_invalid_json_label_is_valid_task_label(self) -> None:
+    def test_invalid_json_abstains_label_none(self) -> None:
         agent = LLMLogicAgent(llm_client=_FixedClient("{broken"))
         state = _make_state()
         state = agent.run(state)
-        assert state.logic_output.model_output.label in _LABELS
+        assert state.logic_output.model_output.label is None
+        assert state.logic_output.model_output.probabilities == {}
 
-    def test_invalid_label_triggers_fallback(self) -> None:
+    def test_invalid_label_triggers_abstain(self) -> None:
         bad = json.dumps({
             "label": "BADLABEL",
             "confidence": 0.9,
@@ -365,9 +368,9 @@ class TestLLMLogicAgent:
         agent = LLMLogicAgent(llm_client=_FixedClient(bad))
         state = _make_state()
         state = agent.run(state)
-        assert state.logic_output.features.get("fallback") is True
+        assert state.logic_output.features.get("abstained") is True
 
-    def test_invalid_label_fallback_uses_valid_label(self) -> None:
+    def test_invalid_label_abstains_label_none(self) -> None:
         bad = json.dumps({
             "label": "INVENTED",
             "confidence": 0.9,
@@ -377,7 +380,7 @@ class TestLLMLogicAgent:
         agent = LLMLogicAgent(llm_client=_FixedClient(bad))
         state = _make_state()
         state = agent.run(state)
-        assert state.logic_output.model_output.label in _LABELS
+        assert state.logic_output.model_output.label is None  # NOT labels[0]
 
     def test_llm_client_error_propagates(self) -> None:
         agent = LLMLogicAgent(llm_client=_RaisingClient())

@@ -32,6 +32,7 @@ import logging
 import re
 from typing import Any, Dict, List, Optional
 
+from src.agents._abstain import abstain_output
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401
 from src.prompts.llm_lexical_prompt import SYSTEM_PROMPT, build_user_prompt
@@ -204,20 +205,11 @@ class LLMLexicalAgent(BaseAgent[PipelineState]):
     def _fallback_output(
         self, state: PipelineState, note: str, raw_response: str
     ) -> AgentOutput:
-        labels = state.task_config.labels
-        uniform = 1.0 / len(labels) if labels else 0.0
-        fallback_label = labels[0] if labels else "unknown"
-        return AgentOutput(
-            agent_name=self.name,
-            model_output=ModelOutput(
-                label=fallback_label,
-                confidence=uniform,
-                probabilities={lbl: uniform for lbl in labels},
-                raw_text=state.input_text,
-            ),
-            notes=note,
-            features={"raw_llm_response": raw_response, "fallback": True},
-        )
+        # Abstain (no vote) instead of defaulting to labels[0]; consensus excludes
+        # None-label outputs. Attach the raw response for debugging.
+        out = abstain_output(self.name, state, note)
+        out.features["raw_llm_response"] = raw_response
+        return out
 
     @staticmethod
     def _build_probabilities(

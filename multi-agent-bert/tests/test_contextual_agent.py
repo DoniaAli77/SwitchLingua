@@ -305,7 +305,7 @@ class TestInvalidLabelFallback:
         state = agent.run(make_state("I love music"))
         assert state.contextual_output.notes == _INVALID_LABEL_NOTE
 
-    def test_fallback_label_is_first_in_list(self):
+    def test_invalid_label_abstains_not_first_label(self):
         resp = json.dumps({
             "label": "xyz",
             "confidence": 0.9,
@@ -316,7 +316,9 @@ class TestInvalidLabelFallback:
         agent = ContextualAgent(client)
         labels = ["finance", "tech", "sports"]
         state = agent.run(make_state("text", labels))
-        assert state.contextual_output.model_output.label == "finance"
+        # Abstain (no vote), NOT labels[0] ('finance'):
+        assert state.contextual_output.model_output.label is None
+        assert state.contextual_output.features.get("abstained") is True
 
 
 # ---------------------------------------------------------------------------

@@ -26,6 +26,7 @@ import logging
 import re
 from typing import Dict, List, Optional
 
+from src.agents._abstain import abstain_output
 from src.agents.base_agent import BaseAgent
 from src.state.schema import AgentOutput, ModelOutput, PipelineState
 
@@ -104,28 +105,31 @@ class LexicalAgent(BaseAgent[PipelineState]):
 
         # --- normalise into probabilities ---
         if total_hits == 0:
-            uniform = round(1.0 / len(labels), 6)
-            probabilities = {lbl: uniform for lbl in labels}
-            best_label = labels[0]
-            all_evidence: List[str] = []
-            reasoning = _NO_MATCH_NOTE
-        else:
-            probabilities = {
-                lbl: round(raw_scores[lbl] / total_hits, 6) for lbl in labels
-            }
-            # Stable tiebreak: first label with max score wins (deterministic).
-            best_label = max(labels, key=lambda lbl: raw_scores[lbl])
-            all_evidence = [
-                f"{lbl}:{kw}"
-                for lbl in labels
-                for kw in evidence_by_label[lbl]
-            ]
-            matched_label_count = sum(1 for s in raw_scores.values() if s > 0)
-            reasoning = (
-                f"Matched {total_hits} keyword(s) across "
-                f"{matched_label_count} label(s). "
-                f"Best: '{best_label}' ({probabilities[best_label]:.2%})."
+            # No keyword signal → abstain (no vote) rather than defaulting to a label.
+            state.lexical_output = abstain_output(self.name, state, _NO_MATCH_NOTE)
+            state.append_history(
+                component=self.name,
+                summary=f"No keyword match — abstaining (no vote). {_NO_MATCH_NOTE}",
+                outputs={"abstained": True, "raw_scores": dict(raw_scores)},
             )
+            return state
+
+        probabilities = {
+            lbl: round(raw_scores[lbl] / total_hits, 6) for lbl in labels
+        }
+        # Stable tiebreak: first label with max score wins (deterministic).
+        best_label = max(labels, key=lambda lbl: raw_scores[lbl])
+        all_evidence = [
+            f"{lbl}:{kw}"
+            for lbl in labels
+            for kw in evidence_by_label[lbl]
+        ]
+        matched_label_count = sum(1 for s in raw_scores.values() if s > 0)
+        reasoning = (
+            f"Matched {total_hits} keyword(s) across "
+            f"{matched_label_count} label(s). "
+            f"Best: '{best_label}' ({probabilities[best_label]:.2%})."
+        )
 
         model_output = ModelOutput(
             label=best_label,

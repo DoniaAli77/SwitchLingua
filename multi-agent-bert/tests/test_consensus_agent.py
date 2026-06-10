@@ -279,20 +279,32 @@ class TestMissingOutputs:
         assert state.consensus_output.label == "neutral"
         assert state.final_output.label == "neutral"
 
-    def test_no_agents_present_returns_fallback(self):
+    def test_all_abstain_no_primary_returns_none_not_first_label(self):
+        # No agent votes AND no usable primary → no-decision (label None), NEVER labels[0].
         state = make_state()
         state = ConsensusAgent().run(state)
         assert state.consensus_output is not None
         assert state.final_output is not None
-        assert state.consensus_output.label == LABELS[0]
+        assert state.consensus_output.label is None      # not LABELS[0]
+        assert state.final_output.label is None
         assert _NO_VOTE_NOTE in state.consensus_output.rationale
+        assert "no_decision" in state.consensus_output.rationale
 
-    def test_fallback_confidence_is_uniform(self):
+    def test_all_abstain_no_primary_confidence_is_none(self):
         state = make_state()
         state = ConsensusAgent().run(state)
-        expected = round(1.0 / len(LABELS), 6)
-        assert state.consensus_output.confidence == pytest.approx(expected)
-        assert state.final_output.confidence == pytest.approx(expected)
+        assert state.consensus_output.confidence is None
+        assert state.final_output.confidence is None
+
+    def test_all_abstain_falls_back_to_primary(self):
+        # No agent votes but a usable primary → defer to primary, NEVER labels[0].
+        state = make_state()
+        state.primary_model_output = ModelOutput(label="negative", confidence=0.71)
+        state = ConsensusAgent().run(state)
+        assert state.final_output.label == "negative"    # primary, not LABELS[0] ('positive')
+        assert state.consensus_output.label == "negative"
+        assert state.final_output.confidence == pytest.approx(0.71)
+        assert "primary_fallback" in state.consensus_output.rationale
 
     def test_all_agents_have_none_confidence(self):
         state = make_state(

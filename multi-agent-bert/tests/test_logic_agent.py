@@ -106,30 +106,33 @@ class TestMultiLabelScoring:
 # ---------------------------------------------------------------------------
 
 class TestNoMatchFallback:
-    def test_uniform_probabilities_when_no_rules_fire(self):
+    def test_no_rules_fire_abstains_with_empty_probabilities(self):
         agent = LogicAgent({"tech": [r"\bquantum\b"], "sports": [r"\bpolo\b"]})
         state = agent.run(make_state("today is a lovely day", ["tech", "sports"]))
-        probs = state.logic_output.model_output.probabilities
-        assert probs["tech"] == pytest.approx(0.5)
-        assert probs["sports"] == pytest.approx(0.5)
+        out = state.logic_output
+        assert out.model_output.label is None
+        assert out.model_output.probabilities == {}
+        assert out.features.get("abstained") is True
 
-    def test_fallback_picks_first_label(self):
+    def test_no_match_returns_abstain_not_first_label(self):
         labels = ["finance", "tech", "sports"]
         agent = LogicAgent({})
         state = agent.run(make_state("nothing relevant", labels))
-        assert state.logic_output.model_output.label == "finance"
+        out = state.logic_output
+        assert out.model_output.label is None         # NOT labels[0] ('finance')
+        assert out.features.get("abstained") is True
 
     def test_fallback_note_set(self):
         agent = LogicAgent({})
         state = agent.run(make_state("irrelevant", ["tech", "sports"]))
         assert state.logic_output.notes == _NO_MATCH_NOTE
 
-    def test_empty_rule_map_is_valid(self):
+    def test_empty_rule_map_abstains(self):
         agent = LogicAgent({})
         state = agent.run(make_state("any text", ["tech"]))
         out = state.logic_output
-        assert out.model_output.label == "tech"
-        assert out.model_output.confidence == pytest.approx(1.0)
+        assert out.model_output.label is None         # no rules → abstain
+        assert out.features.get("abstained") is True
 
 
 # ---------------------------------------------------------------------------
@@ -150,10 +153,12 @@ class TestTriggeredRules:
         # First tech pattern fires once (app, SDK, cloud → one regex match counts as 1 trigger)
         assert any(t.startswith("tech:") for t in triggered)
 
-    def test_no_trigger_gives_empty_list(self):
+    def test_no_trigger_abstains(self):
         agent = LogicAgent({"tech": [r"\bquantum\b"]})
         state = agent.run(make_state("nothing here", ["tech"]))
-        assert state.logic_output.features["triggered_rules"] == []
+        out = state.logic_output
+        assert out.model_output.label is None          # no rule fired → abstain
+        assert out.features.get("abstained") is True
 
     def test_raw_scores_present_and_accurate(self):
         agent = LogicAgent({"tech": [r"\bAPI\b", r"\bSDK\b"], "finance": [r"\bbank\b"]})

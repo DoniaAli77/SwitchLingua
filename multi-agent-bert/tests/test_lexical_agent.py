@@ -58,9 +58,11 @@ class TestEnglishMatching:
         # "AI" must not match "FAIL" or "rail"
         agent = LexicalAgent({"tech": ["AI"], "sports": ["match"]})
         state = agent.run(make_state("rail infrastructure FAILED today", ["tech", "sports"]))
-        # No whole-word "AI" → fallback
+        # No whole-word "AI" → abstain (no vote), not a first-label fallback
         out = state.lexical_output
-        assert out.model_output.confidence == pytest.approx(0.5)  # uniform over 2 labels
+        assert out.model_output.label is None
+        assert out.model_output.probabilities == {}
+        assert out.features.get("abstained") is True
         assert out.notes == _NO_MATCH_NOTE
 
     def test_case_insensitive_latin(self):
@@ -98,9 +100,9 @@ class TestArabicMatching:
             make_state("يُعدّ الذكاء الاصطناعي محور التطور", ["tech", "sports"])
         )
         # "ذكاء اصطناعي" as substring — will NOT match "الذكاء الاصطناعي"
-        # This confirms the agent doesn't add phantom matches; no match → fallback.
+        # This confirms the agent doesn't add phantom matches; no match → abstain.
         out = state.lexical_output
-        assert out.model_output.label == "tech"  # first label fallback
+        assert out.model_output.label is None  # abstain, not first-label
         assert out.notes == _NO_MATCH_NOTE
 
     def test_exact_arabic_substring_match(self):
@@ -139,33 +141,33 @@ class TestCodeSwitchedMatching:
 # ---------------------------------------------------------------------------
 
 class TestNoMatchFallback:
-    def test_no_match_uses_uniform_distribution(self):
+    def test_no_match_abstains_with_empty_probabilities(self):
         agent = LexicalAgent({"tech": ["quantum"], "sports": ["polo"], "finance": ["bitcoin"]})
         state = agent.run(make_state("today is a nice day"))
         out = state.lexical_output
-        probs = out.model_output.probabilities
-        expected = pytest.approx(1 / 3, rel=1e-4)
-        assert probs["tech"] == expected
-        assert probs["sports"] == expected
-        assert probs["finance"] == expected
+        assert out.model_output.label is None
+        assert out.model_output.probabilities == {}   # no fake uniform distribution
+        assert out.features.get("abstained") is True
 
-    def test_no_match_picks_first_label(self):
+    def test_no_match_returns_abstain_not_first_label(self):
         labels = ["finance", "tech", "sports"]
         agent = LexicalAgent({})
         state = agent.run(make_state("nothing relevant here", labels))
-        assert state.lexical_output.model_output.label == "finance"
+        out = state.lexical_output
+        assert out.model_output.label is None         # NOT labels[0] ('finance')
+        assert out.features.get("abstained") is True
 
     def test_no_match_note_set(self):
         agent = LexicalAgent({})
         state = agent.run(make_state("irrelevant", ["tech", "sports"]))
         assert state.lexical_output.notes == _NO_MATCH_NOTE
 
-    def test_empty_keyword_map_is_valid(self):
+    def test_empty_keyword_map_abstains(self):
         agent = LexicalAgent({})
         state = agent.run(make_state("any text", ["tech"]))
         out = state.lexical_output
-        assert out.model_output.label == "tech"
-        assert out.model_output.confidence == pytest.approx(1.0)  # 1/1 label
+        assert out.model_output.label is None         # no keywords → abstain
+        assert out.features.get("abstained") is True
 
 
 # ---------------------------------------------------------------------------

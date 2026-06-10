@@ -201,29 +201,47 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 )
                 vote_details["deliberation"] = "no vote"
 
-        # --- No usable votes → fallback -------------------------------------
+        # --- All agents abstained → defer to the primary (never labels[0]) ---
         if active_weight_sum == 0.0:
-            self.logger.warning("%s: no usable agent votes; applying fallback.", self.name)
-            fallback_label = labels[0]
-            fallback_conf = round(1.0 / len(labels), 6)
+            primary = state.primary_model_output
+            if primary.label is not None and task.is_allowed_label(primary.label):
+                fb_label: Optional[str] = primary.label
+                fb_conf: Optional[float] = primary.confidence
+                source = "primary_fallback"
+                self.logger.warning(
+                    "%s: all agents abstained; deferring to primary '%s'.",
+                    self.name, fb_label,
+                )
+            else:
+                # No usable primary either — return a no-decision (label=None),
+                # NEVER labels[0].
+                fb_label = None
+                fb_conf = None
+                source = "no_decision"
+                self.logger.warning(
+                    "%s: all agents abstained and no usable primary; no decision.",
+                    self.name,
+                )
+            rationale = f"{_NO_VOTE_NOTE} fallback_source={source}"
             state.consensus_output = ConsensusOutput(
-                label=fallback_label,
-                confidence=fallback_conf,
+                label=fb_label,
+                confidence=fb_conf,
                 votes={lbl: 0.0 for lbl in labels},
-                rationale=_NO_VOTE_NOTE,
+                rationale=rationale,
             )
             state.final_output = FinalOutput(
-                label=fallback_label,
-                confidence=fallback_conf,
+                label=fb_label,
+                confidence=fb_conf,
+                payload={"source": source},
             )
             state.append_history(
                 component=self.name,
-                summary=f"No usable votes — fallback to '{fallback_label}' (uniform confidence).",
+                summary=f"All agents abstained — {source} (label={fb_label}).",
                 outputs={
-                    "label": fallback_label,
-                    "confidence": fallback_conf,
+                    "label": fb_label,
+                    "confidence": fb_conf,
                     "votes": {lbl: 0.0 for lbl in labels},
-                    "fallback": True,
+                    "abstain_fallback": source,
                 },
             )
             return state

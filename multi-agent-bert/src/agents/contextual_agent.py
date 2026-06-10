@@ -27,6 +27,7 @@ import logging
 import re
 from typing import Any, Dict, List, Optional
 
+from src.agents._abstain import abstain_output
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401 (re-exported for callers)
 from src.prompts.contextual_prompt import SYSTEM_PROMPT, build_user_prompt
@@ -297,17 +298,7 @@ class ContextualAgent(BaseAgent[PipelineState]):
         note: str,
         raw_response: str,
     ) -> AgentOutput:
-        """Return a uniform-confidence fallback ``AgentOutput``."""
-        labels = state.task_config.labels
-        uniform = round(1.0 / len(labels), 6)
-        return AgentOutput(
-            agent_name=self.name,
-            model_output=ModelOutput(
-                label=labels[0],
-                confidence=uniform,
-                probabilities={lbl: uniform for lbl in labels},
-                raw_text=state.input_text,
-            ),
-            notes=note,
-            features={"raw_llm_response": raw_response},
-        )
+        """Return an abstaining (no-vote) ``AgentOutput`` instead of labels[0]."""
+        out = abstain_output(self.name, state, note)
+        out.features["raw_llm_response"] = raw_response
+        return out

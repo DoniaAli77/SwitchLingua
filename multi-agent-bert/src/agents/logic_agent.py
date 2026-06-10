@@ -28,6 +28,7 @@ import logging
 import re
 from typing import Dict, List, NamedTuple, Optional
 
+from src.agents._abstain import abstain_output
 from src.agents.base_agent import BaseAgent
 from src.state.schema import AgentOutput, ModelOutput, PipelineState
 
@@ -113,20 +114,24 @@ class LogicAgent(BaseAgent[PipelineState]):
         total_hits = sum(raw_scores.values())
 
         if total_hits == 0:
-            uniform = round(1.0 / len(labels), 6)
-            probabilities = {lbl: uniform for lbl in labels}
-            best_label = labels[0]
-            reasoning = _NO_MATCH_NOTE
-        else:
-            probabilities = {
-                lbl: round(raw_scores[lbl] / total_hits, 6) for lbl in labels
-            }
-            best_label = max(labels, key=lambda lbl: raw_scores[lbl])
-            fired_count = sum(1 for s in raw_scores.values() if s > 0)
-            reasoning = (
-                f"Triggered {total_hits} rule(s) across {fired_count} label(s). "
-                f"Best: '{best_label}' ({probabilities[best_label]:.2%})."
+            # No rule signal → abstain (no vote) rather than defaulting to a label.
+            state.logic_output = abstain_output(self.name, state, _NO_MATCH_NOTE)
+            state.append_history(
+                component=self.name,
+                summary=f"No rule match — abstaining (no vote). {_NO_MATCH_NOTE}",
+                outputs={"abstained": True, "raw_scores": dict(raw_scores)},
             )
+            return state
+
+        probabilities = {
+            lbl: round(raw_scores[lbl] / total_hits, 6) for lbl in labels
+        }
+        best_label = max(labels, key=lambda lbl: raw_scores[lbl])
+        fired_count = sum(1 for s in raw_scores.values() if s > 0)
+        reasoning = (
+            f"Triggered {total_hits} rule(s) across {fired_count} label(s). "
+            f"Best: '{best_label}' ({probabilities[best_label]:.2%})."
+        )
 
         model_output = ModelOutput(
             label=best_label,
