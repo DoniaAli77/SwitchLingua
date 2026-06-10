@@ -75,7 +75,7 @@ TEXT TO CLASSIFY:
 $text
 
 Apply logical and rule-based reasoning: identify relational patterns and structural cues \
-in both Arabic and English that point to one domain.
+(in any language present, e.g. Arabic and English) that point to one allowed label.
 Respond with JSON only. "label" must be exactly one of: $labels_csv\
 """)
 
