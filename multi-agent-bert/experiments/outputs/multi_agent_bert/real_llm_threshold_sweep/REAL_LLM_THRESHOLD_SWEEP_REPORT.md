@@ -92,7 +92,20 @@ an internet outage, not a model/JSON/proxy issue.
   sweep's monotonic decline — the agents, not the routing, were the prior
   bottleneck.
 
-## Open item
-Re-run **mBERT at 0.7 / 0.8 / 0.9** once the internet connection is stable to
-replace the contaminated rows with clean numbers (~$0.13, ~10 min). No code or
-threshold-config change implied.
+## Open item (blocked — checkpoints deleted)
+A clean-connection re-run of **mBERT 0.7/0.8/0.9** was attempted (2026-06-10) and
+**failed**: the entire `experiments/checkpoints/` directory (both `eesa_mbert`
+and `eesa_xlm_roberta_base`) has been **deleted** (untracked local files, not in
+git). The fine-tuned models no longer exist on disk, so no new real-transformer
+evaluation can run until they are regenerated.
+
+- All previously saved predictions/metrics are intact — the **XLM-R clean sweep
+  and both 0.6 pilots above are unaffected**.
+- To finish the clean mBERT high-threshold rows we must first **re-fine-tune
+  mBERT** (`scripts/finetune_transformer_classifier.py`, seed 42, ~10 min, free
+  local GPU), which yields a *new* checkpoint — so to stay self-consistent the
+  mBERT primary_only / 0.6 / 0.9 would all be re-derived on the new checkpoint
+  (do not mix the old-checkpoint 0.6 pilot with a new-checkpoint 0.9).
+- **Action needed before any future paid real-primary re-eval** (e.g. validating
+  the consensus fixes): regenerate and **back up** both checkpoints
+  (mBERT ~10 min, XLM-R ~41 min). Connectivity itself is fine (probe succeeded).
