@@ -1,0 +1,44 @@
+{
+  "run_id": "fix2_xlmr_th0.8__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-11T10:38:33.755822+00:00",
+  "num_samples": 818,
+  "accuracy": 0.844743,
+  "macro_f1": 0.832291,
+  "escalation_rate": 0.133252,
+  "escalated_count": 109,
+  "escalated_accuracy": 0.651376,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.886544,
+      "recall": 0.92562,
+      "f1": 0.90566,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.80402,
+      "recall": 0.812183,
+      "f1": 0.808081,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.8125,
+      "recall": 0.755814,
+      "f1": 0.783133,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
