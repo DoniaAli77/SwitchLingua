@@ -54,7 +54,47 @@ _DEFAULT_WEIGHTS: Dict[str, float] = {
     "contextual": 1.0,
     "logic": 1.0,
     "deliberation": 0.0,  # Off by default; set > 0 to include deliberation vote.
+    # Primary-aware consensus (audit C1): the primary model participates as a
+    # weighted vote/prior on the escalation path. Confidence-scaled, so a
+    # near-threshold-confident primary anchors more than a barely-confident one.
+    # Set 0.0 to reproduce the legacy agents-only behaviour (ablation).
+    "primary": 1.0,
 }
+
+
+def _select_winner(
+    tied: List[str],
+    primary_label: Optional[str],
+    vote_counts: Dict[str, int],
+    max_contribution: Dict[str, float],
+) -> str:
+    """Pick the winner among score-tied labels without using config label order.
+
+    Precedence: (1) the primary's label if it is tied; (2) the label with more
+    voting agents; (3) the label with the highest single agent contribution;
+    (4) deterministic alphabetical (NOT ``task_config.labels`` order).
+    ``tied`` must be non-empty.
+    """
+    if len(tied) == 1:
+        return tied[0]
+    # 1. Conservative anchor: prefer the primary's own label.
+    if primary_label is not None and primary_label in tied:
+        return primary_label
+    # 2. Most voting agents.
+    best_count = max(vote_counts.get(lbl, 0) for lbl in tied)
+    cands = [lbl for lbl in tied if vote_counts.get(lbl, 0) == best_count]
+    if len(cands) == 1:
+        return cands[0]
+    # 3. Highest single agent contribution.
+    best_contrib = max(max_contribution.get(lbl, 0.0) for lbl in cands)
+    cands = [
+        lbl for lbl in cands
+        if abs(max_contribution.get(lbl, 0.0) - best_contrib) <= 1e-9
+    ]
+    if len(cands) == 1:
+        return cands[0]
+    # 4. Deterministic, label-order-free last resort.
+    return sorted(cands)[0]
 
 
 def _extract_vote(
@@ -117,10 +157,10 @@ class ConsensusAgent(BaseAgent[PipelineState]):
     ) -> None:
         super().__init__(name=name or "ConsensusAgent", logger=logger)
         raw: Dict[str, float] = {**_DEFAULT_WEIGHTS, **(weights or {})}
-        # Clamp negatives; keep all four known slots.
+        # Clamp negatives; keep all known slots (incl. the primary prior).
         self.weights: Dict[str, float] = {
             slot: max(0.0, raw.get(slot, _DEFAULT_WEIGHTS.get(slot, 0.0)))
-            for slot in ("lexical", "contextual", "logic", "deliberation")
+            for slot in ("lexical", "contextual", "logic", "deliberation", "primary")
         }
 
     # ------------------------------------------------------------------
@@ -149,6 +189,10 @@ class ConsensusAgent(BaseAgent[PipelineState]):
 
         # score[label] accumulates weighted confidence values.
         scores: Dict[str, float] = {lbl: 0.0 for lbl in labels}
+        # Per-label agent tally + best single contribution, for non-positional
+        # tie-breaking (primary is handled separately as an anchor).
+        vote_counts: Dict[str, int] = {lbl: 0 for lbl in labels}
+        max_contribution: Dict[str, float] = {lbl: 0.0 for lbl in labels}
         # vote_details[agent_slot] = human-readable breakdown string
         vote_details: Dict[str, str] = {}
         active_weight_sum: float = 0.0
@@ -170,11 +214,14 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 vote_details[slot] = f"invalid label '{label}' — skipped"
                 continue
 
-            scores[label] += weight * confidence  # type: ignore[operator]
+            contribution = weight * confidence  # type: ignore[operator]
+            scores[label] += contribution
             active_weight_sum += weight
+            vote_counts[label] += 1
+            max_contribution[label] = max(max_contribution[label], contribution)
             vote_details[slot] = (
                 f"{label} (weight={weight:.2f}, conf={confidence:.4f}, "
-                f"contribution={weight * confidence:.4f})"  # type: ignore[operator]
+                f"contribution={contribution:.4f})"
             )
 
         # --- Optional deliberation vote ------------------------------------
@@ -188,11 +235,14 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 and 0.0 <= d_conf <= 1.0
                 and task.is_allowed_label(d_label)
             ):
-                scores[d_label] += delib_weight * d_conf  # type: ignore[operator]
+                d_contribution = delib_weight * d_conf  # type: ignore[operator]
+                scores[d_label] += d_contribution
                 active_weight_sum += delib_weight
+                vote_counts[d_label] += 1
+                max_contribution[d_label] = max(max_contribution[d_label], d_contribution)
                 vote_details["deliberation"] = (
                     f"{d_label} (weight={delib_weight:.2f}, conf={d_conf:.4f}, "
-                    f"contribution={delib_weight * d_conf:.4f})"  # type: ignore[operator]
+                    f"contribution={d_contribution:.4f})"
                 )
             else:
                 self.logger.warning(
@@ -246,11 +296,36 @@ class ConsensusAgent(BaseAgent[PipelineState]):
             )
             return state
 
-        # --- Determine winner -----------------------------------------------
-        # Break ties deterministically: highest score first; among ties,
-        # the label that appears earliest in task_config.labels wins.
-        best_label = max(labels, key=lambda lbl: (scores[lbl], -labels.index(lbl)))
-        final_confidence = round(scores[best_label] / active_weight_sum, 6)
+        # --- Primary-aware vote (audit C1) ----------------------------------
+        # The primary participates as a confidence-scaled weighted prior, so the
+        # agents override it only when they collectively out-vote it. Reached
+        # only when >=1 agent voted (the all-abstain case is handled above and
+        # already defers to the primary).
+        w_primary = self.weights["primary"]
+        primary = state.primary_model_output
+        primary_label: Optional[str] = None
+        if (
+            w_primary > 0.0
+            and primary.label is not None
+            and primary.confidence is not None
+            and task.is_allowed_label(primary.label)
+        ):
+            primary_label = primary.label
+            p_contribution = w_primary * primary.confidence
+            scores[primary_label] += p_contribution
+            active_weight_sum += w_primary
+            vote_details["primary"] = (
+                f"{primary_label} (weight={w_primary:.2f}, conf={primary.confidence:.4f}, "
+                f"contribution={p_contribution:.4f})"
+            )
+
+        # --- Determine winner (non-positional tie-break) --------------------
+        max_score = max(scores[lbl] for lbl in labels)
+        tied = sorted(lbl for lbl in labels if abs(scores[lbl] - max_score) <= 1e-9)
+        best_label = _select_winner(tied, primary_label, vote_counts, max_contribution)
+        final_confidence = (
+            round(scores[best_label] / active_weight_sum, 6) if active_weight_sum else 0.0
+        )
 
         rationale = "; ".join(
             f"{slot}={detail}" for slot, detail in vote_details.items()

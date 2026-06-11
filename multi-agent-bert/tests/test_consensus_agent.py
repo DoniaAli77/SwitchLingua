@@ -100,6 +100,7 @@ class TestConsensusAgentInit:
             "contextual": 1.0,
             "logic": 1.0,
             "deliberation": 0.0,
+            "primary": 1.0,
         }
 
     def test_custom_weights_merged(self):
@@ -236,15 +237,17 @@ class TestDisagreement:
         state = agent.run(state)
         assert state.consensus_output.label == "positive"
 
-    def test_tie_broken_by_label_order(self):
-        # positive and negative both score the same; "positive" is first in LABELS
+    def test_tie_is_not_broken_by_label_order(self):
+        # positive and negative tie on score; with no primary set, the winner is
+        # the deterministic alphabetical label, NOT labels[0] ('positive').
         state = make_state(
             lexical_label="positive", lexical_conf=1.0,
             contextual_label="negative", contextual_conf=1.0,
         )
         agent = ConsensusAgent(weights={"lexical": 1.0, "contextual": 1.0, "logic": 1.0})
         state = agent.run(state)
-        assert state.consensus_output.label == "positive"
+        assert state.consensus_output.label != "positive"   # no positional bias
+        assert state.consensus_output.label == "negative"   # sorted-name fallback
 
     def test_confidence_reflects_best_score(self):
         # positive score = 1*0.6 = 0.6; negative score = 1*0.4 = 0.4
@@ -257,15 +260,17 @@ class TestDisagreement:
         state = ConsensusAgent().run(state)
         assert state.consensus_output.confidence == pytest.approx(0.3)
 
-    def test_three_way_split_uses_label_order(self):
-        # Each label gets exactly one equal vote → tie on score; first label wins.
+    def test_three_way_split_is_non_positional(self):
+        # Each label gets one equal vote → tie on score. With no primary set, the
+        # winner is the deterministic alphabetical label, NOT labels[0].
         state = make_state(
             lexical_label="positive", lexical_conf=1.0,
             contextual_label="negative", contextual_conf=1.0,
             logic_label="neutral", logic_conf=1.0,
         )
         state = ConsensusAgent().run(state)
-        assert state.consensus_output.label == "positive"  # first in LABELS
+        assert state.consensus_output.label != "positive"  # not labels[0]
+        assert state.consensus_output.label == "negative"  # deterministic alpha
 
 
 # ---------------------------------------------------------------------------
