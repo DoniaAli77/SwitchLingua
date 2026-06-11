@@ -33,6 +33,10 @@ class TaskConfig:
     contextual_use_prior_outputs: bool = False
     enable_deliberation: bool = False
     pipeline_mode: PipelineMode = "full_agentic"
+    # Fix #3: when True, the LLM classifier agents receive an optional
+    # primary-signal block (primary label/confidence/top-2/distribution) as
+    # context. Default off → current behaviour unchanged.
+    agents_use_primary_signal: bool = False
 
     def is_allowed_label(self, label: str) -> bool:
         """Return True if label is part of the configured label space."""

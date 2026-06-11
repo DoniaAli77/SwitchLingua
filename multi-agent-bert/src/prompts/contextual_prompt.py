@@ -35,6 +35,8 @@ from __future__ import annotations
 
 from string import Template
 
+from src.prompts._primary_block import render_primary_block
+
 # ---------------------------------------------------------------------------
 # System prompt
 # ---------------------------------------------------------------------------
@@ -79,7 +81,7 @@ $prior_context_block
 
 TEXT:
 $text
-
+$primary_block
 Respond with JSON only. Use the schema from the system prompt.
 "label" must be one of: $labels_csv\
 """)
@@ -91,6 +93,7 @@ def build_user_prompt(
     label_descriptions: dict[str, str],
     text: str,
     prior_agent_summaries: list[str] | None = None,
+    primary_signal: dict | None = None,
 ) -> str:
     """Render the user prompt for a single classification request.
 
@@ -130,10 +133,14 @@ def build_user_prompt(
             f"{summary_lines}\n"
         )
 
+    block = render_primary_block(primary_signal, "contextual")
+    primary_block = f"\n{block}\n" if block else ""
+
     return _USER_TEMPLATE.substitute(
         task_name=task_name,
         labels_csv=labels_csv,
         labels_block="\n".join(desc_lines),
         prior_context_block=prior_context_block,
         text=text,
+        primary_block=primary_block,
     )

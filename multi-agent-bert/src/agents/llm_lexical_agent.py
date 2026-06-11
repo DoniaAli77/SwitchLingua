@@ -33,6 +33,7 @@ import re
 from typing import Any, Dict, List, Optional
 
 from src.agents._abstain import abstain_output
+from src.prompts._primary_block import build_primary_signal
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401
 from src.prompts.llm_lexical_prompt import SYSTEM_PROMPT, build_user_prompt
@@ -98,11 +99,17 @@ class LLMLexicalAgent(BaseAgent[PipelineState]):
         """Call LLM, parse response, write result to state.lexical_output."""
         task = state.task_config
 
+        primary_signal = (
+            build_primary_signal(state.primary_model_output)
+            if task.agents_use_primary_signal
+            else None
+        )
         prompt = build_user_prompt(
             task_name=task.task_name,
             labels=task.labels,
             label_descriptions=task.label_descriptions,
             text=state.input_text,
+            primary_signal=primary_signal,
         )
 
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))

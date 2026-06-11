@@ -28,6 +28,7 @@ import re
 from typing import Any, Dict, List, Optional
 
 from src.agents._abstain import abstain_output
+from src.prompts._primary_block import build_primary_signal
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401 (re-exported for callers)
 from src.prompts.contextual_prompt import SYSTEM_PROMPT, build_user_prompt
@@ -89,12 +90,18 @@ class ContextualAgent(BaseAgent[PipelineState]):
         if task.contextual_use_prior_outputs:
             prior_summaries = self._build_prior_summaries(state)
 
+        primary_signal = (
+            build_primary_signal(state.primary_model_output)
+            if task.agents_use_primary_signal
+            else None
+        )
         prompt = build_user_prompt(
             task_name=task.task_name,
             labels=task.labels,
             label_descriptions=task.label_descriptions,
             text=state.input_text,
             prior_agent_summaries=prior_summaries,
+            primary_signal=primary_signal,
         )
 
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))

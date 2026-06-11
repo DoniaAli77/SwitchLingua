@@ -154,6 +154,9 @@ def load_task_bundle(
         if contextual_use_prior_outputs is not None
         else bool(exec_cfg.get("contextual_use_prior_outputs", False))
     )
+    _agents_use_primary_signal: bool = bool(
+        exec_cfg.get("agents_use_primary_signal", False)
+    )
 
     # ── Labels and descriptions ───────────────────────────────────────────
     labels: List[str] = list(task_def.get("labels", []))
@@ -184,6 +187,7 @@ def load_task_bundle(
         threshold=_threshold,
         enable_deliberation=_enable_deliberation,
         contextual_use_prior_outputs=_contextual_use_prior,
+        agents_use_primary_signal=_agents_use_primary_signal,
         pipeline_mode=_pipeline_mode,  # type: ignore[arg-type]
     )
 

@@ -27,6 +27,8 @@ from __future__ import annotations
 
 from string import Template
 
+from src.prompts._primary_block import render_primary_block
+
 # ---------------------------------------------------------------------------
 # System prompt
 # ---------------------------------------------------------------------------
@@ -72,7 +74,7 @@ $labels_block
 
 TEXT TO CLASSIFY:
 $text
-
+$primary_block
 Perform lexical analysis: identify task-relevant vocabulary (in any language \
 present, e.g. Arabic and English).
 Respond with JSON only. "label" must be exactly one of: $labels_csv\
@@ -84,16 +86,24 @@ def build_user_prompt(
     labels: list[str],
     label_descriptions: dict[str, str],
     text: str,
+    primary_signal: dict | None = None,
 ) -> str:
-    """Render the user prompt for a single lexical classification request."""
+    """Render the user prompt for a single lexical classification request.
+
+    ``primary_signal`` (optional) renders the primary-signal context block; when
+    ``None`` the block is empty and the prompt is unchanged.
+    """
     labels_csv = ", ".join(labels)
     labels_block = "\n".join(
         f"  {lbl} — {label_descriptions.get(lbl, '(no description)')}"
         for lbl in labels
     )
+    block = render_primary_block(primary_signal, "lexical")
+    primary_block = f"\n{block}\n" if block else ""
     return _USER_TEMPLATE.substitute(
         task_name=task_name,
         labels_csv=labels_csv,
         labels_block=labels_block,
         text=text,
+        primary_block=primary_block,
     )
