@@ -190,25 +190,31 @@ def _write_csv(p, rows):
             w.writerow({c: r.get(c, "") for c in CANON_COLS})
 
 
-def _load_manifest():
-    if MANIFEST.exists():
-        return json.loads(MANIFEST.read_text(encoding="utf-8"))
+def _manifest_path(path=None):
+    return pathlib.Path(path) if path else MANIFEST
+
+
+def _load_manifest(path=None):
+    p = _manifest_path(path)
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
     return {"total_scenarios": None, "completed": {}, "updated": None}
 
 
-def _save_manifest(m):
+def _save_manifest(m, path=None):
+    p = _manifest_path(path)
     m["updated"] = datetime.datetime.now().isoformat(timespec="seconds")
-    MANIFEST.parent.mkdir(parents=True, exist_ok=True)
-    MANIFEST.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _all_scenarios():
-    """Build the full 324 sentiment scenarios + attach scenario_id (no API)."""
+def _all_scenarios(config_path=None):
+    """Build the full sentiment scenarios for a config + attach scenario_id (no API)."""
     if str(MODIFIED_CORE) not in sys.path:
         sys.path.insert(0, str(MODIFIED_CORE))
     sys.modules.pop("utils", None)
     import utils as ut
-    cfg = ut.load_config(str(CONFIG))
+    cfg = ut.load_config(str(config_path or CONFIG))
     scn = [s for s in ut.generate_scenarios(cfg["pre_execute"]) if s.get("task") == "sentiment"]
     for s in scn:
         s["scenario_id"] = _scenario_id(s)
@@ -274,16 +280,19 @@ def cmd_migrate(args):
 # --------------------------------------------------------------------------- generate (resume + append)
 def cmd_generate(args):
     date = args.date or datetime.date.today().strftime("%Y%m%d")
+    cfg_path = getattr(args, "config", None)
+    man_path = getattr(args, "manifest", None)
     raw_path = DAILY_DIR / f"run_{date}_raw.jsonl"
-    scenarios = _all_scenarios()
-    m = _load_manifest()
+    scenarios = _all_scenarios(cfg_path)
+    m = _load_manifest(man_path)
     m["total_scenarios"] = len(scenarios)
     done_ids = set(m["completed"].keys())
     todo = [s for s in scenarios if s["scenario_id"] not in done_ids]
     random.seed(args.seed); random.shuffle(todo)
     attempted = todo[: args.max] if args.max else todo
-    print(f"[gen] total={len(scenarios)} completed={len(done_ids)} remaining={len(todo)} "
-          f"attempting={len(attempted)} (date={date}, concurrency={args.concurrency})")
+    print(f"[gen] config={pathlib.Path(cfg_path).name if cfg_path else 'default'} "
+          f"manifest={_manifest_path(man_path).name} | total={len(scenarios)} completed={len(done_ids)} "
+          f"remaining={len(todo)} attempting={len(attempted)} (date={date}, concurrency={args.concurrency})")
     if not attempted:
         print("[gen] nothing to do — all scenarios completed. Run `merge`.")
         return
@@ -339,12 +348,12 @@ def cmd_generate(args):
                     m["completed"][sc["scenario_id"]] = {"source": f"run_{date}", "date": date}
                     prog["ok"] += 1
                     if prog["ok"] % 20 == 0:
-                        _save_manifest(m)
+                        _save_manifest(m, man_path)
                 if prog["done"] % 20 == 0 or prog["done"] == len(attempted):
                     print(f"[gen] {prog['done']}/{len(attempted)} ok={prog['ok']} fail={prog['fail']}", flush=True)
 
     asyncio.run(_gather(attempted, one))
-    _save_manifest(m)
+    _save_manifest(m, man_path)
 
     # filter the day's accumulated raw -> daily filtered + stats
     states = [s for s in _read_jsonl(raw_path) if s.get("task") == "sentiment"]
@@ -354,14 +363,26 @@ def cmd_generate(args):
     stats, kept = funnel(assign_reasons(rows, args.quality_threshold))
     _write_csv(DAILY_DIR / f"run_{date}_filtered.csv", kept)
     _write_jsonl(DAILY_DIR / f"run_{date}_filtered.jsonl", kept)
+    # CS-valid rate by cs_ratio target (50% vs 60%) — drives the cs_ratio-prune stopping rule
+    cs_by_ratio = {}
+    nonempty = [r for r in rows if (r["text"] or "").strip()]
+    for rr in sorted({r["cs_ratio"] for r in nonempty}):
+        grp = [r for r in nonempty if r["cs_ratio"] == rr]
+        v = sum(1 for r in grp if r["cs_valid"])
+        cs_by_ratio[rr] = {"cs_valid": v, "total": len(grp), "pct": round(100 * v / len(grp), 1) if grp else None}
+    pos_kept = stats["kept_by_label"].get("positive", 0)
+    pos_per_scn = round(pos_kept / prog["ok"], 2) if prog["ok"] else None
     stats.update({
         "source": f"run_{date}", "date": date,
         "requested": len(todo), "attempted": len(attempted), "completed": prog["ok"],
         "skipped_resumed": len(done_ids), "failed": prog["fail"],
+        "cs_valid_by_cs_ratio": cs_by_ratio, "positive_kept_per_scenario": pos_per_scn,
     })
     (DAILY_DIR / f"run_{date}_stats.json").write_text(json.dumps(stats, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[gen] day {date}: ok={prog['ok']} fail={prog['fail']} | raw={stats['raw_instances']} kept={stats['kept']} "
           f"loss={stats['loss_by_reason']}")
+    print(f"[gen] CS-valid by cs_ratio: " + " ".join(f"{k}={v['cs_valid']}/{v['total']}({v['pct']}%)" for k, v in cs_by_ratio.items()))
+    print(f"[gen] positive kept/scenario = {pos_per_scn} (guardrail: pause if < 0.8)")
     print(f"[gen] manifest now {len(m['completed'])}/{m['total_scenarios']} completed. Then run `merge`.")
 
 
@@ -421,8 +442,8 @@ def cmd_merge(args):
             agg_keptT.update({k: v for k, v in (d.get("kept_by_topic") or {}).items()})
             agg_loss.update({k: v for k, v in (d.get("loss_by_reason") or {}).items()})
 
-    m = _load_manifest()
-    total = m.get("total_scenarios") or len(_all_scenarios())
+    m = _load_manifest(getattr(args, "manifest", None))
+    total = m.get("total_scenarios") or len(_all_scenarios(getattr(args, "config", None)))
     completed = len(m.get("completed", {}))
     remaining_scn = max(0, total - completed)
     kept_per_scn = (len(merged) / completed) if completed else 0
