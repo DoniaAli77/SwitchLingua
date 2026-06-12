@@ -532,10 +532,14 @@ def main():
     gn.add_argument("--date", default=None, help="YYYYMMDD label (default: today)")
     gn.add_argument("--seed", type=int, default=7)
     gn.add_argument("--quality-threshold", type=float, default=QUALITY_THRESHOLD)
+    gn.add_argument("--config", default=None, help="scenario config (default: config_sentiment_expC.yaml)")
+    gn.add_argument("--manifest", default=None, help="resume manifest path (default: completed_scenarios.json)")
     gn.set_defaults(func=cmd_generate)
 
     mr = sub.add_parser("merge", help="combine pilot_v1 + daily runs into one balanced dataset")
     mr.add_argument("--target-per-label", type=int, default=150, help="balance target per label")
+    mr.add_argument("--config", default=None, help="scenario config for the remaining-scenario estimate")
+    mr.add_argument("--manifest", default=None, help="resume manifest for the coverage estimate")
     mr.set_defaults(func=cmd_merge)
 
     args = ap.parse_args()
