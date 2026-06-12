@@ -599,6 +599,7 @@ def build_orchestrator(
     rule_map: Dict[str, List[str]] | None = None,
     primary_classifier=None,
     llm_client=None,
+    consensus_primary_weight: float | None = None,
 ) -> PipelineOrchestrator:
     """Build a fully-wired orchestrator using mock components.
 
@@ -682,7 +683,11 @@ def build_orchestrator(
         lexical_agent=LexicalAgent(keyword_map=keyword_map),
         contextual_agent=ContextualAgent(llm_client=llm_client),
         logic_agent=LogicAgent(rule_map=rule_map),
-        consensus_agent=ConsensusAgent(),
+        consensus_agent=(
+            ConsensusAgent(weights={"primary": consensus_primary_weight})
+            if consensus_primary_weight is not None
+            else ConsensusAgent()
+        ),
         explainability_agent=ExplainabilityAgent(),
         deliberation_agent=deliberation_agent,
         paper_contextual_agent=paper_contextual_agent,
@@ -935,6 +940,27 @@ def main(argv: List[str] | None = None) -> int:
         help="OpenAI model id when --llm_client openai (default: gpt-4o-mini).",
     )
     parser.add_argument(
+        "--consensus_primary_weight",
+        type=float,
+        default=None,
+        metavar="W",
+        help=(
+            "Override the ConsensusAgent primary vote weight (Fix #2). "
+            "0 = legacy agents-only consensus; default (unset) keeps the built-in "
+            "1.0. Used for ablations (e.g. 0, 1.0, 1.5, 2.0)."
+        ),
+    )
+    parser.add_argument(
+        "--agents_use_primary_signal",
+        action="store_true",
+        default=False,
+        help=(
+            "Override the config flag ON: give the full_agentic LLM agents the "
+            "primary-signal prompt block (Fix #3). Omit to use the config value "
+            "(default off)."
+        ),
+    )
+    parser.add_argument(
         "--ablation_config",
         default=None,
         metavar="PATH",
@@ -1002,6 +1028,14 @@ def main(argv: List[str] | None = None) -> int:
             enable_deliberation=args.deliberation,
             pipeline_mode=args.pipeline_mode if args.pipeline_mode is not None else "full_agentic",
         )
+
+    # CLI override (Fix #3): force the primary-signal block ON. Omitting the flag
+    # keeps the config value (default off). The flag only forces ON.
+    if args.agents_use_primary_signal:
+        task_config.agents_use_primary_signal = True
+        log.info("Override: agents_use_primary_signal = True (primary-signal block ON).")
+    if args.consensus_primary_weight is not None:
+        log.info("Override: consensus primary weight = %.2f.", args.consensus_primary_weight)
 
     # ------------------------------------------------------------------
     # Build the primary classifier once (mock by default).  Constructing it
@@ -1109,6 +1143,7 @@ def main(argv: List[str] | None = None) -> int:
         rule_map=rule_map,
         primary_classifier=primary_classifier,
         llm_client=llm_client,
+        consensus_primary_weight=args.consensus_primary_weight,
     )
 
     saved_paths: Dict[str, Dict[str, str]] = {}

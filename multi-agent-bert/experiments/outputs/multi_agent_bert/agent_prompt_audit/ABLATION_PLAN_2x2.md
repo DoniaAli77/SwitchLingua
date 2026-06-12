@@ -37,24 +37,42 @@ consensus anchoring, or just compound it?).
 total**, ~15 min/cell on a stable connection. Connectivity-probe each; if a cell
 shows connection errors, mark it contaminated and re-run that cell only.
 
-## Prerequisite to run (one small enabling change, NOT yet made)
-`agents_use_primary_signal` is already config-wired (cells C/D just set it). But
-**`w_primary` is not yet exposed to the CLI/config** (cells A/C need
-`w_primary=0`). To run the matrix, add a minimal seam — the cleanest is a small
-`scripts/run_primary_ablation.py` that builds the orchestrator programmatically
-per cell:
-```python
-# pseudo: for each (w_primary, use_signal) in the 2x2:
-task_config.agents_use_primary_signal = use_signal
-orch = build_orchestrator(task_config, ..., primary_classifier=clf, llm_client=oai)
-orch._consensus = ConsensusAgent(weights={"primary": w_primary})   # set the cell's weight
-# run NEREvaluator/Evaluator over EESA test; save under
-# experiments/outputs/multi_agent_bert/ablation_2x2/<cell>/
+## Seam (IMPLEMENTED 2026-06-11 — two CLI flags, offline-tested)
+`evaluate_pipeline.py` now exposes:
+- `--consensus_primary_weight W` — sets the ConsensusAgent primary vote weight
+  (Fix #2). **Unset → built-in default 1.0** (current behaviour). `0` = legacy
+  agents-only. Wired via `build_orchestrator(consensus_primary_weight=...)` →
+  `ConsensusAgent(weights={"primary": W})`. Consensus logic itself unchanged.
+- `--agents_use_primary_signal` — presence forces the primary-signal block **ON**
+  (Fix #3); omit → config default (off). Overrides `task_config` only.
+
+Verified offline (897 tests pass; default weight still 1.0; mock end-to-end run
+logs both overrides, 0 errors, no OpenAI). **Exact 2×2 commands** (each prefixed
+with the env-load that the prior runs used; `--transformer_device cuda`):
+
 ```
-Alternatively wire `--consensus_primary_weight` + `--agents_use_primary_signal`
-flags into `evaluate_pipeline.py` (also lets us sweep `w_primary` later). Either
-is ~30 lines, offline-testable. **I will implement the chosen seam when you
-approve running the ablation** — not before.
+# common args:
+COMMON="--dataset data/Sentiment/processed/eesa_sentiment_test.jsonl \
+  --config src/config/default.yaml --active_task sentiment_classification \
+  --pipeline_mode full_agentic --mode full_pipeline --threshold 0.8 \
+  --primary_model transformer --transformer_checkpoint experiments/checkpoints/eesa_xlm_roberta_base \
+  --transformer_device cuda --llm_client openai --llm_model gpt-4o-mini"
+
+# A: w_primary=0, signal OFF
+python evaluate_pipeline.py $COMMON --consensus_primary_weight 0 \
+  --output_dir .../ablation_2x2/A --run_id abl_A
+# B: w_primary=1.0, signal OFF
+python evaluate_pipeline.py $COMMON --consensus_primary_weight 1.0 \
+  --output_dir .../ablation_2x2/B --run_id abl_B
+# C: w_primary=0, signal ON
+python evaluate_pipeline.py $COMMON --consensus_primary_weight 0 --agents_use_primary_signal \
+  --output_dir .../ablation_2x2/C --run_id abl_C
+# D: w_primary=1.0, signal ON
+python evaluate_pipeline.py $COMMON --consensus_primary_weight 1.0 --agents_use_primary_signal \
+  --output_dir .../ablation_2x2/D --run_id abl_D
+```
+(Each run loads `OPENAI_API_KEY`/`OPENAI_BASE_URL` from `Modified_Version/.env`,
+as in prior paid runs.) **Awaiting approval before any of these are executed.**
 
 ## Guardrails
 - Do not change router, prompts, or the default config (`w_primary=1.0`,

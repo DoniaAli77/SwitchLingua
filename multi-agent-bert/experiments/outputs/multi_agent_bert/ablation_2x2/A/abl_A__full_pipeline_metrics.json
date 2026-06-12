@@ -1,0 +1,44 @@
+{
+  "run_id": "abl_A__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-12T18:22:49.684071+00:00",
+  "num_samples": 818,
+  "accuracy": 0.845966,
+  "macro_f1": 0.833101,
+  "escalation_rate": 0.133252,
+  "escalated_count": 109,
+  "escalated_accuracy": 0.66055,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.884817,
+      "recall": 0.931129,
+      "f1": 0.907383,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.80402,
+      "recall": 0.812183,
+      "f1": 0.808081,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.818565,
+      "recall": 0.751938,
+      "f1": 0.783838,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
