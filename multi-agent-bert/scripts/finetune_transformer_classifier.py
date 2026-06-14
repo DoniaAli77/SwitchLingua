@@ -226,6 +226,10 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--gradient_checkpointing", action="store_true", default=False,
                         help="Trade compute for VRAM (recompute activations in "
                              "backward). Helps fit large models on small GPUs.")
+    parser.add_argument("--optim", default="adamw_torch", metavar="OPT",
+                        help="Optimizer (HF Trainer name). 'adafactor' uses far "
+                             "less memory than AdamW on RAM-constrained machines. "
+                             "(default: adamw_torch)")
     return parser.parse_args(argv)
 
 
@@ -324,6 +328,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         weight_decay=args.weight_decay,
         seed=args.seed,
         fp16=args.fp16,
+        optim=args.optim,
         eval_strategy="epoch" if dev_ds else "no",
         save_strategy="no",
         logging_steps=50,
@@ -344,7 +349,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     train_result = trainer.train()
 
     # Save checkpoint + tokenizer (id2label/label2id baked into config.json).
-    trainer.save_model(str(out_dir))
+    # Move to CPU and shard the save (small max_shard_size) to keep peak host RAM
+    # low — a single-file safetensors save of the full model can MemoryError on
+    # machines with limited free RAM. This changes only how the checkpoint is
+    # written, not the trained weights.
+    model.to("cpu")
+    model.save_pretrained(
+        str(out_dir), max_shard_size="200MB", safe_serialization=True
+    )
     tokenizer.save_pretrained(str(out_dir))
 
     (out_dir / "label_map.json").write_text(
@@ -369,6 +381,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     )
 
     if dev_ds:
+        # The sharded save above moved the model to CPU; restore it to the training
+        # device so the final predict (which runs on GPU) does not hit a CPU/CUDA
+        # device mismatch.
+        model.to(training_args.device)
         # Full per-class dev report (not just scalar Trainer metrics).
         pred_out = trainer.predict(dev_ds)
         preds = np.argmax(pred_out.predictions, axis=-1).tolist()
