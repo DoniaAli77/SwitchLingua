@@ -427,8 +427,9 @@ def cmd_merge(args):
     bal_by_label = Counter(r["label"] for r in balanced)
 
     MERGED_DIR.mkdir(parents=True, exist_ok=True)
-    _write_csv(MERGED_DIR / "switchlingua_sentiment_train_merged.csv", balanced)
-    _write_jsonl(MERGED_DIR / "switchlingua_sentiment_train_merged.jsonl", balanced)
+    out_name = getattr(args, "out_name", None) or "switchlingua_sentiment_train_merged"
+    _write_csv(MERGED_DIR / f"{out_name}.csv", balanced)
+    _write_jsonl(MERGED_DIR / f"{out_name}.jsonl", balanced)
 
     # aggregate per-source stats for the report
     agg_raw = Counter(); agg_keptL = Counter(); agg_keptT = Counter(); agg_loss = Counter()
@@ -540,6 +541,7 @@ def main():
     mr.add_argument("--target-per-label", type=int, default=150, help="balance target per label")
     mr.add_argument("--config", default=None, help="scenario config for the remaining-scenario estimate")
     mr.add_argument("--manifest", default=None, help="resume manifest for the coverage estimate")
+    mr.add_argument("--out-name", default=None, help="output filename stem (default: switchlingua_sentiment_train_merged)")
     mr.set_defaults(func=cmd_merge)
 
     args = ap.parse_args()
