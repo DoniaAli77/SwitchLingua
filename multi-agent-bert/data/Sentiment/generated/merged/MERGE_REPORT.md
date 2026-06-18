@@ -1,12 +1,12 @@
 # Experiment C — Sentiment Data MERGE Report
 
-Combined **3** source(s) into one de-duplicated, label-balanced sentiment dataset. Pilot_v1 + daily runs; NER frozen/untouched; pipeline & prompts unchanged.
+Combined **5** source(s) into one de-duplicated, label-balanced sentiment dataset. Pilot_v1 + daily runs; NER frozen/untouched; pipeline & prompts unchanged.
 
 ## Scenario coverage (resume manifest)
 - requested (full design): **324** scenarios
-- completed so far: **100**
-- remaining: **224**
-- observed yield: **2.89** kept examples / completed scenario
+- completed so far: **255**
+- remaining: **69**
+- observed yield: **2.06** kept examples / completed scenario
 
 ## Sources merged
 | source | rows in | 
@@ -14,68 +14,70 @@ Combined **3** source(s) into one de-duplicated, label-balanced sentiment datase
 | pilot_v1 | 114 |
 | run_20260606 | 6 |
 | run_20260613 | 170 |
+| run_20260614 | 195 |
+| run_20260616 | 42 |
 
 ## Merged dataset (pre-balance, cross-source de-duplicated)
-- unique examples: **289**  (cross-source duplicates removed: **1**)
+- unique examples: **526**  (cross-source duplicates removed: **1**)
 
 **By label:**
 | label | count |
 |---|--:|
-| positive | 113 |
-| negative | 96 |
-| neutral | 80 |
+| positive | 199 |
+| negative | 162 |
+| neutral | 165 |
 
 **By topic:**
 | topic | count |
 |---|--:|
-| tech | 46 |
-| sports | 44 |
-| education | 37 |
-| shopping | 37 |
-| medical | 35 |
-| social | 32 |
-| business | 26 |
-| finance | 21 |
-| health | 11 |
+| sports | 74 |
+| tech | 74 |
+| medical | 66 |
+| shopping | 63 |
+| social | 61 |
+| education | 59 |
+| business | 50 |
+| finance | 44 |
+| health | 35 |
 
-## Balanced training set (down-sampled to 80/label)
+## Balanced training set (down-sampled to 160/label)
 | label | count |
 |---|--:|
-| positive | 80 |
-| negative | 80 |
-| neutral | 80 |
-| **TOTAL** | **240** |
+| positive | 160 |
+| negative | 160 |
+| neutral | 160 |
+| **TOTAL** | **480** |
 
 ## Cumulative funnel (aggregated across source stats.json)
-- raw by label: {'neutral': 305, 'negative': 412, 'positive': 446}
-- kept by label: {'positive': 113, 'neutral': 81, 'negative': 96}
+- raw by label: {'neutral': 592, 'negative': 650, 'positive': 684}
+- kept by label: {'positive': 199, 'neutral': 166, 'negative': 162}
 - filtering loss by reason:
 
 | reason | count |
 |---|--:|
 | empty_text | 0 |
-| validator_failed | 28 |
-| not_cs_valid | 745 |
-| low_quality | 70 |
+| validator_failed | 54 |
+| not_cs_valid | 1201 |
+| low_quality | 114 |
 | duplicate | 0 |
 
 ## Kept by topic (cumulative)
 | topic | kept |
 |---|--:|
-| tech | 46 |
-| sports | 44 |
-| education | 37 |
-| shopping | 37 |
-| medical | 35 |
-| social | 32 |
-| business | 27 |
-| finance | 21 |
-| health | 11 |
+| sports | 74 |
+| tech | 74 |
+| medical | 66 |
+| shopping | 63 |
+| social | 61 |
+| education | 59 |
+| business | 51 |
+| finance | 44 |
+| health | 35 |
 
-## Estimated remaining work (target = 80/label)
-- current smallest label: **80** (need **0** more/label)
+## Estimated remaining work (target = 160/label)
+- current smallest label: **162** (need **0** more/label)
 - estimated additional KEPT examples needed: **~0**
-- estimated additional SCENARIOS to run: **~0** (at current yield; 224 scenarios remain in the 324-design — run across days under the daily quota)
+- estimated additional SCENARIOS to run: **~0** (at current yield; 69 scenarios remain in the 324-design — run across days under the daily quota)
 
 ## Outputs
 - `merged/switchlingua_sentiment_train_merged.csv` / `.jsonl` — balanced, ready for Experiment C.

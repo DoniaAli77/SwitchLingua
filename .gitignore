@@ -20,5 +20,9 @@
 
 # Model checkpoints / training artifacts (too large for GitHub's 100 MB limit)
 multi-agent-bert/experiments/checkpoints/
+ahmed models/
 *.safetensors
 *.bin
+*.h5
+*.hdf5
+*.zip
