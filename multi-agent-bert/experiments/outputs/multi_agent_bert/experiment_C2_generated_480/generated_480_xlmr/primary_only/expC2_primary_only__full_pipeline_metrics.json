@@ -1,0 +1,44 @@
+{
+  "run_id": "expC2_primary_only__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-19T01:24:47.310781+00:00",
+  "num_samples": 818,
+  "accuracy": 0.649144,
+  "macro_f1": 0.638173,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.827586,
+      "recall": 0.661157,
+      "f1": 0.735069,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.553991,
+      "recall": 0.598985,
+      "f1": 0.57561,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.549206,
+      "recall": 0.670543,
+      "f1": 0.603839,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
