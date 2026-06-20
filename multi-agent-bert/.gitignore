@@ -5,3 +5,5 @@ __pycache__/
 *.pyo
 *.pyd
 *.log
+data/Topic/**/*.xlsx
+data/Topic/processed/**/*.jsonl
