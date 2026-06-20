@@ -1,51 +1,53 @@
 {
-  "raw_instances": 102,
+  "raw_instances": 300,
   "raw_by_label": {
-    "negative": 41,
-    "neutral": 32,
-    "positive": 29
+    "negative": 118,
+    "neutral": 86,
+    "positive": 96
   },
-  "kept": 30,
+  "kept": 92,
   "kept_by_label": {
-    "negative": 7,
-    "neutral": 7,
-    "positive": 16
+    "negative": 25,
+    "neutral": 31,
+    "positive": 36
   },
   "kept_by_topic": {
-    "health": 3,
-    "shopping": 9,
-    "education": 3,
-    "sports": 4,
-    "finance": 3,
-    "business": 3,
-    "tech": 5
+    "health": 9,
+    "shopping": 10,
+    "education": 19,
+    "sports": 5,
+    "finance": 6,
+    "business": 10,
+    "tech": 8,
+    "social": 13,
+    "medical": 12
   },
   "loss_by_reason": {
     "empty_text": 0,
-    "validator_failed": 3,
-    "not_cs_valid": 61,
-    "low_quality": 8,
+    "validator_failed": 7,
+    "not_cs_valid": 183,
+    "low_quality": 18,
     "duplicate": 0
   },
   "duplicates_removed": 0,
   "source": "run_20260620",
   "date": "20260620",
-  "requested": 178,
+  "requested": 114,
   "attempted": 100,
-  "completed": 22,
-  "skipped_resumed": 470,
-  "failed": 78,
+  "completed": 0,
+  "skipped_resumed": 534,
+  "failed": 100,
   "cs_valid_by_cs_ratio": {
     "50%": {
-      "cs_valid": 22,
-      "total": 52,
-      "pct": 42.3
+      "cs_valid": 58,
+      "total": 156,
+      "pct": 37.2
     },
     "60%": {
-      "cs_valid": 19,
-      "total": 50,
-      "pct": 38.0
+      "cs_valid": 59,
+      "total": 144,
+      "pct": 41.0
     }
   },
-  "positive_kept_per_scenario": 0.73
+  "positive_kept_per_scenario": null
 }

@@ -226,6 +226,9 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--gradient_checkpointing", action="store_true", default=False,
                         help="Trade compute for VRAM (recompute activations in "
                              "backward). Helps fit large models on small GPUs.")
+    parser.add_argument("--save_steps", type=int, default=0,
+                        help="If >0, save a Trainer checkpoint every N steps "
+                             "(crash safety for long runs). 0 = save only at end.")
     parser.add_argument("--optim", default="adamw_torch", metavar="OPT",
                         help="Optimizer (HF Trainer name). 'adafactor' uses far "
                              "less memory than AdamW on RAM-constrained machines. "
@@ -330,7 +333,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         fp16=args.fp16,
         optim=args.optim,
         eval_strategy="epoch" if dev_ds else "no",
-        save_strategy="no",
+        save_strategy="steps" if args.save_steps > 0 else "no",
+        save_steps=args.save_steps if args.save_steps > 0 else 500,
+        save_total_limit=2,
         logging_steps=50,
         report_to=[],
     )
@@ -343,6 +348,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         eval_dataset=dev_ds,
         compute_metrics=_compute_metrics if dev_ds else None,
         data_collator=DataCollatorWithPadding(tokenizer),
+        processing_class=tokenizer,
     )
 
     log.info("Starting fine-tuning from '%s' …", args.base_checkpoint)
