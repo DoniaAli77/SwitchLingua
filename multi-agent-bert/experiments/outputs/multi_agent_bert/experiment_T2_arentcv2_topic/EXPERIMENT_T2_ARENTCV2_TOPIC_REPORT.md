@@ -74,5 +74,25 @@ semantically adjacent classes; everything else is ≤ ~11 off-diagonal.
 - This regime is far easier than the noisy real-EESA sentiment task: large (74k),
   clean, balanced, distinctly-separable topics, with dev/test sharing the train
   distribution → ~99.5% is expected, not surprising.
-- primary_only only; **full_agentic not run** (per instruction). Given a ~99.5%
-  primary, escalation headroom is tiny — agents would have very little to add here.
+## Full_agentic result — ARENTCV2 test (threshold 0.9, Fix-2 on, signal off, gpt-4o-mini)
+Clean run (0 connection / 0 quota errors). Escalated **48 / 21,134 (0.2%)** — the
+primary is extremely confident (median confidence 1.0000), so only genuinely
+ambiguous samples reach the agents. Cost ~$0.02.
+
+| | accuracy | macro F1 | weighted F1 |
+|---|---|---|---|
+| primary_only | **0.9947** | 0.9947 | 0.9947 |
+| full_agentic | 0.9944 | 0.9944 | 0.9944 |
+| Δ | −0.0003 | −0.0003 | −0.0003 |
+
+**Escalated-set analysis (48 samples):**
+- escalated-only accuracy: **0.521** (inherently hard — primary itself ~52% here)
+- agents changed the label on **21 / 48**
+- **wrong→correct: 7 · correct→wrong: 13 · net −6**
+
+**Finding:** on a near-perfect primary the agents have no headroom and slightly
+**hurt** (net −6 of 48 escalated → −0.0003 acc). This completes the strength curve
+seen across experiments: weak primary → agents can rescue; strong primary (EESA
+sentiment 0.82) → small +2.7 pts; near-perfect primary (this, 0.99) → agents add
+noise, not signal. Recommendation for this dataset: **use primary_only** (the agent
+panel is not worth it at this accuracy).
