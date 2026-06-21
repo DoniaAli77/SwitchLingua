@@ -1,0 +1,53 @@
+{
+  "raw_instances": 630,
+  "raw_by_label": {
+    "neutral": 193,
+    "positive": 220,
+    "negative": 217
+  },
+  "kept": 184,
+  "kept_by_label": {
+    "neutral": 48,
+    "positive": 75,
+    "negative": 61
+  },
+  "kept_by_topic": {
+    "education": 17,
+    "social": 32,
+    "tech": 20,
+    "sports": 10,
+    "medical": 18,
+    "business": 23,
+    "finance": 24,
+    "shopping": 20,
+    "health": 20
+  },
+  "loss_by_reason": {
+    "empty_text": 0,
+    "validator_failed": 14,
+    "not_cs_valid": 399,
+    "low_quality": 33,
+    "duplicate": 0
+  },
+  "duplicates_removed": 0,
+  "source": "run_20260621",
+  "date": "20260621",
+  "requested": 648,
+  "attempted": 18,
+  "completed": 18,
+  "skipped_resumed": 648,
+  "failed": 0,
+  "cs_valid_by_cs_ratio": {
+    "50%": {
+      "cs_valid": 112,
+      "total": 275,
+      "pct": 40.7
+    },
+    "60%": {
+      "cs_valid": 117,
+      "total": 355,
+      "pct": 33.0
+    }
+  },
+  "positive_kept_per_scenario": 4.17
+}
