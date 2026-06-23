@@ -1,0 +1,44 @@
+{
+  "run_id": "expC3_fa_seed456__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-23T09:10:28.845910+00:00",
+  "num_samples": 818,
+  "accuracy": 0.754279,
+  "macro_f1": 0.738729,
+  "escalation_rate": 0.282396,
+  "escalated_count": 231,
+  "escalated_accuracy": 0.748918,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.836565,
+      "recall": 0.831956,
+      "f1": 0.834254,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.645914,
+      "recall": 0.84264,
+      "f1": 0.731278,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.745,
+      "recall": 0.577519,
+      "f1": 0.650655,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

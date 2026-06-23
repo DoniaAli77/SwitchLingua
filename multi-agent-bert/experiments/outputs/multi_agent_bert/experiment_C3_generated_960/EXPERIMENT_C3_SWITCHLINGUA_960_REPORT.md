@@ -1,3 +1,9 @@
+> **⚠️ UPDATE (seed-stability check):** the "480 > 960 / plateau-reversal" finding
+> below is a **single-seed artifact and is RETRACTED**. Across 3 seeds, 960 averages
+> **higher** than 480 (0.6695 vs 0.6500 acc); this C3 seed-42 run was the low
+> outlier of the 960 group. See
+> `experiment_seed_stability/EXPERIMENT_SEED_STABILITY_C2_C3_REPORT.md`.
+
 # Experiment C3 — SwitchLingua Generated 960 Sentiment (primary_only)
 
 Separate experiment (not mixed with C1/C2/D or topic T1/T2). Fresh

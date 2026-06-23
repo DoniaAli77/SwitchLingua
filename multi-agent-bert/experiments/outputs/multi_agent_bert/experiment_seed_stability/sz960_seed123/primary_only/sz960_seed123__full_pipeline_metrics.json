@@ -1,0 +1,44 @@
+{
+  "run_id": "sz960_seed123__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-21T17:06:03.680297+00:00",
+  "num_samples": 818,
+  "accuracy": 0.674817,
+  "macro_f1": 0.662436,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.882143,
+      "recall": 0.680441,
+      "f1": 0.768274,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.596859,
+      "recall": 0.57868,
+      "f1": 0.587629,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.550432,
+      "recall": 0.74031,
+      "f1": 0.631405,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
