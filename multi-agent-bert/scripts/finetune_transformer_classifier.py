@@ -229,6 +229,14 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--save_steps", type=int, default=0,
                         help="If >0, save a Trainer checkpoint every N steps "
                              "(crash safety for long runs). 0 = save only at end.")
+    parser.add_argument("--max_steps", type=int, default=0,
+                        help="If >0, train for exactly N optimization steps "
+                             "(overrides --epochs); for matched-compute comparisons.")
+    parser.add_argument("--load_best", action="store_true",
+                        help="Keep the best-dev checkpoint (by eval_macro_f1); "
+                             "evaluates/saves every --eval_steps.")
+    parser.add_argument("--eval_steps", type=int, default=50,
+                        help="Eval/save interval (steps) when --load_best is set.")
     parser.add_argument("--optim", default="adamw_torch", metavar="OPT",
                         help="Optimizer (HF Trainer name). 'adafactor' uses far "
                              "less memory than AdamW on RAM-constrained machines. "
@@ -320,9 +328,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    training_args = TrainingArguments(
+    ta_kwargs = dict(
         output_dir=str(out_dir / "_trainer"),
-        num_train_epochs=args.epochs,
         per_device_train_batch_size=args.batch_size,
         per_device_eval_batch_size=args.batch_size,
         gradient_accumulation_steps=args.grad_accum,
@@ -332,13 +339,30 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         seed=args.seed,
         fp16=args.fp16,
         optim=args.optim,
-        eval_strategy="epoch" if dev_ds else "no",
-        save_strategy="steps" if args.save_steps > 0 else "no",
-        save_steps=args.save_steps if args.save_steps > 0 else 500,
-        save_total_limit=2,
         logging_steps=50,
         report_to=[],
     )
+    # max_steps (matched-compute) overrides epochs when set.
+    if args.max_steps > 0:
+        ta_kwargs["max_steps"] = args.max_steps
+    else:
+        ta_kwargs["num_train_epochs"] = args.epochs
+    # Best-dev checkpoint selection (load_best) needs matching eval/save by steps.
+    if dev_ds and args.load_best:
+        ta_kwargs.update(
+            eval_strategy="steps", save_strategy="steps",
+            eval_steps=args.eval_steps, save_steps=args.eval_steps,
+            load_best_model_at_end=True, metric_for_best_model="eval_macro_f1",
+            greater_is_better=True, save_total_limit=1,
+        )
+    else:
+        ta_kwargs.update(
+            eval_strategy="epoch" if dev_ds else "no",
+            save_strategy="steps" if args.save_steps > 0 else "no",
+            save_steps=args.save_steps if args.save_steps > 0 else 500,
+            save_total_limit=2,
+        )
+    training_args = TrainingArguments(**ta_kwargs)
 
     from transformers import DataCollatorWithPadding
     trainer = Trainer(

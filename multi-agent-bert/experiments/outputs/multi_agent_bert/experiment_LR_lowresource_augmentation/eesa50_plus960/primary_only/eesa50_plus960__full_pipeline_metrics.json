@@ -1,0 +1,44 @@
+{
+  "run_id": "eesa50_plus960__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-24T17:47:37.445214+00:00",
+  "num_samples": 818,
+  "accuracy": 0.814181,
+  "macro_f1": 0.800791,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.865079,
+      "recall": 0.900826,
+      "f1": 0.882591,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.753425,
+      "recall": 0.837563,
+      "f1": 0.793269,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.78733,
+      "recall": 0.674419,
+      "f1": 0.726514,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}
