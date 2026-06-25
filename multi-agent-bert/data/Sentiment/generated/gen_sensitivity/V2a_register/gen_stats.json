@@ -1,0 +1,23 @@
+{
+  "variant": "V2a_register",
+  "attempted_scenarios": 70,
+  "completed_scenarios": 37,
+  "failed": 33,
+  "raw_instances": 184,
+  "validator_pass": 174,
+  "cs_valid_rate_pct": 52.2,
+  "kept_after_filters": 76,
+  "cross_dup_removed": 0,
+  "kept_after_crossdedup": 76,
+  "balanced": 49,
+  "balanced_by_label": {
+    "neutral": 20,
+    "negative": 9,
+    "positive": 20
+  },
+  "loss_by_reason": {
+    "not_cs_valid": 88,
+    "low_quality": 10,
+    "validator_failed": 10
+  }
+}

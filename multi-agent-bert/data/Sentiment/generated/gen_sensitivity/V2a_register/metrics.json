@@ -1,0 +1,24 @@
+{
+  "n": 49,
+  "ar_pct_mean": 51.1,
+  "en_pct_mean": 48.9,
+  "cmi_mean": 43.1,
+  "cmi_median": 44.4,
+  "cmi_hist": {
+    "0-20": 0,
+    "20-40": 9,
+    "40-60": 40,
+    "60-80": 0,
+    "80-100": 0
+  },
+  "len_mean": 12.5,
+  "len_median": 12,
+  "len_p90": 16,
+  "quality_min": 7.0,
+  "quality_max": 8.7,
+  "label_dist": {
+    "neutral": 20,
+    "negative": 9,
+    "positive": 20
+  }
+}
