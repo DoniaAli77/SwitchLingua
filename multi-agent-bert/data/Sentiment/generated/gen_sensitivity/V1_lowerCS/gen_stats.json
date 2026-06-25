@@ -1,23 +1,23 @@
 {
   "variant": "V1_lowerCS",
-  "attempted_scenarios": 90,
-  "completed_scenarios": 90,
-  "failed": 0,
-  "raw_instances": 429,
-  "validator_pass": 411,
-  "cs_valid_rate_pct": 29.4,
-  "kept_after_filters": 88,
+  "attempted_scenarios": 100,
+  "completed_scenarios": 56,
+  "failed": 44,
+  "raw_instances": 700,
+  "validator_pass": 668,
+  "cs_valid_rate_pct": 31.0,
+  "kept_after_filters": 150,
   "cross_dup_removed": 0,
-  "kept_after_crossdedup": 88,
-  "balanced": 56,
+  "kept_after_crossdedup": 150,
+  "balanced": 150,
   "balanced_by_label": {
-    "negative": 16,
-    "positive": 20,
-    "neutral": 20
+    "neutral": 50,
+    "positive": 68,
+    "negative": 32
   },
   "loss_by_reason": {
-    "not_cs_valid": 303,
-    "validator_failed": 18,
-    "low_quality": 20
+    "not_cs_valid": 483,
+    "validator_failed": 32,
+    "low_quality": 35
   }
 }

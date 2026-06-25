@@ -120,13 +120,16 @@ async def _gen(config, base, mpath, mx, conc):
 
 
 def _exclude_texts(exclude):
+    """Texts to cross-dedup against: GEN-960 + the whole GEN pool (pilot_v1 + GEN daily_runs +
+    240/480 snapshots) + any other variant pilots."""
     s = set()
-    if GEN960.exists():
-        for l in GEN960.read_text(encoding="utf-8").splitlines():
-            if l.strip():
-                s.add(_norm(json.loads(l)["text"]))
-    for d in exclude:
-        p = SENS / d / "pilot.jsonl"
+    files = [GEN960,
+             GENROOT / "pilot_v1" / "filtered_train.jsonl",
+             GENROOT / "merged" / "switchlingua_sentiment_train_480_160perlabel.jsonl",
+             GENROOT / "merged" / "switchlingua_sentiment_train_240_80perlabel.jsonl"]
+    files += sorted((GENROOT / "daily_runs").glob("run_*_filtered.jsonl"))
+    files += [SENS / d / "pilot.jsonl" for d in exclude]
+    for p in files:
         if p.exists():
             for l in p.read_text(encoding="utf-8").splitlines():
                 if l.strip():
