@@ -1,0 +1,276 @@
+[
+ {
+  "name": "1. current (w_p=1, agents 1/1/1)",
+  "esc_acc": 0.7024,
+  "full_acc": 0.9205,
+  "wc": 11,
+  "cw": 15,
+  "net": -4,
+  "overrides": 27,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 7,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 4,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "2a. w_primary=2",
+  "esc_acc": 0.7143,
+  "full_acc": 0.9218,
+  "wc": 10,
+  "cw": 13,
+  "net": -3,
+  "overrides": 24,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 3,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "2b. w_primary=3",
+  "esc_acc": 0.7143,
+  "full_acc": 0.9218,
+  "wc": 10,
+  "cw": 13,
+  "net": -3,
+  "overrides": 24,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 3,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "2c. w_primary=4",
+  "esc_acc": 0.7262,
+  "full_acc": 0.923,
+  "wc": 7,
+  "cw": 9,
+  "net": -2,
+  "overrides": 17,
+  "broke": {
+   "negative->neutral": 1,
+   "neutral->negative": 5,
+   "neutral->positive": 2,
+   "positive->neutral": 1
+  },
+  "fixed": {
+   "neutral->negative": 2,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 2,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "3a. agent-bloc, w_primary=1",
+  "esc_acc": 0.7024,
+  "full_acc": 0.9205,
+  "wc": 11,
+  "cw": 15,
+  "net": -4,
+  "overrides": 27,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 7,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 4,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "3b. agent-bloc, w_primary=2",
+  "esc_acc": 0.7262,
+  "full_acc": 0.923,
+  "wc": 0,
+  "cw": 2,
+  "net": -2,
+  "overrides": 2,
+  "broke": {
+   "negative->neutral": 1,
+   "neutral->negative": 1
+  },
+  "fixed": {}
+ },
+ {
+  "name": "3c. agent-bloc, w_primary=3",
+  "esc_acc": 0.75,
+  "full_acc": 0.9254,
+  "wc": 0,
+  "cw": 0,
+  "net": 0,
+  "overrides": 0,
+  "broke": {},
+  "fixed": {}
+ },
+ {
+  "name": "4a. no-logic, w_primary=1",
+  "esc_acc": 0.7262,
+  "full_acc": 0.923,
+  "wc": 11,
+  "cw": 13,
+  "net": -2,
+  "overrides": 25,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 4,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "4b. no-logic, w_primary=2",
+  "esc_acc": 0.7262,
+  "full_acc": 0.923,
+  "wc": 11,
+  "cw": 13,
+  "net": -2,
+  "overrides": 25,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 4,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "4c. no-logic, w_primary=3",
+  "esc_acc": 0.7024,
+  "full_acc": 0.9205,
+  "wc": 4,
+  "cw": 8,
+  "net": -4,
+  "overrides": 12,
+  "broke": {
+   "negative->neutral": 1,
+   "neutral->negative": 4,
+   "neutral->positive": 2,
+   "positive->neutral": 1
+  },
+  "fixed": {
+   "neutral->negative": 2,
+   "positive->neutral": 1,
+   "negative->neutral": 1
+  }
+ },
+ {
+  "name": "5a. conservative: override only if ALL 3 agree vs Ahmed",
+  "esc_acc": 0.7143,
+  "full_acc": 0.9218,
+  "wc": 10,
+  "cw": 13,
+  "net": -3,
+  "overrides": 24,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 3,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "5b. conservative + agent conf>=0.8",
+  "esc_acc": 0.7262,
+  "full_acc": 0.923,
+  "wc": 10,
+  "cw": 12,
+  "net": -2,
+  "overrides": 23,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 1
+  },
+  "fixed": {
+   "neutral->negative": 3,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ },
+ {
+  "name": "6. neutral guard (keep Ahmed-neutral unless 3 agree polar & conf>=0.8)",
+  "esc_acc": 0.7143,
+  "full_acc": 0.9218,
+  "wc": 10,
+  "cw": 13,
+  "net": -3,
+  "overrides": 24,
+  "broke": {
+   "negative->neutral": 2,
+   "neutral->negative": 5,
+   "neutral->positive": 4,
+   "positive->neutral": 2
+  },
+  "fixed": {
+   "neutral->negative": 3,
+   "positive->negative": 1,
+   "positive->neutral": 1,
+   "negative->neutral": 1,
+   "neutral->positive": 3,
+   "negative->positive": 1
+  }
+ }
+]
