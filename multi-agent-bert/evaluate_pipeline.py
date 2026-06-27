@@ -495,7 +495,7 @@ def load_dataset(path: str) -> List[Dict[str, str]]:
 # ---------------------------------------------------------------------------
 
 # Valid values for the --primary_model flag.
-PRIMARY_MODEL_CHOICES = ("mock", "transformer")
+PRIMARY_MODEL_CHOICES = ("mock", "transformer", "precomputed")
 
 
 def build_primary_classifier(
@@ -504,6 +504,7 @@ def build_primary_classifier(
     transformer_checkpoint: str | None = None,
     device: str = "cpu",
     label_map: Dict[int, str] | None = None,
+    precomputed_predictions: str | None = None,
 ):
     """Return the primary classifier selected by ``primary_model``.
 
@@ -546,6 +547,14 @@ def build_primary_classifier(
             label_map=label_map,
             device=device,
         )
+    if primary_model == "precomputed":
+        if not precomputed_predictions:
+            raise ValueError(
+                "primary_model='precomputed' requires a predictions file; "
+                "pass --precomputed_predictions <csv>."
+            )
+        from src.models.precomputed_primary_classifier import PrecomputedPrimaryClassifier
+        return PrecomputedPrimaryClassifier(predictions_path=precomputed_predictions)
     raise ValueError(
         f"Unknown primary_model {primary_model!r}; "
         f"expected one of {PRIMARY_MODEL_CHOICES}."
@@ -917,6 +926,16 @@ def main(argv: List[str] | None = None) -> int:
         ),
     )
     parser.add_argument(
+        "--precomputed_predictions",
+        default=None,
+        metavar="CSV",
+        help=(
+            "CSV of precomputed per-sample predictions for --primary_model "
+            "precomputed (cols: sample_id,pred_label,prob_negative,prob_neutral,"
+            "prob_positive,confidence). Used as a frozen external primary."
+        ),
+    )
+    parser.add_argument(
         "--transformer_device",
         default="cpu",
         metavar="DEVICE",
@@ -1047,8 +1066,9 @@ def main(argv: List[str] | None = None) -> int:
             args.primary_model,
             transformer_checkpoint=args.transformer_checkpoint,
             device=args.transformer_device,
+            precomputed_predictions=args.precomputed_predictions,
         )
-    except (ValueError, ImportError, OSError) as exc:
+    except (ValueError, ImportError, OSError, KeyError) as exc:
         log.error("Failed to build primary classifier: %s", exc)
         return 1
     if args.primary_model != "mock":
