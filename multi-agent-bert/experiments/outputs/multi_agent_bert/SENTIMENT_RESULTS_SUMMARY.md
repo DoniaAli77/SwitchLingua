@@ -11,6 +11,7 @@ Date: 2026-06-27.
 | System | Accuracy | Macro F1 | Weighted F1 | Type |
 |---|---|---|---|---|
 | **Ahmed model (external baseline)** | **0.9254** | **0.9207** | **0.9254** | external; provided predictions |
+| Ahmed frozen-primary + full_agentic @0.7 | 0.9205 | 0.9153 | 0.9202 | external primary + our LLM agents |
 | EESA-only XLM-R, Adafactor (E0) | 0.8533 | 0.8409 | 0.8530 | our best trained primary |
 | EESA full_agentic reference (XLM-R + LLM agents) | 0.8509 | 0.8401 | — | our pipeline |
 | EESA-only XLM-R, AdamW (original ref) | 0.8240 | 0.8088 | — | reference |
@@ -80,10 +81,28 @@ Does generic generated data help when *mixed into* real EESA? Full detail in
   matched `y_true.npy` for all 818 samples.** Aligned file:
   `data/Sentiment/external/ahmed/ahmed_eesa_test_predictions_aligned.csv`.
 - **Ahmed's model is the strongest EESA sentiment baseline** (+0.072 acc / +0.080
-  macro F1 over our best XLM-R primary), **but it is not part of our trained
-  Multi-Agent BERT pipeline** unless we later run the (currently paused)
-  frozen-primary experiment. No API calls were spent (expected agent headroom is very
-  small at 0.9254).
+  macro F1 over our best XLM-R primary). It is an **external** model, not part of our
+  trained pipeline — but it can be plugged in as a **frozen primary** (below).
+
+### 4b. Ahmed frozen-primary + full_agentic (our pipeline on top of Ahmed)
+Ahmed's aligned predictions used as a **frozen primary**; the agentic layer evaluated
+on top. Full detail in `EXPERIMENT_AHMED_FROZEN_PRIMARY_FULL_AGENTIC.md`.
+| | accuracy | macro F1 |
+|---|---|---|
+| Ahmed primary_only | 0.9254 | 0.9207 |
+| Ahmed full_agentic @ threshold 0.7 | 0.9205 | 0.9153 |
+| **Δ (agentic)** | **−0.0049** | **−0.0054** |
+
+- Escalated: **84 / 818 (10.3%)** · wrong→correct **11** · correct→wrong **15** ·
+  **net −4** · cost ~$0.043.
+- **The agentic layer slightly hurts Ahmed's strong primary** (the agents break a few
+  more correct predictions than they fix on the hard escalated cases).
+- **Threshold-calibration note:** threshold 0.9 (our XLM-R default) is **invalid for
+  Ahmed** — his confidence maximum is **0.864**, so 0.9 escalates **100% (818/818)**,
+  which is not selective routing. **Threshold 0.7** (≈10% escalation) was used for the
+  fair selective-routing test. → **Router thresholds must be calibrated per primary
+  model, because probability scales differ across models** (XLM-R peaks near 1.0;
+  Ahmed peaks ~0.86); a fixed threshold does not transfer.
 
 ## 5. Main conclusions
 1. **Best real-EESA sentiment model = Ahmed's external model (0.9254)** — a strong
@@ -96,8 +115,21 @@ Does generic generated data help when *mixed into* real EESA? Full detail in
 4. **Generic generated data does not improve a real EESA model via naive augmentation**
    — neutral as a minority, harmful when it dominates — because of a domain/register
    mismatch, not a generation defect.
-5. **Agent value tracks primary weakness:** large rescue on weak generated primary
-   (+0.06), small lift on strong EESA primary (+0.03), ~neutral on near-perfect
-   primaries (topic 0.99, and expected for Ahmed at 0.9254).
+5. **Agent value tracks primary strength — the "primary-strength curve":**
+   | primary | accuracy | agentic Δ acc |
+   |---|---|---|
+   | weak generated (C3-960) | ~0.70 | **+0.06** (substantial rescue) |
+   | real EESA XLM-R (E0/ref) | 0.82–0.85 | **+0.027** (moderate help) |
+   | **Ahmed (very strong)** | **0.9254** | **−0.005** (slightly hurts) |
+   | topic XLM-R (near-perfect) | 0.99 | ~−0.0003 (neutral/slightly harmful) |
+
+   → The agentic layer helps most where the primary is weakest and **slightly hurts a
+   very strong primary** (Ahmed) — at high accuracy the primary is near the ceiling and
+   the LLM agents add noise rather than signal.
+6. **Router thresholds must be calibrated per primary model.** Threshold 0.9 was
+   appropriate for our over-confident XLM-R primaries but **invalid for Ahmed**
+   (confidence max 0.864 → 100% escalation); threshold 0.7 gave the fair
+   selective-routing test (~10% escalation). Probability scales differ across models,
+   so a fixed threshold does not transfer.
 
 *Sentiment only. Topic (ARENTC) results are reported separately and not combined here.*
