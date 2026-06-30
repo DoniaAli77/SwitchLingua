@@ -20,6 +20,8 @@ from src.agents.consensus_agent import ConsensusAgent
 from src.agents.llm_lexical_agent import LLMLexicalAgent
 from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.polarity_agent import PolarityAgent
+from src.agents.intent_agent import IntentAgent
+from src.prompts import intent_prompt
 from src.agents._sentiment_agent_variant import active_agent_variant
 from src.state.schema import (
     AgentOutput,
@@ -111,6 +113,23 @@ def test_D_polarity_vote_changes_consensus():
     assert run({"primary": 0.0, "polarity": 1.0}) == "positive"
 
 
+# --------------------------------------------------------------------------- E
+def test_E_lexical_intent_polarity_contextual_wiring():
+    o = _orch("lexical_intent_polarity_contextual")
+    assert isinstance(o._llm_lexical, LLMLexicalAgent)
+    assert isinstance(o._llm_logic, PolarityAgent)      # Polarity in logic slot
+    assert isinstance(o._polarity, IntentAgent)         # Intent is the 4th agent
+    assert o._polarity._output_attr == "polarity_output"
+    assert o._consensus.weights["polarity"] == 1.0      # 4th vote active
+
+
+def test_E_intent_prompt_is_clean_and_schema_preserving():
+    sp = intent_prompt.SYSTEM_PROMPT
+    low = sp.lower()
+    assert not any(t in low for t in ["eesa", "arensa", "ahmed", "twitter", "arsentd", "tweet"])
+    assert all(k in sp for k in ['"label"', '"confidence"', '"reasoning"', '"evidence"'])
+
+
 def test_default_state_has_polarity_slot_unused():
     """polarity_output exists and defaults None so default consensus is unaffected."""
     st = PipelineState(metadata=StateMetadata(sample_id="t"), input_text="x", task_config=_tc())
@@ -122,6 +141,7 @@ def test_default_state_has_polarity_slot_unused():
 @pytest.mark.parametrize("v", [
     "default", "polarity_contextual",
     "lexical_polarity_contextual", "lexical_logic_contextual_polarity",
+    "lexical_intent_polarity_contextual",
 ])
 def test_valid_variants_resolve(v):
     assert active_agent_variant(v) == v

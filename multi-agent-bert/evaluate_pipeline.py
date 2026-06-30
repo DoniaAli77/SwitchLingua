@@ -81,6 +81,7 @@ from src.agents.llm_explainability_agent import LLMExplainabilityAgent
 from src.agents.llm_lexical_agent import LLMLexicalAgent
 from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.polarity_agent import PolarityAgent
+from src.agents.intent_agent import IntentAgent
 from src.agents.abstain_agent import AbstainAgent
 from src.agents._sentiment_agent_variant import active_agent_variant
 from src.agents.ner_consensus_agent import NERConsensusAgent
@@ -699,10 +700,11 @@ def build_orchestrator(
     #   B polarity_contextual              → (abstain) + Polarity    + Contextual  (2 votes)
     #   C lexical_polarity_contextual      → LLMLexical + Polarity   + Contextual  (3 votes)
     #   D lexical_logic_contextual_polarity→ LLMLexical + LLMLogic   + Contextual + Polarity (4 votes)
+    #   E lexical_intent_polarity_contextual→ LLMLexical + Polarity  + Contextual + Intent   (4 votes)
     # B/C put the Polarity decider in the logic_output slot (drop-in for
-    # consensus); D adds a 4th Polarity writing polarity_output. Router and the
-    # primary model are never touched; consensus only gains the (default-off)
-    # polarity slot, activated to weight 1.0 for D.
+    # consensus); D/E add a 4th agent writing the generic polarity_output slot.
+    # Router and the primary model are never touched; consensus only gains the
+    # (default-off) 4th-slot weight, activated to 1.0 for D and E.
     _agent_variant = active_agent_variant(sentiment_agent_variant)
     polarity_agent = None
     _consensus_polarity_weight = 0.0
@@ -716,6 +718,12 @@ def build_orchestrator(
         llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
         llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
         polarity_agent = PolarityAgent(llm_client=llm_client, output_attr="polarity_output")
+        _consensus_polarity_weight = 1.0
+    elif _agent_variant == "lexical_intent_polarity_contextual":  # E
+        # Lexical + Polarity(logic slot) + Contextual + Intent(4th slot).
+        llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
+        llm_logic_agent = PolarityAgent(llm_client=llm_client)
+        polarity_agent = IntentAgent(llm_client=llm_client, output_attr="polarity_output")
         _consensus_polarity_weight = 1.0
     else:  # A (default)
         llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
@@ -1051,6 +1059,7 @@ def main(argv: List[str] | None = None) -> int:
             "polarity_contextual",
             "lexical_polarity_contextual",
             "lexical_logic_contextual_polarity",
+            "lexical_intent_polarity_contextual",
         ],
         help=(
             "Which sentiment specialist set to use in full_agentic mode (opt-in; "
@@ -1060,7 +1069,9 @@ def main(argv: List[str] | None = None) -> int:
             "'lexical_polarity_contextual' (C) = Lexical + Polarity + Contextual "
             "(Logic replaced by Polarity). "
             "'lexical_logic_contextual_polarity' (D) = Lexical + Logic + Contextual "
-            "+ Polarity (4 agents; consensus polarity weight 1.0)."
+            "+ Polarity (4 agents; consensus 4th-slot weight 1.0). "
+            "'lexical_intent_polarity_contextual' (E) = Lexical + Intent + Polarity "
+            "+ Contextual (4 agents; Intent is the 4th slot, weight 1.0)."
         ),
     )
     parser.add_argument(

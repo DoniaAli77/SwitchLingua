@@ -31,11 +31,13 @@ DEFAULT_VARIANT = "default"
 #: - ``polarity_contextual``           → Polarity + Contextual (B, 2 agents)
 #: - ``lexical_polarity_contextual``   → Lexical + Polarity + Contextual (C)
 #: - ``lexical_logic_contextual_polarity`` → Lexical + Logic + Contextual + Polarity (D, 4 agents)
+#: - ``lexical_intent_polarity_contextual`` → Lexical + Intent + Polarity + Contextual (E, 4 agents)
 VALID_VARIANTS = frozenset({
     "default",
     "polarity_contextual",
     "lexical_polarity_contextual",
     "lexical_logic_contextual_polarity",
+    "lexical_intent_polarity_contextual",
 })
 
 
