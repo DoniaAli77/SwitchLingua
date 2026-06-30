@@ -99,6 +99,7 @@ class TestConsensusAgentInit:
             "lexical": 1.0,
             "contextual": 1.0,
             "logic": 1.0,
+            "polarity": 0.0,
             "deliberation": 0.0,
             "primary": 1.0,
         }

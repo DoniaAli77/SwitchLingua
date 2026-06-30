@@ -53,6 +53,10 @@ _DEFAULT_WEIGHTS: Dict[str, float] = {
     "lexical": 1.0,
     "contextual": 1.0,
     "logic": 1.0,
+    # 4th specialist slot for the four-agent sentiment variant D. Off (0.0) by
+    # default, so default 3-agent behaviour is unchanged even if the slot is
+    # populated; variant D sets it to 1.0.
+    "polarity": 0.0,
     "deliberation": 0.0,  # Off by default; set > 0 to include deliberation vote.
     # Primary-aware consensus (audit C1): the primary model participates as a
     # weighted vote/prior on the escalation path. Confidence-scaled, so a
@@ -160,7 +164,7 @@ class ConsensusAgent(BaseAgent[PipelineState]):
         # Clamp negatives; keep all known slots (incl. the primary prior).
         self.weights: Dict[str, float] = {
             slot: max(0.0, raw.get(slot, _DEFAULT_WEIGHTS.get(slot, 0.0)))
-            for slot in ("lexical", "contextual", "logic", "deliberation", "primary")
+            for slot in ("lexical", "contextual", "logic", "polarity", "deliberation", "primary")
         }
 
     # ------------------------------------------------------------------
@@ -185,6 +189,8 @@ class ConsensusAgent(BaseAgent[PipelineState]):
             "lexical": state.lexical_output,
             "contextual": state.contextual_output,
             "logic": state.logic_output,
+            # 4th specialist (variant D only); weight 0.0 by default → ignored.
+            "polarity": state.polarity_output,
         }
 
         # score[label] accumulates weighted confidence values.

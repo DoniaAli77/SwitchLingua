@@ -75,9 +75,15 @@ class PolarityAgent(BaseAgent[PipelineState]):
         llm_client: LLMClient,
         name: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
+        output_attr: str = "logic_output",
     ) -> None:
         super().__init__(name=name or "PolarityAgent", logger=logger)
         self.llm_client = llm_client
+        # State slot this agent writes its AgentOutput to. Defaults to
+        # ``logic_output`` (the Logic-replacement variant C, drop-in for
+        # consensus). The four-agent variant D injects a second PolarityAgent
+        # writing ``polarity_output`` so it coexists with the Logic agent.
+        self._output_attr = output_attr
 
     # ------------------------------------------------------------------
     # Validation hooks
@@ -118,7 +124,7 @@ class PolarityAgent(BaseAgent[PipelineState]):
             parsed = self._parse_response(raw_response)
         except PolarityParseError as exc:
             self.logger.warning("%s: parse error — %s", self.name, exc)
-            state.logic_output = self._fallback_output(state, _PARSE_FAIL_NOTE, raw_response)
+            setattr(state, self._output_attr, self._fallback_output(state, _PARSE_FAIL_NOTE, raw_response))
             state.append_history(
                 component=self.name,
                 summary=f"Parse error — falling back. {exc}",
@@ -135,8 +141,9 @@ class PolarityAgent(BaseAgent[PipelineState]):
             self.logger.warning(
                 "%s: LLM returned invalid label '%s'; falling back.", self.name, label
             )
-            state.logic_output = self._fallback_output(
-                state, _INVALID_LABEL_NOTE, raw_response
+            setattr(
+                state, self._output_attr,
+                self._fallback_output(state, _INVALID_LABEL_NOTE, raw_response),
             )
             state.append_history(
                 component=self.name,
@@ -147,7 +154,7 @@ class PolarityAgent(BaseAgent[PipelineState]):
 
         probabilities = self._build_probabilities(label, confidence, task.labels)
 
-        state.logic_output = AgentOutput(
+        setattr(state, self._output_attr, AgentOutput(
             agent_name=self.name,
             model_output=ModelOutput(
                 label=label,
@@ -157,7 +164,7 @@ class PolarityAgent(BaseAgent[PipelineState]):
             ),
             notes=reasoning,
             features={"evidence": evidence, "raw_llm_response": raw_response},
-        )
+        ))
 
         self.logger.debug("%s: label=%s confidence=%.4f", self.name, label, confidence)
         state.append_history(

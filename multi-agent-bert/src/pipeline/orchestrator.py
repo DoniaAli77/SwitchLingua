@@ -185,6 +185,7 @@ class PipelineOrchestrator:
         llm_lexical_agent: Optional[LLMLexicalAgent] = None,
         llm_logic_agent: Optional[LLMLogicAgent] = None,
         llm_explainability_agent: Optional[LLMExplainabilityAgent] = None,
+        polarity_agent: Optional[Any] = None,
         ner_lexical_agent: Optional[NERLexicalAgent] = None,
         ner_logic_agent: Optional[NERLogicAgent] = None,
         ner_contextual_agent: Optional[NERContextualAgent] = None,
@@ -203,6 +204,9 @@ class PipelineOrchestrator:
         self._llm_lexical = llm_lexical_agent
         self._llm_logic = llm_logic_agent
         self._llm_explain = llm_explainability_agent
+        # Optional 4th specialist (four-agent sentiment variant D); writes
+        # state.polarity_output. None for every other configuration.
+        self._polarity = polarity_agent
         # NER-path agents (lazy defaults created here so callers don't need to
         # supply them when not running sequence-labeling tasks).
         self._ner_lexical: NERLexicalAgent = ner_lexical_agent or NERLexicalAgent()
@@ -333,6 +337,11 @@ class PipelineOrchestrator:
                     ("logic_agent", logic_for_mode),
                     ("contextual_agent", contextual_for_mode),
                 ]
+                # Four-agent sentiment variant D: run an extra Polarity stage
+                # (writes state.polarity_output) alongside the standard trio.
+                # Injected only for that variant; None otherwise → trio unchanged.
+                if pipeline_mode == _FULL_AGENTIC and self._polarity is not None:
+                    stages.append(("polarity_agent", self._polarity))
 
                 for stage_name, agent in stages:
                     state, ok = _run_stage(stage_name, agent.run, state)

@@ -27,7 +27,16 @@ ENV_VAR = "SENTIMENT_AGENT_VARIANT"
 DEFAULT_VARIANT = "default"
 
 #: All recognised variant names.
-VALID_VARIANTS = frozenset({"default", "lexical_polarity_contextual"})
+#: - ``default``                       → Lexical + Logic + Contextual (A)
+#: - ``polarity_contextual``           → Polarity + Contextual (B, 2 agents)
+#: - ``lexical_polarity_contextual``   → Lexical + Polarity + Contextual (C)
+#: - ``lexical_logic_contextual_polarity`` → Lexical + Logic + Contextual + Polarity (D, 4 agents)
+VALID_VARIANTS = frozenset({
+    "default",
+    "polarity_contextual",
+    "lexical_polarity_contextual",
+    "lexical_logic_contextual_polarity",
+})
 
 
 def active_agent_variant(explicit: str | None = None) -> str:

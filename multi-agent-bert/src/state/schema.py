@@ -208,6 +208,10 @@ class PipelineState:
     lexical_output: Optional[AgentOutput] = None
     contextual_output: Optional[AgentOutput] = None
     logic_output: Optional[AgentOutput] = None
+    # Optional 4th specialist slot, used only by the four-agent sentiment
+    # variant D (Lexical + Logic + Contextual + Polarity). Defaults to None so
+    # the default 3-agent pipeline and consensus are unaffected.
+    polarity_output: Optional[AgentOutput] = None
     deliberation_output: Optional[DeliberationOutput] = None
 
     consensus_output: Optional[ConsensusOutput] = None
@@ -287,6 +291,8 @@ class PipelineState:
             self.contextual_output.validate_labels(self.task_config)
         if self.logic_output is not None:
             self.logic_output.validate_labels(self.task_config)
+        if self.polarity_output is not None:
+            self.polarity_output.validate_labels(self.task_config)
 
         if self.consensus_output is not None:
             self.consensus_output.validate_labels(self.task_config)
