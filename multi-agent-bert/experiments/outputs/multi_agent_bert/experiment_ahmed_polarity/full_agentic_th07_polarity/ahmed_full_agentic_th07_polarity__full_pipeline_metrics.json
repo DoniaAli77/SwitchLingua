@@ -1,0 +1,44 @@
+{
+  "run_id": "ahmed_full_agentic_th07_polarity__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-06-30T19:01:00.332367+00:00",
+  "num_samples": 818,
+  "accuracy": 0.92665,
+  "macro_f1": 0.922575,
+  "escalation_rate": 0.102689,
+  "escalated_count": 84,
+  "escalated_accuracy": 0.761905,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.945799,
+      "recall": 0.961433,
+      "f1": 0.953552,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.941799,
+      "recall": 0.903553,
+      "f1": 0.92228,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.888462,
+      "recall": 0.895349,
+      "f1": 0.891892,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

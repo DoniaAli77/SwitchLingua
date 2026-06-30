@@ -80,6 +80,8 @@ from src.agents.deliberation_agent import DeliberationAgent
 from src.agents.llm_explainability_agent import LLMExplainabilityAgent
 from src.agents.llm_lexical_agent import LLMLexicalAgent
 from src.agents.llm_logic_agent import LLMLogicAgent
+from src.agents.polarity_agent import PolarityAgent
+from src.agents._sentiment_agent_variant import active_agent_variant
 from src.agents.ner_consensus_agent import NERConsensusAgent
 from src.agents.ner_contextual_agent import NERContextualAgent
 from src.agents.ner_lexical_agent import NERLexicalAgent
@@ -610,6 +612,7 @@ def build_orchestrator(
     primary_classifier=None,
     llm_client=None,
     consensus_primary_weight: float | None = None,
+    sentiment_agent_variant: str | None = None,
 ) -> PipelineOrchestrator:
     """Build a fully-wired orchestrator using mock components.
 
@@ -675,7 +678,14 @@ def build_orchestrator(
     # Both use the same label_echo client as the contextual agent so tests
     # can verify they are called without a real LLM backend.
     llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
-    llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
+    # Sentiment agent variant: 'default' keeps the Logic agent; the
+    # 'lexical_polarity_contextual' variant swaps in the PolarityAgent at the
+    # same logic_output slot (drop-in — router/consensus unchanged).
+    _agent_variant = active_agent_variant(sentiment_agent_variant)
+    if _agent_variant == "lexical_polarity_contextual":
+        llm_logic_agent = PolarityAgent(llm_client=llm_client)
+    else:
+        llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
     llm_explainability_agent = LLMExplainabilityAgent(llm_client=llm_client)
 
     # NER-path agents — wired with the task labels so they can validate tags.
@@ -1003,6 +1013,18 @@ def main(argv: List[str] | None = None) -> int:
         ),
     )
     parser.add_argument(
+        "--sentiment_agent_variant",
+        default="default",
+        choices=["default", "lexical_polarity_contextual"],
+        help=(
+            "Which sentiment specialist trio to use in full_agentic mode. "
+            "'default' = Lexical + Logic + Contextual (unchanged). "
+            "'lexical_polarity_contextual' = Lexical + Polarity + Contextual "
+            "(replaces the Logic agent with a sentiment Polarity agent). "
+            "Opt-in experimental variant; sets SENTIMENT_AGENT_VARIANT."
+        ),
+    )
+    parser.add_argument(
         "--verbose",
         action="store_true",
         default=False,
@@ -1020,6 +1042,15 @@ def main(argv: List[str] | None = None) -> int:
     if args.sentiment_prompt_variant != "default":
         logging.getLogger().info(
             "Sentiment prompt variant: %s", args.sentiment_prompt_variant
+        )
+
+    # Gate the sentiment agent-architecture variant (which specialist trio runs).
+    # Default keeps Lexical + Logic + Contextual; the experimental variant swaps
+    # Logic -> Polarity. Resolved in build_orchestrator.
+    os.environ["SENTIMENT_AGENT_VARIANT"] = args.sentiment_agent_variant
+    if args.sentiment_agent_variant != "default":
+        logging.getLogger().info(
+            "Sentiment agent variant: %s", args.sentiment_agent_variant
         )
 
     # ------------------------------------------------------------------
@@ -1184,6 +1215,7 @@ def main(argv: List[str] | None = None) -> int:
         primary_classifier=primary_classifier,
         llm_client=llm_client,
         consensus_primary_weight=args.consensus_primary_weight,
+        sentiment_agent_variant=args.sentiment_agent_variant,
     )
 
     saved_paths: Dict[str, Dict[str, str]] = {}
