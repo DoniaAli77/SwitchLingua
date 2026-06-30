@@ -60,6 +60,60 @@ OUTPUT FORMAT (copy this structure exactly):
 
 
 # ---------------------------------------------------------------------------
+# Experimental variant: semantic_v1
+# ---------------------------------------------------------------------------
+# Role-preserving refinement. The Lexical Agent still reasons from explicit
+# vocabulary cues, but is guided to weigh those cues more carefully: to separate
+# a sentiment word being *mentioned* from the author *expressing* it, to treat
+# interface/emoji/punctuation artifacts as weak cues, and to lower confidence
+# when evidence is weak. General sentiment-reasoning guidance only — not tied to
+# any dataset. Enabled via SENTIMENT_PROMPT_VARIANT=semantic_v1.
+
+_SEMANTIC_V1_ADDENDUM = """\
+LEXICAL EVIDENCE GUIDANCE (sentiment) — weigh vocabulary cues carefully:
+- Identify the explicit positive, negative, and neutral lexical cues actually present.
+- Do NOT assign strong sentiment from isolated words alone — a single token is weak,
+  defeasible evidence, not a decision on its own.
+- Distinguish a sentiment word being MENTIONED or REFERENCED from the AUTHOR
+  EXPRESSING that sentiment (e.g. naming a feeling is not the same as feeling it).
+- Treat platform / interface words (like, dislike, unlike, comment, share, clip,
+  lyrics, video, button, subscribe) as WEAK cues unless the author clearly states
+  their own opinion.
+- Treat emojis, slogans, and repeated punctuation as weak SUPPORTING cues only,
+  never decisive evidence by themselves.
+- If the lexical evidence is weak, conflicting, or only artifact-based, return
+  LOWER confidence.
+- Your job is to report the lexical evidence and its strength — not to resolve the
+  full pragmatic meaning (target attribution and overall intent are other agents' roles).\
+""".strip()
+
+#: System prompt for the ``semantic_v1`` variant — the original prompt with the
+#: lexical-evidence guidance inserted immediately before the OUTPUT FORMAT block
+#: (so the JSON contract remains the final instruction). The default
+#: ``SYSTEM_PROMPT`` above is left byte-for-byte unchanged.
+_OUTPUT_FORMAT_MARKER = "OUTPUT FORMAT (copy this structure exactly):"
+SYSTEM_PROMPT_SEMANTIC_V1 = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_SEMANTIC_V1_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
+def get_system_prompt(variant: str | None = None) -> str:
+    """Return the lexical system prompt for the active sentiment variant.
+
+    Defaults to the original ``SYSTEM_PROMPT`` unless ``semantic_v1`` is active.
+    """
+    from src.prompts._sentiment_variant import active_variant
+
+    return (
+        SYSTEM_PROMPT_SEMANTIC_V1
+        if active_variant(variant) == "semantic_v1"
+        else SYSTEM_PROMPT
+    )
+
+
+# ---------------------------------------------------------------------------
 # User prompt template
 # ---------------------------------------------------------------------------
 

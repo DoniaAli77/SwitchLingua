@@ -31,7 +31,7 @@ from src.agents._abstain import abstain_output
 from src.prompts._primary_block import build_primary_signal
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401 (re-exported for callers)
-from src.prompts.contextual_prompt import SYSTEM_PROMPT, build_user_prompt
+from src.prompts.contextual_prompt import build_user_prompt, get_system_prompt
 from src.state.schema import AgentOutput, ModelOutput, PipelineState
 
 # Keys that must be present in a valid LLM response.
@@ -107,7 +107,7 @@ class ContextualAgent(BaseAgent[PipelineState]):
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))
 
         raw_response = self.llm_client.generate(
-            f"{SYSTEM_PROMPT}\n\n{prompt}"
+            f"{get_system_prompt()}\n\n{prompt}"
         )
 
         try:

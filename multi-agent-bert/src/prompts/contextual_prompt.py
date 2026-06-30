@@ -60,6 +60,52 @@ OUTPUT FORMAT (copy this structure exactly):
 
 
 # ---------------------------------------------------------------------------
+# Experimental variant: semantic_v1
+# ---------------------------------------------------------------------------
+# Role-preserving refinement. The Contextual Agent still classifies, but is
+# directed to its intended role: interpret the WHOLE message — its communicative
+# intent — detect implicit sarcasm/mockery/praise, and prioritise the overall
+# message over isolated surface cues (emojis, emotional words). General
+# sentiment-reasoning guidance only — not tied to any dataset. Enabled via
+# SENTIMENT_PROMPT_VARIANT=semantic_v1.
+
+_SEMANTIC_V1_ADDENDUM = """\
+WHOLE-MESSAGE INTERPRETATION GUIDANCE (sentiment) — judge overall intent:
+- Interpret the overall communicative intent of the ENTIRE message.
+- Decide whether the text is an opinion, a meta-comment, a joke, a quote, a
+  plot / content description, or a platform interaction.
+- Do NOT overrule a neutral reading just because emotional words or emojis appear.
+- Use context to detect implicit sarcasm, mockery, praise, or insult.
+- If surface cues conflict with the overall message, PRIORITIZE the overall message.
+- If the author's stance is genuinely unclear, prefer neutral or lower confidence.\
+""".strip()
+
+#: System prompt for the ``semantic_v1`` variant — original prompt with the
+#: whole-message guidance inserted before the OUTPUT FORMAT block. The default
+#: ``SYSTEM_PROMPT`` above is left byte-for-byte unchanged.
+_OUTPUT_FORMAT_MARKER = "OUTPUT FORMAT (copy this structure exactly):"
+SYSTEM_PROMPT_SEMANTIC_V1 = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_SEMANTIC_V1_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
+def get_system_prompt(variant: str | None = None) -> str:
+    """Return the contextual system prompt for the active sentiment variant.
+
+    Defaults to the original ``SYSTEM_PROMPT`` unless ``semantic_v1`` is active.
+    """
+    from src.prompts._sentiment_variant import active_variant
+
+    return (
+        SYSTEM_PROMPT_SEMANTIC_V1
+        if active_variant(variant) == "semantic_v1"
+        else SYSTEM_PROMPT
+    )
+
+
+# ---------------------------------------------------------------------------
 # User prompt template
 # ---------------------------------------------------------------------------
 # Placeholders (Python string.Template syntax):

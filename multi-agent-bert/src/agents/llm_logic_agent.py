@@ -36,7 +36,7 @@ from src.agents._abstain import abstain_output
 from src.prompts._primary_block import build_primary_signal
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401
-from src.prompts.llm_logic_prompt import SYSTEM_PROMPT, build_user_prompt
+from src.prompts.llm_logic_prompt import build_user_prompt, get_system_prompt
 from src.state.schema import AgentOutput, ModelOutput, PipelineState
 
 _REQUIRED_KEYS: frozenset[str] = frozenset({"label", "confidence", "reasoning", "evidence"})
@@ -113,7 +113,7 @@ class LLMLogicAgent(BaseAgent[PipelineState]):
 
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))
 
-        raw_response = self.llm_client.generate(f"{SYSTEM_PROMPT}\n\n{prompt}")
+        raw_response = self.llm_client.generate(f"{get_system_prompt()}\n\n{prompt}")
 
         try:
             parsed = self._parse_response(raw_response)

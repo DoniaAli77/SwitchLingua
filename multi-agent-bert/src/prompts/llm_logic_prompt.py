@@ -61,6 +61,56 @@ OUTPUT FORMAT (copy this structure exactly):
 
 
 # ---------------------------------------------------------------------------
+# Experimental variant: semantic_v1
+# ---------------------------------------------------------------------------
+# Role-preserving refinement. The Logic Agent still reasons from structure, but
+# is directed to do the structural work it is best placed for: resolve the
+# sentiment TARGET first (the author vs other people), separate description from
+# evaluation, and avoid reading emotionally-loaded content as the author's own
+# negativity. General sentiment-reasoning guidance only — not tied to any
+# dataset. Enabled via SENTIMENT_PROMPT_VARIANT=semantic_v1.
+
+_SEMANTIC_V1_ADDENDUM = """\
+STRUCTURE & TARGET GUIDANCE (sentiment) — resolve structure before polarity:
+- FIRST identify the sentiment TARGET: what or who is the author evaluating?
+- Distinguish the AUTHOR'S OWN sentiment from discussion of other people's
+  actions, reactions, or opinions.
+- Do NOT classify the text as negative merely because it MENTIONS negative words,
+  dislike counts, plot events, death, failure, or other emotionally loaded content.
+- Decide whether the text EXPRESSES an evaluation, or merely DESCRIBES / MENTIONS
+  something.
+- Handle negation, contrast, sarcasm, rhetorical questions, and implicit insults
+  or praise, including polarity flips in their scope.
+- If the text discusses platform behavior or other users without the author's own
+  clear evaluation, prefer neutral or low confidence.\
+""".strip()
+
+#: System prompt for the ``semantic_v1`` variant — original prompt with the
+#: structure/target guidance inserted before the OUTPUT FORMAT block. The default
+#: ``SYSTEM_PROMPT`` above is left byte-for-byte unchanged.
+_OUTPUT_FORMAT_MARKER = "OUTPUT FORMAT (copy this structure exactly):"
+SYSTEM_PROMPT_SEMANTIC_V1 = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_SEMANTIC_V1_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
+def get_system_prompt(variant: str | None = None) -> str:
+    """Return the logic system prompt for the active sentiment variant.
+
+    Defaults to the original ``SYSTEM_PROMPT`` unless ``semantic_v1`` is active.
+    """
+    from src.prompts._sentiment_variant import active_variant
+
+    return (
+        SYSTEM_PROMPT_SEMANTIC_V1
+        if active_variant(variant) == "semantic_v1"
+        else SYSTEM_PROMPT
+    )
+
+
+# ---------------------------------------------------------------------------
 # User prompt template
 # ---------------------------------------------------------------------------
 

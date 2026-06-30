@@ -64,6 +64,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import List, Dict
@@ -991,6 +992,17 @@ def main(argv: List[str] | None = None) -> int:
         ),
     )
     parser.add_argument(
+        "--sentiment_prompt_variant",
+        default="default",
+        choices=["default", "semantic_v1"],
+        help=(
+            "Which sentiment LLM-agent system-prompt variant to use. "
+            "'default' (the original prompts) preserves existing behaviour; "
+            "'semantic_v1' enables the role-refined sentiment-reasoning prompts. "
+            "Sets the SENTIMENT_PROMPT_VARIANT environment variable for the run."
+        ),
+    )
+    parser.add_argument(
         "--verbose",
         action="store_true",
         default=False,
@@ -1001,6 +1013,14 @@ def main(argv: List[str] | None = None) -> int:
 
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
+
+    # Gate the sentiment LLM-agent prompt variant. Read at agent call time via
+    # src.prompts._sentiment_variant; default leaves all prompts unchanged.
+    os.environ["SENTIMENT_PROMPT_VARIANT"] = args.sentiment_prompt_variant
+    if args.sentiment_prompt_variant != "default":
+        logging.getLogger().info(
+            "Sentiment prompt variant: %s", args.sentiment_prompt_variant
+        )
 
     # ------------------------------------------------------------------
     # Build task config — must happen before loading the dataset so we

@@ -1,24 +1,24 @@
 {
-  "n": 434,
-  "ar_pct_mean": 63.6,
-  "en_pct_mean": 36.4,
-  "cmi_mean": 32.0,
+  "n": 480,
+  "ar_pct_mean": 62.9,
+  "en_pct_mean": 37.1,
+  "cmi_mean": 33.0,
   "cmi_median": 33.3,
   "cmi_hist": {
-    "0-20": 37,
-    "20-40": 280,
-    "40-60": 117,
+    "0-20": 33,
+    "20-40": 303,
+    "40-60": 144,
     "60-80": 0,
     "80-100": 0
   },
-  "len_mean": 13.7,
-  "len_median": 13,
-  "len_p90": 18,
+  "len_mean": 14.2,
+  "len_median": 14,
+  "len_p90": 19,
   "quality_min": 7.0,
-  "quality_max": 8.95,
+  "quality_max": 8.65,
   "label_dist": {
-    "negative": 114,
     "positive": 160,
-    "neutral": 160
+    "neutral": 160,
+    "negative": 160
   }
 }
