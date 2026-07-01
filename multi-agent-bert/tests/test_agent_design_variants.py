@@ -130,6 +130,16 @@ def test_E_intent_prompt_is_clean_and_schema_preserving():
     assert all(k in sp for k in ['"label"', '"confidence"', '"reasoning"', '"evidence"'])
 
 
+# --------------------------------------------------------------------------- F
+def test_F_intent_polarity_contextual_wiring():
+    o = _orch("intent_polarity_contextual")
+    assert isinstance(o._llm_lexical, AbstainAgent)     # Lexical removed (abstains)
+    assert isinstance(o._llm_logic, PolarityAgent)      # Polarity in logic slot
+    assert isinstance(o._polarity, IntentAgent)         # Intent is the 4th agent
+    assert o._polarity._output_attr == "polarity_output"
+    assert o._consensus.weights["polarity"] == 1.0      # 3 active votes: intent+polarity+contextual
+
+
 def test_default_state_has_polarity_slot_unused():
     """polarity_output exists and defaults None so default consensus is unaffected."""
     st = PipelineState(metadata=StateMetadata(sample_id="t"), input_text="x", task_config=_tc())
@@ -141,7 +151,7 @@ def test_default_state_has_polarity_slot_unused():
 @pytest.mark.parametrize("v", [
     "default", "polarity_contextual",
     "lexical_polarity_contextual", "lexical_logic_contextual_polarity",
-    "lexical_intent_polarity_contextual",
+    "lexical_intent_polarity_contextual", "intent_polarity_contextual",
 ])
 def test_valid_variants_resolve(v):
     assert active_agent_variant(v) == v
