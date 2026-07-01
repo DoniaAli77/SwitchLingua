@@ -605,19 +605,23 @@ def build_llm_client(
 # Orchestrator factory
 # ---------------------------------------------------------------------------
 
-def _build_consensus(primary_weight: float | None, polarity_weight: float):
-    """Construct the ConsensusAgent, overriding only the weights that differ.
+def _build_consensus(primary_weight: float | None, polarity_weight: float,
+                     intent_gate: bool = False):
+    """Construct the ConsensusAgent, overriding only what differs.
 
-    Preserves legacy behaviour: with no primary override and no polarity vote
-    (the default / variants A–C), this is ``ConsensusAgent()`` exactly. The
-    four-agent variant D adds a ``polarity`` weight so the 4th vote counts.
+    Preserves legacy behaviour: with no primary override, no polarity vote, and no
+    intent gate (the default / variants A–C), this is ``ConsensusAgent()`` exactly.
+    Variant D adds a ``polarity`` vote weight; variant G enables the non-voting
+    IntentGate guard (``intent_gate=True``) while leaving the polarity vote at 0.
     """
     weights: Dict[str, float] = {}
     if primary_weight is not None:
         weights["primary"] = primary_weight
     if polarity_weight and polarity_weight > 0.0:
         weights["polarity"] = polarity_weight
-    return ConsensusAgent(weights=weights) if weights else ConsensusAgent()
+    if weights or intent_gate:
+        return ConsensusAgent(weights=weights, intent_gate=intent_gate)
+    return ConsensusAgent()
 
 
 def build_orchestrator(
@@ -708,6 +712,7 @@ def build_orchestrator(
     _agent_variant = active_agent_variant(sentiment_agent_variant)
     polarity_agent = None
     _consensus_polarity_weight = 0.0
+    _consensus_intent_gate = False
     if _agent_variant == "polarity_contextual":  # B
         llm_lexical_agent = AbstainAgent(output_attr="lexical_output", name="LexicalAbstain")
         llm_logic_agent = PolarityAgent(llm_client=llm_client)
@@ -731,6 +736,16 @@ def build_orchestrator(
         llm_logic_agent = PolarityAgent(llm_client=llm_client)
         polarity_agent = IntentAgent(llm_client=llm_client, output_attr="polarity_output")
         _consensus_polarity_weight = 1.0
+    elif _agent_variant == "lexical_polarity_contextual_intent_gate":  # G
+        # Design C trio (Lexical + Polarity@logic + Contextual) PLUS a non-voting
+        # IntentGate: it writes polarity_output but its vote weight stays 0.0; the
+        # ConsensusAgent uses it only as a guard (blocks unsupported polar overrides).
+        llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
+        llm_logic_agent = PolarityAgent(llm_client=llm_client)
+        polarity_agent = IntentAgent(llm_client=llm_client, output_attr="polarity_output",
+                                     name="IntentGate")
+        _consensus_polarity_weight = 0.0  # gate does NOT vote
+        _consensus_intent_gate = True
     else:  # A (default)
         llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
         llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
@@ -751,7 +766,8 @@ def build_orchestrator(
         lexical_agent=LexicalAgent(keyword_map=keyword_map),
         contextual_agent=ContextualAgent(llm_client=llm_client),
         logic_agent=LogicAgent(rule_map=rule_map),
-        consensus_agent=_build_consensus(consensus_primary_weight, _consensus_polarity_weight),
+        consensus_agent=_build_consensus(consensus_primary_weight, _consensus_polarity_weight,
+                                         _consensus_intent_gate),
         explainability_agent=ExplainabilityAgent(),
         deliberation_agent=deliberation_agent,
         paper_contextual_agent=paper_contextual_agent,
@@ -1067,6 +1083,7 @@ def main(argv: List[str] | None = None) -> int:
             "lexical_logic_contextual_polarity",
             "lexical_intent_polarity_contextual",
             "intent_polarity_contextual",
+            "lexical_polarity_contextual_intent_gate",
         ],
         help=(
             "Which sentiment specialist set to use in full_agentic mode (opt-in; "
@@ -1080,7 +1097,9 @@ def main(argv: List[str] | None = None) -> int:
             "'lexical_intent_polarity_contextual' (E) = Lexical + Intent + Polarity "
             "+ Contextual (4 agents; Intent is the 4th slot, weight 1.0). "
             "'intent_polarity_contextual' (F) = Intent + Polarity + Contextual "
-            "(3 agents; Lexical abstains, Intent is the 4th slot)."
+            "(3 agents; Lexical abstains, Intent is the 4th slot). "
+            "'lexical_polarity_contextual_intent_gate' (G) = Design C trio + a "
+            "non-voting IntentGate consensus guard (blocks unsupported polar overrides)."
         ),
     )
     parser.add_argument(

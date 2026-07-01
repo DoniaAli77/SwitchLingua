@@ -22,6 +22,8 @@ from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.polarity_agent import PolarityAgent
 from src.agents.intent_agent import IntentAgent
 from src.prompts import intent_prompt
+
+INTENTGATE = "lexical_polarity_contextual_intent_gate"
 from src.agents._sentiment_agent_variant import active_agent_variant
 from src.state.schema import (
     AgentOutput,
@@ -140,6 +142,59 @@ def test_F_intent_polarity_contextual_wiring():
     assert o._consensus.weights["polarity"] == 1.0      # 3 active votes: intent+polarity+contextual
 
 
+# --------------------------------------------------------------------------- G
+def test_G_intent_gate_wiring():
+    o = _orch(INTENTGATE)
+    assert isinstance(o._llm_lexical, LLMLexicalAgent)   # Lexical KEPT
+    assert isinstance(o._llm_logic, PolarityAgent)       # Polarity in logic slot
+    assert isinstance(o._polarity, IntentAgent)          # IntentGate agent
+    assert o._consensus.weights["polarity"] == 0.0       # gate does NOT vote
+    assert o._consensus._intent_gate is True             # guard active
+
+
+def _gate_state(primary, agents_label, gate_label):
+    st = PipelineState(metadata=StateMetadata(sample_id="t"), input_text="x", task_config=_tc())
+    st.primary_model_output = ModelOutput(label=primary, confidence=0.5)
+    st.lexical_output = _vote("lex", agents_label, 0.9)
+    st.logic_output = _vote("pol", agents_label, 0.9)
+    st.contextual_output = _vote("ctx", agents_label, 0.9)
+    if gate_label is not None:
+        st.polarity_output = _vote("IntentGate", gate_label, 0.8)
+    return st
+
+
+def test_G_gate_blocks_polar_override_of_neutral_primary():
+    # primary neutral, agents override to positive, gate says neutral (no opinion) → blocked
+    st = _gate_state("neutral", "positive", "neutral")
+    out = ConsensusAgent(weights={"primary": 1.0}, intent_gate=True).run(st).final_output
+    assert out.label == "neutral"  # override blocked, neutral protected
+
+
+def test_G_gate_allows_override_when_opinion_expressed():
+    # gate says positive (clear opinion) → does not block; override to positive stands
+    st = _gate_state("neutral", "positive", "positive")
+    out = ConsensusAgent(weights={"primary": 1.0}, intent_gate=True).run(st).final_output
+    assert out.label == "positive"
+
+
+def test_G_gate_off_by_default_reproduces_override():
+    # same inputs, gate OFF → agents override the neutral primary to positive
+    st = _gate_state("neutral", "positive", "neutral")
+    out = ConsensusAgent(weights={"primary": 1.0}).run(st).final_output
+    assert out.label == "positive"  # no guard → C-style override
+
+
+def test_G_gate_does_not_touch_non_override():
+    # consensus already agrees with primary → guard is a no-op
+    st = _gate_state("neutral", "neutral", "neutral")
+    out = ConsensusAgent(weights={"primary": 1.0}, intent_gate=True).run(st).final_output
+    assert out.label == "neutral"
+
+
+def test_default_consensus_has_no_gate():
+    assert ConsensusAgent()._intent_gate is False
+
+
 def test_default_state_has_polarity_slot_unused():
     """polarity_output exists and defaults None so default consensus is unaffected."""
     st = PipelineState(metadata=StateMetadata(sample_id="t"), input_text="x", task_config=_tc())
@@ -152,6 +207,7 @@ def test_default_state_has_polarity_slot_unused():
     "default", "polarity_contextual",
     "lexical_polarity_contextual", "lexical_logic_contextual_polarity",
     "lexical_intent_polarity_contextual", "intent_polarity_contextual",
+    "lexical_polarity_contextual_intent_gate",
 ])
 def test_valid_variants_resolve(v):
     assert active_agent_variant(v) == v

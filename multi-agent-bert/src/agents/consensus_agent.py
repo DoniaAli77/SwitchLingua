@@ -158,6 +158,7 @@ class ConsensusAgent(BaseAgent[PipelineState]):
         weights: Optional[Dict[str, float]] = None,
         name: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
+        intent_gate: bool = False,
     ) -> None:
         super().__init__(name=name or "ConsensusAgent", logger=logger)
         raw: Dict[str, float] = {**_DEFAULT_WEIGHTS, **(weights or {})}
@@ -166,6 +167,14 @@ class ConsensusAgent(BaseAgent[PipelineState]):
             slot: max(0.0, raw.get(slot, _DEFAULT_WEIGHTS.get(slot, 0.0)))
             for slot in ("lexical", "contextual", "logic", "polarity", "deliberation", "primary")
         }
+        # IntentGate guard (Design G): when True, an IntentGate agent's output in
+        # state.polarity_output acts as a NON-VOTING guard (its vote weight stays 0).
+        # If the gate agrees with the primary but the agent consensus overrode the
+        # primary, the guard blocks that override (reverts to the primary). For
+        # sentiment this protects a neutral primary from unsupported polar over-calls
+        # when the gate judges no evaluative opinion is expressed. Task-generic: it
+        # keys on gate==primary label agreement, never on a hardcoded label name.
+        self._intent_gate = intent_gate
 
     # ------------------------------------------------------------------
     # Validation hooks
@@ -329,6 +338,25 @@ class ConsensusAgent(BaseAgent[PipelineState]):
         max_score = max(scores[lbl] for lbl in labels)
         tied = sorted(lbl for lbl in labels if abs(scores[lbl] - max_score) <= 1e-9)
         best_label = _select_winner(tied, primary_label, vote_counts, max_contribution)
+
+        # --- IntentGate guard (Design G, non-voting) ------------------------
+        # Only blocks an *unsupported polar over-call*: if the gate sides with the
+        # primary but the agents overrode it, revert to the primary. Never forces a
+        # flip when the gate expresses a (different) clear opinion, and never fires
+        # when consensus already agrees with the primary.
+        gate_blocked = False
+        pre_gate_label = best_label
+        if self._intent_gate and primary_label is not None and best_label != primary_label:
+            gate_out = state.polarity_output
+            gate_label = (
+                gate_out.model_output.label
+                if gate_out is not None and gate_out.model_output is not None
+                else None
+            )
+            if gate_label is not None and gate_label == primary_label:
+                best_label = primary_label
+                gate_blocked = True
+
         final_confidence = (
             round(scores[best_label] / active_weight_sum, 6) if active_weight_sum else 0.0
         )
@@ -336,6 +364,8 @@ class ConsensusAgent(BaseAgent[PipelineState]):
         rationale = "; ".join(
             f"{slot}={detail}" for slot, detail in vote_details.items()
         )
+        if gate_blocked:
+            rationale += f"; intent_gate=BLOCKED override '{pre_gate_label}'->'{best_label}'"
 
         state.consensus_output = ConsensusOutput(
             label=best_label,
@@ -364,6 +394,8 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 "votes": {lbl: round(scores[lbl], 6) for lbl in labels},
                 "vote_details": dict(vote_details),
                 "fallback": False,
+                "intent_gate_blocked": gate_blocked,
+                "pre_gate_label": pre_gate_label,
             },
         )
         return state

@@ -33,6 +33,8 @@ DEFAULT_VARIANT = "default"
 #: - ``lexical_logic_contextual_polarity`` → Lexical + Logic + Contextual + Polarity (D, 4 agents)
 #: - ``lexical_intent_polarity_contextual`` → Lexical + Intent + Polarity + Contextual (E, 4 agents)
 #: - ``intent_polarity_contextual``        → Intent + Polarity + Contextual (F, 3 agents; Lexical abstains)
+#: - ``lexical_polarity_contextual_intent_gate`` → Lexical + Polarity + Contextual + IntentGate (G;
+#:      the gate is a NON-VOTING consensus guard, not a 4th voter)
 VALID_VARIANTS = frozenset({
     "default",
     "polarity_contextual",
@@ -40,6 +42,7 @@ VALID_VARIANTS = frozenset({
     "lexical_logic_contextual_polarity",
     "lexical_intent_polarity_contextual",
     "intent_polarity_contextual",
+    "lexical_polarity_contextual_intent_gate",
 })
 
 
