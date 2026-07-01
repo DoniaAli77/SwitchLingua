@@ -195,6 +195,39 @@ def test_default_consensus_has_no_gate():
     assert ConsensusAgent()._intent_gate is False
 
 
+# --------------------------------------------------------------------------- G2
+SELECTIVE = "lexical_polarity_contextual_selective_gate"
+
+
+def test_G2_selective_gate_wiring():
+    o = _orch(SELECTIVE)
+    assert isinstance(o._llm_lexical, LLMLexicalAgent)   # Lexical kept (same as G)
+    assert isinstance(o._llm_logic, PolarityAgent)
+    assert isinstance(o._polarity, IntentAgent)
+    assert o._polarity._system_variant == "selective"    # SELECTIVE gate prompt
+    assert o._consensus.weights["polarity"] == 0.0        # still non-voting
+    assert o._consensus._intent_gate is True
+
+
+def test_G2_selective_prompt_differs_and_is_clean():
+    default = intent_prompt.get_system_prompt(None)
+    sel = intent_prompt.get_system_prompt("selective")
+    assert sel != default
+    assert sel == intent_prompt.SYSTEM_PROMPT_SELECTIVE
+    low = sel.lower()
+    assert not any(t in low for t in ["eesa", "arensa", "ahmed", "twitter", "arsentd", "tweet"])
+    assert all(k in sel for k in ['"label"', '"confidence"', '"reasoning"', '"evidence"'])
+    # the selective gate must mention meta/mention protection AND implicit-stance carve-outs
+    assert "meta" in low and "mention" in low
+    assert "implicit" in low and ("insult" in low or "praise" in low)
+
+
+def test_G_still_uses_default_intent_prompt():
+    # G unchanged: its IntentGate uses the default (non-selective) intent prompt
+    o = _orch(INTENTGATE)
+    assert o._polarity._system_variant is None
+
+
 def test_default_state_has_polarity_slot_unused():
     """polarity_output exists and defaults None so default consensus is unaffected."""
     st = PipelineState(metadata=StateMetadata(sample_id="t"), input_text="x", task_config=_tc())
@@ -208,6 +241,7 @@ def test_default_state_has_polarity_slot_unused():
     "lexical_polarity_contextual", "lexical_logic_contextual_polarity",
     "lexical_intent_polarity_contextual", "intent_polarity_contextual",
     "lexical_polarity_contextual_intent_gate",
+    "lexical_polarity_contextual_selective_gate",
 ])
 def test_valid_variants_resolve(v):
     assert active_agent_variant(v) == v

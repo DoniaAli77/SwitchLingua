@@ -107,12 +107,69 @@ Respond with JSON only. "label" must be exactly one of: $labels_csv\
 """)
 
 
+# ---------------------------------------------------------------------------
+# Selective gate variant (Design G2)
+# ---------------------------------------------------------------------------
+# A *selective* IntentGate: it returns NEUTRAL (which triggers the consensus
+# neutral-guard) ONLY when the text is genuinely a platform / meta / mention /
+# content-reference with no author evaluation. When the author expresses an
+# evaluative stance — even implicitly or informally (insult, mockery, fan
+# excitement, praise, criticism, strong affect) — it returns the polar direction,
+# so the guard does NOT fire and the normal consensus decides. This reduces
+# gate over-blocking of implicit-opinion cases while preserving the meta/mention
+# protections. General sentiment-reasoning guidance only — not tied to any dataset.
+
+SYSTEM_PROMPT_SELECTIVE = """\
+You are a SELECTIVE authorial-intent gate in a multi-agent text classification system.
+You are NOT a sentiment classifier and NOT a general opinion detector. Your job is to
+decide one thing: is the text a **platform / meta / mention / content-reference with NO
+author evaluation**, or does the author **express an evaluative stance (even implicitly)**?
+Map that judgement onto one allowed label.
+
+Choose NEUTRAL **only** when the text is clearly one of these (author expresses no stance):
+- a platform / meta-comment about likes, dislikes, unlikes, comments, shares, subscribers,
+  buttons, view counts, or other users' reactions;
+- a clip / video / song / lyric / episode / content reference or plot/scene description
+  without the author's own evaluation;
+- a quote, a named entity / brand / logo / media *spotting* or mention;
+- a question or remark ABOUT other people's actions rather than the author's own opinion.
+
+Do NOT choose neutral — instead choose the POSITIVE or NEGATIVE direction — when the author
+expresses an evaluative stance, EVEN IF implicit or informal, including:
+- an implicit insult, mockery, sarcasm, or put-down (choose negative);
+- excited fan reaction, cheering, hype, or affection (choose positive);
+- clear praise or criticism even in slang / informal / misspelled form;
+- strong affective wording, exclamation, or emotional emphasis that conveys a stance;
+- a stance expressed implicitly but unmistakably.
+
+RULE OF THUMB: absence of an explicit sentiment word is NOT enough for neutral. Return
+neutral only for genuine meta/mention/reference; if an implicit evaluation is present,
+return its polarity.
+
+RULES — follow every rule exactly:
+A. Choose EXACTLY ONE label from the allowed list provided. Do NOT invent labels.
+B. Judge by author intent per the above — neutral ONLY for meta/mention/reference.
+C. Respond with ONLY a JSON object. No markdown fences, no prose, no extra keys.
+D. The JSON must contain exactly these four keys:
+   - "label"      : string — must be one of the allowed labels, copied verbatim
+   - "confidence" : float  — your certainty, between 0.0 and 1.0 (e.g. 0.74)
+   - "reasoning"  : string — one sentence: is this meta/mention (neutral) or an expressed stance (polarity)?
+   - "evidence"   : array  — 1–5 short phrases from the text that justify the decision
+
+OUTPUT FORMAT (copy this structure exactly):
+{"label": "<label>", "confidence": <0.0–1.0>, "reasoning": "<one sentence>", "evidence": ["<phrase>"]}\
+""".strip()
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the intent system prompt.
 
-    The Intent agent has a single role prompt; the parameter exists only to mirror
-    the other agents' ``get_system_prompt`` signature.
+    ``variant='selective'`` returns the Design-G2 selective-gate prompt (neutral only
+    for meta/mention; polarity for implicit stance). Any other value returns the
+    default intent prompt (Design E/F/G).
     """
+    if variant == "selective":
+        return SYSTEM_PROMPT_SELECTIVE
     return SYSTEM_PROMPT
 
 

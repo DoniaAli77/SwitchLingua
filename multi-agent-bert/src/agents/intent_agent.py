@@ -74,10 +74,14 @@ class IntentAgent(BaseAgent[PipelineState]):
         name: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
         output_attr: str = "logic_output",
+        system_variant: Optional[str] = None,
     ) -> None:
         super().__init__(name=name or "IntentAgent", logger=logger)
         self.llm_client = llm_client
         self._output_attr = output_attr
+        # Which intent system prompt to use. None → default intent prompt;
+        # "selective" → the Design-G2 selective-gate prompt.
+        self._system_variant = system_variant
 
     # ------------------------------------------------------------------
     # Validation hooks
@@ -112,7 +116,7 @@ class IntentAgent(BaseAgent[PipelineState]):
 
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))
 
-        raw_response = self.llm_client.generate(f"{get_system_prompt()}\n\n{prompt}")
+        raw_response = self.llm_client.generate(f"{get_system_prompt(self._system_variant)}\n\n{prompt}")
 
         try:
             parsed = self._parse_response(raw_response)

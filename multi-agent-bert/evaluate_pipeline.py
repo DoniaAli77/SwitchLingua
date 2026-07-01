@@ -746,6 +746,17 @@ def build_orchestrator(
                                      name="IntentGate")
         _consensus_polarity_weight = 0.0  # gate does NOT vote
         _consensus_intent_gate = True
+    elif _agent_variant == "lexical_polarity_contextual_selective_gate":  # G2
+        # As G, but the IntentGate uses the SELECTIVE prompt: it protects neutral only
+        # for platform/meta/mention/reference, and returns a polar label when the author
+        # expresses an implicit stance (insult/praise/affect) — so the guard stops
+        # over-blocking implicit-opinion rescues while keeping the meta/mention blocks.
+        llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
+        llm_logic_agent = PolarityAgent(llm_client=llm_client)
+        polarity_agent = IntentAgent(llm_client=llm_client, output_attr="polarity_output",
+                                     name="IntentGate", system_variant="selective")
+        _consensus_polarity_weight = 0.0  # gate does NOT vote
+        _consensus_intent_gate = True
     else:  # A (default)
         llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
         llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
@@ -1084,6 +1095,7 @@ def main(argv: List[str] | None = None) -> int:
             "lexical_intent_polarity_contextual",
             "intent_polarity_contextual",
             "lexical_polarity_contextual_intent_gate",
+            "lexical_polarity_contextual_selective_gate",
         ],
         help=(
             "Which sentiment specialist set to use in full_agentic mode (opt-in; "
@@ -1099,7 +1111,9 @@ def main(argv: List[str] | None = None) -> int:
             "'intent_polarity_contextual' (F) = Intent + Polarity + Contextual "
             "(3 agents; Lexical abstains, Intent is the 4th slot). "
             "'lexical_polarity_contextual_intent_gate' (G) = Design C trio + a "
-            "non-voting IntentGate consensus guard (blocks unsupported polar overrides)."
+            "non-voting IntentGate consensus guard (blocks unsupported polar overrides). "
+            "'lexical_polarity_contextual_selective_gate' (G2) = G with a SELECTIVE gate "
+            "(protects neutral only for platform/meta/mention, not for implicit stance)."
         ),
     )
     parser.add_argument(
