@@ -103,9 +103,12 @@ def get_system_prompt(variant: str | None = None) -> str:
     """
     from src.prompts._sentiment_variant import active_variant
 
+    # semantic_v3_pragmatic_contextual is a Contextual-only upgrade: Logic keeps its
+    # semantic_v1 behaviour under it (Design G uses Polarity in the logic slot, so this
+    # only matters for a default-trio run of v3).
     return (
         SYSTEM_PROMPT_SEMANTIC_V1
-        if active_variant(variant) == "semantic_v1"
+        if active_variant(variant) in ("semantic_v1", "semantic_v3_pragmatic_contextual")
         else SYSTEM_PROMPT
     )
 

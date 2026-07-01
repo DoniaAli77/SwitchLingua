@@ -91,18 +91,65 @@ SYSTEM_PROMPT_SEMANTIC_V1 = SYSTEM_PROMPT.replace(
 )
 
 
+# ---------------------------------------------------------------------------
+# Experimental variant: semantic_v3_pragmatic_contextual (Pragmatic Reasoner)
+# ---------------------------------------------------------------------------
+# Contextual-only upgrade. The Contextual Agent becomes an explicit PRAGMATIC
+# REASONER: it resolves the message's pragmatic structure (speech act, target
+# attribution, mention-vs-use, implicature/sarcasm, description-vs-evaluation)
+# BEFORE assigning sentiment. Targets the remaining pragmatic errors while keeping
+# the JSON schema and the role identical. General sentiment-reasoning guidance
+# only — not tied to any dataset. Lexical and Polarity are unaffected by this
+# variant (they keep their semantic_v1 behaviour). Enabled via
+# SENTIMENT_PROMPT_VARIANT=semantic_v3_pragmatic_contextual.
+
+_PRAGMATIC_ADDENDUM = """\
+PRAGMATIC REASONING (sentiment) — resolve the message's pragmatic structure BEFORE deciding
+sentiment. Reason through these five questions in order, then decide:
+1. SPEECH ACT — what is the author DOING? (stating an opinion, asking a question, giving
+   advice/a request, promoting/advertising, quoting/reporting, greeting, joking, or
+   describing content). Non-evaluative acts often carry no evaluation of the author's own.
+2. TARGET — whose attitude, toward what? Separate the author's OWN evaluation from the author
+   reporting, asking about, or reacting to OTHER people's actions, reactions, or opinions.
+3. MENTION vs USE — is a sentiment-bearing or platform term (like, dislike, unlike, comment,
+   share, a named work/brand) USED to express the author's stance, or merely MENTIONED,
+   referenced, or counted? A referenced token is not an expressed opinion.
+4. IMPLICATURE — is a stance IMPLIED rather than stated? Detect implicit insult, mockery,
+   sarcasm/irony (surface polarity may INVERT), veiled or backhanded praise, and rhetorical
+   questions that carry a stance. Do not require an explicit sentiment word.
+5. DESCRIPTION vs EVALUATION — is the author recounting events, plot, or content, or
+   evaluating them? Narrated or quoted content is not the author's evaluation.
+THEN DECIDE: if the author expresses an evaluation, output its polarity (applying any irony
+inversion from step 4); if no author evaluation is expressed (a non-evaluative act, a
+mention/reference, or a description/report of others), output neutral or lower confidence;
+calibrate confidence to how clearly the pragmatic structure supports the decision.\
+""".strip()
+
+#: System prompt for the ``semantic_v3_pragmatic_contextual`` variant — the original
+#: contextual prompt with the pragmatic-reasoning block inserted before OUTPUT FORMAT.
+#: (Built from the default base, not stacked on semantic_v1, so it is a self-contained
+#: pragmatic Contextual.) The default ``SYSTEM_PROMPT`` is left byte-for-byte unchanged.
+SYSTEM_PROMPT_PRAGMATIC = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_PRAGMATIC_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the contextual system prompt for the active sentiment variant.
 
-    Defaults to the original ``SYSTEM_PROMPT`` unless ``semantic_v1`` is active.
+    Defaults to the original ``SYSTEM_PROMPT``. ``semantic_v1`` → whole-message
+    guidance; ``semantic_v3_pragmatic_contextual`` → the Pragmatic Reasoner prompt.
     """
     from src.prompts._sentiment_variant import active_variant
 
-    return (
-        SYSTEM_PROMPT_SEMANTIC_V1
-        if active_variant(variant) == "semantic_v1"
-        else SYSTEM_PROMPT
-    )
+    v = active_variant(variant)
+    if v == "semantic_v3_pragmatic_contextual":
+        return SYSTEM_PROMPT_PRAGMATIC
+    if v == "semantic_v1":
+        return SYSTEM_PROMPT_SEMANTIC_V1
+    return SYSTEM_PROMPT
 
 
 # ---------------------------------------------------------------------------

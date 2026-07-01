@@ -1076,11 +1076,13 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument(
         "--sentiment_prompt_variant",
         default="default",
-        choices=["default", "semantic_v1"],
+        choices=["default", "semantic_v1", "semantic_v3_pragmatic_contextual"],
         help=(
             "Which sentiment LLM-agent system-prompt variant to use. "
             "'default' (the original prompts) preserves existing behaviour; "
-            "'semantic_v1' enables the role-refined sentiment-reasoning prompts. "
+            "'semantic_v1' enables the role-refined sentiment-reasoning prompts; "
+            "'semantic_v3_pragmatic_contextual' keeps Lexical/Logic at semantic_v1 and "
+            "upgrades ONLY the Contextual agent to the explicit Pragmatic Reasoner. "
             "Sets the SENTIMENT_PROMPT_VARIANT environment variable for the run."
         ),
     )

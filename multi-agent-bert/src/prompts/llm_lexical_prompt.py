@@ -106,9 +106,11 @@ def get_system_prompt(variant: str | None = None) -> str:
     """
     from src.prompts._sentiment_variant import active_variant
 
+    # semantic_v3_pragmatic_contextual is a Contextual-only upgrade: Lexical keeps its
+    # semantic_v1 behaviour under it (unchanged from Design G's semantic_v1 run).
     return (
         SYSTEM_PROMPT_SEMANTIC_V1
-        if active_variant(variant) == "semantic_v1"
+        if active_variant(variant) in ("semantic_v1", "semantic_v3_pragmatic_contextual")
         else SYSTEM_PROMPT
     )
 

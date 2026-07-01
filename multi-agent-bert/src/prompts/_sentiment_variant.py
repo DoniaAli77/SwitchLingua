@@ -32,7 +32,15 @@ ENV_VAR = "SENTIMENT_PROMPT_VARIANT"
 DEFAULT_VARIANT = "default"
 
 #: All recognised variant names.
-VALID_VARIANTS = frozenset({"default", "semantic_v1"})
+#: - ``default``  — original prompts.
+#: - ``semantic_v1`` — role-refined sentiment prompts (Lexical/Logic/Contextual).
+#: - ``semantic_v3_pragmatic_contextual`` — Lexical/Logic keep semantic_v1 behaviour;
+#:   the Contextual agent becomes the explicit Pragmatic Reasoner. Contextual-only upgrade.
+VALID_VARIANTS = frozenset({
+    "default",
+    "semantic_v1",
+    "semantic_v3_pragmatic_contextual",
+})
 
 
 def active_variant(explicit: str | None = None) -> str:
