@@ -186,6 +186,8 @@ class PipelineOrchestrator:
         llm_logic_agent: Optional[LLMLogicAgent] = None,
         llm_explainability_agent: Optional[LLMExplainabilityAgent] = None,
         polarity_agent: Optional[Any] = None,
+        sequential_stages: Optional[list] = None,
+        sequential_controller: Optional[Any] = None,
         ner_lexical_agent: Optional[NERLexicalAgent] = None,
         ner_logic_agent: Optional[NERLogicAgent] = None,
         ner_contextual_agent: Optional[NERContextualAgent] = None,
@@ -207,6 +209,12 @@ class PipelineOrchestrator:
         # Optional 4th specialist (four-agent sentiment variant D); writes
         # state.polarity_output. None for every other configuration.
         self._polarity = polarity_agent
+        # Optional sequential-agentic escalation (sequential_sentiment_v1):
+        # an ordered list of (stage_name, agent) run in series, followed by a
+        # deterministic controller that writes final_output. Both None for every
+        # other configuration → the parallel trio + consensus path is unchanged.
+        self._sequential_stages = sequential_stages
+        self._sequential_controller = sequential_controller
         # NER-path agents (lazy defaults created here so callers don't need to
         # supply them when not running sequence-labeling tasks).
         self._ner_lexical: NERLexicalAgent = ner_lexical_agent or NERLexicalAgent()
@@ -305,6 +313,34 @@ class PipelineOrchestrator:
                     pipeline_mode,
                 )
 
+                # Sequential-agentic escalation (sequential_sentiment_v1): opt-in.
+                # When a controller is injected and we are in full_agentic mode, run
+                # the staged reasoning pipeline (intent → polarity → pragmatic →
+                # deterministic controller) instead of the parallel trio + consensus.
+                # Default (controller None) leaves the parallel path untouched.
+                if (
+                    pipeline_mode == _FULL_AGENTIC
+                    and self._sequential_controller is not None
+                ):
+                    for stage_name, agent in (self._sequential_stages or []):
+                        state, ok = _run_stage(stage_name, agent.run, state)
+                        if not ok:
+                            return state
+                    state, ok = _run_stage(
+                        "sequential_controller", self._sequential_controller.run, state
+                    )
+                    if not ok:
+                        return state
+                    explain_for_mode = (
+                        self._llm_explain
+                        if self._llm_explain is not None
+                        else self._explain
+                    )
+                    state, _ = _run_stage(
+                        "explainability_agent", explain_for_mode.run, state
+                    )
+                    return self._finalize(state, pipeline_mode)
+
                 # Resolve per-mode specialist agents.
                 #
                 # paper_style: use the non-LLM baseline agents to stay close to
@@ -377,6 +413,10 @@ class PipelineOrchestrator:
                 )
                 state, _ = _run_stage("explainability_agent", explain_for_mode.run, state)
 
+        return self._finalize(state, pipeline_mode)
+
+    def _finalize(self, state: PipelineState, pipeline_mode: PipelineMode) -> PipelineState:
+        """Shared pipeline-completion logging + history; returns the state."""
         self.logger.info(
             "Pipeline finished — label=%s confidence=%s",
             state.final_output.label if state.final_output else None,

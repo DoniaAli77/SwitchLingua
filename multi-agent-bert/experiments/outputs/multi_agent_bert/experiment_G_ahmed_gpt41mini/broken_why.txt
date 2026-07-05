@@ -1,0 +1,24 @@
+ahmed-eesa-00041  true=negative
+  text: 123 الف dislike  يارب تكون الراسالة وصلت .... مين يزود
+  4o-mini : lex=negative pol=negative ctx=negative gate=neutral -> final=negative
+  4.1-mini: lex=negative pol=neutral ctx=neutral gate=neutral -> final=neutral
+
+ahmed-eesa-00045  true=negative
+  text: ال عاملين dislike ليه ياولاد المره !
+  4o-mini : lex=negative pol=negative ctx=negative gate=negative -> final=negative
+  4.1-mini: lex=negative pol=negative ctx=negative gate=neutral -> final=neutral  [GATE-BLOCKED]
+
+ahmed-eesa-00100  true=negative
+  text: يعني انت بروح امك جي تنزل اغنيه دلوقتى ع bts  يخدو الترند رقم 2
+  4o-mini : lex=neutral pol=negative ctx=negative gate=negative -> final=negative
+  4.1-mini: lex=negative pol=negative ctx=negative gate=neutral -> final=neutral  [GATE-BLOCKED]
+
+ahmed-eesa-00127  true=negative
+  text: بتقول I don’t think  بعدين تقول في بطنه بطيخه صيفي  !!!!!!!
+  4o-mini : lex=negative pol=negative ctx=negative gate=negative -> final=negative
+  4.1-mini: lex=neutral pol=neutral ctx=negative gate=negative -> final=neutral
+
+ahmed-eesa-00362  true=neutral
+  text: اكيد بتقصد تذويب الجثة في الحمام و مسلسل Breaking Bad لما فشل جيسي الفاشل في الكيميا انه يتخلص منها في البانيو
+  4o-mini : lex=neutral pol=neutral ctx=neutral gate=neutral -> final=neutral
+  4.1-mini: lex=negative pol=negative ctx=negative gate=negative -> final=negative

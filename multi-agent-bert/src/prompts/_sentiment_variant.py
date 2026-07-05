@@ -36,10 +36,16 @@ DEFAULT_VARIANT = "default"
 #: - ``semantic_v1`` — role-refined sentiment prompts (Lexical/Logic/Contextual).
 #: - ``semantic_v3_pragmatic_contextual`` — Lexical/Logic keep semantic_v1 behaviour;
 #:   the Contextual agent becomes the explicit Pragmatic Reasoner. Contextual-only upgrade.
+#: - ``semantic_v2_disambig`` — replaces the lossy "platform word -> lean neutral" shortcut
+#:   with a general RELATIONSHIP disambiguation (report/endorse/attack a platform action) and
+#:   a description-vs-evaluation rule, across Lexical/Polarity/Contextual/Intent. General
+#:   pragmatics only — no dataset-specific terms. Targets the gpt-4.1-mini "wash" (see
+#:   EXPERIMENT_G41_WASH_DIAGNOSIS.md).
 VALID_VARIANTS = frozenset({
     "default",
     "semantic_v1",
     "semantic_v3_pragmatic_contextual",
+    "semantic_v2_disambig",
 })
 
 

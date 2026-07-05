@@ -1,0 +1,44 @@
+{
+  "run_id": "seqv2_ahmed__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-07-01T18:36:04.429481+00:00",
+  "num_samples": 818,
+  "accuracy": 0.91198,
+  "macro_f1": 0.90765,
+  "escalation_rate": 0.102689,
+  "escalated_count": 84,
+  "escalated_accuracy": 0.619048,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.924933,
+      "recall": 0.950413,
+      "f1": 0.9375,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.925532,
+      "recall": 0.883249,
+      "f1": 0.903896,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.883268,
+      "recall": 0.879845,
+      "f1": 0.881553,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

@@ -83,6 +83,21 @@ from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.polarity_agent import PolarityAgent
 from src.agents.intent_agent import IntentAgent
 from src.agents.abstain_agent import AbstainAgent
+from src.agents.sequential_sentiment import (
+    SeqIntentAgent,
+    SeqPolarityAgent,
+    SeqPragmaticAgent,
+    SequentialController,
+    TAU_INTENT_DEFAULT,
+    TAU_REVISE_DEFAULT,
+    TAU_LOW_DEFAULT,
+)
+from src.agents.sequential_sentiment_v2 import (
+    SeqV2IntentAgent,
+    SeqV2PragmaticFeaturesAgent,
+    SeqV2PolarityResolverAgent,
+    SequentialControllerV2,
+)
 from src.agents._sentiment_agent_variant import active_agent_variant
 from src.agents.ner_consensus_agent import NERConsensusAgent
 from src.agents.ner_contextual_agent import NERContextualAgent
@@ -634,6 +649,7 @@ def build_orchestrator(
     llm_client=None,
     consensus_primary_weight: float | None = None,
     sentiment_agent_variant: str | None = None,
+    sequential_config: Dict[str, float | bool] | None = None,
 ) -> PipelineOrchestrator:
     """Build a fully-wired orchestrator using mock components.
 
@@ -713,6 +729,37 @@ def build_orchestrator(
     polarity_agent = None
     _consensus_polarity_weight = 0.0
     _consensus_intent_gate = False
+    # Sequential (staged-reasoning) variant: build the 3 stage agents + the
+    # deterministic controller and inject them into the orchestrator's opt-in
+    # sequential escalation path. The parallel specialist agents below are still
+    # constructed for backward compatibility but never run under this variant.
+    _sequential_stages = None
+    _sequential_controller = None
+    if _agent_variant == "sequential_sentiment_v1":
+        cfg = sequential_config or {}
+        _sequential_stages = [
+            ("seq_intent_stage", SeqIntentAgent(llm_client=llm_client)),
+            ("seq_polarity_stage", SeqPolarityAgent(llm_client=llm_client)),
+            ("seq_pragmatic_stage", SeqPragmaticAgent(llm_client=llm_client)),
+        ]
+        _sequential_controller = SequentialController(
+            tau_intent=float(cfg.get("tau_intent", TAU_INTENT_DEFAULT)),
+            tau_revise=float(cfg.get("tau_revise", TAU_REVISE_DEFAULT)),
+            tau_low=float(cfg.get("tau_low", TAU_LOW_DEFAULT)),
+            use_primary_fallback=bool(cfg.get("use_primary_fallback", True)),
+        )
+    elif _agent_variant == "sequential_sentiment_v2":
+        cfg = sequential_config or {}
+        _sequential_stages = [
+            ("seq_intent_stage", SeqV2IntentAgent(llm_client=llm_client)),
+            ("seq_pragmatic_features_stage", SeqV2PragmaticFeaturesAgent(llm_client=llm_client)),
+            ("seq_polarity_resolver_stage", SeqV2PolarityResolverAgent(llm_client=llm_client)),
+        ]
+        _sequential_controller = SequentialControllerV2(
+            tau_intent=float(cfg.get("tau_intent", TAU_INTENT_DEFAULT)),
+            tau_low=float(cfg.get("tau_low", TAU_LOW_DEFAULT)),
+            use_primary_fallback=bool(cfg.get("use_primary_fallback", True)),
+        )
     if _agent_variant == "polarity_contextual":  # B
         llm_lexical_agent = AbstainAgent(output_attr="lexical_output", name="LexicalAbstain")
         llm_logic_agent = PolarityAgent(llm_client=llm_client)
@@ -786,6 +833,8 @@ def build_orchestrator(
         llm_logic_agent=llm_logic_agent,
         llm_explainability_agent=llm_explainability_agent,
         polarity_agent=polarity_agent,
+        sequential_stages=_sequential_stages,
+        sequential_controller=_sequential_controller,
         ner_lexical_agent=ner_lexical,
         ner_logic_agent=ner_logic,
         ner_contextual_agent=ner_contextual,
@@ -1076,7 +1125,7 @@ def main(argv: List[str] | None = None) -> int:
     parser.add_argument(
         "--sentiment_prompt_variant",
         default="default",
-        choices=["default", "semantic_v1", "semantic_v3_pragmatic_contextual"],
+        choices=["default", "semantic_v1", "semantic_v3_pragmatic_contextual", "semantic_v2_disambig"],
         help=(
             "Which sentiment LLM-agent system-prompt variant to use. "
             "'default' (the original prompts) preserves existing behaviour; "
@@ -1098,6 +1147,8 @@ def main(argv: List[str] | None = None) -> int:
             "intent_polarity_contextual",
             "lexical_polarity_contextual_intent_gate",
             "lexical_polarity_contextual_selective_gate",
+            "sequential_sentiment_v1",
+            "sequential_sentiment_v2",
         ],
         help=(
             "Which sentiment specialist set to use in full_agentic mode (opt-in; "
@@ -1115,7 +1166,50 @@ def main(argv: List[str] | None = None) -> int:
             "'lexical_polarity_contextual_intent_gate' (G) = Design C trio + a "
             "non-voting IntentGate consensus guard (blocks unsupported polar overrides). "
             "'lexical_polarity_contextual_selective_gate' (G2) = G with a SELECTIVE gate "
-            "(protects neutral only for platform/meta/mention, not for implicit stance)."
+            "(protects neutral only for platform/meta/mention, not for implicit stance). "
+            "'sequential_sentiment_v1' = STAGED reasoning (Intent -> Polarity -> Pragmatic "
+            "-> deterministic controller) instead of parallel voting. "
+            "'sequential_sentiment_v2' = FORWARD-pragmatics staged pipeline (Intent -> "
+            "Pragmatic FEATURES -> feature-aware Polarity -> controller); no review stage."
+        ),
+    )
+    parser.add_argument(
+        "--seq_tau_intent",
+        type=float,
+        default=TAU_INTENT_DEFAULT,
+        metavar="F",
+        help=(
+            "sequential_sentiment_v1 controller: high-confidence 'no opinion' "
+            f"threshold for the intent stage (default {TAU_INTENT_DEFAULT})."
+        ),
+    )
+    parser.add_argument(
+        "--seq_tau_revise",
+        type=float,
+        default=TAU_REVISE_DEFAULT,
+        metavar="F",
+        help=(
+            "sequential_sentiment_v1 controller: confidence threshold for a "
+            f"pragmatic revision to be trusted (default {TAU_REVISE_DEFAULT})."
+        ),
+    )
+    parser.add_argument(
+        "--seq_tau_low",
+        type=float,
+        default=TAU_LOW_DEFAULT,
+        metavar="F",
+        help=(
+            "sequential_sentiment_v1 controller: below this polarity confidence a "
+            f"weak/conflicted case falls back to the primary (default {TAU_LOW_DEFAULT})."
+        ),
+    )
+    parser.add_argument(
+        "--seq_no_primary_fallback",
+        action="store_true",
+        default=False,
+        help=(
+            "sequential_sentiment_v1 controller: disable the primary fallback for a "
+            "PURE-sequential ablation (USE_PRIMARY_FALLBACK=False)."
         ),
     )
     parser.add_argument(
@@ -1310,6 +1404,12 @@ def main(argv: List[str] | None = None) -> int:
         llm_client=llm_client,
         consensus_primary_weight=args.consensus_primary_weight,
         sentiment_agent_variant=args.sentiment_agent_variant,
+        sequential_config={
+            "tau_intent": args.seq_tau_intent,
+            "tau_revise": args.seq_tau_revise,
+            "tau_low": args.seq_tau_low,
+            "use_primary_fallback": not args.seq_no_primary_fallback,
+        },
     )
 
     saved_paths: Dict[str, Dict[str, str]] = {}

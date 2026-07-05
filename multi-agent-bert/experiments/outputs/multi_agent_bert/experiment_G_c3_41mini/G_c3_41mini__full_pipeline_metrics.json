@@ -1,0 +1,44 @@
+{
+  "run_id": "G_c3_41mini__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-07-04T13:38:27.660301+00:00",
+  "num_samples": 818,
+  "accuracy": 0.767726,
+  "macro_f1": 0.752689,
+  "escalation_rate": 0.282396,
+  "escalated_count": 231,
+  "escalated_accuracy": 0.796537,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.859155,
+      "recall": 0.84022,
+      "f1": 0.849582,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.648,
+      "recall": 0.822335,
+      "f1": 0.724832,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.755869,
+      "recall": 0.624031,
+      "f1": 0.683652,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

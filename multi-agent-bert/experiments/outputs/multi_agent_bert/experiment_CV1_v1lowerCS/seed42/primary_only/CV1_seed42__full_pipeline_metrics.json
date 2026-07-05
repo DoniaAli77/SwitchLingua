@@ -1,0 +1,44 @@
+{
+  "run_id": "CV1_seed42__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-07-04T17:56:44.068764+00:00",
+  "num_samples": 818,
+  "accuracy": 0.649144,
+  "macro_f1": 0.640227,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.865672,
+      "recall": 0.639118,
+      "f1": 0.735341,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.520661,
+      "recall": 0.639594,
+      "f1": 0.574032,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.561688,
+      "recall": 0.670543,
+      "f1": 0.611307,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "run_id": "G2_eesaXLMR_41mini__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-07-04T21:24:17.802453+00:00",
+  "num_samples": 818,
+  "accuracy": 0.882641,
+  "macro_f1": 0.872584,
+  "escalation_rate": 0.206601,
+  "escalated_count": 169,
+  "escalated_accuracy": 0.763314,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.924119,
+      "recall": 0.939394,
+      "f1": 0.931694,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.86631,
+      "recall": 0.822335,
+      "f1": 0.84375,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.835878,
+      "recall": 0.848837,
+      "f1": 0.842308,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

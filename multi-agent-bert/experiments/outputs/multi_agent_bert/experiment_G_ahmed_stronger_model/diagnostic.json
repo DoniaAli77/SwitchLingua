@@ -1,0 +1,402 @@
+{
+ "gpt-4o-mini": [
+  {
+   "sample_id": "ahmed-eesa-00008",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00021",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "negative",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00046",
+   "true_label": "negative",
+   "lexical": "negative",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00097",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00182",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00193",
+   "true_label": "negative",
+   "lexical": "negative",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00220",
+   "true_label": "neutral",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00240",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00250",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "negative",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00290",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "negative",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00295",
+   "true_label": "neutral",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00298",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00307",
+   "true_label": "neutral",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00446",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "negative",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00542",
+   "true_label": "positive",
+   "lexical": "positive",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00635",
+   "true_label": "positive",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00642",
+   "true_label": "positive",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00706",
+   "true_label": "positive",
+   "lexical": "positive",
+   "polarity": "neutral",
+   "contextual": "positive",
+   "gate": "neutral",
+   "gate_blocked": true,
+   "final": "neutral",
+   "correct": false
+  }
+ ],
+ "gpt-4.1-mini": [
+  {
+   "sample_id": "ahmed-eesa-00008",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00021",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00046",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00097",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00182",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "negative",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00193",
+   "true_label": "negative",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00220",
+   "true_label": "neutral",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00240",
+   "true_label": "neutral",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": true
+  },
+  {
+   "sample_id": "ahmed-eesa-00250",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "negative",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00290",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "negative",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00295",
+   "true_label": "neutral",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00298",
+   "true_label": "neutral",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": true
+  },
+  {
+   "sample_id": "ahmed-eesa-00307",
+   "true_label": "neutral",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00446",
+   "true_label": "neutral",
+   "lexical": "negative",
+   "polarity": "negative",
+   "contextual": "negative",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "negative",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00542",
+   "true_label": "positive",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": true
+  },
+  {
+   "sample_id": "ahmed-eesa-00635",
+   "true_label": "positive",
+   "lexical": "neutral",
+   "polarity": "neutral",
+   "contextual": "neutral",
+   "gate": "neutral",
+   "gate_blocked": false,
+   "final": "neutral",
+   "correct": false
+  },
+  {
+   "sample_id": "ahmed-eesa-00642",
+   "true_label": "positive",
+   "lexical": "positive",
+   "polarity": "positive",
+   "contextual": "positive",
+   "gate": "positive",
+   "gate_blocked": false,
+   "final": "positive",
+   "correct": true
+  },
+  {
+   "sample_id": "ahmed-eesa-00706",
+   "true_label": "positive",
+   "lexical": "positive",
+   "polarity": "neutral",
+   "contextual": "positive",
+   "gate": "neutral",
+   "gate_blocked": true,
+   "final": "neutral",
+   "correct": false
+  }
+ ]
+}

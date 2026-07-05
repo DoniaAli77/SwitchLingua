@@ -1,0 +1,44 @@
+{
+  "run_id": "fullEESA_twostage__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-07-05T01:16:28.756905+00:00",
+  "num_samples": 818,
+  "accuracy": 0.865526,
+  "macro_f1": 0.85785,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.893048,
+      "recall": 0.92011,
+      "f1": 0.906377,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.862434,
+      "recall": 0.827411,
+      "f1": 0.84456,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.827451,
+      "recall": 0.817829,
+      "f1": 0.822612,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

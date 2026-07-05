@@ -1,0 +1,44 @@
+{
+  "run_id": "G_ahmed_41mini__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-07-02T11:51:31.541301+00:00",
+  "num_samples": 818,
+  "accuracy": 0.929095,
+  "macro_f1": 0.924752,
+  "escalation_rate": 0.102689,
+  "escalated_count": 84,
+  "escalated_accuracy": 0.785714,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.948509,
+      "recall": 0.964187,
+      "f1": 0.956284,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.961326,
+      "recall": 0.883249,
+      "f1": 0.920635,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.880597,
+      "recall": 0.914729,
+      "f1": 0.897338,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

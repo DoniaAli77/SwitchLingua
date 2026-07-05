@@ -99,18 +99,57 @@ SYSTEM_PROMPT_SEMANTIC_V1 = SYSTEM_PROMPT.replace(
 )
 
 
+# ---------------------------------------------------------------------------
+# Experimental variant: semantic_v2_disambig
+# ---------------------------------------------------------------------------
+# Replaces the lossy "platform words = weak cue -> lean neutral" heuristic with a
+# general RELATIONSHIP disambiguation: a platform action is not neutral by default;
+# classify whether the author reports, endorses, or objects to it. General
+# use-vs-mention pragmatics only — no dataset-specific terms.
+
+_DISAMBIG_ADDENDUM = """\
+LEXICAL EVIDENCE GUIDANCE (sentiment) — weigh vocabulary cues carefully:
+- Identify the explicit positive, negative, and neutral lexical cues actually present.
+- Do NOT assign strong sentiment from isolated words alone — a single token is weak,
+  defeasible evidence, not a decision on its own.
+- Distinguish a sentiment word being MENTIONED or REFERENCED from the AUTHOR
+  EXPRESSING that sentiment.
+- PLATFORM ACTIONS (like, dislike, unlike, comment, share, follow, subscribe, trend,
+  view) are NOT neutral by default. Judge the author's RELATIONSHIP to the action:
+    (a) merely reporting or counting it → weak / neutral cue;
+    (b) endorsing or celebrating it → carry the endorsed polarity;
+    (c) objecting to it, or attacking the people doing it → negative cue.
+- Words appearing INSIDE described or quoted content (a plot, events, someone else's
+  words) are not the author's own cues.
+- Treat emojis, slogans, and repeated punctuation as weak SUPPORTING cues only.
+- If the lexical evidence is weak, conflicting, or only artifact-based, return LOWER confidence.
+- Report the lexical evidence and its strength — leave full pragmatic resolution to other agents.\
+""".strip()
+
+#: System prompt for ``semantic_v2_disambig`` — built from the DEFAULT base (not stacked on
+#: semantic_v1) so the old "platform -> weak/neutral" shortcut is not also present.
+SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_DISAMBIG_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the lexical system prompt for the active sentiment variant.
 
-    Defaults to the original ``SYSTEM_PROMPT`` unless ``semantic_v1`` is active.
+    Defaults to the original ``SYSTEM_PROMPT`` unless a sentiment variant is active.
     """
     from src.prompts._sentiment_variant import active_variant
 
+    v = active_variant(variant)
+    if v == "semantic_v2_disambig":
+        return SYSTEM_PROMPT_DISAMBIG
     # semantic_v3_pragmatic_contextual is a Contextual-only upgrade: Lexical keeps its
     # semantic_v1 behaviour under it (unchanged from Design G's semantic_v1 run).
     return (
         SYSTEM_PROMPT_SEMANTIC_V1
-        if active_variant(variant) in ("semantic_v1", "semantic_v3_pragmatic_contextual")
+        if v in ("semantic_v1", "semantic_v3_pragmatic_contextual")
         else SYSTEM_PROMPT
     )
 

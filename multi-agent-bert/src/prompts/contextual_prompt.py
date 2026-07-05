@@ -136,17 +136,51 @@ SYSTEM_PROMPT_PRAGMATIC = SYSTEM_PROMPT.replace(
 )
 
 
+# ---------------------------------------------------------------------------
+# Experimental variant: semantic_v2_disambig
+# ---------------------------------------------------------------------------
+# Whole-message interpretation + two explicit disambiguations: the author's
+# RELATIONSHIP to a platform action, and DESCRIPTION vs EVALUATION. General
+# pragmatics only — no dataset-specific terms.
+
+_DISAMBIG_ADDENDUM = """\
+WHOLE-MESSAGE INTERPRETATION GUIDANCE (sentiment) — resolve two ambiguities, then decide:
+- Interpret the overall communicative intent of the ENTIRE message; do NOT overrule a
+  neutral reading just because emotional words or emojis appear.
+1. PLATFORM ACTIONS (like, dislike, unlike, comment, share, follow, trend, view) are NOT
+   neutral by default. Decide the author's RELATIONSHIP: merely reporting/counting/asking
+   about it → neutral; endorsing or celebrating it → carry that polarity; objecting to it,
+   or attacking the people doing it → negative.
+2. DESCRIPTION vs EVALUATION: distinguish RECOUNTING or DESCRIBING content (a plot, events,
+   others' actions or opinions) — which is neutral even when it contains strong words —
+   from the author EVALUATING it. Words inside described or quoted content are not the
+   author's own stance.
+- Use context to detect implicit sarcasm, mockery, praise, or insult; if surface cues
+  conflict with the overall message, PRIORITIZE the overall message.
+- If the author's stance is genuinely unclear, prefer neutral or lower confidence.\
+""".strip()
+
+SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_DISAMBIG_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the contextual system prompt for the active sentiment variant.
 
     Defaults to the original ``SYSTEM_PROMPT``. ``semantic_v1`` → whole-message
-    guidance; ``semantic_v3_pragmatic_contextual`` → the Pragmatic Reasoner prompt.
+    guidance; ``semantic_v3_pragmatic_contextual`` → the Pragmatic Reasoner prompt;
+    ``semantic_v2_disambig`` → whole-message + platform-relationship / description-vs-eval.
     """
     from src.prompts._sentiment_variant import active_variant
 
     v = active_variant(variant)
     if v == "semantic_v3_pragmatic_contextual":
         return SYSTEM_PROMPT_PRAGMATIC
+    if v == "semantic_v2_disambig":
+        return SYSTEM_PROMPT_DISAMBIG
     if v == "semantic_v1":
         return SYSTEM_PROMPT_SEMANTIC_V1
     return SYSTEM_PROMPT

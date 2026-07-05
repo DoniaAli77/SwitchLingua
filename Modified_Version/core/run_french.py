@@ -51,11 +51,12 @@ def meet_criteria(state: AgentRunningState):
                 continue
             score = rec.get("weighted_score")
             rc = int(rec.get("refine_count", 0) or 0)
-            if (
-                isinstance(score, (int, float))
-                and float(score) < SENTENCE_SCORE_THRESHOLD
-                and rc < MAX_SENTENCE_REFINES
-            ):
+            quality_low = isinstance(score, (int, float)) and float(score) < SENTENCE_SCORE_THRESHOLD
+            # Task-aware routing: a task-failing sentence is refine-eligible even when its
+            # quality score clears the bar (RunRefinerAgent already classifies task_fail
+            # independently and routes it to the task-specific refiner prompt).
+            task_failed = rec.get("task_passed") is False
+            if (quality_low or task_failed) and rc < MAX_SENTENCE_REFINES:
                 eligible_failing_indices.append(idx)
 
         if eligible_failing_indices:

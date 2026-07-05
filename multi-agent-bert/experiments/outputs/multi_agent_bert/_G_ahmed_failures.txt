@@ -1,0 +1,71 @@
+C->W  negative->neutral  | primary-wrong  ahmed-eesa-00008
+   text: هوة معتز مسعود دة gay ?
+   ahmed=negative(0.67) lex=neutral pol=neutral ctx=neutral gate=neutral
+
+C->W  negative->neutral  | primary-wrong  ahmed-eesa-00097
+   text: مش غريبة برضو الفيديو مفيهوش ولا راجل "including Mohamed Ramadan 😂"
+   ahmed=negative(0.39) lex=neutral pol=neutral ctx=neutral gate=neutral
+
+C->W  negative->neutral  | primary-wrong  ahmed-eesa-00193
+   text: ههههههههه المشهد واضح ان فيه cut فجأة الرجال اللي كان في يد محمد رمضان تبدل طيب والرجال اللي قبل في يده امسكه 
+   ahmed=negative(0.62) lex=neutral pol=neutral ctx=neutral gate=neutral
+
+C->W  neutral->negative  | primary-wrong  ahmed-eesa-00290
+   text: ليه كده يا رمضان؟؟ 😏 ما كنت تخليك ف التمثيل أحسن، عايز تعمل فيها snoop dog  ؟؟؟ 🙄
+   ahmed=neutral(0.39) lex=negative pol=negative ctx=negative gate=negative
+
+C->W  neutral->positive  | primary-wrong  ahmed-eesa-00307
+   text: مفيش مستحيل JUST DO IT مفيش قصة حب ممكن تنتهي بايدينا نرجع كل حاجة 😄
+   ahmed=neutral(0.59) lex=positive pol=positive ctx=positive gate=positive
+
+C->W  positive->neutral  | primary-wrong  ahmed-eesa-00635
+   text: دا هيبقا مسلسل out of season
+   ahmed=positive(0.65) lex=neutral pol=neutral ctx=neutral gate=neutral
+
+C->W  positive->neutral  | primary-wrong  ahmed-eesa-00642
+   text: ‏عاش عاش اسمك ايه في لعبة Free Fire
+   ahmed=positive(0.45) lex=neutral pol=neutral ctx=neutral gate=neutral
+
+W->W  negative->neutral  | CONSENSUS-LOSS [GATE-BLOCKED]  ahmed-eesa-00021
+   text: مخرج بيدور ع ممثلة تعمل دور الممحونة  No one : مى عمر
+   ahmed=neutral(0.57) lex=negative pol=negative ctx=negative gate=neutral
+
+W->W  negative->neutral  | CONSENSUS-LOSS  ahmed-eesa-00046
+   text: اللي عاملين dislike عم يسمعوا نفس لي عم نسمعوا نحن؟؟😂😂
+   ahmed=neutral(0.69) lex=negative pol=neutral ctx=neutral gate=neutral
+
+W->W  negative->neutral  | FLOOR  ahmed-eesa-00182
+   text: انت no one
+   ahmed=neutral(0.45) lex=neutral pol=neutral ctx=neutral gate=neutral
+
+W->W  neutral->positive  | FLOOR  ahmed-eesa-00220
+   text: دي اصل الحكمة .. " من يُحبنا ونحن في أسوأ حالاتنا ، هم من يستحقون أن يبقوا في قلوبنا إلي الأبد "  - The fault 
+   ahmed=negative(0.66) lex=positive pol=positive ctx=positive gate=neutral
+
+W->W  neutral->negative  | FLOOR  ahmed-eesa-00240
+   text: اخوانا اللى عاملين dislike على اساس ايه
+   ahmed=negative(0.48) lex=negative pol=negative ctx=negative gate=neutral
+
+W->W  neutral->negative  | FLOOR  ahmed-eesa-00250
+   text: لا تجعلو من الاغبياء قدوة لنا  Do not make idiots a role model
+   ahmed=negative(0.68) lex=negative pol=negative ctx=negative gate=negative
+
+W->W  neutral->positive  | FLOOR  ahmed-eesa-00295
+   text: اسمعو الريميكس بتاعي للأغنيه | Listen To  My Remix: https://youtu.be/NZ8_5ZV8qZ8  يارب تعجبكم | I hope you enj
+   ahmed=positive(0.69) lex=positive pol=positive ctx=positive gate=positive
+
+W->W  neutral->negative  | FLOOR  ahmed-eesa-00298
+   text: مين أضل ده ولا الفتوة    ضل راجل = لايك           الفتوة= dislike
+   ahmed=negative(0.53) lex=negative pol=negative ctx=negative gate=neutral
+
+W->W  neutral->negative  | FLOOR  ahmed-eesa-00446
+   text: Dislikes  كتير اوي
+   ahmed=negative(0.61) lex=negative pol=negative ctx=negative gate=negative
+
+W->W  positive->neutral  | CONSENSUS-LOSS  ahmed-eesa-00542
+   text: تول عومراك جاميلا XD XD XD XD
+   ahmed=neutral(0.66) lex=positive pol=neutral ctx=neutral gate=neutral
+
+W->W  positive->neutral  | CONSENSUS-LOSS [GATE-BLOCKED]  ahmed-eesa-00706
+   text: يا ارمي حد خد بالو من العمود الي عله أسهم زي permission to dance وشعار BTSعلي جاكيت احمد امين في آخر الفيد 🙃💜💜
+   ahmed=neutral(0.59) lex=positive pol=neutral ctx=positive gate=neutral

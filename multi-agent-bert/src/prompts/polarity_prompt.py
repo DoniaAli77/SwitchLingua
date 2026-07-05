@@ -97,13 +97,44 @@ Respond with JSON only. "label" must be exactly one of: $labels_csv\
 """)
 
 
-def get_system_prompt(variant: str | None = None) -> str:
-    """Return the polarity system prompt.
+# ---------------------------------------------------------------------------
+# Experimental variant: semantic_v2_disambig
+# ---------------------------------------------------------------------------
+# Refines step 3 (mention -> neutral) into a general RELATIONSHIP disambiguation
+# for platform actions, plus a description-vs-evaluation rule. General pragmatics
+# only — no dataset-specific terms.
 
-    The Polarity agent has a single role prompt (it embodies its decision-focused
-    role by design). The parameter exists only to mirror the other agents'
-    ``get_system_prompt`` signature; the prompt is the same regardless.
+_DISAMBIG_ADDENDUM = """\
+PLATFORM-ACTION & DESCRIPTION DISAMBIGUATION (sentiment):
+- A platform action (like, dislike, unlike, comment, share, follow, trend, view) is NOT
+  neutral by default. Decide the author's RELATIONSHIP to it: merely reporting or counting
+  it → neutral; endorsing or celebrating it → carry the endorsed polarity; objecting to it,
+  or attacking the people doing it → negative.
+- A sentiment word merely MENTIONED, quoted, or attributed to other people is not the
+  author expressing it.
+- Positive or negative words appearing INSIDE described content (a plot, events, a report or
+  quote of others) are not the author's own stance → prefer neutral unless the author
+  themselves evaluates.\
+""".strip()
+
+_OUTPUT_FORMAT_MARKER = "OUTPUT FORMAT (copy this structure exactly):"
+SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_DISAMBIG_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
+def get_system_prompt(variant: str | None = None) -> str:
+    """Return the polarity system prompt for the active sentiment variant.
+
+    Single role prompt by default; ``semantic_v2_disambig`` adds the platform-action /
+    description disambiguation guidance.
     """
+    from src.prompts._sentiment_variant import active_variant
+
+    if active_variant(variant) == "semantic_v2_disambig":
+        return SYSTEM_PROMPT_DISAMBIG
     return SYSTEM_PROMPT
 
 

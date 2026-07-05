@@ -37,6 +37,12 @@ DEFAULT_VARIANT = "default"
 #:      the gate is a NON-VOTING consensus guard, not a 4th voter)
 #: - ``lexical_polarity_contextual_selective_gate`` → same as G but a SELECTIVE gate (G2):
 #:      the gate protects neutral only for platform/meta/mention, not for implicit stance
+#: - ``sequential_sentiment_v1`` → STAGED reasoning pipeline (not parallel voting):
+#:      Intent → Polarity → Pragmatic → deterministic controller. Replaces the trio +
+#:      consensus on the escalation path; see src.agents.sequential_sentiment.
+#: - ``sequential_sentiment_v2`` → FORWARD-pragmatics staged pipeline: Intent →
+#:      Pragmatic FEATURES (no label) → feature-aware Polarity → controller. Removes v1's
+#:      confirmation-anchored review stage; see src.agents.sequential_sentiment_v2.
 VALID_VARIANTS = frozenset({
     "default",
     "polarity_contextual",
@@ -46,6 +52,8 @@ VALID_VARIANTS = frozenset({
     "intent_polarity_contextual",
     "lexical_polarity_contextual_intent_gate",
     "lexical_polarity_contextual_selective_gate",
+    "sequential_sentiment_v1",
+    "sequential_sentiment_v2",
 })
 
 

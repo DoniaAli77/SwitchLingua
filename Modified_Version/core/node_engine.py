@@ -65,6 +65,14 @@ OUTPUT_DIR = str(_CURRENT_FILE.parents[1] / "output")
 # Sentence-level cap: max refine attempts allowed per individual sentence.
 MAX_SENTENCE_REFINES = int(os.getenv("MAX_SENTENCE_REFINES", "1"))
 
+# Task-aware acceptance (default ON, like the other env knobs above).
+# When "1", AcceptanceAgent writes ONLY sentences whose FINAL task verdict passed
+# (sentence_records[i]["task_passed"] is not False); sentences the refiner could not
+# make task-correct are dropped from the written corpus instead of accepted as
+# budget_exhausted. Set TASK_AWARE_ACCEPT=0 to reproduce the historical corpora
+# (240/480/960/V1 sentiment sets were generated with this behaviour OFF).
+TASK_AWARE_ACCEPT = os.getenv("TASK_AWARE_ACCEPT", "1").strip() == "1"
+
 # assert API_KEY is not None, "OPENAI_API_KEY is not set"
 
 
@@ -973,18 +981,84 @@ def SummarizeResult(state: AgentRunningState):
     }
 
 
+# index-aligned per-instance arrays that must be filtered together when dropping sentences
+_PER_INSTANCE_KEYS = (
+    "data_generation_result",
+    "sentence_records",
+    "fluency_results_per_instances",
+    "naturalness_results_per_instances",
+    "cs_ratio_results_per_instances",
+    "social_cultural_results_per_instances",
+    "task_validation_results_per_instances",
+    "instance_refine_counts",
+    "sentence_scores",
+)
+
+
+def _filter_state_to_task_passed(state: AgentRunningState) -> AgentRunningState:
+    """Return a copy of `state` keeping only sentences whose FINAL task verdict passed.
+
+    A sentence is DROPPED only when its verdict is explicitly False (None/unknown is
+    kept, so disabling the validator never empties the corpus). All index-aligned
+    per-instance arrays are filtered by the same kept indices; sentence_records are
+    re-indexed and failing_sentence_indices recomputed. Safe no-op if there is nothing
+    to drop or sentence_records is absent. Used only when TASK_AWARE_ACCEPT is enabled.
+    """
+    records = state.get("sentence_records")
+    if not isinstance(records, list) or not records:
+        return state
+    n = len(records)
+    kept = [i for i, rec in enumerate(records)
+            if not (isinstance(rec, dict) and rec.get("task_passed") is False)]
+    if len(kept) == n:
+        return state  # nothing to drop
+    out = dict(state)
+    for key in _PER_INSTANCE_KEYS:
+        val = state.get(key)
+        if isinstance(val, list) and len(val) == n:
+            out[key] = [val[i] for i in kept]
+    new_records = out.get("sentence_records")
+    if isinstance(new_records, list):
+        for new_i, rec in enumerate(new_records):
+            if isinstance(rec, dict):
+                rec = dict(rec)
+                rec["index"] = new_i
+                new_records[new_i] = rec
+        out["failing_sentence_indices"] = [
+            j for j, rec in enumerate(new_records)
+            if isinstance(rec, dict) and isinstance(rec.get("weighted_score"), (int, float))
+            and float(rec["weighted_score"]) < 8.0
+        ]
+    return out
+
+
 def AcceptanceAgent(state: AgentRunningState):
     state.pop("news_article", None)
     state.pop("news_hash", None)
     state.pop("news_dict", None)
-    language = state.get("first_language", "Unknown")
+    # OPT-IN task-aware acceptance: drop sentences that still fail the task (default OFF).
+    out = _filter_state_to_task_passed(state) if TASK_AWARE_ACCEPT else state
+    language = out.get("first_language", "Unknown")
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     with jsonlines.open(
         f"{OUTPUT_DIR}/{language}.jsonl",
         "a",
     ) as f:
-        f.write(state)
-    return
+        f.write(out)
+    # Return the (possibly filtered) state so consumers that read the RETURNED graph
+    # state — not just the JSONL file — also see task-aware acceptance. With the flag
+    # OFF, `out is state`, so this merges identical values (no behaviour change).
+    return out
+
+
+def _candidate_passes_task(state: dict, candidate: str, val_prompt) -> bool:
+    """Re-validate a single refined candidate against the task (guardrail helper).
+    Mirrors the historical semantics: a non-dict validator response or a missing
+    'passed' key counts as a pass (never reject on validator malfunction)."""
+    candidate_state = dict(state)
+    candidate_state["data_generation_result"] = [candidate]
+    result = _invoke_task_validation_with_retry(candidate_state, val_prompt)
+    return not (isinstance(result, dict) and not result.get("passed", True))
 
 
 def _rescore_single_sentence(text: str, state: dict) -> float:
@@ -1121,38 +1195,28 @@ def RunRefinerAgent(state: AgentRunningState):
             if isinstance(candidate, str) and candidate.strip():
                 candidate = candidate.strip()
 
-                # --- Accept/Reject Guardrail ---
-                # Re-evaluate the candidate on task to detect regressions
-                task_prompt_map = {
+                # --- Rewrite Guardrail (keep candidate vs roll back to original) ---
+                # Decides which TEXT survives; it does NOT decide corpus acceptance
+                # (that is meet_criteria / AcceptanceAgent). Asymmetric by design:
+                #   quality_fail: keep candidate only if task still passes AND quality
+                #                 did not regress;
+                #   task_fail:    keep candidate only if task now passes (quality
+                #                 regression tolerated — the goal is the task repair).
+                val_prompt = {
                     "topic": TASK_VALIDATION_TOPIC_PROMPT,
                     "sentiment": TASK_VALIDATION_SENTIMENT_PROMPT,
                     "ner": TASK_VALIDATION_NER_PROMPT,
-                }
-                val_prompt = task_prompt_map.get(task_type)
+                }.get(task_type)
                 accept = True
-                before_quality_score = float(rec.get("weighted_score") or 0.0)
-
-                if val_prompt is not None and failure_reason == "quality_fail":
-                    # Task was passing before; make sure it still passes after refine
-                    candidate_state = dict(state)
-                    candidate_state["data_generation_result"] = [candidate]
-                    candidate_result = _invoke_task_validation_with_retry(candidate_state, val_prompt)
-                    if isinstance(candidate_result, dict) and not candidate_result.get("passed", True):
-                        accept = False  # Rollback: quality refine broke the task
-                    else:
-                        # Task still passes — now check quality didn't get worse
-                        after_quality_score = _rescore_single_sentence(candidate, state)
-                        if after_quality_score < before_quality_score:
+                if val_prompt is not None:
+                    candidate_task_ok = _candidate_passes_task(state, candidate, val_prompt)
+                    if not candidate_task_ok:
+                        accept = False  # Rollback: candidate fails (or broke) the task
+                    elif failure_reason == "quality_fail":
+                        # Task intact — additionally require no quality regression
+                        before_quality_score = float(rec.get("weighted_score") or 0.0)
+                        if _rescore_single_sentence(candidate, state) < before_quality_score:
                             accept = False  # Rollback: quality regressed after refine
-
-                elif val_prompt is not None and failure_reason == "task_fail":
-                    # Task was failing before; accept only if it now passes
-                    # (quality regression is tolerated for task fixes — primary goal is task)
-                    candidate_state = dict(state)
-                    candidate_state["data_generation_result"] = [candidate]
-                    candidate_result = _invoke_task_validation_with_retry(candidate_state, val_prompt)
-                    if isinstance(candidate_result, dict) and not candidate_result.get("passed", True):
-                        accept = False  # Task still fails after refine; rollback
 
                 if accept:
                     updated_texts[index] = candidate

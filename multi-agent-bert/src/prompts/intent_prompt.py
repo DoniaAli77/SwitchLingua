@@ -161,15 +161,45 @@ OUTPUT FORMAT (copy this structure exactly):
 """.strip()
 
 
+# ---------------------------------------------------------------------------
+# Disambiguation variant (semantic_v2_disambig)
+# ---------------------------------------------------------------------------
+# The gate's meta/mention detection, refined so a stance expressed THROUGH a
+# platform action (endorsing the dislikes, or attacking the dislikers) is not
+# forced to neutral. General pragmatics only — no dataset-specific terms.
+
+_DISAMBIG_ADDENDUM = """\
+PLATFORM-ACTION DISAMBIGUATION (author intent):
+- A platform / meta reference (likes, dislikes, comments, shares, follows, trending, views)
+  is NOT automatically no-stance. Decide the author's RELATIONSHIP to the action: merely
+  reporting, counting, or asking about it → neutral (no author evaluation); endorsing or
+  celebrating it → the endorsed polarity; objecting to it, or attacking the people doing it
+  → negative.
+- Choose neutral only when the author expresses no evaluation of their own. A stance
+  expressed THROUGH a platform action still counts as the author's stance.\
+""".strip()
+
+_OUTPUT_FORMAT_MARKER = "OUTPUT FORMAT (copy this structure exactly):"
+SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_DISAMBIG_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the intent system prompt.
 
-    ``variant='selective'`` returns the Design-G2 selective-gate prompt (neutral only
-    for meta/mention; polarity for implicit stance). Any other value returns the
-    default intent prompt (Design E/F/G).
+    ``variant='selective'`` returns the Design-G2 selective-gate prompt. Otherwise the
+    active ``SENTIMENT_PROMPT_VARIANT`` is consulted: ``semantic_v2_disambig`` →
+    platform-relationship disambiguation; any other → the default intent prompt (E/F/G).
     """
     if variant == "selective":
         return SYSTEM_PROMPT_SELECTIVE
+    from src.prompts._sentiment_variant import active_variant
+
+    if active_variant() == "semantic_v2_disambig":
+        return SYSTEM_PROMPT_DISAMBIG
     return SYSTEM_PROMPT
 
 
