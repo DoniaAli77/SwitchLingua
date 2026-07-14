@@ -1,0 +1,44 @@
+{
+  "run_id": "twostage_g2_41mini__primary_only",
+  "mode": "primary_only",
+  "timestamp": "2026-07-14T00:04:06.857734+00:00",
+  "num_samples": 818,
+  "accuracy": 0.865526,
+  "macro_f1": 0.85785,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "positive",
+      "precision": 0.893048,
+      "recall": 0.92011,
+      "f1": 0.906377,
+      "support": 363
+    },
+    {
+      "label": "negative",
+      "precision": 0.862434,
+      "recall": 0.827411,
+      "f1": 0.84456,
+      "support": 197
+    },
+    {
+      "label": "neutral",
+      "precision": 0.827451,
+      "recall": 0.817829,
+      "f1": 0.822612,
+      "support": 258
+    }
+  ],
+  "meta": {
+    "labels": [
+      "positive",
+      "negative",
+      "neutral"
+    ],
+    "pipeline_mode": "full_agentic",
+    "valid_samples": 818,
+    "error_samples": 0
+  }
+}

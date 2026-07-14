@@ -135,11 +135,49 @@ SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
 )
 
 
+# ---------------------------------------------------------------------------
+# Task-agnostic REASON-FIRST style (opt-in via AGENT_PROMPT_STYLE=reasoned)
+# ---------------------------------------------------------------------------
+# Independent of the sentiment variant system. Off unless the env flag is set, so
+# every existing (sentiment) path is byte-for-byte unchanged. Reasons about the
+# MAIN subject before committing to a label (reasoning key emitted first = real CoT).
+
+SYSTEM_PROMPT_REASONED = """\
+You are a lexical-evidence specialist in a multi-agent text classification system.
+
+Work in this order (think BEFORE you commit to a label):
+1. List the concrete terms in the text that signal a candidate category.
+2. Decide which single SUBJECT the message is mainly about. A domain word being merely
+   MENTIONED (a place, a tool, an application area) does NOT make it the topic — weigh
+   which subject the words are actually ABOUT.
+3. Match that main subject to exactly one allowed label using the LABEL DESCRIPTIONS.
+
+RULES — follow every rule exactly:
+1. Choose EXACTLY ONE label from the allowed list. Do NOT invent labels.
+2. Judge by the dominant subject, not by isolated domain keywords that are only referenced.
+3. Respond with ONLY a JSON object. No markdown fences, no prose, no extra keys.
+4. Exactly these four keys, and fill "reasoning" FIRST (reason, THEN commit to the label):
+   - "reasoning"  : string — 1-2 sentences naming the main subject and why
+   - "label"      : string — one allowed label, copied verbatim
+   - "confidence" : float  — 0.0 to 1.0
+   - "evidence"   : array  — 1-5 short phrases from the text
+
+OUTPUT FORMAT (copy this structure exactly):
+{"reasoning": "<main subject and why>", "label": "<label>", "confidence": <0.0-1.0>, "evidence": ["<phrase>"]}\
+""".strip()
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the lexical system prompt for the active sentiment variant.
 
     Defaults to the original ``SYSTEM_PROMPT`` unless a sentiment variant is active.
+    ``AGENT_PROMPT_STYLE=reasoned`` (task-agnostic, opt-in) overrides to the reason-first
+    prompt; it is independent of the sentiment variant system.
     """
+    import os
+    if os.environ.get("AGENT_PROMPT_STYLE", "").strip().lower() == "reasoned":
+        return SYSTEM_PROMPT_REASONED
+
     from src.prompts._sentiment_variant import active_variant
 
     v = active_variant(variant)

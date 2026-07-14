@@ -1,0 +1,96 @@
+true=business  prim=business  4o=business  4.1=business  
+  لزياده العايدات يجب علي الشركات استخدام data analytics لتحديد الفرص الجديده في السوق
+true=business  prim=business  4o=finance   4.1=finance   AGENTS-WRONG
+  اذا كنت تبحث عن investment opportunities عليك ان تكون علي درايه باتجاهات السوق الحاليه والتوجهات المستقبليه
+true=business  prim=business  4o=business  4.1=business  
+  هل تعلم ان استخدام cloud solutions يمكن ان يحسن من كفاءه business operations بشكل ملحوظ
+true=business  prim=business  4o=finance   4.1=finance   AGENTS-WRONG
+  اذا كنت تبحث عن investment opportunities يجب ان تدرس emerging trends في السوق بعنايه
+true=finance   prim=finance   4o=business  4.1=business  AGENTS-WRONG
+  عندما تقرر الاستثمار في startups يجب ان تقيم جيدا business models و growth potential لكل شركه
+true=finance   prim=finance   4o=finance   4.1=finance   
+  اذا كنت تبحث عن investment opportunities يجب ان تتعرف علي emerging markets بشكل جيد
+true=finance   prim=business  4o=finance   4.1=finance   
+  اذا كنت تبحث عن investment opportunities يجب عليك دراسه market trends بعنايه قبل اتخاذ任何 قرار
+true=finance   prim=business  4o=finance   4.1=finance   
+  اذا كانت لديك فكره عن investment opportunities يجب عليك البحث جيدا قبل اتخاذ اي قرار
+true=finance   prim=finance   4o=finance   4.1=finance   
+  اذا كنت تبحث عن investment opportunities يجب ان تدرس جيدا economic trends في السوق قبل اتخاذ القرار
+true=finance   prim=finance   4o=finance   4.1=finance   
+  هل تساءلت يوما كيف يمكن ل blockchain technology تحسين كفاءه financial transactions في السوق
+true=finance   prim=business  4o=finance   4.1=finance   
+  اذا كنت تبحث عن investment opportunities جديده يجب ان تدرس market trends بعنايه
+true=finance   prim=business  4o=business  4.1=business  AGENTS-WRONG
+  تحتاج الشركات الناشيه الي venture capital لتحقيق النجاح لذلك يجب ان تكون قادره علي تقديم solid business plans
+true=finance   prim=finance   4o=finance   4.1=finance   
+  اذا كنت تبحث عن investment opportunities يجب ان تدرس economic indicators بعنايه قبل اتخاذ القرار
+true=health    prim=medical   4o=medical   4.1=medical   AGENTS-WRONG
+  اذا كان لديك اي استفسارات حول clinical trials يمكنك دايما مراجعه healthcare professionals للحصول علي معلومات دقيقه
+true=health    prim=health    4o=health    4.1=tech      MIXED
+  التقنيات الحديثه مثل telemedicine تسهل الوصول الي الرعايه الصحيه للمرضي في المناطق الناييه
+true=health    prim=medical   4o=health    4.1=health    
+  اذا كنت ترغب في تحسين cardiovascular health يجب ان تتبع نظاما غذاييا غنيا ب nutrients
+true=health    prim=health    4o=medical   4.1=medical   AGENTS-WRONG
+  هل لديك خطه لزياره الطبيب في حال ظهور symptoms جديده
+true=health    prim=health    4o=health    4.1=medical   MIXED
+  هل يمكنك مشاركه تجربتك مع telemedicine وكيف ساعدتك في managing chronic conditions
+true=health    prim=health    4o=health    4.1=health    
+  يمكن ان يساعدك اتباع healthy habits في تقليل مخاطر cardiovascular diseases في المستقبل
+true=health    prim=health    4o=medical   4.1=medical   AGENTS-WRONG
+  اذا كان لديك chronic illness من المهم جدا ان تتبع medical guidelines لتجنب التعقيدات
+true=health    prim=health    4o=health    4.1=medical   MIXED
+  هل تعلم ان تقنيات telemedicine يمكن ان تجعل الرعايه الصحيه اكثر سهوله للمرضي في المناطق الناييه
+true=health    prim=medical   4o=medical   4.1=medical   AGENTS-WRONG
+  تعتبر clinical trials خطوه حيويه في تطوير new therapies لذلك يجب دعمها بالمزيد من التمويل
+true=health    prim=health    4o=health    4.1=health    
+  اذا كان لديك chronic disease يجب ان تتبع خطه علاج تتضمن healthy lifestyle choices
+true=health    prim=medical   4o=medical   4.1=medical   AGENTS-WRONG
+  هل تعتقد ان استخدام telemedicine يمكن ان يحسن من patient outcomes في المناطق الريفيه
+true=health    prim=health    4o=health    4.1=medical   MIXED
+  ان استخدام telemedicine يمكن ان يسهم بشكل كبير في تحسين الوصول الي الرعايه الصحيه في المناطق الناييه
+true=health    prim=medical   4o=medical   4.1=medical   AGENTS-WRONG
+  استخدام telemedicine يمكن ان يسهل الوصول الي الرعايه الصحيه خاصه في المناطق الناييه التي تفتقر الي clinics
+true=health    prim=health    4o=medical   4.1=medical   AGENTS-WRONG
+  تعتبر clinical trials ضروريه لتطوير new medications لذا يجب دعمها من قبل المجتمع
+true=medical   prim=medical   4o=health    4.1=medical   AGENTS-WRONG
+  اذا كان لديك chronic conditions فان التواصل مع healthcare providers عبر digital platforms يمكن ان يحدث فرقا كبيرا
+true=medical   prim=health    4o=medical   4.1=medical   
+  اذا كان لديك chronic illness فمن المهم متابعه healthcare providers بشكل دوري للحصول علي افضل رعايه
+true=medical   prim=health    4o=health    4.1=medical   AGENTS-WRONG
+  اذا تم تطبيق telemedicine بشكل فعال يمكن ان يحسن الوصول الي healthcare services للمرضي في المناطق الناييه
+true=medical   prim=medical   4o=health    4.1=medical   AGENTS-WRONG
+  اذا تم دمج telemedicine بشكل افضل فقد يساعد ذلك في تحسين الوصول الي healthcare services في المناطق الناييه
+true=medical   prim=health    4o=education 4.1=education AGENTS-WRONG
+  يجب ان تتضمن medical education تعليم الطلاب كيفيه التعامل مع complex cases باستخدام multidisciplinary approaches
+true=medical   prim=health    4o=medical   4.1=medical   
+  اذا كان لديك اي استفسارات حول clinical trials فلا تتردد في التواصل مع medical professionals
+true=medical   prim=medical   4o=medical   4.1=medical   
+  تعتبر clinical trials خطوه حيويه في تطوير new therapies لكن ما هي اهم التحديات التي تواجهها
+true=medical   prim=medical   4o=medical   4.1=medical   
+  من المهم جدا ان نستخدم evidencebased practices في patient care لتحقيق افضل النتايج الصحيه
+true=medical   prim=health    4o=medical   4.1=medical   
+  تحتاج انظمه healthcare الي تحديث مستمر لضمان استخدام evidencebased practices في جميع مجالات clinical research
+true=medical   prim=medical   4o=medical   4.1=medical   
+  في حاله وجود chronic illness يجب علي المرضي الالتزام بالعلاج واتباع medical advice لتحسين نوعيه حياتهم
+true=medical   prim=medical   4o=health    4.1=health    AGENTS-WRONG
+  يوكد البحث الجديد ان دمج digital health technologies يمكن ان يحسن من اداره chronic conditions بشكل كبير
+true=shopping  prim=shopping  4o=shopping  4.1=shopping  
+  هل تعرف اي مواقع تقدم loyalty programs جيده اريد ان استفيد من كل points التي يمكنني جمعها
+true=shopping  prim=shopping  4o=shopping  4.1=shopping  
+  هل يمكنك اخباري عن افضل retail stores التي تبيع athletic wear باسعار معقوله
+true=social    prim=social    4o=education 4.1=education AGENTS-WRONG
+  اذا استثمرنا في educational programs يمكن ان نحقق sustainable development للاجيال القادمه
+true=tech      prim=finance   4o=finance   4.1=business  AGENTS-WRONG
+  اذا تم استخدام big data بشكل صحيح يمكن ان نحقق نتايج مذهله في risk management
+true=tech      prim=finance   4o=finance   4.1=finance   AGENTS-WRONG
+  تعتبر blockchain technology من اهم الابتكارات في عالم financial transactions لانها توفر مستوي عال من الامان
+true=tech      prim=tech      4o=business  4.1=tech      AGENTS-WRONG
+  احيانا يمكن ان يودي استخدام cloud solutions الي تقليل operational costs بشكل كبير
+true=tech      prim=tech      4o=finance   4.1=finance   AGENTS-WRONG
+  ما هي فوايد استخدام blockchain technology في تامين financial transactions في العالم الرقمي اليوم
+true=tech      prim=finance   4o=finance   4.1=finance   AGENTS-WRONG
+  ان فهم blockchain technology يمكن ان يحسن من امان financial transactions بشكل ملحوظ
+true=tech      prim=tech      4o=tech      4.1=tech      
+  لكي تنجح في datadriven decision making عليك استخدام visualization tools لتحليل البيانات بكفاءه
+true=tech      prim=tech      4o=finance   4.1=finance   AGENTS-WRONG
+  هل تعتقد ان blockchain technology ستغير طريقه التعاملات الماليه في السنوات القادمه

@@ -2064,3 +2064,212 @@ An unrecognised value raises `ValueError` (fails loudly). Agent-set / gate selec
 axis via `--sentiment_agent_variant` (e.g. `lexical_polarity_contextual`,
 `lexical_polarity_contextual_intent_gate` (G), `..._selective_gate` (G2), `intent_polarity_contextual`
 (F), `sequential_sentiment_v1`, `sequential_sentiment_v2`).
+
+---
+
+# PART V — MASTER-REFERENCE SECTIONS (for the thesis Experiments & Results chapter)
+
+### V.0 Coverage and field mapping
+This registry is the complete reconstruction of the Multi-Agent BERT research: **all 32
+experiments, chronological, none merged, none skipped**, including every negative result and
+failed hypothesis. The thesis template's 14 per-experiment fields map onto each Part-I entry as:
+1 Experiment Name → *Experiment Name/ID* · 2 Chronological Position → *Chronological Order* ·
+3 Research Question → *Research Question* · 4 Motivation → *Motivation* · 5 Hypothesis →
+*Hypothesis* · 6 Previous Baseline → *Baseline* · 7 Architecture → *Architecture* +
+*Implementation Changes* (routing/consensus/agents/prompts/thresholds) · 8 Dataset → *Dataset* ·
+9 Experimental Configuration → *Model* + *Parameters* · 10 Results → *Evaluation Metrics*
+(accuracy, macro/weighted F1, per-class, confusion, McNemar, escalation W→C/C→W/net, cost) ·
+11 Interpretation → *Main Findings* + *Why It Succeeded or Failed* · 12 Scientific Contribution →
+*Main Findings* + *Strengths* · 13 Final Decision → *Decision* · 14 Influence → *Influence on
+Later Work*.
+
+Requested topics and where they live: real-data (1–6, 10), generated-data (7–9), augmentation
+(11), threshold studies (4, 6, 14), consensus studies (5, 6, 23), prompt engineering (16, 22, 31),
+agent redesign (17–19), semantic_v1 (16), semantic_v2 (= `semantic_v2_disambig`, 31), semantic_v3
+(= pragmatic Contextual v3, 22), Designs A–G2 (16–21), IntentGate (20–21, 32), sequential (24–25,
+27), GPT-4o-mini (3–27), GPT-4.1-mini (28–32), topic (12), C3 (8–9, 26–27), E0 (10), Ahmed
+(13–32), gate ablations (32), stronger-model (28–32). **Note: no "generated pretraining"
+experiment exists** — generated data was used for standalone *fine-tuning* (C-series) and
+*augmentation* (E-series); pretraining was never performed, and no such result should appear in
+the thesis.
+
+---
+
+### V.1 Architecture Evolution
+
+**Stage 0 — Primary-only transformer (D1–D2).** The system began as a single fine-tuned
+classifier: mBERT (0.7971), replaced by XLM-R (0.8240) after it recovered the weak negative
+class. This primary — label + confidence + probability distribution — remained the fixed
+foundation of every later design.
+
+**Stage 1 — Router + deterministic/mock agents (D1–D2 mode comparisons).** A confidence
+threshold router escalated low-confidence samples to a panel of Lexical/Logic/Contextual agents.
+With deterministic or mock-LLM agents, escalation *hurt* (agents weaker than the primary they
+overrode). Redesign trigger: the agents, not the routing, were the bottleneck.
+
+**Stage 2 — Real LLM agents (D3–D4).** Swapping in GPT-4o-mini flipped the sign: +1.6–2.0 pts on
+both primaries, concentrated on the escalated subset and the negative class; raising the
+threshold to 0.8–0.9 kept helping. Escalation-to-capable-agents became the core architecture.
+
+**Stage 3 — Consensus correctness (D5–D6).** An audit produced four fixes: generic
+task-config-driven prompts, an abstain fallback (no label-0 bias), a **primary-aware weighted
+vote** (Fix #2, w_primary=1.0 — kept), and a primary-signal prompt block (Fix #3 — rejected: it
+only induces anchoring). Two 2×2 ablations locked the defaults and the best XLM-R result
+(0.8509). Redesign trigger for the next stage: a much stronger primary arrived.
+
+**Stage 4 — Frozen-primary abstraction (D13–D14).** Ahmed's external model (0.9254) was plugged
+in via `PrecomputedPrimaryClassifier`, decoupling the agentic layer from any particular backbone
+and exposing the strong-primary regime, where the default trio went net-negative (−4). The
+cross-regime synthesis (D15) yielded the governing law — Δ ≈ (agent-ceiling ≈0.75 −
+primary-on-escalated) × escalation-rate — which framed every later redesign.
+
+**Stage 5 — Prompt role refinement: semantic_v1 (D16, Design A).** Role-refined prompts
+decorrelated the panel (92%→84.5%) and halved the harm (−4→−2) but could not cross the primary.
+Trigger: Logic measured weakest (0.679–0.690) and most redundant (~0.89 with Lexical).
+
+**Stage 6 — Specialist decomposition (D17–D19, Designs B/C/D/F).** Replacing Logic with a
+dedicated **Polarity** decider (C) produced the first configuration above the primary (0.9267,
+net +1); B (Pol+Ctx) was safe-but-added-nothing; D (4 votes) was dominated; F (drop Lexical)
+proved the evidence agent is load-bearing (net −3, over-neutralization). Trigger for Stage 7: the
+persistent "unlike/dislike" meta-comment cluster that every *voting* design missed.
+
+**Stage 7 — Intent: voter → veto → selective veto (D18, D20, D21).** As a 4th vote (E), Intent's
+pragmatic signal was suppressed 12/12 by the correlated bloc. Re-cast as a **non-voting,
+domain-restricted veto** (G — block an unsupported polar override of a neutral primary), the same
+signal was missed 0/12: G became the lead (0.9279, net +2), fixing the meta-comment cluster. A
+prompt-level **selective** gate (G2) tied G at 4o-mini and was retired — then revived at Stage 10.
+
+**Stage 8 — Component upgrade without system gain (D22, v3).** The pragmatic-reasoner Contextual
+improved the agent (+0.024, best in panel) but not the system — component gains are diluted by a
+correlated ensemble at a parity-strength primary ("conservation of difficulty").
+
+**Stage 9 — Sequential topologies (D24–D25, D27).** Staged reasoning (v1 anchored-review; v2
+forward-pragmatics) attacked the correlation root cause. v1 reproduced the primary (net 0/−1,
+Stage 3 nearly inert); v2 was actively harmful on the strong primary (−11) and helpful on the
+weak one (+47) — but still lost to parallel G (+53), whose veto caps breakage (12 vs 28).
+Conclusion: staged reasoning does not beat parallel-voting-plus-veto in either regime.
+
+**Stage 10 — Model strength × gate strength (D28–D32).** GPT-4.1-mini recovered the
+compliance/obscured-cue slice (4/18, zero from noise) → full run 0.9291 (+3, n.s.). Diagnosis: the
+stronger model makes the *full* gate over-veto (one-directional neutralizer). The gate ablation
+resolved it: **G2 (selective gate) @ gpt-4.1-mini = 0.9303/0.9262 — the final architecture** for
+the strong-primary regime, establishing that gate aggressiveness must scale inversely with model
+strength. A prompt-disambiguation alternative (semantic_v2_disambig) failed (−1 to −4),
+confirming prompts are not the lever.
+
+**Final architecture.** Primary (any model exposing label/confidence/probabilities) → per-primary
+calibrated threshold router → Lexical + Polarity + Contextual specialists (semantic_v1 prompts) →
+primary-aware confidence-weighted consensus (w_primary=1.0, signal off) → selective IntentGate
+veto (strong model) / full IntentGate (weaker model) → explainability agent.
+
+---
+
+### V.2 Research Timeline (dated)
+
+| Date (2026) | Events |
+|---|---|
+| 06-06 | Exp A mBERT (0.7971) and XLM-R (0.8240) references; real-LLM pilot @0.6 (XLM-R 0.8399) |
+| 06-09 | Real-LLM threshold sweep (peak 0.8460 @0.8); mBERT rows contaminated by outage |
+| 06-10 | mBERT re-run blocked — checkpoints deleted; backup policy adopted |
+| 06-11→13 | Prompt/logic audit; Fixes #1/1b/2/3; 2×2 ablations @0.8 and @0.9; defaults locked; **best XLM-R 0.8509/0.8401**; C1-240 transfer pilot (0.5905) |
+| 06-20 | Topic T1/T2 (ARENTC, 0.9946/0.9947; agents net +3/−6 = noise) |
+| 06-21 | C2/C3 3-seed stability (0.6500/0.6695); "480>960" retracted |
+| 06-23 | C3-960 seed-456 full_agentic: 0.6956→0.7543 (**+0.059**) |
+| 06-25 | Augmentation: E0 (0.8533), E3 (0.8411, −0.012), LR, ratio sweep, domain-mismatch diagnosis |
+| 06-27 | Ahmed baseline (0.9254); frozen-primary full_agentic (net −4, threshold 0.7); agent-behaviour comparison → **primary-strength curve** |
+| 06-30 | semantic_v1 ablation (net −2, decorrelation); Polarity redesign proposal; Design C first run |
+| 07-01 | Design ablation A/B/C/D (**C 0.9267 net +1**); E (tie); F (−3); **G IntentGate 0.9279 net +2**; G2 (tie, retired); v3 (tie); gap analysis; consensus investigation (all re-fusion rules fail); sequential v1 (−1) and v2 (−11) on Ahmed |
+| 07-02 | **G on C3: +53, p≪0.001**; seq-v2 on C3 (+47 < G); 4.1-mini diagnostic (4/18); G@4.1 (0.9291, n.s.); why-broke trace (gate over-veto); disambig negative (−1..−4); **gate ablation: G2@4.1-mini = 0.9303/0.9262 — current best**; Ahmed tuning stopped |
+
+---
+
+### V.3 Major Scientific Findings
+
+**Primary-strength curve.** The agentic layer's net effect is governed by
+Δ ≈ (agent-ceiling − primary-accuracy-on-escalated) × escalation-rate. Measured: C3 0.54 → +0.059;
+EESA 0.56 → +0.027; Ahmed 0.75 → −0.005; topic 0.99 → ±noise. Only primary strength flips the sign.
+
+**Agent ceiling.** Final consensus accuracy on hard escalated code-switched cases is ~0.67–0.77
+regardless of design or prompt — a property of (router-selected subset × shared base model), with
+~⅓ label-convention and ~⅔ cue-less implicit pragmatics forming a Bayes-irreducible floor
+(~14/18 residual Ahmed errors had the truth in no agent).
+
+**Generated-data findings.** SwitchLingua generated data carries real sentiment signal: standalone
+training scales 240→480→960 (0.59→0.65→0.67, 3-seed) and the agentic layer rescues it most where
+weakest (0.696→0.754/0.760). Single-seed comparisons at this scale are unreliable (the retracted
+"480>960").
+
+**Augmentation findings.** Mixed into real EESA, generated data does not help (E0 0.8533 → E3
+0.8411, −0.012), is harmful when it dominates (−0.034 at 80% share), and is within ±0.02 noise at
+20–50% share — a domain/register mismatch (CMI 41 vs 24, ~10% vocab overlap), not a generation
+defect. Value = standalone, not augmentation.
+
+**Gate findings.** A domain-restricted, **non-voting veto** is the only aggregation change that
+ever helped: the same signal is 12/12 suppressed as a vote, 0/12 missed as a veto. The gate's
+downside is bounded (it never forces a flip) but it can block correct rescues when the primary is
+wrong-neutral; **gate aggressiveness must scale inversely with model strength** (full gate
+over-vetoes at 4.1-mini; selective gate is the sweet spot → 0.9303).
+
+**Model-strength findings.** A stronger agent model recovers the compliance/obscured-cue slice
+(4/18, zero attributable to noise) but not the deep cultural-implicit floor; the net bump on a
+strong primary is small and non-significant (0.9279→0.9291→0.9303, McNemar p≈0.37–0.47). Stronger
+models are also *more compliant*, so lossy prompt heuristics get executed more faithfully — fixing
+and breaking in equal measure (the "wash").
+
+**Prompt-engineering findings.** Prompts can decorrelate (92%→84.5%) and re-target errors, but
+cannot cross the ceiling: semantic_v1 (−4→−2), v3 (component up, system flat), disambig (worse,
+over-instruction noise). Four independent prompt/topology interventions failed on the strong
+primary. The primary-signal block only induces anchoring (+3–7 pts copy-rate, no accuracy).
+
+**Consensus findings.** Consensus loss is real (the panel discards 4–11 correct answers per 84;
+oracle 0.80–0.88 vs ~0.75) and structural: when one agent is uniquely right, the correlated bloc
+outvotes it. Every simple re-fusion rule (guards, w_primary sweep, minority-trust, role-priority)
+ties or loses (−1 to −4). Primary-aware voting (Fix #2) is protective and a big win for weak
+agents (+0.064 paper_style). Agent self-confidences are uncalibrated and uninformative on the hard
+subset. Learned/calibrated consensus is blocked by labels-only captures and test-only data.
+
+**Sequential-reasoning findings.** Staged pipelines restructure *how* the decision is reached but
+not *how well*: v1 (anchored) reproduces the primary; v2 (forward) is harmful where the primary is
+right (−11) and helpful where it is wrong (+47) — net effect scales with intervention rate — and
+still loses to parallel G (+53) for lack of a veto brake (28 vs 12 breakages).
+
+**Negative findings (complete list).** Mock agents hurt; Fix #3 anchoring; the "480>960" seed
+artifact; augmentation neutral-to-harmful; Design A net −2, D dominated, F −3
+(over-neutralization); G2@4o-mini lost 3/4 platform blocks; all offline re-fusion rules ≤ G;
+sequential v1 −1, v2 −11 (Ahmed); disambig −1..−4; topic agents net −6 (T2); C@4.1 (no gate) worse
+than gated; no strong-primary gain is statistically significant vs primary_only.
+
+---
+
+### V.4 Current State of the Research
+
+**Best architecture (overall).** Confidence-routed hybrid: primary classifier + escalation to
+Lexical + Polarity + Contextual (semantic_v1) + primary-aware consensus (w_primary=1.0, signal
+off) + IntentGate veto + explainability. Topic uses the default Lexical/Logical/Contextual trio,
+primary_only recommended (agents are noise at 0.99).
+
+**Best strong-primary configuration.** **Design G2 @ gpt-4.1-mini** (selective IntentGate),
+threshold 0.7 on the Ahmed frozen primary: **0.9303 acc / 0.9262 macro F1** — best on record,
+first past 0.930; not statistically significant vs primary_only (p≈0.37) — the honest reading is
+that the strong-primary regime is at its ceiling and primary_only (0.9254) is the safe fallback.
+
+**Best weak-primary configuration.** **Design G @ gpt-4o-mini**, threshold 0.90 on the C3
+generated primary: **0.7604 / 0.7469**, +0.065 over primary, escalated 0.541→0.771, net +53,
+McNemar p≪0.001 — the regime where the architecture demonstrably earns its keep.
+
+**Best training strategy.** Fresh `xlm-roberta-base`, **Adafactor** (+0.029 over AdamW), fp16 +
+gradient checkpointing, eff. batch 16, max_len 256, 4 epochs, ≥3 seeds reported as mean±std;
+best trained primary = E0 EESA-only **0.8533/0.8409**.
+
+**Best generated-data strategy.** Use SwitchLingua data **standalone** (scales with size; agents
+rescue it), never as naive augmentation of a different-domain corpus; if augmenting at all, keep
+generated share ≤50% (harm appears when it dominates). No pretraining use exists or is claimed.
+
+**Remaining open research questions.** (1) G/G2 @ gpt-4.1-mini on the weak C3 primary; (2) a v2.1
+sequential with an IntentGate-style veto; (3) confidence-calibrated arbitration (requires a new
+capture pass that serializes confidences + a dev split); (4) learned meta-consensus /
+dev-trained selector (blocked by n≈80 and test-leakage); (5) heterogeneous-model panels to
+decorrelate errors; (6) a robust >0.93 on the strong primary — realistically requires retraining
+the primary (Ahmed's own sentiment-hint route, 0.9548), not agent-layer work; (7) the deep
+cultural-implicit stance floor (slur-as-question, "you are no one"); (8) a ≥5-seed augmentation
+ratio sweep to bound the small (±0.02) effects.

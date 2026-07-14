@@ -75,6 +75,7 @@ from typing import List, Dict
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.agents.consensus_agent import ConsensusAgent
+from src.agents.intent_gate_agent import IntentGateAgent
 from src.agents.contextual_agent import ContextualAgent
 from src.agents.deliberation_agent import DeliberationAgent
 from src.agents.llm_explainability_agent import LLMExplainabilityAgent
@@ -620,22 +621,22 @@ def build_llm_client(
 # Orchestrator factory
 # ---------------------------------------------------------------------------
 
-def _build_consensus(primary_weight: float | None, polarity_weight: float,
-                     intent_gate: bool = False):
-    """Construct the ConsensusAgent, overriding only what differs.
+def _build_consensus(primary_weight: float | None, polarity_weight: float):
+    """Construct the (pure-voting) ConsensusAgent, overriding only what differs.
 
-    Preserves legacy behaviour: with no primary override, no polarity vote, and no
-    intent gate (the default / variants A–C), this is ``ConsensusAgent()`` exactly.
-    Variant D adds a ``polarity`` vote weight; variant G enables the non-voting
-    IntentGate guard (``intent_gate=True``) while leaving the polarity vote at 0.
+    Preserves legacy behaviour: with no primary override and no polarity vote (the
+    default / variants A–C), this is ``ConsensusAgent()`` exactly. Variant D adds a
+    ``polarity`` vote weight. The non-voting IntentGate guard (G/G2) is now a
+    SEPARATE stage (:class:`~src.agents.intent_gate_agent.IntentGateAgent`), wired
+    into the orchestrator, not a ConsensusAgent flag.
     """
     weights: Dict[str, float] = {}
     if primary_weight is not None:
         weights["primary"] = primary_weight
     if polarity_weight and polarity_weight > 0.0:
         weights["polarity"] = polarity_weight
-    if weights or intent_gate:
-        return ConsensusAgent(weights=weights, intent_gate=intent_gate)
+    if weights:
+        return ConsensusAgent(weights=weights)
     return ConsensusAgent()
 
 
@@ -728,7 +729,7 @@ def build_orchestrator(
     _agent_variant = active_agent_variant(sentiment_agent_variant)
     polarity_agent = None
     _consensus_polarity_weight = 0.0
-    _consensus_intent_gate = False
+    _intent_gate_agent = None  # standalone post-consensus guard (G/G2 only)
     # Sequential (staged-reasoning) variant: build the 3 stage agents + the
     # deterministic controller and inject them into the orchestrator's opt-in
     # sequential escalation path. The parallel specialist agents below are still
@@ -792,7 +793,7 @@ def build_orchestrator(
         polarity_agent = IntentAgent(llm_client=llm_client, output_attr="polarity_output",
                                      name="IntentGate")
         _consensus_polarity_weight = 0.0  # gate does NOT vote
-        _consensus_intent_gate = True
+        _intent_gate_agent = IntentGateAgent()  # separate post-consensus guard stage
     elif _agent_variant == "lexical_polarity_contextual_selective_gate":  # G2
         # As G, but the IntentGate uses the SELECTIVE prompt: it protects neutral only
         # for platform/meta/mention/reference, and returns a polar label when the author
@@ -803,7 +804,7 @@ def build_orchestrator(
         polarity_agent = IntentAgent(llm_client=llm_client, output_attr="polarity_output",
                                      name="IntentGate", system_variant="selective")
         _consensus_polarity_weight = 0.0  # gate does NOT vote
-        _consensus_intent_gate = True
+        _intent_gate_agent = IntentGateAgent()  # separate post-consensus guard stage
     else:  # A (default)
         llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
         llm_logic_agent = LLMLogicAgent(llm_client=llm_client)
@@ -824,8 +825,8 @@ def build_orchestrator(
         lexical_agent=LexicalAgent(keyword_map=keyword_map),
         contextual_agent=ContextualAgent(llm_client=llm_client),
         logic_agent=LogicAgent(rule_map=rule_map),
-        consensus_agent=_build_consensus(consensus_primary_weight, _consensus_polarity_weight,
-                                         _consensus_intent_gate),
+        consensus_agent=_build_consensus(consensus_primary_weight, _consensus_polarity_weight),
+        intent_gate_agent=_intent_gate_agent,
         explainability_agent=ExplainabilityAgent(),
         deliberation_agent=deliberation_agent,
         paper_contextual_agent=paper_contextual_agent,

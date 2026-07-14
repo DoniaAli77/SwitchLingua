@@ -1,0 +1,50 @@
+GOLD=business  AGENT=finance   (primary=business )
+  اذا كنت تبحث عن investment opportunities عليك ان تكون علي درايه باتجاهات السوق الحاليه والتوجهات المستقبليه
+
+GOLD=business  AGENT=finance   (primary=business )
+  اذا كنت تبحث عن investment opportunities يجب ان تدرس emerging trends في السوق بعنايه
+
+GOLD=finance   AGENT=business  (primary=finance  )
+  عندما تقرر الاستثمار في startups يجب ان تقيم جيدا business models و growth potential لكل شركه
+
+GOLD=finance   AGENT=business  (primary=business )
+  تحتاج الشركات الناشيه الي venture capital لتحقيق النجاح لذلك يجب ان تكون قادره علي تقديم solid business plans
+
+GOLD=finance   AGENT=tech      (primary=finance  )
+  هل تساءلت يوما كيف يمكن ل blockchain technology تحسين كفاءه financial transactions في السوق
+
+GOLD=health    AGENT=medical   (primary=medical  )
+  اذا كان لديك اي استفسارات حول clinical trials يمكنك دايما مراجعه healthcare professionals للحصول علي معلومات دقيقه
+
+GOLD=health    AGENT=medical   (primary=health   )
+  التقنيات الحديثه مثل telemedicine تسهل الوصول الي الرعايه الصحيه للمرضي في المناطق الناييه
+
+GOLD=health    AGENT=medical   (primary=health   )
+  هل لديك خطه لزياره الطبيب في حال ظهور symptoms جديده
+
+GOLD=health    AGENT=medical   (primary=health   )
+  هل يمكنك مشاركه تجربتك مع telemedicine وكيف ساعدتك في managing chronic conditions
+
+GOLD=health    AGENT=medical   (primary=health   )
+  اذا كان لديك chronic illness من المهم جدا ان تتبع medical guidelines لتجنب التعقيدات
+
+GOLD=health    AGENT=medical   (primary=health   )
+  هل تعلم ان تقنيات telemedicine يمكن ان تجعل الرعايه الصحيه اكثر سهوله للمرضي في المناطق الناييه
+
+GOLD=health    AGENT=medical   (primary=medical  )
+  تعتبر clinical trials خطوه حيويه في تطوير new therapies لذلك يجب دعمها بالمزيد من التمويل
+
+GOLD=health    AGENT=medical   (primary=medical  )
+  هل تعتقد ان استخدام telemedicine يمكن ان يحسن من patient outcomes في المناطق الريفيه
+
+GOLD=health    AGENT=medical   (primary=health   )
+  ان استخدام telemedicine يمكن ان يسهم بشكل كبير في تحسين الوصول الي الرعايه الصحيه في المناطق الناييه
+
+GOLD=health    AGENT=medical   (primary=medical  )
+  استخدام telemedicine يمكن ان يسهل الوصول الي الرعايه الصحيه خاصه في المناطق الناييه التي تفتقر الي clinics
+
+GOLD=health    AGENT=medical   (primary=health   )
+  تعتبر clinical trials ضروريه لتطوير new medications لذا يجب دعمها من قبل المجتمع
+
+GOLD=medical   AGENT=education (primary=health   )
+  يجب ان تتضمن medical education تعليم الطلاب كيفيه التعامل مع complex cases باستخدام multidisciplinary approaches

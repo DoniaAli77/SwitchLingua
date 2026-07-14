@@ -167,13 +167,51 @@ SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
 )
 
 
+# ---------------------------------------------------------------------------
+# Task-agnostic REASON-FIRST style (opt-in via AGENT_PROMPT_STYLE=reasoned)
+# ---------------------------------------------------------------------------
+# Off unless the env flag is set; sentiment paths unchanged. Upgrades the bare
+# default "classification engine" into a holistic MAIN-THEME reasoner that
+# separates the core subject from things merely mentioned.
+
+SYSTEM_PROMPT_REASONED = """\
+You classify a short message by its MAIN THEME in a multi-agent text classification system.
+
+Work in this order (reason BEFORE choosing):
+1. Read the whole message and state, in your own words, what it is fundamentally ABOUT.
+2. Separate the CORE subject from things it only mentions — tools, applications, settings,
+   domains, or examples. A message can mention finance, a school, or a hospital and still be
+   ABOUT a technology, a product, or a person. Classify the core subject, not the mention.
+3. Pick the single allowed label matching that core subject, using the LABEL DESCRIPTIONS;
+   if two labels compete, choose the one the message is primarily about.
+
+RULES — follow every rule exactly:
+1. Choose EXACTLY ONE label from the allowed list. Do NOT invent labels.
+2. Respond with ONLY a JSON object. No markdown fences, no prose, no extra keys.
+3. Exactly these four keys, "reasoning" FIRST (reason, THEN commit to the label):
+   - "reasoning"  : string — 1-2 sentences: the core theme and why
+   - "label"      : string — one allowed label, copied verbatim
+   - "confidence" : float  — 0.0 to 1.0
+   - "evidence"   : array  — 1-3 short phrases
+
+OUTPUT FORMAT (copy this structure exactly):
+{"reasoning": "<core theme and why>", "label": "<label>", "confidence": <0.0-1.0>, "evidence": ["<phrase>"]}\
+""".strip()
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the contextual system prompt for the active sentiment variant.
 
     Defaults to the original ``SYSTEM_PROMPT``. ``semantic_v1`` → whole-message
     guidance; ``semantic_v3_pragmatic_contextual`` → the Pragmatic Reasoner prompt;
     ``semantic_v2_disambig`` → whole-message + platform-relationship / description-vs-eval.
+    ``AGENT_PROMPT_STYLE=reasoned`` (task-agnostic, opt-in) overrides to the main-theme
+    reason-first prompt.
     """
+    import os
+    if os.environ.get("AGENT_PROMPT_STYLE", "").strip().lower() == "reasoned":
+        return SYSTEM_PROMPT_REASONED
+
     from src.prompts._sentiment_variant import active_variant
 
     v = active_variant(variant)

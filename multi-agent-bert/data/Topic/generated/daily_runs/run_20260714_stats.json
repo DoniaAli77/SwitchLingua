@@ -1,0 +1,29 @@
+{
+  "task": "topic",
+  "source": "run_20260714",
+  "date": "20260714",
+  "task_aware_accept": "1",
+  "requested": 61,
+  "attempted": 61,
+  "completed": 61,
+  "failed": 0,
+  "raw_instances": 1159,
+  "cs_valid_rate_pct": 56.7,
+  "kept": 629,
+  "kept_by_label": {
+    "health": 63,
+    "business": 64,
+    "shopping": 69,
+    "medical": 76,
+    "finance": 68,
+    "tech": 74,
+    "sports": 67,
+    "social": 85,
+    "education": 63
+  },
+  "loss_by_reason": {
+    "not_cs_valid": 502,
+    "low_quality": 26,
+    "duplicate": 2
+  }
+}

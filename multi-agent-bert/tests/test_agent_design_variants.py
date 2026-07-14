@@ -17,6 +17,7 @@ import pytest
 from evaluate_pipeline import build_orchestrator, _build_consensus
 from src.agents.abstain_agent import AbstainAgent
 from src.agents.consensus_agent import ConsensusAgent
+from src.agents.intent_gate_agent import IntentGateAgent
 from src.agents.llm_lexical_agent import LLMLexicalAgent
 from src.agents.llm_logic_agent import LLMLogicAgent
 from src.agents.polarity_agent import PolarityAgent
@@ -149,7 +150,7 @@ def test_G_intent_gate_wiring():
     assert isinstance(o._llm_logic, PolarityAgent)       # Polarity in logic slot
     assert isinstance(o._polarity, IntentAgent)          # IntentGate agent
     assert o._consensus.weights["polarity"] == 0.0       # gate does NOT vote
-    assert o._consensus._intent_gate is True             # guard active
+    assert isinstance(o._intent_gate, IntentGateAgent)   # decoupled guard stage active
 
 
 def _gate_state(primary, agents_label, gate_label):
@@ -163,22 +164,29 @@ def _gate_state(primary, agents_label, gate_label):
     return st
 
 
+def _consensus_then_gate(st, weights):
+    """Run pure consensus, then the standalone IntentGate guard (Design G path)."""
+    ConsensusAgent(weights=weights).run(st)
+    IntentGateAgent().run(st)
+    return st.final_output
+
+
 def test_G_gate_blocks_polar_override_of_neutral_primary():
     # primary neutral, agents override to positive, gate says neutral (no opinion) → blocked
     st = _gate_state("neutral", "positive", "neutral")
-    out = ConsensusAgent(weights={"primary": 1.0}, intent_gate=True).run(st).final_output
+    out = _consensus_then_gate(st, {"primary": 1.0})
     assert out.label == "neutral"  # override blocked, neutral protected
 
 
 def test_G_gate_allows_override_when_opinion_expressed():
     # gate says positive (clear opinion) → does not block; override to positive stands
     st = _gate_state("neutral", "positive", "positive")
-    out = ConsensusAgent(weights={"primary": 1.0}, intent_gate=True).run(st).final_output
+    out = _consensus_then_gate(st, {"primary": 1.0})
     assert out.label == "positive"
 
 
 def test_G_gate_off_by_default_reproduces_override():
-    # same inputs, gate OFF → agents override the neutral primary to positive
+    # same inputs, consensus WITHOUT the gate stage → agents override neutral primary
     st = _gate_state("neutral", "positive", "neutral")
     out = ConsensusAgent(weights={"primary": 1.0}).run(st).final_output
     assert out.label == "positive"  # no guard → C-style override
@@ -187,12 +195,13 @@ def test_G_gate_off_by_default_reproduces_override():
 def test_G_gate_does_not_touch_non_override():
     # consensus already agrees with primary → guard is a no-op
     st = _gate_state("neutral", "neutral", "neutral")
-    out = ConsensusAgent(weights={"primary": 1.0}, intent_gate=True).run(st).final_output
+    out = _consensus_then_gate(st, {"primary": 1.0})
     assert out.label == "neutral"
 
 
-def test_default_consensus_has_no_gate():
-    assert ConsensusAgent()._intent_gate is False
+def test_consensus_is_pure_voting_no_gate_attr():
+    # the gate is fully decoupled: ConsensusAgent no longer carries gate state
+    assert not hasattr(ConsensusAgent(), "_intent_gate")
 
 
 # --------------------------------------------------------------------------- G2
@@ -206,7 +215,7 @@ def test_G2_selective_gate_wiring():
     assert isinstance(o._polarity, IntentAgent)
     assert o._polarity._system_variant == "selective"    # SELECTIVE gate prompt
     assert o._consensus.weights["polarity"] == 0.0        # still non-voting
-    assert o._consensus._intent_gate is True
+    assert isinstance(o._intent_gate, IntentGateAgent)    # decoupled guard stage
 
 
 def test_G2_selective_prompt_differs_and_is_clean():

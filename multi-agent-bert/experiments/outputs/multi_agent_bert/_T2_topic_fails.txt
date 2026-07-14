@@ -1,0 +1,47 @@
+true=health | primary=medical | agents=medical
+  اذا كان لديك اي استفسارات حول clinical trials يمكنك دايما مراجعه healthcare professionals للحصول علي معلومات دقيقه
+
+true=tech | primary=finance | agents=finance
+  اذا تم استخدام big data بشكل صحيح يمكن ان نحقق نتايج مذهله في risk management
+
+true=medical | primary=medical | agents=health
+  اذا كان لديك chronic conditions فان التواصل مع healthcare providers عبر digital platforms يمكن ان يحدث فرقا كبيرا
+
+true=medical | primary=health | agents=health
+  اذا تم تطبيق telemedicine بشكل فعال يمكن ان يحسن الوصول الي healthcare services للمرضي في المناطق الناييه
+
+true=medical | primary=medical | agents=health
+  اذا تم دمج telemedicine بشكل افضل فقد يساعد ذلك في تحسين الوصول الي healthcare services في المناطق الناييه
+
+true=finance | primary=finance | agents=business
+  عندما تقرر الاستثمار في startups يجب ان تقيم جيدا business models و growth potential لكل شركه
+
+true=tech | primary=finance | agents=finance
+  تعتبر blockchain technology من اهم الابتكارات في عالم financial transactions لانها توفر مستوي عال من الامان
+
+true=tech | primary=tech | agents=business
+  احيانا يمكن ان يودي استخدام cloud solutions الي تقليل operational costs بشكل كبير
+
+true=health | primary=health | agents=medical
+  هل لديك خطه لزياره الطبيب في حال ظهور symptoms جديده
+
+true=health | primary=health | agents=medical
+  اذا كان لديك chronic illness من المهم جدا ان تتبع medical guidelines لتجنب التعقيدات
+
+true=medical | primary=health | agents=education
+  يجب ان تتضمن medical education تعليم الطلاب كيفيه التعامل مع complex cases باستخدام multidisciplinary approaches
+
+true=tech | primary=tech | agents=finance
+  ما هي فوايد استخدام blockchain technology في تامين financial transactions في العالم الرقمي اليوم
+
+true=health | primary=medical | agents=medical
+  تعتبر clinical trials خطوه حيويه في تطوير new therapies لذلك يجب دعمها بالمزيد من التمويل
+
+true=tech | primary=finance | agents=finance
+  ان فهم blockchain technology يمكن ان يحسن من امان financial transactions بشكل ملحوظ
+
+true=social | primary=social | agents=education
+  اذا استثمرنا في educational programs يمكن ان نحقق sustainable development للاجيال القادمه
+
+true=health | primary=medical | agents=medical
+  هل تعتقد ان استخدام telemedicine يمكن ان يحسن من patient outcomes في المناطق الريفيه

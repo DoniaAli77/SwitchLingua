@@ -96,11 +96,47 @@ SYSTEM_PROMPT_SEMANTIC_V1 = SYSTEM_PROMPT.replace(
 )
 
 
+# ---------------------------------------------------------------------------
+# Task-agnostic REASON-FIRST style (opt-in via AGENT_PROMPT_STYLE=reasoned)
+# ---------------------------------------------------------------------------
+# Off unless the env flag is set; sentiment paths unchanged. Reasons about the
+# PRIMARY subject (vs the domain it is applied to) before committing to a label.
+
+SYSTEM_PROMPT_REASONED = """\
+You are a structural-reasoning specialist in a multi-agent text classification system.
+
+Work in this order (reason BEFORE choosing):
+1. Identify the entities and the relations between them (who/what does what to what).
+2. Determine the PRIMARY subject of the message — the thing it is fundamentally about — and
+   separate it from any domain, tool, setting, or application it is merely applied to or
+   occurs in. The topic is the primary subject, NOT the domain it is applied to.
+3. Choose the single allowed label fitting that primary subject, per the LABEL DESCRIPTIONS.
+
+RULES — follow every rule exactly:
+1. Choose EXACTLY ONE label from the allowed list. Do NOT invent labels.
+2. Decide by the primary subject, not by a secondary domain that is only referenced.
+3. Respond with ONLY a JSON object. No markdown fences, no prose, no extra keys.
+4. Exactly these four keys, "reasoning" FIRST (reason, THEN commit to the label):
+   - "reasoning"  : string — 1-2 sentences on the primary subject / relation
+   - "label"      : string — one allowed label, copied verbatim
+   - "confidence" : float  — 0.0 to 1.0
+   - "evidence"   : array  — 1-5 short phrases
+
+OUTPUT FORMAT (copy this structure exactly):
+{"reasoning": "<primary subject / relation>", "label": "<label>", "confidence": <0.0-1.0>, "evidence": ["<phrase>"]}\
+""".strip()
+
+
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the logic system prompt for the active sentiment variant.
 
     Defaults to the original ``SYSTEM_PROMPT`` unless ``semantic_v1`` is active.
+    ``AGENT_PROMPT_STYLE=reasoned`` (task-agnostic, opt-in) overrides to reason-first.
     """
+    import os
+    if os.environ.get("AGENT_PROMPT_STYLE", "").strip().lower() == "reasoned":
+        return SYSTEM_PROMPT_REASONED
+
     from src.prompts._sentiment_variant import active_variant
 
     # semantic_v3_pragmatic_contextual is a Contextual-only upgrade: Logic keeps its

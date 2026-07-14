@@ -1,0 +1,9 @@
+{
+  "model": "gpt-4.1-mini",
+  "calls": 920,
+  "prompt_tokens": 697496,
+  "completion_tokens": 75032,
+  "total_tokens": 772528,
+  "est_cost_usd": 0.0,
+  "pricing_note": "List price estimate only \u2014 verify current OpenAI pricing."
+}

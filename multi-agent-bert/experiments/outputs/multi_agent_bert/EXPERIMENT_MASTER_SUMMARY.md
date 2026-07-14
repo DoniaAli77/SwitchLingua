@@ -40,7 +40,9 @@ gate helps only at 4.1-mini; full gate over-vetoes it).
 | primary | what it is | standalone | + agents | gain | net | significant |
 |---|---|---|---|---|---|---|
 | **C3** | XLM-R on *generated* data (weak) | 0.6956 | **0.7677** | **+0.071** | +59 | p≪0.001 ✅ |
+| **mBERT** | mBERT on *EESA* (mid-weak) | 0.7971 | **0.8509** | **+0.054** | +44 | p≪0.001 ✅ |
 | **E0** | XLM-R on *EESA* (mid) | 0.8533 | **0.8826** | **+0.029** | +24 | p≈0.002 ✅ |
+| **Two-stage** | XLM-R gen-pretrain→EESA | 0.8655 | **0.8851** | **+0.020** | +16 | p≈0.02 ✅ |
 | **Ahmed** | external precomputed (strong) | 0.9254 | 0.9303 | +0.005 | +4 | p≈0.37 ✗ |
 **Verdict:** agent gain **shrinks as the primary strengthens**; agents lift the hard cases to a
 stable **ceiling ~0.77** regardless. Gain ≈ (0.77 − primary-on-escalated) × escalation-rate.
@@ -81,6 +83,31 @@ data and **beats mixing everywhere**; only hurts at 10% (too little real to stee
 domain-adaptive pretraining — the one method that makes generated data pay off as augmentation.
 
 ═══════════════════════════════════════════════════════════════════════
+### A4. Topic (ARENTCV2) — near-perfect primary + agent prompt improvement
+**Backbone check:** XLM-R (3 ep) = 0.9947 vs **mBERT (1 ep) = 0.9923** — backbone- and
+training-budget-agnostic; the task is genuinely saturated.
+
+| system | acc (full 21,134) | escalated (48) acc |
+|---|---|---|
+| primary_only | **0.9947** | 0.646 |
+| full_agentic (default agents) | 0.9944 | 0.521 (agents *hurt*) |
+| full_agentic (sharpened descriptions) | ~0.9946 | 0.583 |
+Escalated ladder (of 48; primary=31): default agents **25** → +sharpened label descriptions
+**28** (tech 1/7→7/7) → +reason-first agent prompts **31 = primary** (fixed 3 broke 0). **Full
+21,134-sample run CONFIRMED:** primary_only **0.9947/0.9947**, default agents **0.9944** (hurt),
+reasoned+sharpened agents **0.9947/0.9947** (parity, no longer hurting; escalated W→C 11 / C→W 11
+= actively reasoning to a tie, not just deferring). Model size does NOT matter
+(default@4o = default@4.1 = 25; sharp@4o = sharp@4.1 = 28) — only the **prompt** moves it.
+**Findings:** (a) the topic primary is near-perfect so agents are ~idle (0.2% escalate);
+(b) the DEFAULT agent prompts were genuinely suboptimal (guess-before-reason, keyword-only
+lexical, empty Contextual role, no main-subject rule) — an expert reason-first rewrite (opt-in
+`AGENT_PROMPT_STYLE=reasoned`, sentiment untouched) + sharpened descriptions took the agents
+from HURTING (25) to MATCHING the primary (31), cleanly (+6, 0 broken); (c) they **match but
+can't beat** the primary because half the escalated tail is arbitrary/inconsistent gold
+(health↔medical) that no prompt or model predicts. **Rule: prompt quality (reason-first,
+main-subject-vs-mention) helps exactly when the residual is a *knowable rule*; it cannot fix
+missing knowledge (sentiment) or arbitrary labels — and model size doesn't help either.**
+
 ## Headline conclusions
 1. **Multi-agent layer works where the primary is weak, not where it's strong** — +7 pts on a weak
    classifier, +3 on a mid one (your EESA-XLM-R), ~0 on a strong one. Stable agent ceiling ~0.77.

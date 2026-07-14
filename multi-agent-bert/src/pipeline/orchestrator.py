@@ -186,6 +186,7 @@ class PipelineOrchestrator:
         llm_logic_agent: Optional[LLMLogicAgent] = None,
         llm_explainability_agent: Optional[LLMExplainabilityAgent] = None,
         polarity_agent: Optional[Any] = None,
+        intent_gate_agent: Optional[Any] = None,
         sequential_stages: Optional[list] = None,
         sequential_controller: Optional[Any] = None,
         ner_lexical_agent: Optional[NERLexicalAgent] = None,
@@ -209,6 +210,10 @@ class PipelineOrchestrator:
         # Optional 4th specialist (four-agent sentiment variant D); writes
         # state.polarity_output. None for every other configuration.
         self._polarity = polarity_agent
+        # Optional non-voting IntentGate guard (Design G/G2), run as a SEPARATE
+        # stage right after consensus. None for every other configuration → the
+        # consensus decision stands unchanged (the guard is fully decoupled).
+        self._intent_gate = intent_gate_agent
         # Optional sequential-agentic escalation (sequential_sentiment_v1):
         # an ordered list of (stage_name, agent) run in series, followed by a
         # deterministic controller that writes final_output. Both None for every
@@ -399,6 +404,14 @@ class PipelineOrchestrator:
                 state, ok = _run_stage("consensus_agent", self._consensus.run, state)
                 if not ok:
                     return state
+
+                # Optional non-voting IntentGate guard (Design G/G2), decoupled
+                # from consensus and run as its own post-consensus stage. No-op
+                # unless an intent_gate_agent was supplied.
+                if self._intent_gate is not None:
+                    state, ok = _run_stage("intent_gate", self._intent_gate.run, state)
+                    if not ok:
+                        return state
 
                 # In full_agentic mode, use the LLM explainability agent when
                 # provided; otherwise fall back to the template agent for both
