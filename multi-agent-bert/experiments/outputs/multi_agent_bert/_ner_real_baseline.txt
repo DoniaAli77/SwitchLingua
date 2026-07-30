@@ -1,0 +1,23 @@
+Loaded 1219 test sentences from Test_AR-EN_NER.txt
+Loading XLM-R: Davlan/xlm-roberta-base-ner-hrl ...
+  ...200/1219 (11s)
+  ...400/1219 (19s)
+  ...600/1219 (31s)
+  ...800/1219 (41s)
+  ...1000/1219 (54s)
+  ...1200/1219 (71s)
+
+==========================================================
+XLM-R baseline on REAL Sabty test (1219 sentences)
+==========================================================
+  token_accuracy         = 0.972
+  macro_f1 (4 ent types) = 0.661
+
+  type          P      R     F1  support
+  O          0.98   0.99   0.99    24125
+  PERS       0.95   0.93   0.94     1308
+  LOC        0.92   0.88   0.90      838
+  ORG        0.76   0.85   0.80      752
+  MISC       0.00   0.00   0.00      339
+
+  NOTE: XLM-R has no MISC label -> expect MISC F1 ~ 0 (the agent's gap).

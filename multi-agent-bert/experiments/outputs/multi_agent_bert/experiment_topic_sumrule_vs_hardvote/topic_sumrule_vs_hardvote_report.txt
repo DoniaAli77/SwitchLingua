@@ -1,0 +1,10 @@
+TOPIC SUM-RULE vs HARD-VOTE — ARENTCV2 XLM-R, gpt-4.1-mini, threshold 0.90
+escalated (fusion-active) samples: 48 | labels: 9
+LABEL FLIPS (hard vs sum): 0
+
+metric                 | hard_vote  | sum_rule  
+--------------------------------------------------
+accuracy (escalated)   | 0.5208     | 0.5208
+ECE (lower=better)     | 0.2292     | 0.2580
+mean conf | correct    | 0.7946     | 0.8167
+mean conf | wrong      | 0.7016     | 0.7377

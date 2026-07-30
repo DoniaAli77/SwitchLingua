@@ -1,0 +1,35 @@
+TOPIC EXAMPLE  (gold=tech)
+  "...blockchain technology...financial transactions..."
+  sum-rule distribution (sums to 1.0):
+     tech      0.703
+     finance   0.231
+     shopping  0.009
+     education 0.009
+     social    0.009
+     sports    0.009
+     medical   0.009
+     business  0.009
+     health    0.009
+     FINAL = tech (0.703)
+
+CASE A (00240)  gold=neutral
+  sum-rule distribution (sums to 1.0):
+     neutral   0.676
+     negative  0.200
+     positive  0.124
+     FINAL = neutral
+
+CASE B (00258)  gold=neutral
+  sum-rule distribution (sums to 1.0):
+     neutral   0.588
+     negative  0.320
+     positive  0.092
+     FINAL = neutral
+
+CASE C (00203)  gold=neutral
+  sum-rule distribution (sums to 1.0):
+     negative  0.677
+     neutral   0.204
+     positive  0.119
+     FINAL = neutral (after gate reverts to primary -> neutral)
+

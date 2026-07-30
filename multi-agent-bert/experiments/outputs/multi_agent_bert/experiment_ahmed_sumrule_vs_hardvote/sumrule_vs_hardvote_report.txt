@@ -1,0 +1,18 @@
+SUM-RULE vs HARD-VOTE — Ahmed G2 selective gate, gpt-4.1-mini, threshold 0.70
+samples: 818 total, 84 escalated (fusion active), 734 non-escalated
+label flips (hard vs sum, over ALL samples): 0
+
+metric                 | hard_vote  | sum_rule  
+--------------------------------------------------
+accuracy (full 818)    | 0.9303     | 0.9303
+accuracy (escalated)   | 0.7976     | 0.7976
+
+CALIBRATION on escalated subset (where fusion sets the confidence):
+ECE (lower=better)     | 0.1220     | 0.0982
+mean conf | correct    | 0.6939     | 0.7138
+mean conf | wrong      | 0.6036     | 0.6429
+escalated accuracy     | 0.7976
+  (ideal mean-conf-correct ~= escalated accuracy; larger correct-minus-wrong gap = better separation)
+
+CALIBRATION on full 818:
+ECE (lower=better)     | 0.1389     | 0.1365

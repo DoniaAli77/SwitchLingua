@@ -96,6 +96,12 @@ class CSRatioResponse(TypedDict):
 
 
 # --- add only NEW task-aware pieces ---
+class NamedEntity(TypedDict, total=False):
+    """One entity the NER validator reports as EVIDENCE for its verdict."""
+    text: str          # exact span as it appears in the sentence
+    type: str          # PER | ORG | LOC | ...
+
+
 class TaskValidationResult(TypedDict, total=False):
     passed: bool
     confidence: float
@@ -104,6 +110,11 @@ class TaskValidationResult(TypedDict, total=False):
     deterministic_notes: str
     predicted_label: Optional[str]
     errors: list[str]
+    # NER only: the entities the validator actually found. The verdict is RECOMPUTED in code
+    # from this evidence (types present, counts, script, nesting) instead of trusting `passed`,
+    # which was observed to be self-contradictory (passed=True alongside a blocking error).
+    # Optional (total=False) so the topic/sentiment validators are unaffected.
+    entities: list[NamedEntity]
 
 
 class SentenceRecord(TypedDict, total=False):

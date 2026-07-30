@@ -182,6 +182,13 @@ DATA_GENERATION_NER_PROMPT = ChatPromptTemplate.from_messages(
             - The matrix language proportion is {cs_ratio}
             - The syntax remains correct in both languages.
             - Make it sound natural to bilingual speakers.
+            - GENUINE CODE-SWITCHING IS REQUIRED, NOT A BARE NAME INSERTION. Besides the required
+              entity names, each sentence MUST also contain an English phrase of at least three
+              ordinary (non-name) English words — for example a verb phrase, clause or comment.
+              A sentence whose ONLY English content is the entity name does NOT count as
+              code-switched and must not be produced.
+              BAD  (entity-only): أعمل مع شركة Apple على مشروع جديد.
+              GOOD (real switch): أعمل مع شركة Apple، and honestly it changed how I think about design.
 
             4. Output must be in JSON format with key: [instances].
             - 'instances' is an array of generated sentences.
@@ -321,14 +328,31 @@ TASK_VALIDATION_NER_PROMPT = ChatPromptTemplate.from_messages(
             - annotations placeholder: {annotations}
             - generated instances: {data_generation_result}
 
-            2. Validation policy:
-            - Required entities must be English-script tokens only (ASCII letters).
-            - Arabic-script entity mentions do NOT count toward required NER types.
-            - must_include_types from {task_constraints} must be satisfied by English entities.
-            - Do NOT fail just because surrounding context is Arabic or code-switched.
+            2. Required entity guidance (authoritative definition of each required type):
+            {ner_entity_guidance}
 
-            3. Output format:
+            3. Validation policy:
+            - Judge ONLY the instance given above, on its own.
+            - Required entities must be written in English/Latin letters.
+            - Arabic-script entity mentions do NOT count toward the required NER types.
+            - A Latin-script name COUNTS as its entity type even when it sits inside an Arabic
+              sentence and even when it is a single token. Well-known named entities count:
+              company/brand/university names (e.g. Google, Microsoft, Cairo University) are ORG;
+              city/country names (e.g. Cairo, Dubai, London, New York) are LOC;
+              personal names (e.g. Ahmed Ali, Sarah Hassan) are PER.
+            - Do NOT require a legal suffix (Inc, Ltd, Corp) or any surrounding cue word for an
+              entity to count.
+            - Do NOT fail just because surrounding context is Arabic or code-switched.
+            - NESTED NAMES COUNT ONCE. A place name inside an organisation name is NOT a separate
+              LOC: "Cairo University" is ONE entity of type ORG (do NOT also report Cairo as LOC);
+              "New York Fitness" is ONE entity of type ORG. Report the longest correct span only.
+            - Report every entity you find, even if that means the constraints are not satisfied.
+
+            4. Output format:
             Return JSON with fields:
+            - entities: list of {{"text": "<exact span copied from the sentence>", "type": "PER|ORG|LOC"}}
+              This is the EVIDENCE for your verdict and is the most important field. List ONLY
+              Latin-script entities actually present. Use an empty list if there are none.
             - passed: boolean
             - confidence: float (0-1)
             - notes: short explanation

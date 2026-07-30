@@ -1,0 +1,32 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+LLMNERReflectionAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 2515 (char 2514); keeping draft.
+LLMNERReflectionAgent: parse error — JSON decode failed: Expecting value: line 1 column 2512 (char 2511); keeping draft.
+LLMNERReflectionAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 2513 (char 2512); keeping draft.
+Loaded 150 REAL test sentences.
+
+=== BEFORE  (primary only) ===  agents: fine-tuned XLM-R
+  token_acc=0.975  macro_f1(4 types)=0.824
+    O      P=1.00 R=0.98 F1=0.99 (n=3795)
+    PERS   P=0.99 R=0.98 F1=0.98 (n=259)
+    LOC    P=0.95 R=0.96 F1=0.95 (n=187)
+    ORG    P=0.72 R=0.98 F1=0.83 (n=150)
+    MISC   P=0.45 R=0.63 F1=0.53 (n=41)
+
+=== AFTER   (full panel) ===  agents: XLM-R + router + reflector + debate + disambiguation
+  token_acc=0.952  macro_f1(4 types)=0.734
+    O      P=0.99 R=0.97 F1=0.98 (n=3795)
+    PERS   P=0.92 R=0.92 F1=0.92 (n=259)
+    LOC    P=0.87 R=0.86 F1=0.86 (n=187)
+    ORG    P=0.61 R=0.91 F1=0.73 (n=150)
+    MISC   P=0.37 R=0.51 F1=0.43 (n=41)
+
+Escalated 77/150 sentences. LLM calls: 207  cost≈$0.0473
+
+================================================
+STAGE (cumulative)           macroF1      MISC
+------------------------------------------------
+primary (before)               0.824      0.53
++ reflector                    0.694      0.46
++ debate                       0.760      0.47
++ disambiguation (full)        0.734      0.43
+================================================

@@ -1,0 +1,12 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Gazetteer entries: 4858
+
+=== PRIMARY alone (baseline) ===
+  entity-F1 (seqeval micro) = 0.816  (P=0.799 R=0.834)
+  token-level macro-F1      = 0.802
+
+=== PRIMARY + gazetteer-augment ===
+  entity-F1 (seqeval micro) = 0.783  (P=0.724 R=0.851)
+  token-level macro-F1      = 0.786
+
+Sabty best (entity-level): 0.777 / 0.794

@@ -1,0 +1,14 @@
+KEYS: sample_id, input_text, true_label, predicted_label, confidence, probabilities, escalated, correct, pipeline_error, mode, pipeline_mode
+  sample_id = ahmed-eesa-00000
+  input_text = فيديو نهائي ما عجبني الصراحة
+ما في شيء original
+No, next
+  true_label = negative
+  predicted_label = negative
+  confidence = 0.824885
+  probabilities = {'positive': 0.203337, 'negative': 0.59954, 'neutral': 0.197123}
+  escalated = True
+  correct = True
+  pipeline_error = None
+  mode = full_pipeline
+  pipeline_mode = full_agentic

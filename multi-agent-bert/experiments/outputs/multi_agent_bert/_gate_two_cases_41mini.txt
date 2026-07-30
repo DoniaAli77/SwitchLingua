@@ -1,0 +1,25 @@
+============================================================================================
+gpt-4.1-mini | ahmed-eesa-00240 | gold=neutral
+TEXT: اخوانا اللى عاملين dislike على اساس ايه
+
+  PRIMARY : negative (conf=0.4762) -> ROUTER: escalate
+  Lexical    : neutral  (conf=0.70) | The phrase questions the reason behind dislikes without expressing positive or negative sentiment ex
+  Polarity   : neutral  (conf=0.70) | The author questions the reason behind dislikes without expressing a clear positive or negative eval
+  Contextual : neutral  (conf=0.90) | The text is a neutral question asking for the reason behind dislikes without expressing positive or 
+  IntentGate : neutral  (conf=0.90) | The author is asking a question about others' actions regarding dislikes without expressing their ow
+  CONSENSUS votes: {'positive': 0.0, 'negative': 0.476, 'neutral': 2.3}
+  GATE FIRED? NO (winner already agreed with primary -> nothing to block)
+  FINAL: neutral   CORRECT
+
+============================================================================================
+gpt-4.1-mini | ahmed-eesa-00258 | gold=neutral
+TEXT: مين ال 74 ال عملين dislike
+
+  PRIMARY : neutral (conf=0.4771) -> ROUTER: escalate
+  Lexical    : negative (conf=0.85) | The explicit use of the word 'dislike' indicates a negative sentiment.
+  Polarity   : neutral  (conf=0.90) | The author is asking a factual question about who made dislikes without expressing any evaluative op
+  Contextual : neutral  (conf=0.90) | The text is a neutral inquiry about who made dislikes, without expressing positive or negative senti
+  IntentGate : neutral  (conf=0.95) | The text is a question about the identity of users who disliked, which is a meta-comment about disli
+  CONSENSUS votes: {'positive': 0.0, 'negative': 0.85, 'neutral': 2.277}
+  GATE FIRED? NO (winner already agreed with primary -> nothing to block)
+  FINAL: neutral   CORRECT

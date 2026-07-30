@@ -1,0 +1,11 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+LLMNERAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 3009 (char 3008)
+
+Escalated (hard) sentences: 51/100  LLM calls: 102  cost≈$0.0159
+
+=== Standalone quality on the ESCALATED sentences (macro-F1 vs gold) ===
+  primary (XLM-R)                  macroF1=0.827  MISC=0.56
+  LLM positional (drifts)          macroF1=0.491  MISC=0.27
+  LLM span (deterministic align)   macroF1=0.593  MISC=0.21
+
+  span - positional = +0.102  (drift was a real factor)

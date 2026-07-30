@@ -1,0 +1,73 @@
+{
+ "labels": [
+  "business",
+  "education",
+  "health",
+  "shopping",
+  "medical",
+  "sports",
+  "tech",
+  "finance",
+  "social"
+ ],
+ "primary": {
+  "label": "finance",
+  "conf": 0.887581,
+  "probs": {
+   "business": 2.4e-05,
+   "education": 6.4e-05,
+   "health": 2.4e-05,
+   "shopping": 7.8e-05,
+   "medical": 3.3e-05,
+   "sports": 3.7e-05,
+   "tech": 0.112117,
+   "finance": 0.887581,
+   "social": 4.2e-05
+  }
+ },
+ "lexical": {
+  "label": "tech",
+  "conf": 0.9,
+  "probs": {
+   "business": 0.012499999999999997,
+   "education": 0.012499999999999997,
+   "health": 0.012499999999999997,
+   "shopping": 0.012499999999999997,
+   "medical": 0.012499999999999997,
+   "sports": 0.012499999999999997,
+   "tech": 0.9,
+   "finance": 0.012499999999999997,
+   "social": 0.012499999999999997
+  }
+ },
+ "logic": {
+  "label": "tech",
+  "conf": 0.9,
+  "probs": {
+   "business": 0.012499999999999997,
+   "education": 0.012499999999999997,
+   "health": 0.012499999999999997,
+   "shopping": 0.012499999999999997,
+   "medical": 0.012499999999999997,
+   "sports": 0.012499999999999997,
+   "tech": 0.9,
+   "finance": 0.012499999999999997,
+   "social": 0.012499999999999997
+  }
+ },
+ "contextual": {
+  "label": "tech",
+  "conf": 0.9,
+  "probs": {
+   "business": 0.0125,
+   "education": 0.0125,
+   "health": 0.0125,
+   "shopping": 0.0125,
+   "medical": 0.0125,
+   "sports": 0.0125,
+   "tech": 0.9,
+   "finance": 0.0125,
+   "social": 0.0125
+  }
+ }
+}

@@ -62,7 +62,11 @@ from src.state.schema import (
 _SKIP_NOTE = "NERConsensusAgent: task_type is not sequence_labeling — skipped."
 
 # Default per-slot weights (same slot names as classification ConsensusAgent).
+# ``model`` is the real NER primary model's slot (state.ner_model_output); it is
+# absent unless a model is wired in, and its weight is typically raised by the
+# caller so the model dominates the heuristic specialists when both are present.
 _DEFAULT_WEIGHTS: Dict[str, float] = {
+    "model": 1.0,
     "lexical": 1.0,
     "contextual": 1.0,
     "logic": 1.0,
@@ -88,7 +92,8 @@ def _resolve_tokens(state: PipelineState) -> List[str]:
     if tokens:
         return list(tokens)
 
-    for slot_output in (state.lexical_output, state.logic_output, state.contextual_output):
+    for slot_output in (state.ner_model_output, state.lexical_output,
+                        state.logic_output, state.contextual_output):
         seq = _extract_seq_output(slot_output)
         if seq and seq.tags:
             return [tt.token for tt in seq.tags]
@@ -166,7 +171,7 @@ class NERConsensusAgent(BaseAgent[PipelineState]):
         raw: Dict[str, float] = {**_DEFAULT_WEIGHTS, **(weights or {})}
         self.weights: Dict[str, float] = {
             slot: max(0.0, raw.get(slot, _DEFAULT_WEIGHTS.get(slot, 1.0)))
-            for slot in ("lexical", "contextual", "logic")
+            for slot in ("model", "lexical", "contextual", "logic")
         }
 
     # ------------------------------------------------------------------
@@ -193,6 +198,7 @@ class NERConsensusAgent(BaseAgent[PipelineState]):
         tokens: List[str] = _resolve_tokens(state)
 
         slots: Dict[str, Optional[SequenceLabelingOutput]] = {
+            "model":       _extract_seq_output(state.ner_model_output),
             "lexical":     _extract_seq_output(state.lexical_output),
             "contextual":  _extract_seq_output(state.contextual_output),
             "logic":       _extract_seq_output(state.logic_output),

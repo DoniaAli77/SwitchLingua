@@ -1,0 +1,57 @@
+Loading XLM-R NER model: Davlan/xlm-roberta-base-ner-hrl ...
+
+=== ner_xlmr_primary (primary_only) ===
+  token_accuracy=0.947  macro_f1=0.881  errors=0
+    O      P=0.95 R=0.99 F1=0.97
+    B-PER  P=1.00 R=1.00 F1=1.00
+    I-PER  P=0.88 R=0.88 F1=0.88
+    B-ORG  P=0.95 R=0.91 F1=0.93
+    I-ORG  P=1.00 R=0.60 F1=0.75
+    B-LOC  P=0.90 R=0.93 F1=0.92
+    I-LOC  P=1.00 R=0.57 F1=0.73
+
+=== ner_fused_heur (paper_style) ===
+  token_accuracy=0.889  macro_f1=0.775  errors=0
+    O      P=0.88 R=0.99 F1=0.93
+    B-PER  P=1.00 R=0.75 F1=0.86
+    I-PER  P=0.80 R=0.50 F1=0.62
+    B-ORG  P=0.95 R=0.82 F1=0.88
+    I-ORG  P=1.00 R=0.40 F1=0.57
+    B-LOC  P=0.86 R=0.83 F1=0.84
+    I-LOC  P=1.00 R=0.57 F1=0.73
+
+[env loaded from C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\..\Modified_Version\.env]
+
+=== ner_fused_llm_vote (full_agentic) ===
+  token_accuracy=0.943  macro_f1=0.858  errors=0
+    O      P=0.96 R=0.99 F1=0.97
+    B-PER  P=1.00 R=1.00 F1=1.00
+    I-PER  P=0.88 R=0.88 F1=0.88
+    B-ORG  P=0.95 R=0.86 F1=0.90
+    I-ORG  P=1.00 R=0.50 F1=0.67
+    B-LOC  P=0.88 R=0.97 F1=0.92
+    I-LOC  P=0.80 R=0.57 F1=0.67
+
+=== ner_fused_reflect (full_agentic) ===
+  token_accuracy=0.939  macro_f1=0.837  errors=0
+    O      P=0.96 R=0.99 F1=0.97
+    B-PER  P=1.00 R=1.00 F1=1.00
+    I-PER  P=0.88 R=0.88 F1=0.88
+    B-ORG  P=0.95 R=0.86 F1=0.90
+    I-ORG  P=1.00 R=0.40 F1=0.57
+    B-LOC  P=0.88 R=0.97 F1=0.92
+    I-LOC  P=0.67 R=0.57 F1=0.62
+
+LLM usage (vote): {'model': 'gpt-4o-mini', 'calls': 5, 'prompt_tokens': 3067, 'completion_tokens': 308, 'total_tokens': 3375, 'est_cost_usd': 0.0006, 'pricing_note': 'List price estimate only — verify current OpenAI pricing.'}
+LLM usage (reflect): {'model': 'gpt-4o-mini', 'calls': 5, 'prompt_tokens': 2968, 'completion_tokens': 284, 'total_tokens': 3252, 'est_cost_usd': 0.0006, 'pricing_note': 'List price estimate only — verify current OpenAI pricing.'}
+
+====================================================
+CONFIG               token_acc    macro_f1
+----------------------------------------------------
+xlmr_primary             0.947       0.881
+fused_heur               0.889       0.775
+fused_llm_vote           0.943       0.858
+fused_reflect            0.939       0.837
+====================================================
+
+Outputs saved under: C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\experiments\outputs\multi_agent_bert\experiment_ner_llm

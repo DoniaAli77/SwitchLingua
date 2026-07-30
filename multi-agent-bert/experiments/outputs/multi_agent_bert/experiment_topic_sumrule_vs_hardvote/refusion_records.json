@@ -1,0 +1,482 @@
+[
+ {
+  "sample_id": "ARENTCV2-test-000134",
+  "true": "health",
+  "primary_label": "medical",
+  "primary_conf": 0.847175,
+  "hard_label": "medical",
+  "hard_conf": 0.899294,
+  "sum_label": "medical",
+  "sum_conf": 0.899294
+ },
+ {
+  "sample_id": "ARENTCV2-test-000633",
+  "true": "tech",
+  "primary_label": "finance",
+  "primary_conf": 0.775562,
+  "hard_label": "business",
+  "hard_conf": 0.6375,
+  "sum_label": "business",
+  "sum_conf": 0.637611
+ },
+ {
+  "sample_id": "ARENTCV2-test-001611",
+  "true": "medical",
+  "primary_label": "medical",
+  "primary_conf": 0.718184,
+  "hard_label": "medical",
+  "hard_conf": 0.629546,
+  "sum_label": "medical",
+  "sum_conf": 0.632671
+ },
+ {
+  "sample_id": "ARENTCV2-test-001762",
+  "true": "medical",
+  "primary_label": "health",
+  "primary_conf": 0.837308,
+  "hard_label": "medical",
+  "hard_conf": 0.7125,
+  "sum_label": "medical",
+  "sum_conf": 0.753115
+ },
+ {
+  "sample_id": "ARENTCV2-test-001773",
+  "true": "medical",
+  "primary_label": "health",
+  "primary_conf": 0.577154,
+  "hard_label": "medical",
+  "hard_conf": 0.675,
+  "sum_label": "medical",
+  "sum_conf": 0.780619
+ },
+ {
+  "sample_id": "ARENTCV2-test-001847",
+  "true": "medical",
+  "primary_label": "medical",
+  "primary_conf": 0.88439,
+  "hard_label": "medical",
+  "hard_conf": 0.896097,
+  "sum_label": "medical",
+  "sum_conf": 0.896097
+ },
+ {
+  "sample_id": "ARENTCV2-test-001860",
+  "true": "finance",
+  "primary_label": "finance",
+  "primary_conf": 0.860896,
+  "hard_label": "business",
+  "hard_conf": 0.7125,
+  "sum_label": "business",
+  "sum_conf": 0.747193
+ },
+ {
+  "sample_id": "ARENTCV2-test-002557",
+  "true": "tech",
+  "primary_label": "finance",
+  "primary_conf": 0.887581,
+  "hard_label": "finance",
+  "hard_conf": 0.671895,
+  "sum_label": "finance",
+  "sum_conf": 0.67502
+ },
+ {
+  "sample_id": "ARENTCV2-test-002765",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.865669,
+  "hard_label": "tech",
+  "hard_conf": 0.6375,
+  "sum_label": "tech",
+  "sum_conf": 0.637511
+ },
+ {
+  "sample_id": "ARENTCV2-test-003530",
+  "true": "tech",
+  "primary_label": "tech",
+  "primary_conf": 0.777885,
+  "hard_label": "tech",
+  "hard_conf": 0.881971,
+  "sum_label": "tech",
+  "sum_conf": 0.881971
+ },
+ {
+  "sample_id": "ARENTCV2-test-003583",
+  "true": "business",
+  "primary_label": "business",
+  "primary_conf": 0.586928,
+  "hard_label": "business",
+  "hard_conf": 0.821732,
+  "sum_label": "business",
+  "sum_conf": 0.821732
+ },
+ {
+  "sample_id": "ARENTCV2-test-003731",
+  "true": "health",
+  "primary_label": "medical",
+  "primary_conf": 0.80059,
+  "hard_label": "health",
+  "hard_conf": 0.7125,
+  "sum_label": "health",
+  "sum_conf": 0.762299
+ },
+ {
+  "sample_id": "ARENTCV2-test-004580",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.795036,
+  "hard_label": "medical",
+  "hard_conf": 0.7125,
+  "sum_label": "medical",
+  "sum_conf": 0.763686
+ },
+ {
+  "sample_id": "ARENTCV2-test-004866",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.858995,
+  "hard_label": "medical",
+  "hard_conf": 0.675,
+  "sum_label": "medical",
+  "sum_conf": 0.710199
+ },
+ {
+  "sample_id": "ARENTCV2-test-005440",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.614755,
+  "hard_label": "health",
+  "hard_conf": 0.853689,
+  "sum_label": "health",
+  "sum_conf": 0.853689
+ },
+ {
+  "sample_id": "ARENTCV2-test-006012",
+  "true": "shopping",
+  "primary_label": "shopping",
+  "primary_conf": 0.639626,
+  "hard_label": "shopping",
+  "hard_conf": 0.834906,
+  "sum_label": "shopping",
+  "sum_conf": 0.834906
+ },
+ {
+  "sample_id": "ARENTCV2-test-006202",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.888733,
+  "hard_label": "medical",
+  "hard_conf": 0.7125,
+  "sum_label": "medical",
+  "sum_conf": 0.740268
+ },
+ {
+  "sample_id": "ARENTCV2-test-006297",
+  "true": "medical",
+  "primary_label": "health",
+  "primary_conf": 0.626626,
+  "hard_label": "education",
+  "hard_conf": 0.65,
+  "sum_label": "education",
+  "sum_conf": 0.65022
+ },
+ {
+  "sample_id": "ARENTCV2-test-006573",
+  "true": "medical",
+  "primary_label": "health",
+  "primary_conf": 0.809049,
+  "hard_label": "medical",
+  "hard_conf": 0.7125,
+  "sum_label": "medical",
+  "sum_conf": 0.760185
+ },
+ {
+  "sample_id": "ARENTCV2-test-006887",
+  "true": "tech",
+  "primary_label": "tech",
+  "primary_conf": 0.822052,
+  "hard_label": "finance",
+  "hard_conf": 0.675,
+  "sum_label": "finance",
+  "sum_conf": 0.719404
+ },
+ {
+  "sample_id": "ARENTCV2-test-007089",
+  "true": "shopping",
+  "primary_label": "shopping",
+  "primary_conf": 0.671085,
+  "hard_label": "shopping",
+  "hard_conf": 0.880271,
+  "sum_label": "shopping",
+  "sum_conf": 0.880271
+ },
+ {
+  "sample_id": "ARENTCV2-test-007318",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.727861,
+  "hard_label": "medical",
+  "hard_conf": 0.45,
+  "sum_label": "medical",
+  "sum_conf": 0.522657
+ },
+ {
+  "sample_id": "ARENTCV2-test-008085",
+  "true": "health",
+  "primary_label": "medical",
+  "primary_conf": 0.607017,
+  "hard_label": "medical",
+  "hard_conf": 0.839254,
+  "sum_label": "medical",
+  "sum_conf": 0.839254
+ },
+ {
+  "sample_id": "ARENTCV2-test-008690",
+  "true": "medical",
+  "primary_label": "medical",
+  "primary_conf": 0.759262,
+  "hard_label": "medical",
+  "hard_conf": 0.877316,
+  "sum_label": "medical",
+  "sum_conf": 0.877315
+ },
+ {
+  "sample_id": "ARENTCV2-test-009399",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.685593,
+  "hard_label": "health",
+  "hard_conf": 0.621398,
+  "sum_label": "health",
+  "sum_conf": 0.624523
+ },
+ {
+  "sample_id": "ARENTCV2-test-009508",
+  "true": "tech",
+  "primary_label": "finance",
+  "primary_conf": 0.776365,
+  "hard_label": "finance",
+  "hard_conf": 0.644091,
+  "sum_label": "finance",
+  "sum_conf": 0.647216
+ },
+ {
+  "sample_id": "ARENTCV2-test-009810",
+  "true": "medical",
+  "primary_label": "medical",
+  "primary_conf": 0.893965,
+  "hard_label": "medical",
+  "hard_conf": 0.923491,
+  "sum_label": "medical",
+  "sum_conf": 0.923491
+ },
+ {
+  "sample_id": "ARENTCV2-test-010223",
+  "true": "social",
+  "primary_label": "social",
+  "primary_conf": 0.812431,
+  "hard_label": "education",
+  "hard_conf": 0.675,
+  "sum_label": "education",
+  "sum_conf": 0.721809
+ },
+ {
+  "sample_id": "ARENTCV2-test-011053",
+  "true": "health",
+  "primary_label": "medical",
+  "primary_conf": 0.527589,
+  "hard_label": "medical",
+  "hard_conf": 0.831897,
+  "sum_label": "medical",
+  "sum_conf": 0.831897
+ },
+ {
+  "sample_id": "ARENTCV2-test-011400",
+  "true": "finance",
+  "primary_label": "finance",
+  "primary_conf": 0.628179,
+  "hard_label": "finance",
+  "hard_conf": 0.869545,
+  "sum_label": "finance",
+  "sum_conf": 0.869545
+ },
+ {
+  "sample_id": "ARENTCV2-test-011422",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.527609,
+  "hard_label": "medical",
+  "hard_conf": 0.675,
+  "sum_label": "medical",
+  "sum_conf": 0.793023
+ },
+ {
+  "sample_id": "ARENTCV2-test-011920",
+  "true": "finance",
+  "primary_label": "business",
+  "primary_conf": 0.655524,
+  "hard_label": "finance",
+  "hard_conf": 0.475,
+  "sum_label": "finance",
+  "sum_conf": 0.564124
+ },
+ {
+  "sample_id": "ARENTCV2-test-011929",
+  "true": "finance",
+  "primary_label": "business",
+  "primary_conf": 0.798645,
+  "hard_label": "finance",
+  "hard_conf": 0.7125,
+  "sum_label": "finance",
+  "sum_conf": 0.762733
+ },
+ {
+  "sample_id": "ARENTCV2-test-012011",
+  "true": "health",
+  "primary_label": "medical",
+  "primary_conf": 0.806384,
+  "hard_label": "medical",
+  "hard_conf": 0.876596,
+  "sum_label": "medical",
+  "sum_conf": 0.876596
+ },
+ {
+  "sample_id": "ARENTCV2-test-013021",
+  "true": "business",
+  "primary_label": "business",
+  "primary_conf": 0.858655,
+  "hard_label": "finance",
+  "hard_conf": 0.7125,
+  "sum_label": "finance",
+  "sum_conf": 0.747753
+ },
+ {
+  "sample_id": "ARENTCV2-test-013288",
+  "true": "health",
+  "primary_label": "health",
+  "primary_conf": 0.581079,
+  "hard_label": "medical",
+  "hard_conf": 0.6875,
+  "sum_label": "medical",
+  "sum_conf": 0.792157
+ },
+ {
+  "sample_id": "ARENTCV2-test-013368",
+  "true": "business",
+  "primary_label": "business",
+  "primary_conf": 0.829744,
+  "hard_label": "business",
+  "hard_conf": 0.869936,
+  "sum_label": "business",
+  "sum_conf": 0.869936
+ },
+ {
+  "sample_id": "ARENTCV2-test-014304",
+  "true": "medical",
+  "primary_label": "health",
+  "primary_conf": 0.668218,
+  "hard_label": "medical",
+  "hard_conf": 0.675,
+  "sum_label": "medical",
+  "sum_conf": 0.757883
+ },
+ {
+  "sample_id": "ARENTCV2-test-014492",
+  "true": "finance",
+  "primary_label": "finance",
+  "primary_conf": 0.894363,
+  "hard_label": "finance",
+  "hard_conf": 0.936091,
+  "sum_label": "finance",
+  "sum_conf": 0.936091
+ },
+ {
+  "sample_id": "ARENTCV2-test-014636",
+  "true": "tech",
+  "primary_label": "tech",
+  "primary_conf": 0.7658,
+  "hard_label": "tech",
+  "hard_conf": 0.89145,
+  "sum_label": "tech",
+  "sum_conf": 0.89145
+ },
+ {
+  "sample_id": "ARENTCV2-test-014706",
+  "true": "finance",
+  "primary_label": "finance",
+  "primary_conf": 0.7966,
+  "hard_label": "finance",
+  "hard_conf": 0.88665,
+  "sum_label": "finance",
+  "sum_conf": 0.88665
+ },
+ {
+  "sample_id": "ARENTCV2-test-014757",
+  "true": "finance",
+  "primary_label": "business",
+  "primary_conf": 0.684911,
+  "hard_label": "finance",
+  "hard_conf": 0.7,
+  "sum_label": "finance",
+  "sum_conf": 0.778659
+ },
+ {
+  "sample_id": "ARENTCV2-test-015837",
+  "true": "business",
+  "primary_label": "business",
+  "primary_conf": 0.865669,
+  "hard_label": "finance",
+  "hard_conf": 0.7,
+  "sum_label": "finance",
+  "sum_conf": 0.733497
+ },
+ {
+  "sample_id": "ARENTCV2-test-016523",
+  "true": "medical",
+  "primary_label": "medical",
+  "primary_conf": 0.782382,
+  "hard_label": "medical",
+  "hard_conf": 0.908095,
+  "sum_label": "medical",
+  "sum_conf": 0.908095
+ },
+ {
+  "sample_id": "ARENTCV2-test-018087",
+  "true": "finance",
+  "primary_label": "business",
+  "primary_conf": 0.898873,
+  "hard_label": "business",
+  "hard_conf": 0.937218,
+  "sum_label": "business",
+  "sum_conf": 0.937218
+ },
+ {
+  "sample_id": "ARENTCV2-test-019439",
+  "true": "tech",
+  "primary_label": "tech",
+  "primary_conf": 0.541238,
+  "hard_label": "finance",
+  "hard_conf": 0.45,
+  "sum_label": "finance",
+  "sum_conf": 0.567696
+ },
+ {
+  "sample_id": "ARENTCV2-test-019637",
+  "true": "finance",
+  "primary_label": "finance",
+  "primary_conf": 0.783789,
+  "hard_label": "finance",
+  "hard_conf": 0.908447,
+  "sum_label": "finance",
+  "sum_conf": 0.908447
+ },
+ {
+  "sample_id": "ARENTCV2-test-020972",
+  "true": "medical",
+  "primary_label": "medical",
+  "primary_conf": 0.597961,
+  "hard_label": "health",
+  "hard_conf": 0.675,
+  "sum_label": "health",
+  "sum_conf": 0.775414
+ }
+]

@@ -27,3 +27,16 @@ ceiling (topic 0.92 vs sentiment 0.77).
 ## Artifacts
 - `experiment_Tgen540_agentic_sub/` ; weak primary `experiment_T_gen540_xlmr/` (0.7653 full);
   subsample `data/Topic/processed/ARENTCV2/test_sub500.jsonl`.
+
+## Complete backbone × primary-strength 2x2 (topic)
+| backbone | strong (real ARENTC) | weak (generated-540) |
+|---|---|---|
+| XLM-R | 0.9947 → 0.9947 (+0.000) | 0.7717 → 0.9232 (+0.152) |
+| mBERT | 0.9923 → 0.9931 (+0.001) | 0.6525 → 0.9212 (+0.269) |
+
+**Backbone-independent agent ceiling ~0.92:** weak XLM-R (0.77) and weak mBERT (0.65) BOTH
+reach ~0.92 with agents — the agents contribute a fixed reasoning ceiling (they use only the
+primary's escalated predictions, not its weights), so at 100% escalation they reach their own
+topic ability regardless of the primary. The GAIN = distance from that ceiling: mBERT +0.269 >
+XLM-R +0.152 (weaker primary → bigger gain). Topic agent-ceiling ~0.92 vs sentiment ~0.77
+(topic is easier for the LLM agents). mBERT-540 agentic: 33/1850 conn-errors (1.8%, ~clean).

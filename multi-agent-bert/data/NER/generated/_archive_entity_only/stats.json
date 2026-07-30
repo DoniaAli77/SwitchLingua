@@ -1,0 +1,21 @@
+{
+  "scenarios_attempted": 42,
+  "scenarios_ok": 42,
+  "scenarios_failed": 0,
+  "raw_instances": 129,
+  "kept": 94,
+  "kept_by_group": {
+    "ORG": 28,
+    "PER": 16,
+    "PER+ORG": 8,
+    "LOC": 11,
+    "PER+LOC": 7,
+    "ORG+LOC": 20,
+    "PER+ORG+LOC": 4
+  },
+  "loss_by_reason": {
+    "low_quality": 34,
+    "not_cs_valid": 1
+  },
+  "policy": "english-only entities; entities_posthoc = offline annotator aid, not gold labels"
+}

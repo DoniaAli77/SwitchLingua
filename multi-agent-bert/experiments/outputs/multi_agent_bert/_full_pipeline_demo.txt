@@ -1,0 +1,26 @@
+TOPIC EXAMPLE  gold=tech
+TEXT: تعتبر blockchain technology من اهم الابتكارات في عالم financial transactions لانها توفر مستوي عال من الامان
+
+### topic pipeline (real XLM-R primary)
+  PRIMARY : label=finance  confidence=0.8876
+  ROUTER  : escalate (threshold=0.90)
+  Lexical    : tech (conf=0.90)
+  Logic      : tech (conf=0.90)
+  Contextual : tech (conf=0.90)
+  CONSENSUS votes: {'business': 0.0, 'education': 0.0, 'health': 0.0, 'shopping': 0.0, 'medical': 0.0, 'sports': 0.0, 'tech': 2.7, 'finance': 0.888, 'social': 0.0}
+  CONSENSUS rationale: lexical=tech (weight=1.00, conf=0.9000, contribution=0.9000); contextual=tech (weight=1.00, conf=0.9000, contribution=0.9000); logic=tech (weight=1.00, conf=0.9000, contribution=0.9000); polarity=no vote; primary=finance (weight=1.00, conf=0.8876, contribution=0.8876)
+  FINAL   : tech   (gold below)
+
+SENTIMENT EXAMPLE  gold=negative
+TEXT: انت no one
+
+### sentiment pipeline G2 (Ahmed primary)
+  PRIMARY : label=neutral  confidence=0.4505
+  ROUTER  : escalate (threshold=0.70)
+  Lexical    : neutral (conf=0.70)
+  Polarity   : neutral (conf=0.90)
+  Contextual : negative (conf=0.85)
+  IntentGate : negative (conf=0.85)
+  CONSENSUS votes: {'positive': 0.0, 'negative': 0.85, 'neutral': 2.051}
+  CONSENSUS rationale: lexical=neutral (weight=1.00, conf=0.7000, contribution=0.7000); contextual=negative (weight=1.00, conf=0.8500, contribution=0.8500); logic=neutral (weight=1.00, conf=0.9000, contribution=0.9000); polarity=no vote; primary=neutral (weight=1.00, conf=0.4505, contribution=0.4505)
+  FINAL   : neutral   (gold below)

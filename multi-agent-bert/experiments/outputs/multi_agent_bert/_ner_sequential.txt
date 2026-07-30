@@ -1,0 +1,14 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+LLMNERReflectionAgent: parse error — JSON decode failed: Expecting value: line 1 column 2511 (char 2510); keeping draft.
+Loaded 100 REAL test sentences.
+
+Escalated 51/100 sentences. LLM calls: 141  cost≈$0.0323
+
+==============================================
+STAGE (cumulative)         macroF1      MISC
+----------------------------------------------
+primary (before)             0.828      0.55
++ reflector                  0.612      0.49
++ debate                     0.763      0.52
++ disambiguation (full)      0.706      0.46
+==============================================

@@ -1,0 +1,79 @@
+Loading XLM-R NER model ...
+
+==========================================================================
+ner_07: Dr. Nour Hassan teaches at Cairo University.   [decision=escalate]
+--------------------------------------------------------------------------
+WORD           script  GOLD    MODEL    FUSED    change
+--------------------------------------------------------------------------
+Dr.            lat     O       O        O        
+Nour           lat     B-PER   B-PER    B-PER    
+Hassan         lat     I-PER   I-PER    I-PER    
+teaches        lat     O       O        O        
+at             lat     O       O        O        
+Cairo          lat     B-ORG   B-ORG    B-ORG    
+University     lat     I-ORG   I-ORG    I-ORG    
+.              lat     O       O        O        
+
+==========================================================================
+ner_08: الدكتورة نور حسن تدرّس في جامعة القاهرة.   [decision=escalate]
+--------------------------------------------------------------------------
+WORD           script  GOLD    MODEL    FUSED    change
+--------------------------------------------------------------------------
+الدكتورة       AR      O       O        O        
+نور            AR      B-PER   B-PER    O        CHANGED
+حسن            AR      I-PER   I-PER    O        CHANGED
+تدرّس          AR      O       O        O        
+في             AR      O       O        O        
+جامعة          AR      B-ORG   B-ORG    O        CHANGED
+القاهرة        AR      I-ORG   I-ORG    O        CHANGED
+.              lat     O       O        O        
+
+==========================================================================
+ner_27: إيلون ماسك الرئيس التنفيذي لـ Tesla أعلن خططاً للمريخ.   [decision=escalate]
+--------------------------------------------------------------------------
+WORD           script  GOLD    MODEL    FUSED    change
+--------------------------------------------------------------------------
+إيلون          AR      B-PER   B-PER    O        CHANGED
+ماسك           AR      I-PER   I-PER    O        CHANGED
+الرئيس         AR      O       O        O        
+التنفيذي       AR      O       O        O        
+لـ             AR      O       O        O        
+Tesla          lat     B-ORG   B-ORG    B-ORG    
+أعلن           AR      O       O        O        
+خططاً          AR      O       O        O        
+للمريخ         AR      B-LOC   O        O        
+.              lat     O       O        O        
+
+==========================================================================
+ner_28: مريم من الإسكندرية تعمل في Google بلندن.   [decision=escalate]
+--------------------------------------------------------------------------
+WORD           script  GOLD    MODEL    FUSED    change
+--------------------------------------------------------------------------
+مريم           AR      B-PER   B-PER    O        CHANGED
+من             AR      O       O        O        
+الإسكندرية     AR      B-LOC   B-LOC    O        CHANGED
+تعمل           AR      O       O        O        
+في             AR      O       O        O        
+Google         lat     B-ORG   B-ORG    B-ORG    
+بلندن          AR      B-LOC   B-LOC    O        CHANGED
+.              lat     O       O        O        
+
+==========================================================================
+ner_30: أُقيم كأس العالم FIFA في قطر عام 2022.   [decision=escalate]
+--------------------------------------------------------------------------
+WORD           script  GOLD    MODEL    FUSED    change
+--------------------------------------------------------------------------
+أُقيم          AR      O       O        O        
+كأس            AR      B-ORG   O        O        
+العالم         AR      I-ORG   O        O        
+FIFA           lat     I-ORG   B-ORG    B-ORG    
+في             AR      O       O        O        
+قطر            AR      B-LOC   B-LOC    O        CHANGED
+عام            AR      O       O        O        
+2022           lat     O       O        O        
+.              lat     O       O        O        
+
+==========================================================================
+SUMMARY of tokens the agents changed vs the model:
+  changed  — Arabic: 10   Latin: 0
+  of which HURT (model was right, agents wrong) — Arabic: 10   Latin: 0

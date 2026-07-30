@@ -1,0 +1,56 @@
+==========================================================================================
+TOPIC (blockchain)   gold=tech
+  TEXT: تعتبر blockchain technology من اهم الابتكارات في عالم financial transaction
+  labels: 9  -> each agent residual (1-conf) spreads over 8 others
+  PRIMARY softmax: tech=0.1121  finance=0.8876   argmax=finance
+  lexical     tech      conf=0.90
+  logic       tech      conf=0.90
+  contextual  tech      conf=0.90
+  -- CURRENT (hard vote): winner=tech  score=2.7000  / 4 voters = 0.6750
+  -- SUM RULE          : combined sums to 4.0000 (= 4 voters)
+     posterior: tech=0.7030  finance=0.2313  shopping=0.0094  ...(rest tiny)
+     winner=tech @ 0.7030
+  ARGMAX same? YES -> tech
+
+==========================================================================================
+SENT A (00240)   gold=neutral
+  TEXT: اخوانا اللى عاملين dislike على اساس ايه
+  labels: 3  -> each agent residual (1-conf) spreads over 2 others
+  PRIMARY softmax: positive=0.1709  negative=0.4762  neutral=0.3529   argmax=negative
+  lexical     neutral   conf=0.70
+  logic       neutral   conf=0.85
+  contextual  neutral   conf=0.80
+  -- CURRENT (hard vote): winner=neutral  score=2.3500  / 4 voters = 0.5875
+  -- SUM RULE          : combined sums to 4.0000 (= 4 voters)
+     posterior: neutral=0.6757  negative=0.2003  positive=0.1240  ...(rest tiny)
+     winner=neutral @ 0.6757
+  ARGMAX same? YES -> neutral
+
+==========================================================================================
+SENT B (00258)   gold=neutral
+  TEXT: مين ال 74 ال عملين dislike
+  labels: 3  -> each agent residual (1-conf) spreads over 2 others
+  PRIMARY softmax: positive=0.1933  negative=0.3296  neutral=0.4771   argmax=neutral
+  lexical     negative  conf=0.85
+  logic       neutral   conf=0.90
+  contextual  neutral   conf=0.90
+  -- CURRENT (hard vote): winner=neutral  score=2.2771  / 4 voters = 0.5693
+  -- SUM RULE          : combined sums to 4.0000 (= 4 voters)
+     posterior: neutral=0.5880  negative=0.3199  positive=0.0921  ...(rest tiny)
+     winner=neutral @ 0.5880
+  ARGMAX same? YES -> neutral
+
+==========================================================================================
+SENT C (00203)   gold=neutral
+  TEXT: هو اللي عامل unlike دة عمله علي اساس اية! !
+  labels: 3  -> each agent residual (1-conf) spreads over 2 others
+  PRIMARY softmax: positive=0.2257  negative=0.2064  neutral=0.5680   argmax=neutral
+  lexical     negative  conf=0.80
+  logic       negative  conf=0.85
+  contextual  negative  conf=0.85
+  -- CURRENT (hard vote): winner=negative  score=2.5000  / 4 voters = 0.6250
+  -- SUM RULE          : combined sums to 4.0000 (= 4 voters)
+     posterior: negative=0.6766  neutral=0.2045  positive=0.1189  ...(rest tiny)
+     winner=negative @ 0.6766
+  ARGMAX same? YES -> negative
+

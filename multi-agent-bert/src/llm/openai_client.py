@@ -34,6 +34,7 @@ log = logging.getLogger(__name__)
 # usage_summary(); actual token counts come from the API response.
 PRICING_USD_PER_1M = {
     "gpt-4o-mini": (0.15, 0.60),
+    "gpt-4.1-mini": (0.40, 1.60),
 }
 
 

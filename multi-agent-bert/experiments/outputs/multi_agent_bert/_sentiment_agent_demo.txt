@@ -1,0 +1,44 @@
+===============================================================================================
+TEXT (gold=neutral): اخوانا اللى عاملين dislike على اساس ايه
+
+--- Lexical ---
+  {"label": "neutral", "confidence": 0.7, "reasoning": "The phrase questions the reason behind 'dislike' without expressing positive or negative sentiment explicitly.", "evidence": ["dislike", "على اساس ايه"]}
+
+--- Polarity ---
+  {"label": "neutral", "confidence": 0.8, "reasoning": "The author questions the basis for dislikes without expressing a clear positive or negative evaluation.", "evidence": ["عاملين dislike", "على اساس ايه"]}
+
+--- Contextual ---
+  {"label": "neutral", "confidence": 0.9, "reasoning": "The text is a neutral question asking for the reason behind dislikes without expressing positive or negative sentiment.", "evidence": ["عاملين dislike", "على اساس ايه"]}
+
+--- IntentGate ---
+  {"label": "neutral", "confidence": 0.9, "reasoning": "The author is asking a question about others' actions regarding dislikes without expressing their own evaluative stance.", "evidence": ["عاملين dislike", "على اساس ايه", "اخوانا"]}
+
+===============================================================================================
+TEXT (gold=positive): عاش عاش اسمك ايه في لعبة Free Fire
+
+--- Lexical ---
+  {"label": "positive", "confidence": 0.85, "reasoning": "The phrase 'عاش عاش' is an expression of praise or cheer, indicating positive sentiment towards the name in the game Free Fire.", "evidence": ["عاش عاش", "اسمك", "لعبة Free Fire"]}
+
+--- Polarity ---
+  {"label": "positive", "confidence": 0.85, "reasoning": "The author expresses a positive evaluative attitude by praising the name in the game Free Fire with the phrase 'عاش عاش' which is an expression of approval or excitement.", "evidence": ["عاش عاش", "اسمك ايه", "في لعبة Free Fire"]}
+
+--- Contextual ---
+  {"label": "positive", "confidence": 0.85, "reasoning": "The phrase 'عاش عاش' expresses enthusiasm and excitement, indicating a positive sentiment about the game Free Fire.", "evidence": ["عاش عاش", "Free Fire"]}
+
+--- IntentGate ---
+  {"label": "positive", "confidence": 0.85, "reasoning": "The phrase 'عاش عاش' is an expression of enthusiasm or cheer, indicating a positive evaluative stance toward the name or player in the game Free Fire.", "evidence": ["عاش عاش", "اسمك ايه", "في لعبة Free Fire"]}
+
+===============================================================================================
+TEXT (gold=negative): انت no one
+
+--- Lexical ---
+  {"label": "neutral", "confidence": 0.7, "reasoning": "The phrase 'انت no one' is a neutral statement without explicit positive or negative sentiment words.", "evidence": ["انت", "no one"]}
+
+--- Polarity ---
+  {"label": "neutral", "confidence": 0.9, "reasoning": "The text does not express any clear evaluative opinion or sentiment polarity by the author, it is too short and ambiguous to infer an attitude.", "evidence": ["انت", "no one"]}
+
+--- Contextual ---
+  {"label": "negative", "confidence": 0.85, "reasoning": "The phrase 'انت no one' implies a dismissive or insulting tone, indicating negative sentiment.", "evidence": ["انت no one"]}
+
+--- IntentGate ---
+  {"label": "negative", "confidence": 0.85, "reasoning": "The phrase 'انت no one' implicitly devalues the addressed person, expressing a negative evaluative stance.", "evidence": ["انت no one"]}

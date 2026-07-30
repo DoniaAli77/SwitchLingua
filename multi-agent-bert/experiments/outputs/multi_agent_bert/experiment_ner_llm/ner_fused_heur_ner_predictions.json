@@ -1,0 +1,1124 @@
+[
+  {
+    "id": "ner_01",
+    "text": "Ahmed works at Google.",
+    "tokens": [
+      "Ahmed",
+      "works",
+      "at",
+      "Google",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "B-ORG",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "B-ORG",
+      "O"
+    ],
+    "token_count": 5,
+    "correct_count": 5,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_02",
+    "text": "أحمد يعمل في شركة Microsoft.",
+    "tokens": [
+      "أحمد",
+      "يعمل",
+      "في",
+      "شركة",
+      "Microsoft",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O"
+    ],
+    "token_count": 6,
+    "correct_count": 6,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_03",
+    "text": "Sara and Mohamed visited Paris last summer.",
+    "tokens": [
+      "Sara",
+      "and",
+      "Mohamed",
+      "visited",
+      "Paris",
+      "last",
+      "summer",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "O",
+      "B-PER",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "O",
+      "B-PER",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_04",
+    "text": "سارة ومحمد زارا القاهرة معاً.",
+    "tokens": [
+      "سارة",
+      "ومحمد",
+      "زارا",
+      "القاهرة",
+      "معاً",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "B-PER",
+      "O",
+      "B-LOC",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "B-PER",
+      "I-PER",
+      "B-LOC",
+      "O",
+      "O"
+    ],
+    "token_count": 6,
+    "correct_count": 5,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_05",
+    "text": "The CEO John Smith announced the merger.",
+    "tokens": [
+      "The",
+      "CEO",
+      "John",
+      "Smith",
+      "announced",
+      "the",
+      "merger",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "O",
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_06",
+    "text": "المدير التنفيذي خالد العمري أعلن عن الاندماج.",
+    "tokens": [
+      "المدير",
+      "التنفيذي",
+      "خالد",
+      "العمري",
+      "أعلن",
+      "عن",
+      "الاندماج",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "O",
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_07",
+    "text": "Dr. Nour Hassan teaches at Cairo University.",
+    "tokens": [
+      "Dr.",
+      "Nour",
+      "Hassan",
+      "teaches",
+      "at",
+      "Cairo",
+      "University",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "B-ORG",
+      "I-ORG",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 4,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_08",
+    "text": "الدكتورة نور حسن تدرّس في جامعة القاهرة.",
+    "tokens": [
+      "الدكتورة",
+      "نور",
+      "حسن",
+      "تدرّس",
+      "في",
+      "جامعة",
+      "القاهرة",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "B-ORG",
+      "I-ORG",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 4,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_09",
+    "text": "Omar السيد joined Amazon in New York.",
+    "tokens": [
+      "Omar",
+      "السيد",
+      "joined",
+      "Amazon",
+      "in",
+      "New",
+      "York",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "I-PER",
+      "O",
+      "B-ORG",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "I-PER",
+      "O",
+      "B-ORG",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_10",
+    "text": "Fatima القاضي received an award from UNESCO.",
+    "tokens": [
+      "Fatima",
+      "القاضي",
+      "received",
+      "an",
+      "award",
+      "from",
+      "UNESCO",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_11",
+    "text": "Google opened a new office in Dubai.",
+    "tokens": [
+      "Google",
+      "opened",
+      "a",
+      "new",
+      "office",
+      "in",
+      "Dubai",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_12",
+    "text": "افتتحت شركة أمازون مكتباً جديداً في دبي.",
+    "tokens": [
+      "افتتحت",
+      "شركة",
+      "أمازون",
+      "مكتباً",
+      "جديداً",
+      "في",
+      "دبي",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_13",
+    "text": "The United Nations held a summit in Geneva.",
+    "tokens": [
+      "The",
+      "United",
+      "Nations",
+      "held",
+      "a",
+      "summit",
+      "in",
+      "Geneva",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 9,
+    "correct_count": 9,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_14",
+    "text": "الأمم المتحدة عقدت قمة في جنيف.",
+    "tokens": [
+      "الأمم",
+      "المتحدة",
+      "عقدت",
+      "قمة",
+      "في",
+      "جنيف",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 7,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_15",
+    "text": "Apple و Microsoft تتنافسان في السوق.",
+    "tokens": [
+      "Apple",
+      "و",
+      "Microsoft",
+      "تتنافسان",
+      "في",
+      "السوق",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 7,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_16",
+    "text": "OpenAI released a new model in San Francisco.",
+    "tokens": [
+      "OpenAI",
+      "released",
+      "a",
+      "new",
+      "model",
+      "in",
+      "San",
+      "Francisco",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "token_count": 9,
+    "correct_count": 9,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_17",
+    "text": "أصدرت OpenAI نموذجاً جديداً من مقرها في San Francisco.",
+    "tokens": [
+      "أصدرت",
+      "OpenAI",
+      "نموذجاً",
+      "جديداً",
+      "من",
+      "مقرها",
+      "في",
+      "San",
+      "Francisco",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "token_count": 10,
+    "correct_count": 10,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_18",
+    "text": "Harvard University is located in Cambridge Massachusetts.",
+    "tokens": [
+      "Harvard",
+      "University",
+      "is",
+      "located",
+      "in",
+      "Cambridge",
+      "Massachusetts",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_19",
+    "text": "جامعة هارفارد تقع في Cambridge بولاية Massachusetts.",
+    "tokens": [
+      "جامعة",
+      "هارفارد",
+      "تقع",
+      "في",
+      "Cambridge",
+      "بولاية",
+      "Massachusetts",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "I-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_20",
+    "text": "WHO announced new health guidelines yesterday.",
+    "tokens": [
+      "WHO",
+      "announced",
+      "new",
+      "health",
+      "guidelines",
+      "yesterday",
+      "."
+    ],
+    "gold_tags": [
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 7,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_21",
+    "text": "I travelled from London to Riyadh last week.",
+    "tokens": [
+      "I",
+      "travelled",
+      "from",
+      "London",
+      "to",
+      "Riyadh",
+      "last",
+      "week",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 9,
+    "correct_count": 9,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_22",
+    "text": "سافرت من لندن إلى الرياض الأسبوع الماضي.",
+    "tokens": [
+      "سافرت",
+      "من",
+      "لندن",
+      "إلى",
+      "الرياض",
+      "الأسبوع",
+      "الماضي",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_23",
+    "text": "The Nile River flows through Egypt and Sudan.",
+    "tokens": [
+      "The",
+      "Nile",
+      "River",
+      "flows",
+      "through",
+      "Egypt",
+      "and",
+      "Sudan",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "B-LOC",
+      "I-LOC",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 9,
+    "correct_count": 9,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_24",
+    "text": "نهر النيل يتدفق عبر مصر والسودان.",
+    "tokens": [
+      "نهر",
+      "النيل",
+      "يتدفق",
+      "عبر",
+      "مصر",
+      "والسودان",
+      "."
+    ],
+    "gold_tags": [
+      "B-LOC",
+      "I-LOC",
+      "O",
+      "O",
+      "B-LOC",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "B-LOC",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 7,
+    "correct_count": 5,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_25",
+    "text": "Ali moved from Casablanca to Berlin for work.",
+    "tokens": [
+      "Ali",
+      "moved",
+      "from",
+      "Casablanca",
+      "to",
+      "Berlin",
+      "for",
+      "work",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 9,
+    "correct_count": 9,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_26",
+    "text": "Elon Musk CEO of Tesla announced plans for Mars.",
+    "tokens": [
+      "Elon",
+      "Musk",
+      "CEO",
+      "of",
+      "Tesla",
+      "announced",
+      "plans",
+      "for",
+      "Mars",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "token_count": 10,
+    "correct_count": 10,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_27",
+    "text": "إيلون ماسك الرئيس التنفيذي لـ Tesla أعلن خططاً للمريخ.",
+    "tokens": [
+      "إيلون",
+      "ماسك",
+      "الرئيس",
+      "التنفيذي",
+      "لـ",
+      "Tesla",
+      "أعلن",
+      "خططاً",
+      "للمريخ",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "I-PER",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 10,
+    "correct_count": 7,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_28",
+    "text": "مريم من الإسكندرية تعمل في Google بلندن.",
+    "tokens": [
+      "مريم",
+      "من",
+      "الإسكندرية",
+      "تعمل",
+      "في",
+      "Google",
+      "بلندن",
+      "."
+    ],
+    "gold_tags": [
+      "B-PER",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "B-ORG",
+      "B-LOC",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O"
+    ],
+    "token_count": 8,
+    "correct_count": 5,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_29",
+    "text": "The FIFA World Cup was held in Qatar in 2022.",
+    "tokens": [
+      "The",
+      "FIFA",
+      "World",
+      "Cup",
+      "was",
+      "held",
+      "in",
+      "Qatar",
+      "in",
+      "2022",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-ORG",
+      "I-ORG",
+      "I-ORG",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 11,
+    "correct_count": 8,
+    "pipeline_error": null
+  },
+  {
+    "id": "ner_30",
+    "text": "أُقيم كأس العالم FIFA في قطر عام 2022.",
+    "tokens": [
+      "أُقيم",
+      "كأس",
+      "العالم",
+      "FIFA",
+      "في",
+      "قطر",
+      "عام",
+      "2022",
+      "."
+    ],
+    "gold_tags": [
+      "O",
+      "B-ORG",
+      "I-ORG",
+      "I-ORG",
+      "O",
+      "B-LOC",
+      "O",
+      "O",
+      "O"
+    ],
+    "predicted_tags": [
+      "O",
+      "O",
+      "O",
+      "B-ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "token_count": 9,
+    "correct_count": 5,
+    "pipeline_error": null
+  }
+]

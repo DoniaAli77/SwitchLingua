@@ -1,0 +1,47 @@
+Loading NER primary model: Davlan/xlm-roberta-base-ner-hrl (device=cpu) ...
+
+=== ner_heuristics (paper_style) ===
+  samples=30 tokens=244 errors=0
+  token_accuracy = 0.730
+  macro_f1       = 0.386
+    O      P=0.70 R=0.99 F1=0.82 (support=152)
+    B-PER  P=0.88 R=0.44 F1=0.58 (support=16)
+    I-PER  P=1.00 R=0.12 F1=0.22 (support=8)
+    B-ORG  P=1.00 R=0.59 F1=0.74 (support=22)
+    I-ORG  P=0.00 R=0.00 F1=0.00 (support=10)
+    B-LOC  P=0.86 R=0.21 F1=0.33 (support=29)
+    I-LOC  P=0.00 R=0.00 F1=0.00 (support=7)
+
+=== ner_xlmr_primary (primary_only) ===
+  samples=30 tokens=244 errors=0
+  token_accuracy = 0.947
+  macro_f1       = 0.881
+    O      P=0.95 R=0.99 F1=0.97 (support=152)
+    B-PER  P=1.00 R=1.00 F1=1.00 (support=16)
+    I-PER  P=0.88 R=0.88 F1=0.88 (support=8)
+    B-ORG  P=0.95 R=0.91 F1=0.93 (support=22)
+    I-ORG  P=1.00 R=0.60 F1=0.75 (support=10)
+    B-LOC  P=0.90 R=0.93 F1=0.92 (support=29)
+    I-LOC  P=1.00 R=0.57 F1=0.73 (support=7)
+
+=== ner_fused_routed (paper_style) ===
+  samples=30 tokens=244 errors=0
+  token_accuracy = 0.947
+  macro_f1       = 0.881
+    O      P=0.95 R=0.99 F1=0.97 (support=152)
+    B-PER  P=1.00 R=1.00 F1=1.00 (support=16)
+    I-PER  P=0.88 R=0.88 F1=0.88 (support=8)
+    B-ORG  P=0.95 R=0.91 F1=0.93 (support=22)
+    I-ORG  P=1.00 R=0.60 F1=0.75 (support=10)
+    B-LOC  P=0.90 R=0.93 F1=0.92 (support=29)
+    I-LOC  P=1.00 R=0.57 F1=0.73 (support=7)
+
+====================================================
+CONFIG               token_acc    macro_f1
+----------------------------------------------------
+heuristics               0.730       0.386
+xlmr_primary             0.947       0.881
+fused_routed             0.947       0.881
+====================================================
+
+Outputs saved under: C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\experiments\outputs\multi_agent_bert\experiment_ner_xlmr

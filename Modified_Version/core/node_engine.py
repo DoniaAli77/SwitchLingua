@@ -73,6 +73,16 @@ MAX_SENTENCE_REFINES = int(os.getenv("MAX_SENTENCE_REFINES", "1"))
 # (240/480/960/V1 sentiment sets were generated with this behaviour OFF).
 TASK_AWARE_ACCEPT = os.getenv("TASK_AWARE_ACCEPT", "1").strip() == "1"
 
+# NER-ONLY validator model. Generation (MODEL) stays gpt-4o-mini everywhere, and the topic /
+# sentiment validators also stay on MODEL — only the NER task validator uses this.
+# Why: NER validation is a script/token-level check ("is this Latin-script name an ORG?"), not a
+# semantic judgement like topic/sentiment. gpt-4o-mini fails it (3/6 on a controlled probe; it
+# called "Sarah Hassan" not-Latin-script even when the injected guidance listed it as a PER
+# example), which under task-aware acceptance silently deletes valid sentences. gpt-4.1-mini
+# scores 6/6 on the same probe, including places absent from any hand-written list (e.g. Tanta).
+# Set NER_VALIDATOR_MODEL=gpt-4o-mini to reproduce the single-model behaviour.
+NER_VALIDATOR_MODEL = os.getenv("NER_VALIDATOR_MODEL", "gpt-4.1-mini").strip() or MODEL
+
 # assert API_KEY is not None, "OPENAI_API_KEY is not set"
 
 
@@ -223,9 +233,19 @@ def RunNERDataGenerationAgent(state: AgentRunningState):
     return _invoke_generation_with_retry(state, DATA_GENERATION_NER_PROMPT)
 
 
-def _invoke_task_validation_with_retry(state: AgentRunningState, validator_prompt):
+def _invoke_task_validation_with_retry(state: AgentRunningState, validator_prompt, model: str | None = None):
+    # The NER validation prompt takes {ner_entity_guidance}. Fill it here so EVERY caller is
+    # covered — including the refiner guardrail, which re-validates a candidate by invoking the
+    # prompt directly rather than going through RunNERTaskValidatorAgent.
+    if "ner_entity_guidance" not in state:
+        cons = dict(state.get("task_constraints", {}) or {})
+        if state.get("entity_type_guidance"):
+            cons.setdefault("entity_type_guidance", state["entity_type_guidance"])
+        state = dict(state)
+        state["ner_entity_guidance"] = build_ner_entity_guidance(cons)
+
     validator_agent = validator_prompt | ChatOpenAI(
-        model=MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
+        model=model or MODEL, temperature=0.1, base_url=API_BASE, api_key=API_KEY
     ).with_structured_output(TaskValidationResult)
 
     response = validator_agent.invoke(state)
@@ -245,10 +265,10 @@ def _invoke_task_validation_with_retry(state: AgentRunningState, validator_promp
     }
 
 
-def _validate_per_instance_with_retry(state: AgentRunningState, validator_prompt) -> Dict[str, Any]:
+def _validate_per_instance_with_retry(state: AgentRunningState, validator_prompt, model: str | None = None) -> Dict[str, Any]:
     instances = state.get("data_generation_result", [])
     if not isinstance(instances, list) or not instances:
-        aggregate = _invoke_task_validation_with_retry(state, validator_prompt)
+        aggregate = _invoke_task_validation_with_retry(state, validator_prompt, model)
         return {
             "aggregate": aggregate,
             "per_instance_results": [],
@@ -263,7 +283,7 @@ def _validate_per_instance_with_retry(state: AgentRunningState, validator_prompt
         single_state = dict(state)
         single_state["data_generation_result"] = [text]
 
-        result = _invoke_task_validation_with_retry(single_state, validator_prompt)
+        result = _invoke_task_validation_with_retry(single_state, validator_prompt, model)
         if isinstance(result, dict):
             per_instance_results.append(result)
             confidence_values.append(float(result.get("confidence", 0.0)))
@@ -508,38 +528,148 @@ def _deterministic_ner_english_policy(state: AgentRunningState) -> Dict[str, Any
     }
 
 
-def RunNERTaskValidatorAgent(state: AgentRunningState):
-    llm_response = _validate_per_instance_with_retry(state, TASK_VALIDATION_NER_PROMPT)
-    llm_aggregate = llm_response.get("aggregate", {}) if isinstance(llm_response, dict) else {}
-    llm_per_instance = llm_response.get("per_instance_results", []) if isinstance(llm_response, dict) else []
-    # deterministic = _deterministic_ner_english_policy(state)
-    llm_notes = llm_aggregate.get("notes", "") if isinstance(llm_aggregate, dict) else ""
+_ARABIC_CHAR = re.compile(r"[؀-ۿݐ-ݿࢠ-ࣿ]")
+_LATIN_CHAR = re.compile(r"[A-Za-z]")
 
-    final_result = {
-        "passed": bool(llm_aggregate.get("passed", False)) if isinstance(llm_aggregate, dict) else False,
-        "confidence": float(llm_aggregate.get("confidence", 0.0)) if isinstance(llm_aggregate, dict) else 0.0,
-        "notes": llm_notes,
-        "deterministic_notes": "",
-        "llm_notes": llm_notes,
-        "predicted_label": llm_aggregate.get("predicted_label") if isinstance(llm_aggregate, dict) else None,
-        "errors": llm_aggregate.get("errors", []) if isinstance(llm_aggregate, dict) else ["empty_validator_response"],
+
+def verify_ner_evidence(sentence: str, raw_entities, constraints) -> Dict[str, Any]:
+    """Recompute the NER verdict from the entity list the validator reported.
+
+    The LLM supplies the KNOWLEDGE (which spans are entities and of what type); this function
+    only performs MECHANICAL checks on that evidence — no gazetteers or knowledge lists:
+      * the span must literally occur in the sentence (no hallucinated entities);
+      * the span must be Latin-script and contain no Arabic characters (English-only policy);
+      * a span nested inside a longer accepted span is dropped (so "Cairo University" is not
+        also counted as LOC "Cairo");
+      * every must_include_type must be present, and the entity count must fall in range.
+    `passed` is therefore COMPUTED, never taken from the model's own assertion.
+    """
+    c = constraints or {}
+    must = [str(t).strip().upper() for t in (c.get("must_include_types") or [])]
+    allowed = [str(t).strip().upper() for t in (c.get("entity_types") or [])] or must
+    try:
+        min_e = int(c.get("min_entities", 0))
+    except (TypeError, ValueError):
+        min_e = 0
+    try:
+        max_e = int(c.get("max_entities", 10 ** 9))
+    except (TypeError, ValueError):
+        max_e = 10 ** 9
+
+    errors: list[str] = []
+    cleaned: list[dict] = []
+    for item in (raw_entities or []):
+        if not isinstance(item, dict):
+            continue
+        span = str(item.get("text", "")).strip()
+        etype = str(item.get("type", "")).strip().upper()
+        if not span or etype not in {"PER", "ORG", "LOC", "PRODUCT", "EVENT", "MISC"}:
+            continue
+        if span not in sentence:
+            errors.append(f"reported entity not found in sentence: {span!r}")
+            continue
+        if _ARABIC_CHAR.search(span) or not _LATIN_CHAR.search(span):
+            errors.append(f"entity not in English/Latin script: {span!r}")
+            continue
+        cleaned.append({"text": span, "type": etype})
+
+    # Drop spans nested inside a longer accepted span (longest-match wins).
+    cleaned.sort(key=lambda e: -len(e["text"]))
+    kept: list[dict] = []
+    for e in cleaned:
+        if any(e["text"] != k["text"] and e["text"] in k["text"] for k in kept):
+            continue
+        if any(e["text"] == k["text"] for k in kept):
+            continue
+        kept.append(e)
+
+    types_present = sorted({e["type"] for e in kept})
+    counts: Dict[str, int] = {}
+    for e in kept:
+        counts[e["type"]] = counts.get(e["type"], 0) + 1
+
+    for t in must:
+        if t not in types_present:
+            errors.append(f"missing required entity type: {t}")
+    if allowed:
+        for t in types_present:
+            if t not in allowed:
+                errors.append(f"disallowed entity type present: {t}")
+    total = len(kept)
+    if not (min_e <= total <= max_e):
+        errors.append(f"entity count {total} outside range [{min_e}, {max_e}]")
+
+    return {
+        "passed": not errors,
+        "entities": kept,
+        "types_present": types_present,
+        "entity_counts": counts,
+        "total_entities": total,
+        "errors": errors,
     }
 
-    # To re-enable hybrid validation later, restore deterministic merge logic:
-    # final_result = {
-    #     "passed": deterministic["passed"],
-    #     "confidence": deterministic["confidence"],
-    #     "notes": deterministic["notes"],
-    #     "deterministic_notes": deterministic["notes"],
-    #     "llm_notes": llm_notes,
-    #     "predicted_label": None,
-    #     "errors": deterministic["errors"],
-    #     "english_entity_counts": deterministic["english_entity_counts"],
-    #     "english_total_entities": deterministic["english_total_entities"],
-    # }
+
+def RunNERTaskValidatorAgent(state: AgentRunningState):
+    # Give the validator the SAME config-driven entity guidance the generator receives, so both
+    # sides share one definition of each required type (fills {ner_entity_guidance}). Built here
+    # because RunNERDataGenerationAgent sets it on a local copy that never reaches the graph state.
+    state = dict(state)
+    cons = dict(state.get("task_constraints", {}) or {})
+    if state.get("entity_type_guidance"):
+        cons.setdefault("entity_type_guidance", state["entity_type_guidance"])
+    state["ner_entity_guidance"] = build_ner_entity_guidance(cons)
+
+    llm_response = _validate_per_instance_with_retry(state, TASK_VALIDATION_NER_PROMPT, NER_VALIDATOR_MODEL)
+    llm_aggregate = llm_response.get("aggregate", {}) if isinstance(llm_response, dict) else {}
+    llm_per_instance = llm_response.get("per_instance_results", []) if isinstance(llm_response, dict) else []
+    llm_notes = llm_aggregate.get("notes", "") if isinstance(llm_aggregate, dict) else ""
+
+    # EVIDENCE-BASED VERDICT: the model reports the entities it found; the decision is recomputed
+    # here from that evidence (verify_ner_evidence). The model's own `passed` is kept only as a
+    # diagnostic — it was observed asserting passed=True alongside a blocking error, and passing
+    # sentences that lacked a required type entirely.
+    instances = state.get("data_generation_result", []) or []
+    per_instance: list = []
+    for idx, sentence in enumerate(instances):
+        raw = llm_per_instance[idx] if idx < len(llm_per_instance) and isinstance(llm_per_instance[idx], dict) else {}
+        v = verify_ner_evidence(sentence, raw.get("entities"), cons)
+        per_instance.append({
+            "passed": v["passed"],
+            "confidence": float(raw.get("confidence", 0.0) or 0.0),
+            "notes": "Evidence-verified NER check",
+            "llm_notes": raw.get("notes", ""),
+            "llm_passed": bool(raw.get("passed", False)),
+            "predicted_label": None,
+            "errors": v["errors"],
+            "entities": v["entities"],
+            "types_present": v["types_present"],
+            "english_entity_counts": v["entity_counts"],
+            "english_total_entities": v["total_entities"],
+        })
+
+    agg_passed = bool(per_instance) and all(p["passed"] for p in per_instance)
+    agg_errors = [f"instance_{i}: {e}" for i, p in enumerate(per_instance) for e in p["errors"]]
+    agg_counts: Dict[str, int] = {}
+    for p in per_instance:
+        for k, n in (p["english_entity_counts"] or {}).items():
+            agg_counts[k] = agg_counts.get(k, 0) + int(n)
+
+    final_result = {
+        "passed": agg_passed,
+        "confidence": (sum(p["confidence"] for p in per_instance) / len(per_instance)) if per_instance else 0.0,
+        "notes": "Evidence-verified NER check (verdict recomputed from reported entities)",
+        "deterministic_notes": "verify_ner_evidence: span-present, Latin-script, nesting, must_include, count range",
+        "llm_notes": llm_notes,
+        "llm_passed": bool(llm_aggregate.get("passed", False)) if isinstance(llm_aggregate, dict) else False,
+        "predicted_label": None,
+        "errors": agg_errors,
+        "english_entity_counts": agg_counts,
+        "english_total_entities": sum(agg_counts.values()),
+    }
+
     return {
         "task_validation_result": final_result,
-        "task_validation_results_per_instances": llm_per_instance,
+        "task_validation_results_per_instances": per_instance,
     }
 
 

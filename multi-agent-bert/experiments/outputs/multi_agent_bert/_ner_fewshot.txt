@@ -1,0 +1,19 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Few-shot examples selected: 8
+  - وهنا الترتيب العام للرالي : السيارات 1 - Di Meeveus Belgium ...  -> [('للرالي', 'MISC'), ('Di Meeveus', 'PERS'), ('Belgium', 'LOC'), ('نيسان', 'ORG'), ('بيك آب', 'MISC')]
+  - وأعلنت القوات العراقية أيضا أنها قتلت سبعة وجرحت ثلاثة آخرين...  -> [('القوات العراقي', 'MISC'), ('Factor', 'LOC')]
+  - وأكد ذلك Rabah Muhanna ، عضو المكتب السياسي ل ـ « الجبهة الش...  -> [('Rabah Muhanna', 'PERS'), ('الجبهة الشعبية', 'ORG')]
+  - وأضافت أنّ من ضمن المرشحين لاعب باريس سان جيرمان الفرنسي الأ...  -> [('باريس سان جيرم', 'ORG'), ('Alain Fornier', 'PERS'), ('موناكو', 'ORG')]
+  - -كـ دفاتر شامية عتيقة – Ahmed Ibsh – صـ 170 و 193و 269 ) ....  -> [('Ahmed Ibsh', 'PERS')]
+  - م وقد خاض العداءان Mohammed Bouflousen and Mohsen Cherkaoui ...  -> [('Mohammed Boufl', 'PERS'), ('Mohsen Cherkao', 'PERS')]
+  - ومن خلال عرض هذا الفيلم في Cairo ، نحاول ان نقول للجمهور الم...  -> [('Cairo', 'LOC')]
+  - > إبعاد Russia عن المجالات التي لا تملك فيها الموارد التي تؤ...  -> [('Russia', 'LOC'), ('America', 'LOC')]
+
+Escalated (hard): 51/100  LLM calls: 102  cost≈$0.0140
+
+=== macro-F1 (and MISC) on the ESCALATED sentences ===
+  primary (XLM-R)        macroF1=0.827  MISC=0.56
+  span ZERO-shot         macroF1=0.578  MISC=0.14
+  span FEW-shot          macroF1=0.654  MISC=0.12
+
+  few-shot - zero-shot = +0.076  (few-shot helps)

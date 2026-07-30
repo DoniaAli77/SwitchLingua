@@ -1,0 +1,42 @@
+LLMNERReflectionAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 1176 (char 1175); keeping draft.
+LLMNERAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 1408 (char 1407)
+Loaded 150 REAL test sentences (type labels ['O', 'PERS', 'LOC', 'ORG', 'MISC']).
+Loading XLM-R (Davlan/xlm-roberta-base-ner-hrl) with PER->PERS normalisation ...
+
+=== real_xlmr_baseline ===  agents: XLM-R primary only
+  token_acc=0.979  macro_f1(4 types)=0.688
+    O      P=0.99 R=1.00 F1=0.99 (n=3795)
+    PERS   P=1.00 R=0.95 F1=0.97 (n=259)
+    LOC    P=0.95 R=0.83 F1=0.89 (n=187)
+    ORG    P=0.81 R=0.98 F1=0.89 (n=150)
+    MISC   P=0.00 R=0.00 F1=0.00 (n=41)
+
+[env loaded from C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\..\Modified_Version\.env]
+
+=== real_agentic_reflect ===  agents: XLM-R primary + router + LLM(gpt-4o-mini) REFLECTOR + consensus
+  token_acc=0.957  macro_f1(4 types)=0.632
+    O      P=0.96 R=1.00 F1=0.98 (n=3795)
+    PERS   P=0.98 R=0.79 F1=0.87 (n=259)
+    LOC    P=0.94 R=0.71 F1=0.81 (n=187)
+    ORG    P=0.88 R=0.81 F1=0.85 (n=150)
+    MISC   P=0.00 R=0.00 F1=0.00 (n=41)
+
+=== real_agentic_tagger ===  agents: XLM-R primary + router + LLM(gpt-4o-mini) TAGGER + consensus
+  token_acc=0.976  macro_f1(4 types)=0.691
+    O      P=0.98 R=1.00 F1=0.99 (n=3795)
+    PERS   P=1.00 R=0.92 F1=0.96 (n=259)
+    LOC    P=0.96 R=0.81 F1=0.88 (n=187)
+    ORG    P=0.88 R=0.97 F1=0.92 (n=150)
+    MISC   P=0.00 R=0.00 F1=0.00 (n=41)
+
+LLM calls — reflect: 31 (esc.), tagger: 31 (esc.)  cost≈$0.0145
+
+==============================================
+CONFIG                tok_acc  macroF1  MISC_F1
+----------------------------------------------
+baseline                0.979    0.688     0.00
+reflect                 0.957    0.632     0.00
+tagger                  0.976    0.691     0.00
+==============================================
+
+Saved runs under: C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\experiments\outputs\multi_agent_bert\experiment_ner_real

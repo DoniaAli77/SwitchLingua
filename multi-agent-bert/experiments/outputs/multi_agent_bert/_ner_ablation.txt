@@ -1,0 +1,18 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Labels derived from train: ['O', 'LOC', 'MISC', 'ORG', 'PERS']
+
+Sentences: 300  LLM calls: 387  cost≈$0.0508
+
+==========================================================
+combination               F1  precision   recall
+----------------------------------------------------------
+primary                0.877      0.840    0.918
+gaz                    0.839      0.771    0.922
+llm                    0.848      0.795    0.908
+gaz+llm                0.814      0.735    0.912
+gaz+verify             0.874      0.833    0.920
+llm+verify             0.860      0.810    0.917
+gaz+llm+verify         0.859      0.805    0.920
+==========================================================
+
+BEST combination: 'primary'  (F1=0.877)

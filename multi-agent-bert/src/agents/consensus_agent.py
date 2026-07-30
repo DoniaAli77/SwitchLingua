@@ -119,6 +119,33 @@ def _extract_vote(
     return mo.label, mo.confidence
 
 
+def _prob_vector(
+    label: str,
+    confidence: float,
+    probabilities: Optional[Dict[str, float]],
+    labels: List[str],
+) -> Dict[str, float]:
+    """Full distribution over *labels* for one voter, used by the sum-rule fusion.
+
+    Prefers the voter's own ``probabilities`` when they cover the whole label
+    set and sum to ~1 (the primary's real softmax; the LLM agents' uniform
+    spread built by ``_build_probabilities``). Otherwise reconstructs a
+    uniform-spread distribution: ``confidence`` on *label*, the residual
+    ``(1 - confidence)`` shared equally over the remaining ``len(labels) - 1``
+    labels. Task-agnostic — the label count is read from *labels*.
+    """
+    if probabilities:
+        vec = {lbl: float(probabilities.get(lbl, 0.0)) for lbl in labels}
+        total = sum(vec.values())
+        if all(lbl in probabilities for lbl in labels) and abs(total - 1.0) <= 1e-3:
+            return {lbl: v / total for lbl, v in vec.items()}
+    n = len(labels)
+    if n == 1:
+        return {labels[0]: 1.0}
+    remainder = (1.0 - confidence) / (n - 1)
+    return {lbl: (confidence if lbl == label else remainder) for lbl in labels}
+
+
 class ConsensusAgent(BaseAgent[PipelineState]):
     """Weighted-voting consensus over specialist agent outputs.
 
@@ -158,8 +185,25 @@ class ConsensusAgent(BaseAgent[PipelineState]):
         weights: Optional[Dict[str, float]] = None,
         name: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
+        fusion: str = "hard_vote",
     ) -> None:
         super().__init__(name=name or "ConsensusAgent", logger=logger)
+        # Fusion scheme for combining voter outputs:
+        #   "hard_vote" (default) — legacy confidence-weighted hard voting: each
+        #       voter adds weight*confidence to its argmax label only; residual
+        #       mass discarded. Reported confidence is a weighted vote share.
+        #   "sum_rule" — Kittler-et-al. sum rule: each voter adds weight*P(label)
+        #       across ALL labels using its full distribution (primary softmax /
+        #       agent uniform spread). Scores sum to Sum(weights) → the reported
+        #       confidence is a proper posterior. Argmax is unaffected in practice
+        #       (empirically 0 flips on Ahmed), so accuracy/F1 are unchanged.
+        fusion_norm = str(fusion).strip().lower()
+        if fusion_norm not in ("hard_vote", "sum_rule"):
+            raise ValueError(
+                f"ConsensusAgent: unknown fusion={fusion!r}; "
+                "expected 'hard_vote' or 'sum_rule'."
+            )
+        self.fusion: str = fusion_norm
         raw: Dict[str, float] = {**_DEFAULT_WEIGHTS, **(weights or {})}
         # Clamp negatives; keep all known slots (incl. the primary prior).
         self.weights: Dict[str, float] = {
@@ -224,7 +268,12 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 continue
 
             contribution = weight * confidence  # type: ignore[operator]
-            scores[label] += contribution
+            if self.fusion == "sum_rule":
+                vec = _prob_vector(label, confidence, output.model_output.probabilities, labels)  # type: ignore[union-attr]
+                for lbl in labels:
+                    scores[lbl] += weight * vec[lbl]
+            else:
+                scores[label] += contribution
             active_weight_sum += weight
             vote_counts[label] += 1
             max_contribution[label] = max(max_contribution[label], contribution)
@@ -245,7 +294,12 @@ class ConsensusAgent(BaseAgent[PipelineState]):
                 and task.is_allowed_label(d_label)
             ):
                 d_contribution = delib_weight * d_conf  # type: ignore[operator]
-                scores[d_label] += d_contribution
+                if self.fusion == "sum_rule":
+                    d_vec = _prob_vector(d_label, d_conf, None, labels)
+                    for lbl in labels:
+                        scores[lbl] += delib_weight * d_vec[lbl]
+                else:
+                    scores[d_label] += d_contribution
                 active_weight_sum += delib_weight
                 vote_counts[d_label] += 1
                 max_contribution[d_label] = max(max_contribution[d_label], d_contribution)
@@ -321,7 +375,14 @@ class ConsensusAgent(BaseAgent[PipelineState]):
         ):
             primary_label = primary.label
             p_contribution = w_primary * primary.confidence
-            scores[primary_label] += p_contribution
+            if self.fusion == "sum_rule":
+                p_vec = _prob_vector(
+                    primary_label, primary.confidence, primary.probabilities, labels
+                )
+                for lbl in labels:
+                    scores[lbl] += w_primary * p_vec[lbl]
+            else:
+                scores[primary_label] += p_contribution
             active_weight_sum += w_primary
             vote_details["primary"] = (
                 f"{primary_label} (weight={w_primary:.2f}, conf={primary.confidence:.4f}, "

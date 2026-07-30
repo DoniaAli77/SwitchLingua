@@ -1,0 +1,38 @@
+============================================================================================
+GATE FIRED (gpt-4.1-mini)  ahmed-eesa-00045  gold=negative
+TEXT: ال عاملين dislike ليه ياولاد المره !
+
+  PRIMARY : neutral (conf=0.4977) -> ROUTER: escalate
+  Lexical    : negative (conf=0.90) | The presence of the word 'dislike' combined with the questioning tone 'ليه ياولاد المره' indicates dissat
+  Polarity   : negative (conf=0.85) | The author expresses a negative evaluative attitude by questioning why workers dislike something, indicat
+  Contextual : negative (conf=0.85) | The text expresses dissatisfaction or complaint about people disliking something, indicating a negative s
+  IntentGate : neutral  (conf=0.85) | The text is a question about why others are disliking, which is a meta-comment about user reactions witho
+  CONSENSUS votes: {'positive': 0.0, 'negative': 2.6, 'neutral': 0.498}
+  RATIONALE: lexical=negative (weight=1.00, conf=0.9000, contribution=0.9000); contextual=negative (weight=1.00, conf=0.8500, contribution=0.8500); logic=negative (weight=1.00, conf=0.8500, contribution=0.8500); polarity=no vote; primary=neutral (weight=1.00, conf=0.4977, contribution=0.4977); intent_gate=BLOCKED override 'negative'->'neutral'
+  FINAL: neutral   wrong
+
+============================================================================================
+GATE FIRED (gpt-4.1-mini)  ahmed-eesa-00203  gold=neutral
+TEXT: هو اللي عامل unlike دة عمله علي اساس اية! !
+
+  PRIMARY : neutral (conf=0.5680) -> ROUTER: escalate
+  Lexical    : negative (conf=0.80) | The phrase 'عامل unlike دة عمله علي اساس اية' expresses confusion and a negative reaction to someone’s ac
+  Polarity   : negative (conf=0.85) | The author expresses a negative evaluative attitude by questioning the reason behind an 'unlike' action, 
+  Contextual : negative (conf=0.85) | The text expresses dissatisfaction or criticism about the reason behind an 'unlike' action.
+  IntentGate : neutral  (conf=0.85) | The text is a question about the reason behind someone else's 'unlike' action, which is a meta-comment wi
+  CONSENSUS votes: {'positive': 0.0, 'negative': 2.5, 'neutral': 0.568}
+  RATIONALE: lexical=negative (weight=1.00, conf=0.8000, contribution=0.8000); contextual=negative (weight=1.00, conf=0.8500, contribution=0.8500); logic=negative (weight=1.00, conf=0.8500, contribution=0.8500); polarity=no vote; primary=neutral (weight=1.00, conf=0.5680, contribution=0.5680); intent_gate=BLOCKED override 'negative'->'neutral'
+  FINAL: neutral   CORRECT
+
+============================================================================================
+GATE FIRED (gpt-4.1-mini)  ahmed-eesa-00363  gold=neutral
+TEXT: الناس اللي عامله dislike دول ايه ؟؟
+
+  PRIMARY : neutral (conf=0.6607) -> ROUTER: escalate
+  Lexical    : negative (conf=0.80) | The phrase 'dislike' combined with the questioning tone 'الناس اللي عامله dislike دول ايه ؟؟' indicates a
+  Polarity   : neutral  (conf=0.90) | The author questions the people who disliked something without expressing a clear evaluative opinion or p
+  Contextual : negative (conf=0.85) | The text expresses a critical or questioning attitude towards people who gave a dislike, indicating dissa
+  IntentGate : neutral  (conf=0.90) | The text is a question about other users' actions (dislikes) without expressing the author's own evaluati
+  CONSENSUS votes: {'positive': 0.0, 'negative': 1.65, 'neutral': 1.561}
+  RATIONALE: lexical=negative (weight=1.00, conf=0.8000, contribution=0.8000); contextual=negative (weight=1.00, conf=0.8500, contribution=0.8500); logic=neutral (weight=1.00, conf=0.9000, contribution=0.9000); polarity=no vote; primary=neutral (weight=1.00, conf=0.6607, contribution=0.6607); intent_gate=BLOCKED override 'negative'->'neutral'
+  FINAL: neutral   CORRECT

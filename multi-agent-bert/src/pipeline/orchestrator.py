@@ -193,6 +193,7 @@ class PipelineOrchestrator:
         ner_logic_agent: Optional[NERLogicAgent] = None,
         ner_contextual_agent: Optional[NERContextualAgent] = None,
         ner_consensus_agent: Optional[NERConsensusAgent] = None,
+        ner_primary: Optional[Any] = None,
         logger: Optional[logging.Logger] = None,
     ) -> None:
         self._primary = primary_classifier
@@ -226,6 +227,12 @@ class PipelineOrchestrator:
         self._ner_logic: NERLogicAgent = ner_logic_agent or NERLogicAgent()
         self._ner_contextual: NERContextualAgent = ner_contextual_agent or NERContextualAgent()
         self._ner_consensus: NERConsensusAgent = ner_consensus_agent or NERConsensusAgent()
+        # Optional real NER primary model (e.g. TransformerNERTagger). Defaults to
+        # None → NOT auto-created, so the NER path carries no torch dependency
+        # unless a caller explicitly wires a model in. When present it runs in the
+        # primary position of the NER path (before the heuristic specialists),
+        # mirroring the classification path's primary → specialists → consensus.
+        self._ner_primary = ner_primary
         self.logger = logger or log
 
     # ------------------------------------------------------------------
@@ -496,13 +503,22 @@ class PipelineOrchestrator:
         )
 
         if pipeline_mode == _PRIMARY_ONLY:
-            # Try primary classifier; if it writes a sequence_output in
-            # lexical_output or similar, fine — otherwise give a clean empty output.
+            # When a real NER primary model is wired in, run it alone and finalize
+            # its per-token output directly — the NER analogue of classification
+            # primary_only (primary model, no specialist agents).
+            if self._ner_primary is not None:
+                state, ok = _run_stage("ner_primary_model", self._ner_primary.run, state)
+                if not ok:
+                    return state
+                self._finalize_ner_primary_only(state, pipeline_mode)
+                return state
+
+            # No NER primary available: the classification primary is
+            # classification-only, so write a minimal stub final_output so callers
+            # never get None.
             state, ok = _run_stage("primary_classifier", self._primary.run, state)
             if not ok:
                 return state
-            # Primary classifiers are classification-only in the current codebase.
-            # Write a minimal final_output so callers never get None.
             if state.final_output is None:
                 state.final_output = FinalOutput(
                     payload={
@@ -521,15 +537,31 @@ class PipelineOrchestrator:
             )
             return state
 
-        # paper_style and full_agentic: run all four NER specialist agents.
-        ner_stages = [
-            ("ner_lexical_agent",    self._ner_lexical),
-            ("ner_logic_agent",      self._ner_logic),
-            ("ner_contextual_agent", self._ner_contextual),
-            ("ner_consensus_agent",  self._ner_consensus),
-        ]
-        for stage_name, agent in ner_stages:
-            state, ok = _run_stage(stage_name, agent.run, state)
+        # paper_style and full_agentic mirror the classification path:
+        #   NER primary model → router → (accept primary | escalate → agents → consensus)
+        # The router only engages when a real NER primary is wired in; with only
+        # heuristic agents (no primary) the path escalates unconditionally, exactly
+        # as before, so existing heuristic-only behaviour is unchanged.
+        if self._ner_primary is not None:
+            state, ok = _run_stage("ner_primary_model", self._ner_primary.run, state)
+            if not ok:
+                return state
+
+            decision = self._ner_route(state)
+            if decision != _ESCALATE:
+                # Fast path: primary is confident on every token — accept it and
+                # skip the specialist agents (NER analogue of accept_primary).
+                self.logger.info("NER decision: %s — skipping specialist agents", decision)
+                self._finalize_ner_primary_only(state, pipeline_mode)
+                state.final_output.payload["source"] = "ner_primary_accepted"
+            else:
+                self.logger.info("NER decision: escalate — running specialist agents")
+                state, ok = self._run_ner_specialists(state)
+                if not ok:
+                    return state
+        else:
+            # No primary wired: heuristic specialists + consensus, as before.
+            state, ok = self._run_ner_specialists(state)
             if not ok:
                 return state
 
@@ -558,6 +590,82 @@ class PipelineOrchestrator:
             },
         )
         return state
+
+    def _run_ner_specialists(self, state: PipelineState):
+        """Run the four heuristic NER specialist agents in order. Returns (state, ok)."""
+        ner_stages = [
+            ("ner_lexical_agent",    self._ner_lexical),
+            ("ner_logic_agent",      self._ner_logic),
+            ("ner_contextual_agent", self._ner_contextual),
+            ("ner_consensus_agent",  self._ner_consensus),
+        ]
+        for stage_name, agent in ner_stages:
+            state, ok = _run_stage(stage_name, agent.run, state)
+            if not ok:
+                return state, False
+        return state, True
+
+    def _ner_route(self, state: PipelineState) -> str:
+        """Decide accept-primary vs escalate for NER using a min-confidence gate.
+
+        The NER analogue of :class:`~src.pipeline.router.Router`: because NER
+        confidence is per-token, the sentence is accepted only when the *least*
+        confident token clears ``task_config.threshold`` — i.e. the primary is
+        confident about **every** token.  Any uncertain token escalates the whole
+        sentence to the specialist agents.  Records the decision on
+        ``state.routing_info`` (same shape the classification router uses).
+        """
+        from src.state.schema import RoutingInfo
+
+        threshold = state.task_config.threshold
+        seq = state.ner_model_output.sequence_output if state.ner_model_output else None
+        confidences = [tt.confidence for tt in seq.tags] if (seq and seq.tags) else []
+        min_conf = min(confidences) if confidences else 0.0
+
+        decision = "accept_primary" if (confidences and min_conf >= threshold) else _ESCALATE
+        state.routing_info = RoutingInfo(threshold=threshold, decision=decision)
+        state.append_history(
+            component="ner_router",
+            summary=(
+                f"NER decision: {decision} "
+                f"(min token confidence={min_conf:.3f} vs threshold={threshold:.3f})"
+            ),
+            outputs={
+                "decision": decision,
+                "threshold": threshold,
+                "min_token_confidence": round(min_conf, 6),
+                "token_count": len(confidences),
+            },
+        )
+        return decision
+
+    @staticmethod
+    def _finalize_ner_primary_only(state: PipelineState, pipeline_mode: PipelineMode) -> None:
+        """Serialise the NER primary's per-token output into ``final_output``.
+
+        Mirrors the payload shape written by
+        :class:`~src.agents.ner_consensus_agent.NERConsensusAgent` so downstream
+        consumers (e.g. :class:`~src.evaluation.ner_evaluator.NEREvaluator`) read
+        primary-only and full-pipeline NER runs identically.
+        """
+        seq = state.ner_model_output.sequence_output if state.ner_model_output else None
+        tags = list(seq.tags) if seq else []
+        seq_payload = [
+            {"token": tt.token, "tag": tt.tag, "confidence": tt.confidence}
+            for tt in tags
+        ]
+        if state.final_output is None:
+            state.final_output = FinalOutput()
+        state.final_output.payload["sequence_output"] = seq_payload
+        state.final_output.payload["token_count"] = len(tags)
+        state.final_output.payload["source"] = "ner_primary_model"
+        state.final_output.payload["pipeline_mode"] = pipeline_mode
+        state.append_history(
+            component="orchestrator",
+            summary=f"NER primary-only mode: primary model tagged {len(tags)} token(s).",
+            outputs={"pipeline_mode": pipeline_mode, "token_count": len(tags),
+                     "specialist_agents_ran": False},
+        )
 
     @staticmethod
     def _resolve_pipeline_mode(state: PipelineState) -> PipelineMode:

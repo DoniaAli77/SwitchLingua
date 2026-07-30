@@ -35,7 +35,19 @@ class FakeChatOpenAI:
         return self
 
     def invoke(self, payload: dict):
-        if self.mode in {"gen_topic", "gen_sentiment", "gen_ner"}:
+        if self.mode == "gen_ner":
+            # NER validation is DETERMINISTIC (entity counting), so the mocked sentences must
+            # actually contain the required entity types — the generic sentences below carry
+            # none, which correctly fails the PER/ORG/LOC constraints of the NER scenario.
+            return {
+                "instances": [
+                    "التقيت Ahmed Ali في Google بمدينة Cairo.",
+                    "عملت مع Sarah Hassan في Microsoft في Dubai.",
+                    "درست مع Omar Khaled في Cairo University في Egypt.",
+                ]
+            }
+
+        if self.mode in {"gen_topic", "gen_sentiment"}:
             return {
                 "instances": [
                     "اليوم الجو جميل and I am happy.",
@@ -44,7 +56,31 @@ class FakeChatOpenAI:
                 ]
             }
 
-        if self.mode in {"val_topic", "val_sentiment", "val_ner"}:
+        if self.mode == "val_ner":
+            # The NER verdict is now recomputed in code from the ENTITIES the validator reports
+            # (see node_engine.verify_ner_evidence), so a mock must supply that evidence — simply
+            # answering "passed" is no longer enough. Report the entities that genuinely occur in
+            # whichever mocked sentence is being validated.
+            sentence = ""
+            if isinstance(payload, dict):
+                got = payload.get("data_generation_result") or []
+                sentence = got[0] if got else ""
+            fixture = {  # test fixture only: spans present in the mocked NER sentences
+                "Ahmed Ali": "PER", "Sarah Hassan": "PER", "Omar Khaled": "PER",
+                "Cairo University": "ORG", "Google": "ORG", "Microsoft": "ORG",
+                "Cairo": "LOC", "Dubai": "LOC", "Egypt": "LOC",
+            }
+            found, taken = [], []
+            for span, etype in sorted(fixture.items(), key=lambda kv: -len(kv[0])):
+                if span in sentence and not any(span in t for t in taken):
+                    taken.append(span)
+                    found.append({"text": span, "type": etype})
+            return {
+                "passed": True, "confidence": 0.9, "notes": "ok_val_ner",
+                "predicted_label": None, "errors": [], "entities": found,
+            }
+
+        if self.mode in {"val_topic", "val_sentiment"}:
             return {
                 "passed": True,
                 "confidence": 0.9,

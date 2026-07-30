@@ -1,0 +1,8182 @@
+[
+ {
+  "sample_id": "ahmed-eesa-00000",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.849885,
+  "sum_label": "negative",
+  "sum_conf": 0.849885
+ },
+ {
+  "sample_id": "ahmed-eesa-00001",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786769,
+  "sum_label": "neutral",
+  "sum_conf": 0.786769
+ },
+ {
+  "sample_id": "ahmed-eesa-00002",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715506,
+  "sum_label": "negative",
+  "sum_conf": 0.715506
+ },
+ {
+  "sample_id": "ahmed-eesa-00003",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.778455,
+  "sum_label": "negative",
+  "sum_conf": 0.778455
+ },
+ {
+  "sample_id": "ahmed-eesa-00004",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.840858,
+  "sum_label": "negative",
+  "sum_conf": 0.840858
+ },
+ {
+  "sample_id": "ahmed-eesa-00005",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71816,
+  "sum_label": "negative",
+  "sum_conf": 0.71816
+ },
+ {
+  "sample_id": "ahmed-eesa-00006",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718088,
+  "sum_label": "negative",
+  "sum_conf": 0.718088
+ },
+ {
+  "sample_id": "ahmed-eesa-00007",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.855753,
+  "sum_label": "negative",
+  "sum_conf": 0.855753
+ },
+ {
+  "sample_id": "ahmed-eesa-00008",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.625,
+  "sum_label": "neutral",
+  "sum_conf": 0.676427
+ },
+ {
+  "sample_id": "ahmed-eesa-00009",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.774848,
+  "sum_label": "negative",
+  "sum_conf": 0.774848
+ },
+ {
+  "sample_id": "ahmed-eesa-00010",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.766381,
+  "sum_label": "neutral",
+  "sum_conf": 0.766381
+ },
+ {
+  "sample_id": "ahmed-eesa-00011",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.709463,
+  "sum_label": "negative",
+  "sum_conf": 0.709463
+ },
+ {
+  "sample_id": "ahmed-eesa-00012",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718175,
+  "sum_label": "negative",
+  "sum_conf": 0.718175
+ },
+ {
+  "sample_id": "ahmed-eesa-00013",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.784642,
+  "sum_label": "negative",
+  "sum_conf": 0.784642
+ },
+ {
+  "sample_id": "ahmed-eesa-00014",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718125,
+  "sum_label": "negative",
+  "sum_conf": 0.718125
+ },
+ {
+  "sample_id": "ahmed-eesa-00015",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717553,
+  "sum_label": "negative",
+  "sum_conf": 0.717553
+ },
+ {
+  "sample_id": "ahmed-eesa-00016",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717431,
+  "sum_label": "negative",
+  "sum_conf": 0.717431
+ },
+ {
+  "sample_id": "ahmed-eesa-00017",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718137,
+  "sum_label": "negative",
+  "sum_conf": 0.718137
+ },
+ {
+  "sample_id": "ahmed-eesa-00018",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.847265,
+  "sum_label": "negative",
+  "sum_conf": 0.847265
+ },
+ {
+  "sample_id": "ahmed-eesa-00019",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.791335,
+  "sum_label": "negative",
+  "sum_conf": 0.791335
+ },
+ {
+  "sample_id": "ahmed-eesa-00020",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71818,
+  "sum_label": "negative",
+  "sum_conf": 0.71818
+ },
+ {
+  "sample_id": "ahmed-eesa-00021",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.516328,
+  "sum_label": "neutral",
+  "sum_conf": 0.535077
+ },
+ {
+  "sample_id": "ahmed-eesa-00022",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717497,
+  "sum_label": "negative",
+  "sum_conf": 0.717497
+ },
+ {
+  "sample_id": "ahmed-eesa-00023",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.744237,
+  "sum_label": "negative",
+  "sum_conf": 0.744237
+ },
+ {
+  "sample_id": "ahmed-eesa-00024",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717772,
+  "sum_label": "negative",
+  "sum_conf": 0.717772
+ },
+ {
+  "sample_id": "ahmed-eesa-00025",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718147,
+  "sum_label": "negative",
+  "sum_conf": 0.718147
+ },
+ {
+  "sample_id": "ahmed-eesa-00026",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71505,
+  "sum_label": "negative",
+  "sum_conf": 0.71505
+ },
+ {
+  "sample_id": "ahmed-eesa-00027",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.802821,
+  "sum_label": "negative",
+  "sum_conf": 0.802821
+ },
+ {
+  "sample_id": "ahmed-eesa-00028",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718097,
+  "sum_label": "negative",
+  "sum_conf": 0.718097
+ },
+ {
+  "sample_id": "ahmed-eesa-00029",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717256,
+  "sum_label": "negative",
+  "sum_conf": 0.717256
+ },
+ {
+  "sample_id": "ahmed-eesa-00030",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.714243,
+  "sum_label": "negative",
+  "sum_conf": 0.714243
+ },
+ {
+  "sample_id": "ahmed-eesa-00031",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.741844,
+  "sum_label": "neutral",
+  "sum_conf": 0.741844
+ },
+ {
+  "sample_id": "ahmed-eesa-00032",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.801561,
+  "sum_label": "negative",
+  "sum_conf": 0.801561
+ },
+ {
+  "sample_id": "ahmed-eesa-00033",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718166,
+  "sum_label": "negative",
+  "sum_conf": 0.718166
+ },
+ {
+  "sample_id": "ahmed-eesa-00034",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718136,
+  "sum_label": "negative",
+  "sum_conf": 0.718136
+ },
+ {
+  "sample_id": "ahmed-eesa-00035",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718073,
+  "sum_label": "negative",
+  "sum_conf": 0.718073
+ },
+ {
+  "sample_id": "ahmed-eesa-00036",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716518,
+  "sum_label": "negative",
+  "sum_conf": 0.716518
+ },
+ {
+  "sample_id": "ahmed-eesa-00037",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715242,
+  "sum_label": "negative",
+  "sum_conf": 0.715242
+ },
+ {
+  "sample_id": "ahmed-eesa-00038",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718139,
+  "sum_label": "negative",
+  "sum_conf": 0.718139
+ },
+ {
+  "sample_id": "ahmed-eesa-00039",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718163,
+  "sum_label": "negative",
+  "sum_conf": 0.718163
+ },
+ {
+  "sample_id": "ahmed-eesa-00040",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717542,
+  "sum_label": "negative",
+  "sum_conf": 0.717542
+ },
+ {
+  "sample_id": "ahmed-eesa-00041",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.529411,
+  "sum_label": "negative",
+  "sum_conf": 0.566911
+ },
+ {
+  "sample_id": "ahmed-eesa-00042",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.70759,
+  "sum_label": "negative",
+  "sum_conf": 0.70759
+ },
+ {
+  "sample_id": "ahmed-eesa-00043",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.6625,
+  "sum_label": "negative",
+  "sum_conf": 0.708928
+ },
+ {
+  "sample_id": "ahmed-eesa-00044",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.706073,
+  "sum_label": "negative",
+  "sum_conf": 0.706073
+ },
+ {
+  "sample_id": "ahmed-eesa-00045",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": true,
+  "hard_label": "neutral",
+  "hard_conf": 0.124428,
+  "sum_label": "neutral",
+  "sum_conf": 0.174428
+ },
+ {
+  "sample_id": "ahmed-eesa-00046",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.747522,
+  "sum_label": "neutral",
+  "sum_conf": 0.747522
+ },
+ {
+  "sample_id": "ahmed-eesa-00047",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717416,
+  "sum_label": "negative",
+  "sum_conf": 0.717416
+ },
+ {
+  "sample_id": "ahmed-eesa-00048",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.83375,
+  "sum_label": "negative",
+  "sum_conf": 0.83375
+ },
+ {
+  "sample_id": "ahmed-eesa-00049",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718136,
+  "sum_label": "negative",
+  "sum_conf": 0.718136
+ },
+ {
+  "sample_id": "ahmed-eesa-00050",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716834,
+  "sum_label": "negative",
+  "sum_conf": 0.716834
+ },
+ {
+  "sample_id": "ahmed-eesa-00051",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.711534,
+  "sum_label": "negative",
+  "sum_conf": 0.711534
+ },
+ {
+  "sample_id": "ahmed-eesa-00052",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718132,
+  "sum_label": "negative",
+  "sum_conf": 0.718132
+ },
+ {
+  "sample_id": "ahmed-eesa-00053",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717322,
+  "sum_label": "negative",
+  "sum_conf": 0.717322
+ },
+ {
+  "sample_id": "ahmed-eesa-00054",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718135,
+  "sum_label": "negative",
+  "sum_conf": 0.718135
+ },
+ {
+  "sample_id": "ahmed-eesa-00055",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717967,
+  "sum_label": "negative",
+  "sum_conf": 0.717967
+ },
+ {
+  "sample_id": "ahmed-eesa-00056",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718133,
+  "sum_label": "negative",
+  "sum_conf": 0.718133
+ },
+ {
+  "sample_id": "ahmed-eesa-00057",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718177,
+  "sum_label": "negative",
+  "sum_conf": 0.718177
+ },
+ {
+  "sample_id": "ahmed-eesa-00058",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718185,
+  "sum_label": "negative",
+  "sum_conf": 0.718185
+ },
+ {
+  "sample_id": "ahmed-eesa-00059",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.887218,
+  "sum_label": "negative",
+  "sum_conf": 0.887218
+ },
+ {
+  "sample_id": "ahmed-eesa-00060",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718184,
+  "sum_label": "negative",
+  "sum_conf": 0.718184
+ },
+ {
+  "sample_id": "ahmed-eesa-00061",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717718,
+  "sum_label": "negative",
+  "sum_conf": 0.717718
+ },
+ {
+  "sample_id": "ahmed-eesa-00062",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718029,
+  "sum_label": "negative",
+  "sum_conf": 0.718029
+ },
+ {
+  "sample_id": "ahmed-eesa-00063",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.714486,
+  "sum_label": "negative",
+  "sum_conf": 0.714486
+ },
+ {
+  "sample_id": "ahmed-eesa-00064",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718121,
+  "sum_label": "negative",
+  "sum_conf": 0.718121
+ },
+ {
+  "sample_id": "ahmed-eesa-00065",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717995,
+  "sum_label": "negative",
+  "sum_conf": 0.717995
+ },
+ {
+  "sample_id": "ahmed-eesa-00066",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718113,
+  "sum_label": "negative",
+  "sum_conf": 0.718113
+ },
+ {
+  "sample_id": "ahmed-eesa-00067",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716343,
+  "sum_label": "negative",
+  "sum_conf": 0.716343
+ },
+ {
+  "sample_id": "ahmed-eesa-00068",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718182,
+  "sum_label": "negative",
+  "sum_conf": 0.718182
+ },
+ {
+  "sample_id": "ahmed-eesa-00069",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718093,
+  "sum_label": "negative",
+  "sum_conf": 0.718093
+ },
+ {
+  "sample_id": "ahmed-eesa-00070",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718018,
+  "sum_label": "negative",
+  "sum_conf": 0.718018
+ },
+ {
+  "sample_id": "ahmed-eesa-00071",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717966,
+  "sum_label": "negative",
+  "sum_conf": 0.717966
+ },
+ {
+  "sample_id": "ahmed-eesa-00072",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717307,
+  "sum_label": "negative",
+  "sum_conf": 0.717307
+ },
+ {
+  "sample_id": "ahmed-eesa-00073",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.600209,
+  "sum_label": "negative",
+  "sum_conf": 0.612709
+ },
+ {
+  "sample_id": "ahmed-eesa-00074",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71818,
+  "sum_label": "negative",
+  "sum_conf": 0.71818
+ },
+ {
+  "sample_id": "ahmed-eesa-00075",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.781235,
+  "sum_label": "neutral",
+  "sum_conf": 0.781235
+ },
+ {
+  "sample_id": "ahmed-eesa-00076",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.711951,
+  "sum_label": "negative",
+  "sum_conf": 0.711951
+ },
+ {
+  "sample_id": "ahmed-eesa-00077",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717099,
+  "sum_label": "negative",
+  "sum_conf": 0.717099
+ },
+ {
+  "sample_id": "ahmed-eesa-00078",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.733403,
+  "sum_label": "neutral",
+  "sum_conf": 0.733403
+ },
+ {
+  "sample_id": "ahmed-eesa-00079",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718165,
+  "sum_label": "negative",
+  "sum_conf": 0.718165
+ },
+ {
+  "sample_id": "ahmed-eesa-00080",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718142,
+  "sum_label": "negative",
+  "sum_conf": 0.718142
+ },
+ {
+  "sample_id": "ahmed-eesa-00081",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.65,
+  "sum_label": "negative",
+  "sum_conf": 0.699651
+ },
+ {
+  "sample_id": "ahmed-eesa-00082",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717624,
+  "sum_label": "negative",
+  "sum_conf": 0.717624
+ },
+ {
+  "sample_id": "ahmed-eesa-00083",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718126,
+  "sum_label": "negative",
+  "sum_conf": 0.718126
+ },
+ {
+  "sample_id": "ahmed-eesa-00084",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.849314,
+  "sum_label": "negative",
+  "sum_conf": 0.849314
+ },
+ {
+  "sample_id": "ahmed-eesa-00085",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718153,
+  "sum_label": "negative",
+  "sum_conf": 0.718153
+ },
+ {
+  "sample_id": "ahmed-eesa-00086",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.859263,
+  "sum_label": "positive",
+  "sum_conf": 0.859263
+ },
+ {
+  "sample_id": "ahmed-eesa-00087",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718067,
+  "sum_label": "negative",
+  "sum_conf": 0.718067
+ },
+ {
+  "sample_id": "ahmed-eesa-00088",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787388,
+  "sum_label": "neutral",
+  "sum_conf": 0.787388
+ },
+ {
+  "sample_id": "ahmed-eesa-00089",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715707,
+  "sum_label": "negative",
+  "sum_conf": 0.715707
+ },
+ {
+  "sample_id": "ahmed-eesa-00090",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718176,
+  "sum_label": "negative",
+  "sum_conf": 0.718176
+ },
+ {
+  "sample_id": "ahmed-eesa-00091",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718107,
+  "sum_label": "negative",
+  "sum_conf": 0.718107
+ },
+ {
+  "sample_id": "ahmed-eesa-00092",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718162,
+  "sum_label": "negative",
+  "sum_conf": 0.718162
+ },
+ {
+  "sample_id": "ahmed-eesa-00093",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718175,
+  "sum_label": "negative",
+  "sum_conf": 0.718175
+ },
+ {
+  "sample_id": "ahmed-eesa-00094",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.572977,
+  "sum_label": "negative",
+  "sum_conf": 0.610477
+ },
+ {
+  "sample_id": "ahmed-eesa-00095",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716333,
+  "sum_label": "negative",
+  "sum_conf": 0.716333
+ },
+ {
+  "sample_id": "ahmed-eesa-00096",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.714919,
+  "sum_label": "negative",
+  "sum_conf": 0.714919
+ },
+ {
+  "sample_id": "ahmed-eesa-00097",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": true,
+  "hard_label": "negative",
+  "hard_conf": 0.097293,
+  "sum_label": "negative",
+  "sum_conf": 0.184792
+ },
+ {
+  "sample_id": "ahmed-eesa-00098",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787847,
+  "sum_label": "neutral",
+  "sum_conf": 0.787847
+ },
+ {
+  "sample_id": "ahmed-eesa-00099",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718033,
+  "sum_label": "negative",
+  "sum_conf": 0.718033
+ },
+ {
+  "sample_id": "ahmed-eesa-00100",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.6375,
+  "sum_label": "negative",
+  "sum_conf": 0.67678
+ },
+ {
+  "sample_id": "ahmed-eesa-00101",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.7078,
+  "sum_label": "negative",
+  "sum_conf": 0.7078
+ },
+ {
+  "sample_id": "ahmed-eesa-00102",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718044,
+  "sum_label": "negative",
+  "sum_conf": 0.718044
+ },
+ {
+  "sample_id": "ahmed-eesa-00103",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.708565,
+  "sum_label": "negative",
+  "sum_conf": 0.708565
+ },
+ {
+  "sample_id": "ahmed-eesa-00104",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718169,
+  "sum_label": "negative",
+  "sum_conf": 0.718169
+ },
+ {
+  "sample_id": "ahmed-eesa-00105",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.712156,
+  "sum_label": "negative",
+  "sum_conf": 0.712156
+ },
+ {
+  "sample_id": "ahmed-eesa-00106",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718152,
+  "sum_label": "negative",
+  "sum_conf": 0.718152
+ },
+ {
+  "sample_id": "ahmed-eesa-00107",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.708145,
+  "sum_label": "negative",
+  "sum_conf": 0.708145
+ },
+ {
+  "sample_id": "ahmed-eesa-00108",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.701639,
+  "sum_label": "negative",
+  "sum_conf": 0.701639
+ },
+ {
+  "sample_id": "ahmed-eesa-00109",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718102,
+  "sum_label": "negative",
+  "sum_conf": 0.718102
+ },
+ {
+  "sample_id": "ahmed-eesa-00110",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716545,
+  "sum_label": "negative",
+  "sum_conf": 0.716545
+ },
+ {
+  "sample_id": "ahmed-eesa-00111",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715384,
+  "sum_label": "negative",
+  "sum_conf": 0.715384
+ },
+ {
+  "sample_id": "ahmed-eesa-00112",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71563,
+  "sum_label": "negative",
+  "sum_conf": 0.71563
+ },
+ {
+  "sample_id": "ahmed-eesa-00113",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.794834,
+  "sum_label": "negative",
+  "sum_conf": 0.794834
+ },
+ {
+  "sample_id": "ahmed-eesa-00114",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.822977,
+  "sum_label": "negative",
+  "sum_conf": 0.822977
+ },
+ {
+  "sample_id": "ahmed-eesa-00115",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718112,
+  "sum_label": "negative",
+  "sum_conf": 0.718112
+ },
+ {
+  "sample_id": "ahmed-eesa-00116",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.777944,
+  "sum_label": "negative",
+  "sum_conf": 0.777944
+ },
+ {
+  "sample_id": "ahmed-eesa-00117",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71816,
+  "sum_label": "negative",
+  "sum_conf": 0.71816
+ },
+ {
+  "sample_id": "ahmed-eesa-00118",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.703582,
+  "sum_label": "negative",
+  "sum_conf": 0.703582
+ },
+ {
+  "sample_id": "ahmed-eesa-00119",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717833,
+  "sum_label": "negative",
+  "sum_conf": 0.717833
+ },
+ {
+  "sample_id": "ahmed-eesa-00120",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718103,
+  "sum_label": "negative",
+  "sum_conf": 0.718103
+ },
+ {
+  "sample_id": "ahmed-eesa-00121",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718063,
+  "sum_label": "negative",
+  "sum_conf": 0.718063
+ },
+ {
+  "sample_id": "ahmed-eesa-00122",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718137,
+  "sum_label": "negative",
+  "sum_conf": 0.718137
+ },
+ {
+  "sample_id": "ahmed-eesa-00123",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.747854,
+  "sum_label": "neutral",
+  "sum_conf": 0.747854
+ },
+ {
+  "sample_id": "ahmed-eesa-00124",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718174,
+  "sum_label": "negative",
+  "sum_conf": 0.718174
+ },
+ {
+  "sample_id": "ahmed-eesa-00125",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717805,
+  "sum_label": "negative",
+  "sum_conf": 0.717805
+ },
+ {
+  "sample_id": "ahmed-eesa-00126",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718144,
+  "sum_label": "negative",
+  "sum_conf": 0.718144
+ },
+ {
+  "sample_id": "ahmed-eesa-00127",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.5149,
+  "sum_label": "neutral",
+  "sum_conf": 0.5399
+ },
+ {
+  "sample_id": "ahmed-eesa-00128",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718143,
+  "sum_label": "negative",
+  "sum_conf": 0.718143
+ },
+ {
+  "sample_id": "ahmed-eesa-00129",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718175,
+  "sum_label": "negative",
+  "sum_conf": 0.718175
+ },
+ {
+  "sample_id": "ahmed-eesa-00130",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.742672,
+  "sum_label": "negative",
+  "sum_conf": 0.742672
+ },
+ {
+  "sample_id": "ahmed-eesa-00131",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.836065,
+  "sum_label": "negative",
+  "sum_conf": 0.836065
+ },
+ {
+  "sample_id": "ahmed-eesa-00132",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717316,
+  "sum_label": "negative",
+  "sum_conf": 0.717316
+ },
+ {
+  "sample_id": "ahmed-eesa-00133",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717863,
+  "sum_label": "negative",
+  "sum_conf": 0.717863
+ },
+ {
+  "sample_id": "ahmed-eesa-00134",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.709013,
+  "sum_label": "negative",
+  "sum_conf": 0.709013
+ },
+ {
+  "sample_id": "ahmed-eesa-00135",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717182,
+  "sum_label": "negative",
+  "sum_conf": 0.717182
+ },
+ {
+  "sample_id": "ahmed-eesa-00136",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.702641,
+  "sum_label": "negative",
+  "sum_conf": 0.702641
+ },
+ {
+  "sample_id": "ahmed-eesa-00137",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.713301,
+  "sum_label": "negative",
+  "sum_conf": 0.713301
+ },
+ {
+  "sample_id": "ahmed-eesa-00138",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717646,
+  "sum_label": "negative",
+  "sum_conf": 0.717646
+ },
+ {
+  "sample_id": "ahmed-eesa-00139",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717003,
+  "sum_label": "negative",
+  "sum_conf": 0.717003
+ },
+ {
+  "sample_id": "ahmed-eesa-00140",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71811,
+  "sum_label": "negative",
+  "sum_conf": 0.71811
+ },
+ {
+  "sample_id": "ahmed-eesa-00141",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.819233,
+  "sum_label": "negative",
+  "sum_conf": 0.819233
+ },
+ {
+  "sample_id": "ahmed-eesa-00142",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715876,
+  "sum_label": "negative",
+  "sum_conf": 0.715876
+ },
+ {
+  "sample_id": "ahmed-eesa-00143",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718008,
+  "sum_label": "negative",
+  "sum_conf": 0.718008
+ },
+ {
+  "sample_id": "ahmed-eesa-00144",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.823259,
+  "sum_label": "negative",
+  "sum_conf": 0.823259
+ },
+ {
+  "sample_id": "ahmed-eesa-00145",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718171,
+  "sum_label": "negative",
+  "sum_conf": 0.718171
+ },
+ {
+  "sample_id": "ahmed-eesa-00146",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.711039,
+  "sum_label": "negative",
+  "sum_conf": 0.711039
+ },
+ {
+  "sample_id": "ahmed-eesa-00147",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.708589,
+  "sum_label": "negative",
+  "sum_conf": 0.708589
+ },
+ {
+  "sample_id": "ahmed-eesa-00148",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715637,
+  "sum_label": "negative",
+  "sum_conf": 0.715637
+ },
+ {
+  "sample_id": "ahmed-eesa-00149",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716811,
+  "sum_label": "negative",
+  "sum_conf": 0.716811
+ },
+ {
+  "sample_id": "ahmed-eesa-00150",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718144,
+  "sum_label": "negative",
+  "sum_conf": 0.718144
+ },
+ {
+  "sample_id": "ahmed-eesa-00151",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718147,
+  "sum_label": "negative",
+  "sum_conf": 0.718147
+ },
+ {
+  "sample_id": "ahmed-eesa-00152",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71789,
+  "sum_label": "negative",
+  "sum_conf": 0.71789
+ },
+ {
+  "sample_id": "ahmed-eesa-00153",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718145,
+  "sum_label": "negative",
+  "sum_conf": 0.718145
+ },
+ {
+  "sample_id": "ahmed-eesa-00154",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718051,
+  "sum_label": "negative",
+  "sum_conf": 0.718051
+ },
+ {
+  "sample_id": "ahmed-eesa-00155",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.857881,
+  "sum_label": "negative",
+  "sum_conf": 0.857881
+ },
+ {
+  "sample_id": "ahmed-eesa-00156",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718111,
+  "sum_label": "negative",
+  "sum_conf": 0.718111
+ },
+ {
+  "sample_id": "ahmed-eesa-00157",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717782,
+  "sum_label": "negative",
+  "sum_conf": 0.717782
+ },
+ {
+  "sample_id": "ahmed-eesa-00158",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715271,
+  "sum_label": "negative",
+  "sum_conf": 0.715271
+ },
+ {
+  "sample_id": "ahmed-eesa-00159",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.70647,
+  "sum_label": "negative",
+  "sum_conf": 0.70647
+ },
+ {
+  "sample_id": "ahmed-eesa-00160",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718188,
+  "sum_label": "negative",
+  "sum_conf": 0.718188
+ },
+ {
+  "sample_id": "ahmed-eesa-00161",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715797,
+  "sum_label": "negative",
+  "sum_conf": 0.715797
+ },
+ {
+  "sample_id": "ahmed-eesa-00162",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717965,
+  "sum_label": "negative",
+  "sum_conf": 0.717965
+ },
+ {
+  "sample_id": "ahmed-eesa-00163",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718179,
+  "sum_label": "negative",
+  "sum_conf": 0.718179
+ },
+ {
+  "sample_id": "ahmed-eesa-00164",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717443,
+  "sum_label": "negative",
+  "sum_conf": 0.717443
+ },
+ {
+  "sample_id": "ahmed-eesa-00165",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78701,
+  "sum_label": "neutral",
+  "sum_conf": 0.78701
+ },
+ {
+  "sample_id": "ahmed-eesa-00166",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718181,
+  "sum_label": "negative",
+  "sum_conf": 0.718181
+ },
+ {
+  "sample_id": "ahmed-eesa-00167",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.709469,
+  "sum_label": "negative",
+  "sum_conf": 0.709469
+ },
+ {
+  "sample_id": "ahmed-eesa-00168",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.779404,
+  "sum_label": "negative",
+  "sum_conf": 0.779404
+ },
+ {
+  "sample_id": "ahmed-eesa-00169",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.716186,
+  "sum_label": "negative",
+  "sum_conf": 0.716186
+ },
+ {
+  "sample_id": "ahmed-eesa-00170",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718084,
+  "sum_label": "negative",
+  "sum_conf": 0.718084
+ },
+ {
+  "sample_id": "ahmed-eesa-00171",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.734417,
+  "sum_label": "neutral",
+  "sum_conf": 0.734417
+ },
+ {
+  "sample_id": "ahmed-eesa-00172",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718009,
+  "sum_label": "negative",
+  "sum_conf": 0.718009
+ },
+ {
+  "sample_id": "ahmed-eesa-00173",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.770961,
+  "sum_label": "positive",
+  "sum_conf": 0.770961
+ },
+ {
+  "sample_id": "ahmed-eesa-00174",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.703624,
+  "sum_label": "negative",
+  "sum_conf": 0.703624
+ },
+ {
+  "sample_id": "ahmed-eesa-00175",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718112,
+  "sum_label": "negative",
+  "sum_conf": 0.718112
+ },
+ {
+  "sample_id": "ahmed-eesa-00176",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718131,
+  "sum_label": "negative",
+  "sum_conf": 0.718131
+ },
+ {
+  "sample_id": "ahmed-eesa-00177",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.771578,
+  "sum_label": "neutral",
+  "sum_conf": 0.771578
+ },
+ {
+  "sample_id": "ahmed-eesa-00178",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71362,
+  "sum_label": "negative",
+  "sum_conf": 0.71362
+ },
+ {
+  "sample_id": "ahmed-eesa-00179",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718139,
+  "sum_label": "negative",
+  "sum_conf": 0.718139
+ },
+ {
+  "sample_id": "ahmed-eesa-00180",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718136,
+  "sum_label": "negative",
+  "sum_conf": 0.718136
+ },
+ {
+  "sample_id": "ahmed-eesa-00181",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718084,
+  "sum_label": "negative",
+  "sum_conf": 0.718084
+ },
+ {
+  "sample_id": "ahmed-eesa-00182",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.51263,
+  "sum_label": "neutral",
+  "sum_conf": 0.53138
+ },
+ {
+  "sample_id": "ahmed-eesa-00183",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.71794,
+  "sum_label": "negative",
+  "sum_conf": 0.71794
+ },
+ {
+  "sample_id": "ahmed-eesa-00184",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717911,
+  "sum_label": "negative",
+  "sum_conf": 0.717911
+ },
+ {
+  "sample_id": "ahmed-eesa-00185",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718133,
+  "sum_label": "negative",
+  "sum_conf": 0.718133
+ },
+ {
+  "sample_id": "ahmed-eesa-00186",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718136,
+  "sum_label": "negative",
+  "sum_conf": 0.718136
+ },
+ {
+  "sample_id": "ahmed-eesa-00187",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.715276,
+  "sum_label": "negative",
+  "sum_conf": 0.715276
+ },
+ {
+  "sample_id": "ahmed-eesa-00188",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718175,
+  "sum_label": "negative",
+  "sum_conf": 0.718175
+ },
+ {
+  "sample_id": "ahmed-eesa-00189",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718073,
+  "sum_label": "negative",
+  "sum_conf": 0.718073
+ },
+ {
+  "sample_id": "ahmed-eesa-00190",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.717776,
+  "sum_label": "negative",
+  "sum_conf": 0.717776
+ },
+ {
+  "sample_id": "ahmed-eesa-00191",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.712185,
+  "sum_label": "negative",
+  "sum_conf": 0.712185
+ },
+ {
+  "sample_id": "ahmed-eesa-00192",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718124,
+  "sum_label": "negative",
+  "sum_conf": 0.718124
+ },
+ {
+  "sample_id": "ahmed-eesa-00193",
+  "true": "negative",
+  "escalated": true,
+  "gate_fired": true,
+  "hard_label": "negative",
+  "hard_conf": 0.15589,
+  "sum_label": "negative",
+  "sum_conf": 0.23089
+ },
+ {
+  "sample_id": "ahmed-eesa-00194",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.735282,
+  "sum_label": "neutral",
+  "sum_conf": 0.735282
+ },
+ {
+  "sample_id": "ahmed-eesa-00195",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718037,
+  "sum_label": "negative",
+  "sum_conf": 0.718037
+ },
+ {
+  "sample_id": "ahmed-eesa-00196",
+  "true": "negative",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718165,
+  "sum_label": "negative",
+  "sum_conf": 0.718165
+ },
+ {
+  "sample_id": "ahmed-eesa-00197",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786113,
+  "sum_label": "neutral",
+  "sum_conf": 0.786113
+ },
+ {
+  "sample_id": "ahmed-eesa-00198",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.65,
+  "sum_label": "neutral",
+  "sum_conf": 0.744771
+ },
+ {
+  "sample_id": "ahmed-eesa-00199",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787791,
+  "sum_label": "neutral",
+  "sum_conf": 0.787791
+ },
+ {
+  "sample_id": "ahmed-eesa-00200",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785868,
+  "sum_label": "neutral",
+  "sum_conf": 0.785868
+ },
+ {
+  "sample_id": "ahmed-eesa-00201",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787786,
+  "sum_label": "neutral",
+  "sum_conf": 0.787786
+ },
+ {
+  "sample_id": "ahmed-eesa-00202",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787682,
+  "sum_label": "neutral",
+  "sum_conf": 0.787682
+ },
+ {
+  "sample_id": "ahmed-eesa-00203",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": true,
+  "hard_label": "neutral",
+  "hard_conf": 0.141988,
+  "sum_label": "neutral",
+  "sum_conf": 0.204488
+ },
+ {
+  "sample_id": "ahmed-eesa-00204",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787793,
+  "sum_label": "neutral",
+  "sum_conf": 0.787793
+ },
+ {
+  "sample_id": "ahmed-eesa-00205",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787063,
+  "sum_label": "neutral",
+  "sum_conf": 0.787063
+ },
+ {
+  "sample_id": "ahmed-eesa-00206",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787855,
+  "sum_label": "neutral",
+  "sum_conf": 0.787855
+ },
+ {
+  "sample_id": "ahmed-eesa-00207",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787644,
+  "sum_label": "neutral",
+  "sum_conf": 0.787644
+ },
+ {
+  "sample_id": "ahmed-eesa-00208",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.750311,
+  "sum_label": "positive",
+  "sum_conf": 0.750311
+ },
+ {
+  "sample_id": "ahmed-eesa-00209",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787888,
+  "sum_label": "neutral",
+  "sum_conf": 0.787888
+ },
+ {
+  "sample_id": "ahmed-eesa-00210",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787766,
+  "sum_label": "neutral",
+  "sum_conf": 0.787766
+ },
+ {
+  "sample_id": "ahmed-eesa-00211",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787829,
+  "sum_label": "neutral",
+  "sum_conf": 0.787829
+ },
+ {
+  "sample_id": "ahmed-eesa-00212",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787317,
+  "sum_label": "neutral",
+  "sum_conf": 0.787317
+ },
+ {
+  "sample_id": "ahmed-eesa-00213",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78757,
+  "sum_label": "neutral",
+  "sum_conf": 0.78757
+ },
+ {
+  "sample_id": "ahmed-eesa-00214",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787799,
+  "sum_label": "neutral",
+  "sum_conf": 0.787799
+ },
+ {
+  "sample_id": "ahmed-eesa-00215",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787709,
+  "sum_label": "neutral",
+  "sum_conf": 0.787709
+ },
+ {
+  "sample_id": "ahmed-eesa-00216",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787579,
+  "sum_label": "neutral",
+  "sum_conf": 0.787579
+ },
+ {
+  "sample_id": "ahmed-eesa-00217",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785852,
+  "sum_label": "neutral",
+  "sum_conf": 0.785852
+ },
+ {
+  "sample_id": "ahmed-eesa-00218",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.771412,
+  "sum_label": "positive",
+  "sum_conf": 0.771412
+ },
+ {
+  "sample_id": "ahmed-eesa-00219",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787745,
+  "sum_label": "neutral",
+  "sum_conf": 0.787745
+ },
+ {
+  "sample_id": "ahmed-eesa-00220",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.6625,
+  "sum_label": "positive",
+  "sum_conf": 0.695161
+ },
+ {
+  "sample_id": "ahmed-eesa-00221",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787562,
+  "sum_label": "neutral",
+  "sum_conf": 0.787562
+ },
+ {
+  "sample_id": "ahmed-eesa-00222",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.776263,
+  "sum_label": "neutral",
+  "sum_conf": 0.776263
+ },
+ {
+  "sample_id": "ahmed-eesa-00223",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78794,
+  "sum_label": "neutral",
+  "sum_conf": 0.78794
+ },
+ {
+  "sample_id": "ahmed-eesa-00224",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.782261,
+  "sum_label": "neutral",
+  "sum_conf": 0.782261
+ },
+ {
+  "sample_id": "ahmed-eesa-00225",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786287,
+  "sum_label": "neutral",
+  "sum_conf": 0.786287
+ },
+ {
+  "sample_id": "ahmed-eesa-00226",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787529,
+  "sum_label": "neutral",
+  "sum_conf": 0.787529
+ },
+ {
+  "sample_id": "ahmed-eesa-00227",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78637,
+  "sum_label": "neutral",
+  "sum_conf": 0.78637
+ },
+ {
+  "sample_id": "ahmed-eesa-00228",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.757778,
+  "sum_label": "neutral",
+  "sum_conf": 0.757778
+ },
+ {
+  "sample_id": "ahmed-eesa-00229",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.784632,
+  "sum_label": "neutral",
+  "sum_conf": 0.784632
+ },
+ {
+  "sample_id": "ahmed-eesa-00230",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786778,
+  "sum_label": "neutral",
+  "sum_conf": 0.786778
+ },
+ {
+  "sample_id": "ahmed-eesa-00231",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.731026,
+  "sum_label": "neutral",
+  "sum_conf": 0.731026
+ },
+ {
+  "sample_id": "ahmed-eesa-00232",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.774916,
+  "sum_label": "neutral",
+  "sum_conf": 0.774916
+ },
+ {
+  "sample_id": "ahmed-eesa-00233",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787911,
+  "sum_label": "neutral",
+  "sum_conf": 0.787911
+ },
+ {
+  "sample_id": "ahmed-eesa-00234",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787981,
+  "sum_label": "neutral",
+  "sum_conf": 0.787981
+ },
+ {
+  "sample_id": "ahmed-eesa-00235",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785599,
+  "sum_label": "neutral",
+  "sum_conf": 0.785599
+ },
+ {
+  "sample_id": "ahmed-eesa-00236",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864303,
+  "sum_label": "positive",
+  "sum_conf": 0.864303
+ },
+ {
+  "sample_id": "ahmed-eesa-00237",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78527,
+  "sum_label": "neutral",
+  "sum_conf": 0.78527
+ },
+ {
+  "sample_id": "ahmed-eesa-00238",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786297,
+  "sum_label": "neutral",
+  "sum_conf": 0.786297
+ },
+ {
+  "sample_id": "ahmed-eesa-00239",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.771107,
+  "sum_label": "neutral",
+  "sum_conf": 0.771107
+ },
+ {
+  "sample_id": "ahmed-eesa-00240",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.625,
+  "sum_label": "neutral",
+  "sum_conf": 0.713226
+ },
+ {
+  "sample_id": "ahmed-eesa-00241",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.784306,
+  "sum_label": "neutral",
+  "sum_conf": 0.784306
+ },
+ {
+  "sample_id": "ahmed-eesa-00242",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787976,
+  "sum_label": "neutral",
+  "sum_conf": 0.787976
+ },
+ {
+  "sample_id": "ahmed-eesa-00243",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78771,
+  "sum_label": "neutral",
+  "sum_conf": 0.78771
+ },
+ {
+  "sample_id": "ahmed-eesa-00244",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787429,
+  "sum_label": "neutral",
+  "sum_conf": 0.787429
+ },
+ {
+  "sample_id": "ahmed-eesa-00245",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.6375,
+  "sum_label": "negative",
+  "sum_conf": 0.697449
+ },
+ {
+  "sample_id": "ahmed-eesa-00246",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787942,
+  "sum_label": "neutral",
+  "sum_conf": 0.787942
+ },
+ {
+  "sample_id": "ahmed-eesa-00247",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787817,
+  "sum_label": "neutral",
+  "sum_conf": 0.787817
+ },
+ {
+  "sample_id": "ahmed-eesa-00248",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787702,
+  "sum_label": "neutral",
+  "sum_conf": 0.787702
+ },
+ {
+  "sample_id": "ahmed-eesa-00249",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787537,
+  "sum_label": "neutral",
+  "sum_conf": 0.787537
+ },
+ {
+  "sample_id": "ahmed-eesa-00250",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.84556,
+  "sum_label": "negative",
+  "sum_conf": 0.84556
+ },
+ {
+  "sample_id": "ahmed-eesa-00251",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787418,
+  "sum_label": "neutral",
+  "sum_conf": 0.787418
+ },
+ {
+  "sample_id": "ahmed-eesa-00252",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.798777,
+  "sum_label": "neutral",
+  "sum_conf": 0.798777
+ },
+ {
+  "sample_id": "ahmed-eesa-00253",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.76863,
+  "sum_label": "neutral",
+  "sum_conf": 0.76863
+ },
+ {
+  "sample_id": "ahmed-eesa-00254",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.708188,
+  "sum_label": "neutral",
+  "sum_conf": 0.708188
+ },
+ {
+  "sample_id": "ahmed-eesa-00255",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787565,
+  "sum_label": "neutral",
+  "sum_conf": 0.787565
+ },
+ {
+  "sample_id": "ahmed-eesa-00256",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787921,
+  "sum_label": "neutral",
+  "sum_conf": 0.787921
+ },
+ {
+  "sample_id": "ahmed-eesa-00257",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787908,
+  "sum_label": "neutral",
+  "sum_conf": 0.787908
+ },
+ {
+  "sample_id": "ahmed-eesa-00258",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.569273,
+  "sum_label": "neutral",
+  "sum_conf": 0.588023
+ },
+ {
+  "sample_id": "ahmed-eesa-00259",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78387,
+  "sum_label": "neutral",
+  "sum_conf": 0.78387
+ },
+ {
+  "sample_id": "ahmed-eesa-00260",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787067,
+  "sum_label": "neutral",
+  "sum_conf": 0.787067
+ },
+ {
+  "sample_id": "ahmed-eesa-00261",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863464,
+  "sum_label": "positive",
+  "sum_conf": 0.863464
+ },
+ {
+  "sample_id": "ahmed-eesa-00262",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787527,
+  "sum_label": "neutral",
+  "sum_conf": 0.787527
+ },
+ {
+  "sample_id": "ahmed-eesa-00263",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78369,
+  "sum_label": "neutral",
+  "sum_conf": 0.78369
+ },
+ {
+  "sample_id": "ahmed-eesa-00264",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.764554,
+  "sum_label": "neutral",
+  "sum_conf": 0.764554
+ },
+ {
+  "sample_id": "ahmed-eesa-00265",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864306,
+  "sum_label": "positive",
+  "sum_conf": 0.864306
+ },
+ {
+  "sample_id": "ahmed-eesa-00266",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.847945,
+  "sum_label": "positive",
+  "sum_conf": 0.847945
+ },
+ {
+  "sample_id": "ahmed-eesa-00267",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78775,
+  "sum_label": "neutral",
+  "sum_conf": 0.78775
+ },
+ {
+  "sample_id": "ahmed-eesa-00268",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787978,
+  "sum_label": "neutral",
+  "sum_conf": 0.787978
+ },
+ {
+  "sample_id": "ahmed-eesa-00269",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785417,
+  "sum_label": "neutral",
+  "sum_conf": 0.785417
+ },
+ {
+  "sample_id": "ahmed-eesa-00270",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.625,
+  "sum_label": "neutral",
+  "sum_conf": 0.704657
+ },
+ {
+  "sample_id": "ahmed-eesa-00271",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787362,
+  "sum_label": "neutral",
+  "sum_conf": 0.787362
+ },
+ {
+  "sample_id": "ahmed-eesa-00272",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785326,
+  "sum_label": "neutral",
+  "sum_conf": 0.785326
+ },
+ {
+  "sample_id": "ahmed-eesa-00273",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787546,
+  "sum_label": "neutral",
+  "sum_conf": 0.787546
+ },
+ {
+  "sample_id": "ahmed-eesa-00274",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78303,
+  "sum_label": "neutral",
+  "sum_conf": 0.78303
+ },
+ {
+  "sample_id": "ahmed-eesa-00275",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787912,
+  "sum_label": "neutral",
+  "sum_conf": 0.787912
+ },
+ {
+  "sample_id": "ahmed-eesa-00276",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.720588,
+  "sum_label": "neutral",
+  "sum_conf": 0.720588
+ },
+ {
+  "sample_id": "ahmed-eesa-00277",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787793,
+  "sum_label": "neutral",
+  "sum_conf": 0.787793
+ },
+ {
+  "sample_id": "ahmed-eesa-00278",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.784578,
+  "sum_label": "neutral",
+  "sum_conf": 0.784578
+ },
+ {
+  "sample_id": "ahmed-eesa-00279",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787578,
+  "sum_label": "neutral",
+  "sum_conf": 0.787578
+ },
+ {
+  "sample_id": "ahmed-eesa-00280",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.748094,
+  "sum_label": "neutral",
+  "sum_conf": 0.748094
+ },
+ {
+  "sample_id": "ahmed-eesa-00281",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787142,
+  "sum_label": "neutral",
+  "sum_conf": 0.787142
+ },
+ {
+  "sample_id": "ahmed-eesa-00282",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787784,
+  "sum_label": "neutral",
+  "sum_conf": 0.787784
+ },
+ {
+  "sample_id": "ahmed-eesa-00283",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787214,
+  "sum_label": "neutral",
+  "sum_conf": 0.787214
+ },
+ {
+  "sample_id": "ahmed-eesa-00284",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787911,
+  "sum_label": "neutral",
+  "sum_conf": 0.787911
+ },
+ {
+  "sample_id": "ahmed-eesa-00285",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.768369,
+  "sum_label": "neutral",
+  "sum_conf": 0.768369
+ },
+ {
+  "sample_id": "ahmed-eesa-00286",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786327,
+  "sum_label": "neutral",
+  "sum_conf": 0.786327
+ },
+ {
+  "sample_id": "ahmed-eesa-00287",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787983,
+  "sum_label": "neutral",
+  "sum_conf": 0.787983
+ },
+ {
+  "sample_id": "ahmed-eesa-00288",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.716633,
+  "sum_label": "neutral",
+  "sum_conf": 0.716633
+ },
+ {
+  "sample_id": "ahmed-eesa-00289",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787996,
+  "sum_label": "neutral",
+  "sum_conf": 0.787996
+ },
+ {
+  "sample_id": "ahmed-eesa-00290",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.6375,
+  "sum_label": "negative",
+  "sum_conf": 0.720146
+ },
+ {
+  "sample_id": "ahmed-eesa-00291",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.725178,
+  "sum_label": "neutral",
+  "sum_conf": 0.725178
+ },
+ {
+  "sample_id": "ahmed-eesa-00292",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.767863,
+  "sum_label": "neutral",
+  "sum_conf": 0.767863
+ },
+ {
+  "sample_id": "ahmed-eesa-00293",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787972,
+  "sum_label": "neutral",
+  "sum_conf": 0.787972
+ },
+ {
+  "sample_id": "ahmed-eesa-00294",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.779867,
+  "sum_label": "neutral",
+  "sum_conf": 0.779867
+ },
+ {
+  "sample_id": "ahmed-eesa-00295",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.835749,
+  "sum_label": "positive",
+  "sum_conf": 0.835749
+ },
+ {
+  "sample_id": "ahmed-eesa-00296",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.754635,
+  "sum_label": "neutral",
+  "sum_conf": 0.754635
+ },
+ {
+  "sample_id": "ahmed-eesa-00297",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78752,
+  "sum_label": "neutral",
+  "sum_conf": 0.78752
+ },
+ {
+  "sample_id": "ahmed-eesa-00298",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.55,
+  "sum_label": "neutral",
+  "sum_conf": 0.628016
+ },
+ {
+  "sample_id": "ahmed-eesa-00299",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787853,
+  "sum_label": "neutral",
+  "sum_conf": 0.787853
+ },
+ {
+  "sample_id": "ahmed-eesa-00300",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786686,
+  "sum_label": "neutral",
+  "sum_conf": 0.786686
+ },
+ {
+  "sample_id": "ahmed-eesa-00301",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787942,
+  "sum_label": "neutral",
+  "sum_conf": 0.787942
+ },
+ {
+  "sample_id": "ahmed-eesa-00302",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787273,
+  "sum_label": "neutral",
+  "sum_conf": 0.787273
+ },
+ {
+  "sample_id": "ahmed-eesa-00303",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.782878,
+  "sum_label": "neutral",
+  "sum_conf": 0.782878
+ },
+ {
+  "sample_id": "ahmed-eesa-00304",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787678,
+  "sum_label": "neutral",
+  "sum_conf": 0.787678
+ },
+ {
+  "sample_id": "ahmed-eesa-00305",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787547,
+  "sum_label": "neutral",
+  "sum_conf": 0.787547
+ },
+ {
+  "sample_id": "ahmed-eesa-00306",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786932,
+  "sum_label": "neutral",
+  "sum_conf": 0.786932
+ },
+ {
+  "sample_id": "ahmed-eesa-00307",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.675,
+  "sum_label": "positive",
+  "sum_conf": 0.739292
+ },
+ {
+  "sample_id": "ahmed-eesa-00308",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78775,
+  "sum_label": "neutral",
+  "sum_conf": 0.78775
+ },
+ {
+  "sample_id": "ahmed-eesa-00309",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787956,
+  "sum_label": "neutral",
+  "sum_conf": 0.787956
+ },
+ {
+  "sample_id": "ahmed-eesa-00310",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.600297,
+  "sum_label": "neutral",
+  "sum_conf": 0.600297
+ },
+ {
+  "sample_id": "ahmed-eesa-00311",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.808313,
+  "sum_label": "neutral",
+  "sum_conf": 0.808313
+ },
+ {
+  "sample_id": "ahmed-eesa-00312",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78451,
+  "sum_label": "neutral",
+  "sum_conf": 0.78451
+ },
+ {
+  "sample_id": "ahmed-eesa-00313",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787936,
+  "sum_label": "neutral",
+  "sum_conf": 0.787936
+ },
+ {
+  "sample_id": "ahmed-eesa-00314",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787487,
+  "sum_label": "neutral",
+  "sum_conf": 0.787487
+ },
+ {
+  "sample_id": "ahmed-eesa-00315",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786104,
+  "sum_label": "neutral",
+  "sum_conf": 0.786104
+ },
+ {
+  "sample_id": "ahmed-eesa-00316",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.788004,
+  "sum_label": "neutral",
+  "sum_conf": 0.788004
+ },
+ {
+  "sample_id": "ahmed-eesa-00317",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.7877,
+  "sum_label": "neutral",
+  "sum_conf": 0.7877
+ },
+ {
+  "sample_id": "ahmed-eesa-00318",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787302,
+  "sum_label": "neutral",
+  "sum_conf": 0.787302
+ },
+ {
+  "sample_id": "ahmed-eesa-00319",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.784805,
+  "sum_label": "neutral",
+  "sum_conf": 0.784805
+ },
+ {
+  "sample_id": "ahmed-eesa-00320",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.559742,
+  "sum_label": "neutral",
+  "sum_conf": 0.578492
+ },
+ {
+  "sample_id": "ahmed-eesa-00321",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787983,
+  "sum_label": "neutral",
+  "sum_conf": 0.787983
+ },
+ {
+  "sample_id": "ahmed-eesa-00322",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78481,
+  "sum_label": "neutral",
+  "sum_conf": 0.78481
+ },
+ {
+  "sample_id": "ahmed-eesa-00323",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78731,
+  "sum_label": "neutral",
+  "sum_conf": 0.78731
+ },
+ {
+  "sample_id": "ahmed-eesa-00324",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787496,
+  "sum_label": "neutral",
+  "sum_conf": 0.787496
+ },
+ {
+  "sample_id": "ahmed-eesa-00325",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787687,
+  "sum_label": "neutral",
+  "sum_conf": 0.787687
+ },
+ {
+  "sample_id": "ahmed-eesa-00326",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787572,
+  "sum_label": "neutral",
+  "sum_conf": 0.787572
+ },
+ {
+  "sample_id": "ahmed-eesa-00327",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.770847,
+  "sum_label": "neutral",
+  "sum_conf": 0.770847
+ },
+ {
+  "sample_id": "ahmed-eesa-00328",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786979,
+  "sum_label": "neutral",
+  "sum_conf": 0.786979
+ },
+ {
+  "sample_id": "ahmed-eesa-00329",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.705647,
+  "sum_label": "neutral",
+  "sum_conf": 0.705647
+ },
+ {
+  "sample_id": "ahmed-eesa-00330",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": true,
+  "hard_label": "neutral",
+  "hard_conf": 0.380923,
+  "sum_label": "neutral",
+  "sum_conf": 0.424673
+ },
+ {
+  "sample_id": "ahmed-eesa-00331",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787889,
+  "sum_label": "neutral",
+  "sum_conf": 0.787889
+ },
+ {
+  "sample_id": "ahmed-eesa-00332",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787964,
+  "sum_label": "neutral",
+  "sum_conf": 0.787964
+ },
+ {
+  "sample_id": "ahmed-eesa-00333",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78775,
+  "sum_label": "neutral",
+  "sum_conf": 0.78775
+ },
+ {
+  "sample_id": "ahmed-eesa-00334",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787978,
+  "sum_label": "neutral",
+  "sum_conf": 0.787978
+ },
+ {
+  "sample_id": "ahmed-eesa-00335",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787904,
+  "sum_label": "neutral",
+  "sum_conf": 0.787904
+ },
+ {
+  "sample_id": "ahmed-eesa-00336",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787722,
+  "sum_label": "neutral",
+  "sum_conf": 0.787722
+ },
+ {
+  "sample_id": "ahmed-eesa-00337",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.73569,
+  "sum_label": "neutral",
+  "sum_conf": 0.73569
+ },
+ {
+  "sample_id": "ahmed-eesa-00338",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.776054,
+  "sum_label": "neutral",
+  "sum_conf": 0.776054
+ },
+ {
+  "sample_id": "ahmed-eesa-00339",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787953,
+  "sum_label": "neutral",
+  "sum_conf": 0.787953
+ },
+ {
+  "sample_id": "ahmed-eesa-00340",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787518,
+  "sum_label": "neutral",
+  "sum_conf": 0.787518
+ },
+ {
+  "sample_id": "ahmed-eesa-00341",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786903,
+  "sum_label": "neutral",
+  "sum_conf": 0.786903
+ },
+ {
+  "sample_id": "ahmed-eesa-00342",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787894,
+  "sum_label": "neutral",
+  "sum_conf": 0.787894
+ },
+ {
+  "sample_id": "ahmed-eesa-00343",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.781956,
+  "sum_label": "neutral",
+  "sum_conf": 0.781956
+ },
+ {
+  "sample_id": "ahmed-eesa-00344",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78678,
+  "sum_label": "neutral",
+  "sum_conf": 0.78678
+ },
+ {
+  "sample_id": "ahmed-eesa-00345",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787198,
+  "sum_label": "neutral",
+  "sum_conf": 0.787198
+ },
+ {
+  "sample_id": "ahmed-eesa-00346",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.686443,
+  "sum_label": "neutral",
+  "sum_conf": 0.686443
+ },
+ {
+  "sample_id": "ahmed-eesa-00347",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787567,
+  "sum_label": "neutral",
+  "sum_conf": 0.787567
+ },
+ {
+  "sample_id": "ahmed-eesa-00348",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787931,
+  "sum_label": "neutral",
+  "sum_conf": 0.787931
+ },
+ {
+  "sample_id": "ahmed-eesa-00349",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.742576,
+  "sum_label": "neutral",
+  "sum_conf": 0.742576
+ },
+ {
+  "sample_id": "ahmed-eesa-00350",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78764,
+  "sum_label": "neutral",
+  "sum_conf": 0.78764
+ },
+ {
+  "sample_id": "ahmed-eesa-00351",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.711557,
+  "sum_label": "neutral",
+  "sum_conf": 0.711557
+ },
+ {
+  "sample_id": "ahmed-eesa-00352",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.702403,
+  "sum_label": "neutral",
+  "sum_conf": 0.702403
+ },
+ {
+  "sample_id": "ahmed-eesa-00353",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786912,
+  "sum_label": "neutral",
+  "sum_conf": 0.786912
+ },
+ {
+  "sample_id": "ahmed-eesa-00354",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786006,
+  "sum_label": "neutral",
+  "sum_conf": 0.786006
+ },
+ {
+  "sample_id": "ahmed-eesa-00355",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787919,
+  "sum_label": "neutral",
+  "sum_conf": 0.787919
+ },
+ {
+  "sample_id": "ahmed-eesa-00356",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785507,
+  "sum_label": "neutral",
+  "sum_conf": 0.785507
+ },
+ {
+  "sample_id": "ahmed-eesa-00357",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78786,
+  "sum_label": "neutral",
+  "sum_conf": 0.78786
+ },
+ {
+  "sample_id": "ahmed-eesa-00358",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.712859,
+  "sum_label": "negative",
+  "sum_conf": 0.712859
+ },
+ {
+  "sample_id": "ahmed-eesa-00359",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.783512,
+  "sum_label": "neutral",
+  "sum_conf": 0.783512
+ },
+ {
+  "sample_id": "ahmed-eesa-00360",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.7879,
+  "sum_label": "neutral",
+  "sum_conf": 0.7879
+ },
+ {
+  "sample_id": "ahmed-eesa-00361",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.734332,
+  "sum_label": "neutral",
+  "sum_conf": 0.734332
+ },
+ {
+  "sample_id": "ahmed-eesa-00362",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.6375,
+  "sum_label": "negative",
+  "sum_conf": 0.708707
+ },
+ {
+  "sample_id": "ahmed-eesa-00363",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": true,
+  "hard_label": "neutral",
+  "hard_conf": 0.39017,
+  "sum_label": "neutral",
+  "sum_conf": 0.43392
+ },
+ {
+  "sample_id": "ahmed-eesa-00364",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787542,
+  "sum_label": "neutral",
+  "sum_conf": 0.787542
+ },
+ {
+  "sample_id": "ahmed-eesa-00365",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.783243,
+  "sum_label": "neutral",
+  "sum_conf": 0.783243
+ },
+ {
+  "sample_id": "ahmed-eesa-00366",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.85634,
+  "sum_label": "positive",
+  "sum_conf": 0.85634
+ },
+ {
+  "sample_id": "ahmed-eesa-00367",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.779789,
+  "sum_label": "neutral",
+  "sum_conf": 0.779789
+ },
+ {
+  "sample_id": "ahmed-eesa-00368",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785436,
+  "sum_label": "neutral",
+  "sum_conf": 0.785436
+ },
+ {
+  "sample_id": "ahmed-eesa-00369",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787923,
+  "sum_label": "neutral",
+  "sum_conf": 0.787923
+ },
+ {
+  "sample_id": "ahmed-eesa-00370",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787888,
+  "sum_label": "neutral",
+  "sum_conf": 0.787888
+ },
+ {
+  "sample_id": "ahmed-eesa-00371",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787861,
+  "sum_label": "neutral",
+  "sum_conf": 0.787861
+ },
+ {
+  "sample_id": "ahmed-eesa-00372",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786883,
+  "sum_label": "neutral",
+  "sum_conf": 0.786883
+ },
+ {
+  "sample_id": "ahmed-eesa-00373",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787921,
+  "sum_label": "neutral",
+  "sum_conf": 0.787921
+ },
+ {
+  "sample_id": "ahmed-eesa-00374",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.722933,
+  "sum_label": "neutral",
+  "sum_conf": 0.722933
+ },
+ {
+  "sample_id": "ahmed-eesa-00375",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787969,
+  "sum_label": "neutral",
+  "sum_conf": 0.787969
+ },
+ {
+  "sample_id": "ahmed-eesa-00376",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787936,
+  "sum_label": "neutral",
+  "sum_conf": 0.787936
+ },
+ {
+  "sample_id": "ahmed-eesa-00377",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786352,
+  "sum_label": "neutral",
+  "sum_conf": 0.786352
+ },
+ {
+  "sample_id": "ahmed-eesa-00378",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787296,
+  "sum_label": "neutral",
+  "sum_conf": 0.787296
+ },
+ {
+  "sample_id": "ahmed-eesa-00379",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.788004,
+  "sum_label": "neutral",
+  "sum_conf": 0.788004
+ },
+ {
+  "sample_id": "ahmed-eesa-00380",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785124,
+  "sum_label": "neutral",
+  "sum_conf": 0.785124
+ },
+ {
+  "sample_id": "ahmed-eesa-00381",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785975,
+  "sum_label": "neutral",
+  "sum_conf": 0.785975
+ },
+ {
+  "sample_id": "ahmed-eesa-00382",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.800751,
+  "sum_label": "positive",
+  "sum_conf": 0.800751
+ },
+ {
+  "sample_id": "ahmed-eesa-00383",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787681,
+  "sum_label": "neutral",
+  "sum_conf": 0.787681
+ },
+ {
+  "sample_id": "ahmed-eesa-00384",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787755,
+  "sum_label": "neutral",
+  "sum_conf": 0.787755
+ },
+ {
+  "sample_id": "ahmed-eesa-00385",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787518,
+  "sum_label": "neutral",
+  "sum_conf": 0.787518
+ },
+ {
+  "sample_id": "ahmed-eesa-00386",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787374,
+  "sum_label": "neutral",
+  "sum_conf": 0.787374
+ },
+ {
+  "sample_id": "ahmed-eesa-00387",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786676,
+  "sum_label": "neutral",
+  "sum_conf": 0.786676
+ },
+ {
+  "sample_id": "ahmed-eesa-00388",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787211,
+  "sum_label": "neutral",
+  "sum_conf": 0.787211
+ },
+ {
+  "sample_id": "ahmed-eesa-00389",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.744425,
+  "sum_label": "neutral",
+  "sum_conf": 0.744425
+ },
+ {
+  "sample_id": "ahmed-eesa-00390",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78775,
+  "sum_label": "neutral",
+  "sum_conf": 0.78775
+ },
+ {
+  "sample_id": "ahmed-eesa-00391",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78783,
+  "sum_label": "neutral",
+  "sum_conf": 0.78783
+ },
+ {
+  "sample_id": "ahmed-eesa-00392",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787332,
+  "sum_label": "neutral",
+  "sum_conf": 0.787332
+ },
+ {
+  "sample_id": "ahmed-eesa-00393",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787097,
+  "sum_label": "neutral",
+  "sum_conf": 0.787097
+ },
+ {
+  "sample_id": "ahmed-eesa-00394",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787921,
+  "sum_label": "neutral",
+  "sum_conf": 0.787921
+ },
+ {
+  "sample_id": "ahmed-eesa-00395",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.763554,
+  "sum_label": "positive",
+  "sum_conf": 0.763554
+ },
+ {
+  "sample_id": "ahmed-eesa-00396",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.693978,
+  "sum_label": "neutral",
+  "sum_conf": 0.693978
+ },
+ {
+  "sample_id": "ahmed-eesa-00397",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787787,
+  "sum_label": "neutral",
+  "sum_conf": 0.787787
+ },
+ {
+  "sample_id": "ahmed-eesa-00398",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.778356,
+  "sum_label": "neutral",
+  "sum_conf": 0.778356
+ },
+ {
+  "sample_id": "ahmed-eesa-00399",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786191,
+  "sum_label": "neutral",
+  "sum_conf": 0.786191
+ },
+ {
+  "sample_id": "ahmed-eesa-00400",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787725,
+  "sum_label": "neutral",
+  "sum_conf": 0.787725
+ },
+ {
+  "sample_id": "ahmed-eesa-00401",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.784006,
+  "sum_label": "neutral",
+  "sum_conf": 0.784006
+ },
+ {
+  "sample_id": "ahmed-eesa-00402",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787036,
+  "sum_label": "neutral",
+  "sum_conf": 0.787036
+ },
+ {
+  "sample_id": "ahmed-eesa-00403",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78175,
+  "sum_label": "neutral",
+  "sum_conf": 0.78175
+ },
+ {
+  "sample_id": "ahmed-eesa-00404",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.745979,
+  "sum_label": "positive",
+  "sum_conf": 0.745979
+ },
+ {
+  "sample_id": "ahmed-eesa-00405",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78707,
+  "sum_label": "neutral",
+  "sum_conf": 0.78707
+ },
+ {
+  "sample_id": "ahmed-eesa-00406",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.839437,
+  "sum_label": "neutral",
+  "sum_conf": 0.839437
+ },
+ {
+  "sample_id": "ahmed-eesa-00407",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785133,
+  "sum_label": "neutral",
+  "sum_conf": 0.785133
+ },
+ {
+  "sample_id": "ahmed-eesa-00408",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.843258,
+  "sum_label": "neutral",
+  "sum_conf": 0.843258
+ },
+ {
+  "sample_id": "ahmed-eesa-00409",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787506,
+  "sum_label": "neutral",
+  "sum_conf": 0.787506
+ },
+ {
+  "sample_id": "ahmed-eesa-00410",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787925,
+  "sum_label": "neutral",
+  "sum_conf": 0.787925
+ },
+ {
+  "sample_id": "ahmed-eesa-00411",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786115,
+  "sum_label": "neutral",
+  "sum_conf": 0.786115
+ },
+ {
+  "sample_id": "ahmed-eesa-00412",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78784,
+  "sum_label": "neutral",
+  "sum_conf": 0.78784
+ },
+ {
+  "sample_id": "ahmed-eesa-00413",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787578,
+  "sum_label": "neutral",
+  "sum_conf": 0.787578
+ },
+ {
+  "sample_id": "ahmed-eesa-00414",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78567,
+  "sum_label": "neutral",
+  "sum_conf": 0.78567
+ },
+ {
+  "sample_id": "ahmed-eesa-00415",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.783944,
+  "sum_label": "neutral",
+  "sum_conf": 0.783944
+ },
+ {
+  "sample_id": "ahmed-eesa-00416",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787788,
+  "sum_label": "neutral",
+  "sum_conf": 0.787788
+ },
+ {
+  "sample_id": "ahmed-eesa-00417",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787793,
+  "sum_label": "neutral",
+  "sum_conf": 0.787793
+ },
+ {
+  "sample_id": "ahmed-eesa-00418",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.737347,
+  "sum_label": "neutral",
+  "sum_conf": 0.737347
+ },
+ {
+  "sample_id": "ahmed-eesa-00419",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78192,
+  "sum_label": "neutral",
+  "sum_conf": 0.78192
+ },
+ {
+  "sample_id": "ahmed-eesa-00420",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787962,
+  "sum_label": "neutral",
+  "sum_conf": 0.787962
+ },
+ {
+  "sample_id": "ahmed-eesa-00421",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787462,
+  "sum_label": "neutral",
+  "sum_conf": 0.787462
+ },
+ {
+  "sample_id": "ahmed-eesa-00422",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787874,
+  "sum_label": "neutral",
+  "sum_conf": 0.787874
+ },
+ {
+  "sample_id": "ahmed-eesa-00423",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787969,
+  "sum_label": "neutral",
+  "sum_conf": 0.787969
+ },
+ {
+  "sample_id": "ahmed-eesa-00424",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786792,
+  "sum_label": "neutral",
+  "sum_conf": 0.786792
+ },
+ {
+  "sample_id": "ahmed-eesa-00425",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787829,
+  "sum_label": "neutral",
+  "sum_conf": 0.787829
+ },
+ {
+  "sample_id": "ahmed-eesa-00426",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787993,
+  "sum_label": "neutral",
+  "sum_conf": 0.787993
+ },
+ {
+  "sample_id": "ahmed-eesa-00427",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787989,
+  "sum_label": "neutral",
+  "sum_conf": 0.787989
+ },
+ {
+  "sample_id": "ahmed-eesa-00428",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.545801,
+  "sum_label": "neutral",
+  "sum_conf": 0.564551
+ },
+ {
+  "sample_id": "ahmed-eesa-00429",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.77934,
+  "sum_label": "neutral",
+  "sum_conf": 0.77934
+ },
+ {
+  "sample_id": "ahmed-eesa-00430",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786296,
+  "sum_label": "neutral",
+  "sum_conf": 0.786296
+ },
+ {
+  "sample_id": "ahmed-eesa-00431",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786225,
+  "sum_label": "neutral",
+  "sum_conf": 0.786225
+ },
+ {
+  "sample_id": "ahmed-eesa-00432",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787971,
+  "sum_label": "neutral",
+  "sum_conf": 0.787971
+ },
+ {
+  "sample_id": "ahmed-eesa-00433",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.780978,
+  "sum_label": "neutral",
+  "sum_conf": 0.780978
+ },
+ {
+  "sample_id": "ahmed-eesa-00434",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.788005,
+  "sum_label": "neutral",
+  "sum_conf": 0.788005
+ },
+ {
+  "sample_id": "ahmed-eesa-00435",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.708566,
+  "sum_label": "positive",
+  "sum_conf": 0.708566
+ },
+ {
+  "sample_id": "ahmed-eesa-00436",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787915,
+  "sum_label": "neutral",
+  "sum_conf": 0.787915
+ },
+ {
+  "sample_id": "ahmed-eesa-00437",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787119,
+  "sum_label": "neutral",
+  "sum_conf": 0.787119
+ },
+ {
+  "sample_id": "ahmed-eesa-00438",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.783886,
+  "sum_label": "neutral",
+  "sum_conf": 0.783886
+ },
+ {
+  "sample_id": "ahmed-eesa-00439",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.788023,
+  "sum_label": "neutral",
+  "sum_conf": 0.788023
+ },
+ {
+  "sample_id": "ahmed-eesa-00440",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787885,
+  "sum_label": "neutral",
+  "sum_conf": 0.787885
+ },
+ {
+  "sample_id": "ahmed-eesa-00441",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.786595,
+  "sum_label": "neutral",
+  "sum_conf": 0.786595
+ },
+ {
+  "sample_id": "ahmed-eesa-00442",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.4125,
+  "sum_label": "positive",
+  "sum_conf": 0.477343
+ },
+ {
+  "sample_id": "ahmed-eesa-00443",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787981,
+  "sum_label": "neutral",
+  "sum_conf": 0.787981
+ },
+ {
+  "sample_id": "ahmed-eesa-00444",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787216,
+  "sum_label": "neutral",
+  "sum_conf": 0.787216
+ },
+ {
+  "sample_id": "ahmed-eesa-00445",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.84735,
+  "sum_label": "positive",
+  "sum_conf": 0.84735
+ },
+ {
+  "sample_id": "ahmed-eesa-00446",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.827162,
+  "sum_label": "negative",
+  "sum_conf": 0.827162
+ },
+ {
+  "sample_id": "ahmed-eesa-00447",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.775876,
+  "sum_label": "neutral",
+  "sum_conf": 0.775876
+ },
+ {
+  "sample_id": "ahmed-eesa-00448",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78783,
+  "sum_label": "neutral",
+  "sum_conf": 0.78783
+ },
+ {
+  "sample_id": "ahmed-eesa-00449",
+  "true": "neutral",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.4125,
+  "sum_label": "neutral",
+  "sum_conf": 0.541747
+ },
+ {
+  "sample_id": "ahmed-eesa-00450",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.722232,
+  "sum_label": "positive",
+  "sum_conf": 0.722232
+ },
+ {
+  "sample_id": "ahmed-eesa-00451",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787566,
+  "sum_label": "neutral",
+  "sum_conf": 0.787566
+ },
+ {
+  "sample_id": "ahmed-eesa-00452",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.785077,
+  "sum_label": "neutral",
+  "sum_conf": 0.785077
+ },
+ {
+  "sample_id": "ahmed-eesa-00453",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.829209,
+  "sum_label": "positive",
+  "sum_conf": 0.829209
+ },
+ {
+  "sample_id": "ahmed-eesa-00454",
+  "true": "neutral",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.766169,
+  "sum_label": "neutral",
+  "sum_conf": 0.766169
+ },
+ {
+  "sample_id": "ahmed-eesa-00455",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00456",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864333,
+  "sum_label": "positive",
+  "sum_conf": 0.864333
+ },
+ {
+  "sample_id": "ahmed-eesa-00457",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00458",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.859575,
+  "sum_label": "positive",
+  "sum_conf": 0.859575
+ },
+ {
+  "sample_id": "ahmed-eesa-00459",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864322,
+  "sum_label": "positive",
+  "sum_conf": 0.864322
+ },
+ {
+  "sample_id": "ahmed-eesa-00460",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864325,
+  "sum_label": "positive",
+  "sum_conf": 0.864325
+ },
+ {
+  "sample_id": "ahmed-eesa-00461",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.796263,
+  "sum_label": "positive",
+  "sum_conf": 0.796263
+ },
+ {
+  "sample_id": "ahmed-eesa-00462",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.799908,
+  "sum_label": "positive",
+  "sum_conf": 0.799908
+ },
+ {
+  "sample_id": "ahmed-eesa-00463",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00464",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00465",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863063,
+  "sum_label": "positive",
+  "sum_conf": 0.863063
+ },
+ {
+  "sample_id": "ahmed-eesa-00466",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00467",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00468",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00469",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864302,
+  "sum_label": "positive",
+  "sum_conf": 0.864302
+ },
+ {
+  "sample_id": "ahmed-eesa-00470",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00471",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00472",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00473",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864092,
+  "sum_label": "positive",
+  "sum_conf": 0.864092
+ },
+ {
+  "sample_id": "ahmed-eesa-00474",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00475",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00476",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86433,
+  "sum_label": "positive",
+  "sum_conf": 0.86433
+ },
+ {
+  "sample_id": "ahmed-eesa-00477",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00478",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00479",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00480",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863292,
+  "sum_label": "positive",
+  "sum_conf": 0.863292
+ },
+ {
+  "sample_id": "ahmed-eesa-00481",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864201,
+  "sum_label": "positive",
+  "sum_conf": 0.864201
+ },
+ {
+  "sample_id": "ahmed-eesa-00482",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864316,
+  "sum_label": "positive",
+  "sum_conf": 0.864316
+ },
+ {
+  "sample_id": "ahmed-eesa-00483",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00484",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00485",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864238,
+  "sum_label": "positive",
+  "sum_conf": 0.864238
+ },
+ {
+  "sample_id": "ahmed-eesa-00486",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864264,
+  "sum_label": "positive",
+  "sum_conf": 0.864264
+ },
+ {
+  "sample_id": "ahmed-eesa-00487",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.4,
+  "sum_label": "neutral",
+  "sum_conf": 0.474038
+ },
+ {
+  "sample_id": "ahmed-eesa-00488",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.71648,
+  "sum_label": "positive",
+  "sum_conf": 0.71648
+ },
+ {
+  "sample_id": "ahmed-eesa-00489",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00490",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.750121,
+  "sum_label": "neutral",
+  "sum_conf": 0.750121
+ },
+ {
+  "sample_id": "ahmed-eesa-00491",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00492",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00493",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86433,
+  "sum_label": "positive",
+  "sum_conf": 0.86433
+ },
+ {
+  "sample_id": "ahmed-eesa-00494",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864326,
+  "sum_label": "positive",
+  "sum_conf": 0.864326
+ },
+ {
+  "sample_id": "ahmed-eesa-00495",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00496",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864331,
+  "sum_label": "positive",
+  "sum_conf": 0.864331
+ },
+ {
+  "sample_id": "ahmed-eesa-00497",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00498",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00499",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00500",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00501",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00502",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864228,
+  "sum_label": "positive",
+  "sum_conf": 0.864228
+ },
+ {
+  "sample_id": "ahmed-eesa-00503",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00504",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00505",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.860034,
+  "sum_label": "positive",
+  "sum_conf": 0.860034
+ },
+ {
+  "sample_id": "ahmed-eesa-00506",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.755892,
+  "sum_label": "positive",
+  "sum_conf": 0.755892
+ },
+ {
+  "sample_id": "ahmed-eesa-00507",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.808129,
+  "sum_label": "positive",
+  "sum_conf": 0.808129
+ },
+ {
+  "sample_id": "ahmed-eesa-00508",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864333,
+  "sum_label": "positive",
+  "sum_conf": 0.864333
+ },
+ {
+  "sample_id": "ahmed-eesa-00509",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00510",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00511",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.787053,
+  "sum_label": "neutral",
+  "sum_conf": 0.787053
+ },
+ {
+  "sample_id": "ahmed-eesa-00512",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00513",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00514",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.81967,
+  "sum_label": "positive",
+  "sum_conf": 0.81967
+ },
+ {
+  "sample_id": "ahmed-eesa-00515",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00516",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.772599,
+  "sum_label": "positive",
+  "sum_conf": 0.772599
+ },
+ {
+  "sample_id": "ahmed-eesa-00517",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.79836,
+  "sum_label": "positive",
+  "sum_conf": 0.79836
+ },
+ {
+  "sample_id": "ahmed-eesa-00518",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00519",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00520",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00521",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864333,
+  "sum_label": "positive",
+  "sum_conf": 0.864333
+ },
+ {
+  "sample_id": "ahmed-eesa-00522",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00523",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00524",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.854502,
+  "sum_label": "positive",
+  "sum_conf": 0.854502
+ },
+ {
+  "sample_id": "ahmed-eesa-00525",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864323,
+  "sum_label": "positive",
+  "sum_conf": 0.864323
+ },
+ {
+  "sample_id": "ahmed-eesa-00526",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00527",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.850716,
+  "sum_label": "positive",
+  "sum_conf": 0.850716
+ },
+ {
+  "sample_id": "ahmed-eesa-00528",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00529",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00530",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00531",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864316,
+  "sum_label": "positive",
+  "sum_conf": 0.864316
+ },
+ {
+  "sample_id": "ahmed-eesa-00532",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86428,
+  "sum_label": "positive",
+  "sum_conf": 0.86428
+ },
+ {
+  "sample_id": "ahmed-eesa-00533",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00534",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00535",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864332,
+  "sum_label": "positive",
+  "sum_conf": 0.864332
+ },
+ {
+  "sample_id": "ahmed-eesa-00536",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00537",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863878,
+  "sum_label": "positive",
+  "sum_conf": 0.863878
+ },
+ {
+  "sample_id": "ahmed-eesa-00538",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00539",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00540",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00541",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.775496,
+  "sum_label": "neutral",
+  "sum_conf": 0.775496
+ },
+ {
+  "sample_id": "ahmed-eesa-00542",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.6125,
+  "sum_label": "positive",
+  "sum_conf": 0.664795
+ },
+ {
+  "sample_id": "ahmed-eesa-00543",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00544",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863782,
+  "sum_label": "positive",
+  "sum_conf": 0.863782
+ },
+ {
+  "sample_id": "ahmed-eesa-00545",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00546",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86432,
+  "sum_label": "positive",
+  "sum_conf": 0.86432
+ },
+ {
+  "sample_id": "ahmed-eesa-00547",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00548",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00549",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864185,
+  "sum_label": "positive",
+  "sum_conf": 0.864185
+ },
+ {
+  "sample_id": "ahmed-eesa-00550",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00551",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00552",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00553",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00554",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.778906,
+  "sum_label": "positive",
+  "sum_conf": 0.778906
+ },
+ {
+  "sample_id": "ahmed-eesa-00555",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864323,
+  "sum_label": "positive",
+  "sum_conf": 0.864323
+ },
+ {
+  "sample_id": "ahmed-eesa-00556",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00557",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00558",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00559",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864332,
+  "sum_label": "positive",
+  "sum_conf": 0.864332
+ },
+ {
+  "sample_id": "ahmed-eesa-00560",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00561",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864327,
+  "sum_label": "positive",
+  "sum_conf": 0.864327
+ },
+ {
+  "sample_id": "ahmed-eesa-00562",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00563",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00564",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00565",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00566",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.859989,
+  "sum_label": "positive",
+  "sum_conf": 0.859989
+ },
+ {
+  "sample_id": "ahmed-eesa-00567",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00568",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00569",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00570",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00571",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00572",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864332,
+  "sum_label": "positive",
+  "sum_conf": 0.864332
+ },
+ {
+  "sample_id": "ahmed-eesa-00573",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864309,
+  "sum_label": "positive",
+  "sum_conf": 0.864309
+ },
+ {
+  "sample_id": "ahmed-eesa-00574",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00575",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00576",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00577",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00578",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00579",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00580",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00581",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00582",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864089,
+  "sum_label": "positive",
+  "sum_conf": 0.864089
+ },
+ {
+  "sample_id": "ahmed-eesa-00583",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00584",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864321,
+  "sum_label": "positive",
+  "sum_conf": 0.864321
+ },
+ {
+  "sample_id": "ahmed-eesa-00585",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00586",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863228,
+  "sum_label": "positive",
+  "sum_conf": 0.863228
+ },
+ {
+  "sample_id": "ahmed-eesa-00587",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00588",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00589",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00590",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86297,
+  "sum_label": "positive",
+  "sum_conf": 0.86297
+ },
+ {
+  "sample_id": "ahmed-eesa-00591",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00592",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864332,
+  "sum_label": "positive",
+  "sum_conf": 0.864332
+ },
+ {
+  "sample_id": "ahmed-eesa-00593",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864008,
+  "sum_label": "positive",
+  "sum_conf": 0.864008
+ },
+ {
+  "sample_id": "ahmed-eesa-00594",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00595",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00596",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00597",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864127,
+  "sum_label": "positive",
+  "sum_conf": 0.864127
+ },
+ {
+  "sample_id": "ahmed-eesa-00598",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86433,
+  "sum_label": "positive",
+  "sum_conf": 0.86433
+ },
+ {
+  "sample_id": "ahmed-eesa-00599",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00600",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864255,
+  "sum_label": "positive",
+  "sum_conf": 0.864255
+ },
+ {
+  "sample_id": "ahmed-eesa-00601",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00602",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00603",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00604",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864058,
+  "sum_label": "positive",
+  "sum_conf": 0.864058
+ },
+ {
+  "sample_id": "ahmed-eesa-00605",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.851624,
+  "sum_label": "positive",
+  "sum_conf": 0.851624
+ },
+ {
+  "sample_id": "ahmed-eesa-00606",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.573341,
+  "sum_label": "positive",
+  "sum_conf": 0.610841
+ },
+ {
+  "sample_id": "ahmed-eesa-00607",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00608",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00609",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864127,
+  "sum_label": "positive",
+  "sum_conf": 0.864127
+ },
+ {
+  "sample_id": "ahmed-eesa-00610",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.856174,
+  "sum_label": "positive",
+  "sum_conf": 0.856174
+ },
+ {
+  "sample_id": "ahmed-eesa-00611",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00612",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00613",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864278,
+  "sum_label": "positive",
+  "sum_conf": 0.864278
+ },
+ {
+  "sample_id": "ahmed-eesa-00614",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864333,
+  "sum_label": "positive",
+  "sum_conf": 0.864333
+ },
+ {
+  "sample_id": "ahmed-eesa-00615",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.752974,
+  "sum_label": "positive",
+  "sum_conf": 0.752974
+ },
+ {
+  "sample_id": "ahmed-eesa-00616",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00617",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863753,
+  "sum_label": "positive",
+  "sum_conf": 0.863753
+ },
+ {
+  "sample_id": "ahmed-eesa-00618",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.862329,
+  "sum_label": "positive",
+  "sum_conf": 0.862329
+ },
+ {
+  "sample_id": "ahmed-eesa-00619",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864212,
+  "sum_label": "positive",
+  "sum_conf": 0.864212
+ },
+ {
+  "sample_id": "ahmed-eesa-00620",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864328,
+  "sum_label": "positive",
+  "sum_conf": 0.864328
+ },
+ {
+  "sample_id": "ahmed-eesa-00621",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.861865,
+  "sum_label": "positive",
+  "sum_conf": 0.861865
+ },
+ {
+  "sample_id": "ahmed-eesa-00622",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.822327,
+  "sum_label": "positive",
+  "sum_conf": 0.822327
+ },
+ {
+  "sample_id": "ahmed-eesa-00623",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00624",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00625",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00626",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863571,
+  "sum_label": "positive",
+  "sum_conf": 0.863571
+ },
+ {
+  "sample_id": "ahmed-eesa-00627",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00628",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864141,
+  "sum_label": "positive",
+  "sum_conf": 0.864141
+ },
+ {
+  "sample_id": "ahmed-eesa-00629",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864139,
+  "sum_label": "positive",
+  "sum_conf": 0.864139
+ },
+ {
+  "sample_id": "ahmed-eesa-00630",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00631",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00632",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00633",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00634",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00635",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.65,
+  "sum_label": "neutral",
+  "sum_conf": 0.704151
+ },
+ {
+  "sample_id": "ahmed-eesa-00636",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864313,
+  "sum_label": "positive",
+  "sum_conf": 0.864313
+ },
+ {
+  "sample_id": "ahmed-eesa-00637",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00638",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00639",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863358,
+  "sum_label": "positive",
+  "sum_conf": 0.863358
+ },
+ {
+  "sample_id": "ahmed-eesa-00640",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00641",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00642",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.736577,
+  "sum_label": "positive",
+  "sum_conf": 0.736577
+ },
+ {
+  "sample_id": "ahmed-eesa-00643",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00644",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00645",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.776856,
+  "sum_label": "neutral",
+  "sum_conf": 0.776856
+ },
+ {
+  "sample_id": "ahmed-eesa-00646",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.743049,
+  "sum_label": "neutral",
+  "sum_conf": 0.743049
+ },
+ {
+  "sample_id": "ahmed-eesa-00647",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00648",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00649",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86295,
+  "sum_label": "positive",
+  "sum_conf": 0.86295
+ },
+ {
+  "sample_id": "ahmed-eesa-00650",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00651",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00652",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864333,
+  "sum_label": "positive",
+  "sum_conf": 0.864333
+ },
+ {
+  "sample_id": "ahmed-eesa-00653",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.752494,
+  "sum_label": "positive",
+  "sum_conf": 0.752494
+ },
+ {
+  "sample_id": "ahmed-eesa-00654",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00655",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00656",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86432,
+  "sum_label": "positive",
+  "sum_conf": 0.86432
+ },
+ {
+  "sample_id": "ahmed-eesa-00657",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00658",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864315,
+  "sum_label": "positive",
+  "sum_conf": 0.864315
+ },
+ {
+  "sample_id": "ahmed-eesa-00659",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00660",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.771828,
+  "sum_label": "neutral",
+  "sum_conf": 0.771828
+ },
+ {
+  "sample_id": "ahmed-eesa-00661",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00662",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00663",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00664",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.807297,
+  "sum_label": "positive",
+  "sum_conf": 0.807297
+ },
+ {
+  "sample_id": "ahmed-eesa-00665",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863714,
+  "sum_label": "positive",
+  "sum_conf": 0.863714
+ },
+ {
+  "sample_id": "ahmed-eesa-00666",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00667",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78394,
+  "sum_label": "neutral",
+  "sum_conf": 0.78394
+ },
+ {
+  "sample_id": "ahmed-eesa-00668",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00669",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863718,
+  "sum_label": "positive",
+  "sum_conf": 0.863718
+ },
+ {
+  "sample_id": "ahmed-eesa-00670",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00671",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864191,
+  "sum_label": "positive",
+  "sum_conf": 0.864191
+ },
+ {
+  "sample_id": "ahmed-eesa-00672",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00673",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00674",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.858152,
+  "sum_label": "positive",
+  "sum_conf": 0.858152
+ },
+ {
+  "sample_id": "ahmed-eesa-00675",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.862965,
+  "sum_label": "positive",
+  "sum_conf": 0.862965
+ },
+ {
+  "sample_id": "ahmed-eesa-00676",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00677",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00678",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00679",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00680",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00681",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864329,
+  "sum_label": "positive",
+  "sum_conf": 0.864329
+ },
+ {
+  "sample_id": "ahmed-eesa-00682",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00683",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864225,
+  "sum_label": "positive",
+  "sum_conf": 0.864225
+ },
+ {
+  "sample_id": "ahmed-eesa-00684",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00685",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00686",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.852096,
+  "sum_label": "positive",
+  "sum_conf": 0.852096
+ },
+ {
+  "sample_id": "ahmed-eesa-00687",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864287,
+  "sum_label": "positive",
+  "sum_conf": 0.864287
+ },
+ {
+  "sample_id": "ahmed-eesa-00688",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00689",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00690",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00691",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.833732,
+  "sum_label": "positive",
+  "sum_conf": 0.833732
+ },
+ {
+  "sample_id": "ahmed-eesa-00692",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864316,
+  "sum_label": "positive",
+  "sum_conf": 0.864316
+ },
+ {
+  "sample_id": "ahmed-eesa-00693",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.81144,
+  "sum_label": "positive",
+  "sum_conf": 0.81144
+ },
+ {
+  "sample_id": "ahmed-eesa-00694",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00695",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00696",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00697",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863969,
+  "sum_label": "positive",
+  "sum_conf": 0.863969
+ },
+ {
+  "sample_id": "ahmed-eesa-00698",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864163,
+  "sum_label": "positive",
+  "sum_conf": 0.864163
+ },
+ {
+  "sample_id": "ahmed-eesa-00699",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00700",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00701",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00702",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00703",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00704",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863664,
+  "sum_label": "positive",
+  "sum_conf": 0.863664
+ },
+ {
+  "sample_id": "ahmed-eesa-00705",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00706",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.4125,
+  "sum_label": "positive",
+  "sum_conf": 0.490286
+ },
+ {
+  "sample_id": "ahmed-eesa-00707",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00708",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00709",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00710",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864325,
+  "sum_label": "positive",
+  "sum_conf": 0.864325
+ },
+ {
+  "sample_id": "ahmed-eesa-00711",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.765569,
+  "sum_label": "positive",
+  "sum_conf": 0.765569
+ },
+ {
+  "sample_id": "ahmed-eesa-00712",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864331,
+  "sum_label": "positive",
+  "sum_conf": 0.864331
+ },
+ {
+  "sample_id": "ahmed-eesa-00713",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00714",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00715",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.6625,
+  "sum_label": "positive",
+  "sum_conf": 0.703052
+ },
+ {
+  "sample_id": "ahmed-eesa-00716",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00717",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.845836,
+  "sum_label": "positive",
+  "sum_conf": 0.845836
+ },
+ {
+  "sample_id": "ahmed-eesa-00718",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86407,
+  "sum_label": "positive",
+  "sum_conf": 0.86407
+ },
+ {
+  "sample_id": "ahmed-eesa-00719",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00720",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.858966,
+  "sum_label": "positive",
+  "sum_conf": 0.858966
+ },
+ {
+  "sample_id": "ahmed-eesa-00721",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00722",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864276,
+  "sum_label": "positive",
+  "sum_conf": 0.864276
+ },
+ {
+  "sample_id": "ahmed-eesa-00723",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00724",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.823613,
+  "sum_label": "positive",
+  "sum_conf": 0.823613
+ },
+ {
+  "sample_id": "ahmed-eesa-00725",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.861488,
+  "sum_label": "positive",
+  "sum_conf": 0.861488
+ },
+ {
+  "sample_id": "ahmed-eesa-00726",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00727",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00728",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864135,
+  "sum_label": "positive",
+  "sum_conf": 0.864135
+ },
+ {
+  "sample_id": "ahmed-eesa-00729",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864297,
+  "sum_label": "positive",
+  "sum_conf": 0.864297
+ },
+ {
+  "sample_id": "ahmed-eesa-00730",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864282,
+  "sum_label": "positive",
+  "sum_conf": 0.864282
+ },
+ {
+  "sample_id": "ahmed-eesa-00731",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00732",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00733",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00734",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.847407,
+  "sum_label": "positive",
+  "sum_conf": 0.847407
+ },
+ {
+  "sample_id": "ahmed-eesa-00735",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.761912,
+  "sum_label": "positive",
+  "sum_conf": 0.761912
+ },
+ {
+  "sample_id": "ahmed-eesa-00736",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86426,
+  "sum_label": "positive",
+  "sum_conf": 0.86426
+ },
+ {
+  "sample_id": "ahmed-eesa-00737",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864315,
+  "sum_label": "positive",
+  "sum_conf": 0.864315
+ },
+ {
+  "sample_id": "ahmed-eesa-00738",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.855278,
+  "sum_label": "positive",
+  "sum_conf": 0.855278
+ },
+ {
+  "sample_id": "ahmed-eesa-00739",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864332,
+  "sum_label": "positive",
+  "sum_conf": 0.864332
+ },
+ {
+  "sample_id": "ahmed-eesa-00740",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00741",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00742",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.856036,
+  "sum_label": "positive",
+  "sum_conf": 0.856036
+ },
+ {
+  "sample_id": "ahmed-eesa-00743",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00744",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864301,
+  "sum_label": "positive",
+  "sum_conf": 0.864301
+ },
+ {
+  "sample_id": "ahmed-eesa-00745",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00746",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00747",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.868451,
+  "sum_label": "positive",
+  "sum_conf": 0.868451
+ },
+ {
+  "sample_id": "ahmed-eesa-00748",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00749",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00750",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00751",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864332,
+  "sum_label": "positive",
+  "sum_conf": 0.864332
+ },
+ {
+  "sample_id": "ahmed-eesa-00752",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.862304,
+  "sum_label": "positive",
+  "sum_conf": 0.862304
+ },
+ {
+  "sample_id": "ahmed-eesa-00753",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864329,
+  "sum_label": "positive",
+  "sum_conf": 0.864329
+ },
+ {
+  "sample_id": "ahmed-eesa-00754",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00755",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864318,
+  "sum_label": "positive",
+  "sum_conf": 0.864318
+ },
+ {
+  "sample_id": "ahmed-eesa-00756",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00757",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864329,
+  "sum_label": "positive",
+  "sum_conf": 0.864329
+ },
+ {
+  "sample_id": "ahmed-eesa-00758",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00759",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00760",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00761",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.862937,
+  "sum_label": "positive",
+  "sum_conf": 0.862937
+ },
+ {
+  "sample_id": "ahmed-eesa-00762",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00763",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.861542,
+  "sum_label": "positive",
+  "sum_conf": 0.861542
+ },
+ {
+  "sample_id": "ahmed-eesa-00764",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.718173,
+  "sum_label": "negative",
+  "sum_conf": 0.718173
+ },
+ {
+  "sample_id": "ahmed-eesa-00765",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86433,
+  "sum_label": "positive",
+  "sum_conf": 0.86433
+ },
+ {
+  "sample_id": "ahmed-eesa-00766",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.78463,
+  "sum_label": "neutral",
+  "sum_conf": 0.78463
+ },
+ {
+  "sample_id": "ahmed-eesa-00767",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00768",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00769",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864227,
+  "sum_label": "positive",
+  "sum_conf": 0.864227
+ },
+ {
+  "sample_id": "ahmed-eesa-00770",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "neutral",
+  "hard_conf": 0.782669,
+  "sum_label": "neutral",
+  "sum_conf": 0.782669
+ },
+ {
+  "sample_id": "ahmed-eesa-00771",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00772",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863606,
+  "sum_label": "positive",
+  "sum_conf": 0.863606
+ },
+ {
+  "sample_id": "ahmed-eesa-00773",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.827485,
+  "sum_label": "positive",
+  "sum_conf": 0.827485
+ },
+ {
+  "sample_id": "ahmed-eesa-00774",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00775",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00776",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00777",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864329,
+  "sum_label": "positive",
+  "sum_conf": 0.864329
+ },
+ {
+  "sample_id": "ahmed-eesa-00778",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00779",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864334,
+  "sum_label": "positive",
+  "sum_conf": 0.864334
+ },
+ {
+  "sample_id": "ahmed-eesa-00780",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864287,
+  "sum_label": "positive",
+  "sum_conf": 0.864287
+ },
+ {
+  "sample_id": "ahmed-eesa-00781",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00782",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00783",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00784",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00785",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864331,
+  "sum_label": "positive",
+  "sum_conf": 0.864331
+ },
+ {
+  "sample_id": "ahmed-eesa-00786",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864329,
+  "sum_label": "positive",
+  "sum_conf": 0.864329
+ },
+ {
+  "sample_id": "ahmed-eesa-00787",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00788",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00789",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864327,
+  "sum_label": "positive",
+  "sum_conf": 0.864327
+ },
+ {
+  "sample_id": "ahmed-eesa-00790",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00791",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864061,
+  "sum_label": "positive",
+  "sum_conf": 0.864061
+ },
+ {
+  "sample_id": "ahmed-eesa-00792",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.763012,
+  "sum_label": "positive",
+  "sum_conf": 0.763012
+ },
+ {
+  "sample_id": "ahmed-eesa-00793",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00794",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.863531,
+  "sum_label": "positive",
+  "sum_conf": 0.863531
+ },
+ {
+  "sample_id": "ahmed-eesa-00795",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864075,
+  "sum_label": "positive",
+  "sum_conf": 0.864075
+ },
+ {
+  "sample_id": "ahmed-eesa-00796",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.848854,
+  "sum_label": "positive",
+  "sum_conf": 0.848854
+ },
+ {
+  "sample_id": "ahmed-eesa-00797",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864335,
+  "sum_label": "positive",
+  "sum_conf": 0.864335
+ },
+ {
+  "sample_id": "ahmed-eesa-00798",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864134,
+  "sum_label": "positive",
+  "sum_conf": 0.864134
+ },
+ {
+  "sample_id": "ahmed-eesa-00799",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00800",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00801",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00802",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864321,
+  "sum_label": "positive",
+  "sum_conf": 0.864321
+ },
+ {
+  "sample_id": "ahmed-eesa-00803",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00804",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00805",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00806",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.86158,
+  "sum_label": "positive",
+  "sum_conf": 0.86158
+ },
+ {
+  "sample_id": "ahmed-eesa-00807",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864331,
+  "sum_label": "positive",
+  "sum_conf": 0.864331
+ },
+ {
+  "sample_id": "ahmed-eesa-00808",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864333,
+  "sum_label": "positive",
+  "sum_conf": 0.864333
+ },
+ {
+  "sample_id": "ahmed-eesa-00809",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.858665,
+  "sum_label": "positive",
+  "sum_conf": 0.858665
+ },
+ {
+  "sample_id": "ahmed-eesa-00810",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00811",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00812",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00813",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00814",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00815",
+  "true": "positive",
+  "escalated": true,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.65,
+  "sum_label": "positive",
+  "sum_conf": 0.710752
+ },
+ {
+  "sample_id": "ahmed-eesa-00816",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "positive",
+  "hard_conf": 0.864336,
+  "sum_label": "positive",
+  "sum_conf": 0.864336
+ },
+ {
+  "sample_id": "ahmed-eesa-00817",
+  "true": "positive",
+  "escalated": false,
+  "gate_fired": false,
+  "hard_label": "negative",
+  "hard_conf": 0.712704,
+  "sum_label": "negative",
+  "sum_conf": 0.712704
+ }
+]

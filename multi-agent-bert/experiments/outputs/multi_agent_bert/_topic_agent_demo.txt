@@ -1,0 +1,35 @@
+==========================================================================================
+TEXT (gold=tech): تعتبر blockchain technology من اهم الابتكارات في عالم financial transactions لانها توفر مستوي عال من الامان
+
+--- Lexical Agent ---
+  raw JSON: {"reasoning": "The main subject is blockchain technology, which is a specific technology related to financial transactions, indicating a focus on tech rather than finance or business.", "label": "tech", "confidence": 0.9, "evidence": ["blockchain technology", "financial transactions", "مستوي عال من الامان"]}
+
+--- Logic Agent ---
+  raw JSON: {"reasoning": "The primary subject is blockchain technology, which is a technological innovation used in financial transactions, emphasizing its security features.", "label": "tech", "confidence": 0.9, "evidence": ["blockchain technology", "financial transactions", "high level of security"]}
+
+--- Contextual Agent ---
+  raw JSON: {"reasoning": "The message is fundamentally about blockchain technology and its significance in financial transactions, emphasizing security. Therefore, the core subject is technology, specifically blockchain, rather than the financial transactions themselves.", "label": "tech", "confidence": 0.9, "evidence": ["blockchain technology", "financial transactions", "high level of security"]}
+
+==========================================================================================
+TEXT (gold=medical): اذا تم تطبيق telemedicine بشكل فعال يمكن ان يحسن الوصول الي healthcare services للمرضي في المناطق الناييه
+
+--- Lexical Agent ---
+  raw JSON: {"reasoning": "The main subject is telemedicine and its impact on healthcare services, which falls under clinical healthcare content. Therefore, the appropriate label is medical as it involves patient care and access to healthcare services.", "label": "medical", "confidence": 0.9, "evidence": ["telemedicine", "healthcare services", "المرضي", "المناطق الناييه"]}
+
+--- Logic Agent ---
+  raw JSON: {"reasoning": "The primary subject is the improvement of access to healthcare services through telemedicine, which relates to clinical healthcare content.", "label": "medical", "confidence": 0.9, "evidence": ["telemedicine", "access to healthcare services", "patients", "clinical care", "healthcare services"]}
+
+--- Contextual Agent ---
+  raw JSON: {"reasoning": "The message discusses the potential benefits of telemedicine in improving access to healthcare services for patients in remote areas, which falls under clinical healthcare content. Therefore, the core subject is about medical care and services.", "label": "medical", "confidence": 0.9, "evidence": ["telemedicine", "healthcare services", "patients in remote areas"]}
+
+==========================================================================================
+TEXT (gold=finance): اذا كنت تبحث عن investment opportunities يجب ان تدرس market trends بعنايه
+
+--- Lexical Agent ---
+  raw JSON: {"reasoning": "The main subject is about investment opportunities and market trends, which directly relates to financial markets and investments. Therefore, the dominant topic is finance.", "label": "finance", "confidence": 0.9, "evidence": ["investment opportunities", "market trends"]}
+
+--- Logic Agent ---
+  raw JSON: {"reasoning": "The primary subject is investment opportunities, which directly relates to market trends and financial markets.", "label": "finance", "confidence": 0.9, "evidence": ["investment opportunities", "market trends", "financial markets"]}
+
+--- Contextual Agent ---
+  raw JSON: {"reasoning": "The message is fundamentally about investment opportunities and market trends, which are key aspects of financial markets. Therefore, the core subject is finance.", "label": "finance", "confidence": 0.9, "evidence": ["investment opportunities", "market trends"]}

@@ -1,0 +1,22 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Loaded 1219 real test sentences.
+
+========================================================
+ENTITY / SPAN-LEVEL results (seqeval) — fine-tuned XLM-R
+========================================================
+              precision    recall  f1-score   support
+
+         LOC      0.863     0.922     0.891       717
+        MISC      0.445     0.502     0.472       227
+         ORG      0.688     0.702     0.695       433
+        PERS      0.924     0.931     0.928       723
+
+   micro avg      0.799     0.834     0.816      2100
+   macro avg      0.730     0.764     0.746      2100
+weighted avg      0.803     0.834     0.818      2100
+
+micro entity-F1 = 0.816
+
+(token-level accuracy for reference = 0.974)
+
+Sabty reference (entity-level): best 0.777 (BiLSTM-CRF), 0.794 (KERMIT++).

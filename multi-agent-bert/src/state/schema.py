@@ -212,6 +212,10 @@ class PipelineState:
     # variant D (Lexical + Logic + Contextual + Polarity). Defaults to None so
     # the default 3-agent pipeline and consensus are unaffected.
     polarity_output: Optional[AgentOutput] = None
+    # Optional NER-primary slot, used only on the sequence-labeling (NER) path
+    # to hold the real transformer NER model's per-token output. Defaults to
+    # None so the classification path and its consensus are unaffected.
+    ner_model_output: Optional[AgentOutput] = None
     deliberation_output: Optional[DeliberationOutput] = None
 
     consensus_output: Optional[ConsensusOutput] = None

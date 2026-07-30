@@ -1,0 +1,72 @@
+{
+  "run_id": "ner_heuristics",
+  "timestamp": "2026-07-22T14:59:32.169409+00:00",
+  "num_samples": 30,
+  "num_tokens": 244,
+  "token_accuracy": 0.729508,
+  "macro_f1": 0.386376,
+  "per_tag": [
+    {
+      "tag": "O",
+      "precision": 0.702326,
+      "recall": 0.993421,
+      "f1": 0.822888,
+      "support": 152
+    },
+    {
+      "tag": "B-PER",
+      "precision": 0.875,
+      "recall": 0.4375,
+      "f1": 0.583333,
+      "support": 16
+    },
+    {
+      "tag": "I-PER",
+      "precision": 1.0,
+      "recall": 0.125,
+      "f1": 0.222222,
+      "support": 8
+    },
+    {
+      "tag": "B-ORG",
+      "precision": 1.0,
+      "recall": 0.590909,
+      "f1": 0.742857,
+      "support": 22
+    },
+    {
+      "tag": "I-ORG",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 10
+    },
+    {
+      "tag": "B-LOC",
+      "precision": 0.857143,
+      "recall": 0.206897,
+      "f1": 0.333333,
+      "support": 29
+    },
+    {
+      "tag": "I-LOC",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 7
+    }
+  ],
+  "meta": {
+    "labels": [
+      "O",
+      "B-PER",
+      "I-PER",
+      "B-ORG",
+      "I-ORG",
+      "B-LOC",
+      "I-LOC"
+    ],
+    "pipeline_mode": "paper_style",
+    "error_samples": 0
+  }
+}

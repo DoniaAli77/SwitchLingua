@@ -1,0 +1,57 @@
+==============================================================================================
+CASE A  ahmed-eesa-00240   gold=neutral
+  TEXT: اخوانا اللى عاملين dislike على اساس ايه
+  PRIMARY real softmax: positive=0.1709  negative=0.4762  neutral=0.3529   -> argmax=negative (conf=0.4762)
+  lexical          neutral  conf=0.70   probs: positive=0.1500  negative=0.1500  neutral=0.7000
+  logic(Polarity)  neutral  conf=0.85   probs: positive=0.0750  negative=0.0750  neutral=0.8500
+  contextual       neutral  conf=0.80   probs: positive=0.1000  negative=0.1000  neutral=0.8000
+  primary          negative conf=0.4762 (real softmax above)
+  IntentGate       neutral  conf=0.90   NON-VOTING
+  --- hard votes (current code): positive=0.000  negative=0.476  neutral=2.350    sum=2.826  (NOT 4.0)
+  --- sum-rule combined       : positive=0.4959  negative=0.8012  neutral=2.7029    sum=4.0000  (= Sw = 4.0)
+  1) current       neutral  = 2.3500 / 4.0    = 0.5875
+  2) renormalized  neutral  = 2.3500 / 2.8262 = 0.8315
+  3) SUM RULE      neutral  = 2.7029 / 4.0    = 0.6757
+     sum-rule full posterior: positive=0.1240  negative=0.2003  neutral=0.6757   (sums to 1.0)
+  ARGMAX: current=neutral  sumrule=neutral   SAME
+    gate under current : winner=neutral primary=negative gate=neutral -> silent -> FINAL=neutral  CORRECT
+    gate under sumrule : winner=neutral primary=negative gate=neutral -> silent -> FINAL=neutral  CORRECT
+
+==============================================================================================
+CASE B  ahmed-eesa-00258   gold=neutral
+  TEXT: مين ال 74 ال عملين dislike
+  PRIMARY real softmax: positive=0.1933  negative=0.3296  neutral=0.4771   -> argmax=neutral (conf=0.4771)
+  lexical          negative conf=0.85   probs: positive=0.0750  negative=0.8500  neutral=0.0750
+  logic(Polarity)  neutral  conf=0.90   probs: positive=0.0500  negative=0.0500  neutral=0.9000
+  contextual       neutral  conf=0.90   probs: positive=0.0500  negative=0.0500  neutral=0.9000
+  primary          neutral  conf=0.4771 (real softmax above)
+  IntentGate       neutral  conf=0.95   NON-VOTING
+  --- hard votes (current code): positive=0.000  negative=0.850  neutral=2.277    sum=3.127  (NOT 4.0)
+  --- sum-rule combined       : positive=0.3683  negative=1.2796  neutral=2.3521    sum=4.0000  (= Sw = 4.0)
+  1) current       neutral  = 2.2771 / 4.0    = 0.5693
+  2) renormalized  neutral  = 2.2771 / 3.1271 = 0.7282
+  3) SUM RULE      neutral  = 2.3521 / 4.0    = 0.5880
+     sum-rule full posterior: positive=0.0921  negative=0.3199  neutral=0.5880   (sums to 1.0)
+  ARGMAX: current=neutral  sumrule=neutral   SAME
+    gate under current : winner=neutral primary=neutral gate=neutral -> silent -> FINAL=neutral  CORRECT
+    gate under sumrule : winner=neutral primary=neutral gate=neutral -> silent -> FINAL=neutral  CORRECT
+
+==============================================================================================
+CASE C  ahmed-eesa-00203   gold=neutral
+  TEXT: هو اللي عامل unlike دة عمله علي اساس اية! !
+  PRIMARY real softmax: positive=0.2257  negative=0.2064  neutral=0.5680   -> argmax=neutral (conf=0.5680)
+  lexical          negative conf=0.80   probs: positive=0.1000  negative=0.8000  neutral=0.1000
+  logic(Polarity)  negative conf=0.85   probs: positive=0.0750  negative=0.8500  neutral=0.0750
+  contextual       negative conf=0.85   probs: positive=0.0750  negative=0.8500  neutral=0.0750
+  primary          neutral  conf=0.5680 (real softmax above)
+  IntentGate       neutral  conf=0.85   NON-VOTING
+  --- hard votes (current code): positive=0.000  negative=2.500  neutral=0.568    sum=3.068  (NOT 4.0)
+  --- sum-rule combined       : positive=0.4757  negative=2.7064  neutral=0.8180    sum=4.0000  (= Sw = 4.0)
+  1) current       negative = 2.5000 / 4.0    = 0.6250
+  2) renormalized  negative = 2.5000 / 3.0680 = 0.8149
+  3) SUM RULE      negative = 2.7064 / 4.0    = 0.6766
+     sum-rule full posterior: positive=0.1189  negative=0.6766  neutral=0.2045   (sums to 1.0)
+  ARGMAX: current=negative  sumrule=negative   SAME
+    gate under current : winner=negative primary=neutral gate=neutral -> FIRES  -> FINAL=neutral  CORRECT
+    gate under sumrule : winner=negative primary=neutral gate=neutral -> FIRES  -> FINAL=neutral  CORRECT
+

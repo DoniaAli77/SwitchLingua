@@ -1,0 +1,65 @@
+###############################################################################################
+CASE A - gate steps aside   |   ahmed-eesa-00240   |   gold=neutral   |   gpt-4.1-mini
+TEXT: اخوانا اللى عاملين dislike على اساس ايه
+
+PRIMARY: negative (conf=0.4762)  ->  ROUTER: escalate (threshold=0.70)
+
+--- LEXICAL ---
+{"label": "neutral", "confidence": 0.7, "reasoning": "The phrase questions the reason behind 'dislike' without expressing clear positive or negative sentiment.", "evidence": ["dislike", "على اساس ايه"]}
+
+--- POLARITY ---
+{"label": "neutral", "confidence": 0.85, "reasoning": "The author questions the reason behind dislikes without expressing a clear positive or negative evaluation.", "evidence": ["عاملين dislike", "على اساس ايه"]}
+
+--- CONTEXTUAL ---
+{"label": "neutral", "confidence": 0.8, "reasoning": "The text is a question asking for clarification without expressing positive or negative sentiment.", "evidence": ["عاملين dislike", "على اساس ايه"]}
+
+--- INTENTGATE ---
+{"label": "neutral", "confidence": 0.9, "reasoning": "The author is asking a question about others' actions regarding dislikes without expressing their own evaluative stance.", "evidence": ["عاملين dislike", "على اساس ايه", "اخوانا"]}
+
+CONSENSUS votes: {'positive': 0.0, 'negative': 0.476, 'neutral': 2.35}
+GATE: did not fire
+FINAL: neutral  (CORRECT)
+
+###############################################################################################
+CASE B - gate not needed   |   ahmed-eesa-00258   |   gold=neutral   |   gpt-4.1-mini
+TEXT: مين ال 74 ال عملين dislike
+
+PRIMARY: neutral (conf=0.4771)  ->  ROUTER: escalate (threshold=0.70)
+
+--- LEXICAL ---
+{"label": "negative", "confidence": 0.85, "reasoning": "The explicit use of the word 'dislike' indicates a negative sentiment.", "evidence": ["dislike"]}
+
+--- POLARITY ---
+{"label": "neutral", "confidence": 0.9, "reasoning": "The author is asking a factual question about who made dislikes without expressing an evaluative opinion or polarity.", "evidence": ["مين ال 74 ال عملين dislike"]}
+
+--- CONTEXTUAL ---
+{"label": "neutral", "confidence": 0.9, "reasoning": "The text is a neutral inquiry about who made the dislikes without expressing any sentiment.", "evidence": ["مين", "ال 74", "dislike"]}
+
+--- INTENTGATE ---
+{"label": "neutral", "confidence": 0.95, "reasoning": "The text is a question about the identity of users who disliked, which is a meta-comment about dislikes without expressing the author's own evaluation.", "evidence": ["مين ال 74", "ال عملين dislike"]}
+
+CONSENSUS votes: {'positive': 0.0, 'negative': 0.85, 'neutral': 2.277}
+GATE: did not fire
+FINAL: neutral  (CORRECT)
+
+###############################################################################################
+CASE C - gate FIRES   |   ahmed-eesa-00203   |   gold=neutral   |   gpt-4.1-mini
+TEXT: هو اللي عامل unlike دة عمله علي اساس اية! !
+
+PRIMARY: neutral (conf=0.5680)  ->  ROUTER: escalate (threshold=0.70)
+
+--- LEXICAL ---
+{"label": "negative", "confidence": 0.8, "reasoning": "The phrase 'عامل unlike دة عمله علي اساس اية' expresses confusion and a negative reaction to someone performing an 'unlike' action, indicating dissatisfaction or criticism.", "evidence": ["عامل unlike", "دة عمله علي اساس اية"]}
+
+--- POLARITY ---
+{"label": "negative", "confidence": 0.85, "reasoning": "The author expresses a negative evaluative attitude by questioning the reason behind an 'unlike' action in a critical tone.", "evidence": ["عامل unlike", "عمله علي اساس اية", "!" ,"!" ]}
+
+--- CONTEXTUAL ---
+{"label": "negative", "confidence": 0.85, "reasoning": "The text expresses dissatisfaction or complaint about the action of 'unlike' being done without clear reason.", "evidence": ["عامل unlike", "عمله علي اساس اية"]}
+
+--- INTENTGATE ---
+{"label": "neutral", "confidence": 0.85, "reasoning": "The text is a question about another user's action (unlike) without expressing the author's own evaluation or sentiment.", "evidence": ["عامل unlike", "عمله علي اساس اية", "question about action"]}
+
+CONSENSUS votes: {'positive': 0.0, 'negative': 2.5, 'neutral': 0.568}
+GATE: FIRED -> intent_gate=BLOCKED override 'negative'->'neutral'
+FINAL: neutral  (CORRECT)

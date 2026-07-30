@@ -1,0 +1,4 @@
+agent_conf=0.70 : final-label FLIPS(post-gate)=0/84 | pre-gate argmax diffs=0 | acc hard=65/84 sum=65/84
+agent_conf=0.80 : final-label FLIPS(post-gate)=0/84 | pre-gate argmax diffs=0 | acc hard=65/84 sum=65/84
+agent_conf=0.85 : final-label FLIPS(post-gate)=0/84 | pre-gate argmax diffs=0 | acc hard=65/84 sum=65/84
+agent_conf=0.90 : final-label FLIPS(post-gate)=0/84 | pre-gate argmax diffs=0 | acc hard=65/84 sum=65/84

@@ -1,0 +1,25 @@
+==========================================================================================
+GATE DEMO (gpt-4o-mini)  gold=neutral  ahmed-eesa-00258
+TEXT: مين ال 74 ال عملين dislike
+
+  PRIMARY : neutral (conf=0.4771)  -> ROUTER: escalate
+  Lexical    : negative (conf=0.85) | The presence of the word 'dislike' indicates a negative sentiment towards the subject mentioned.
+  Polarity   : negative (conf=0.85) | The author expresses a negative evaluative attitude by indicating dislike towards a group of 74 indi
+  Contextual : negative (conf=0.85) | The text expresses dissatisfaction or disapproval towards the 74 individuals who disliked something.
+  IntentGate : neutral  (conf=0.85) | The text is a question about others' actions regarding dislikes, without expressing the author's own
+  CONSENSUS votes: {'positive': 0.0, 'negative': 2.55, 'neutral': 0.477}
+  RATIONALE: lexical=negative (weight=1.00, conf=0.8500, contribution=0.8500); contextual=negative (weight=1.00, conf=0.8500, contribution=0.8500); logic=negative (weight=1.00, conf=0.8500, contribution=0.8500); polarity=no vote; primary=neutral (weight=1.00, conf=0.4771, contribution=0.4771); intent_gate=BLOCKED override 'negative'->'neutral'
+  FINAL: neutral
+
+==========================================================================================
+GATE DEMO (gpt-4o-mini)  gold=neutral  ahmed-eesa-00245
+TEXT: هى الناس الى عاملة unlike دى ازااااى يعنى!!!
+
+  PRIMARY : neutral (conf=0.5108)  -> ROUTER: escalate
+  Lexical    : negative (conf=0.85) | The phrase 'أكره' (hate) indicates a strong negative sentiment towards the subject being discussed.
+  Polarity   : negative (conf=0.85) | The author expresses a negative evaluation regarding people's actions, indicating frustration or dis
+  Contextual : negative (conf=0.85) | The text expresses frustration or disbelief about people's actions, indicating a negative sentiment.
+  IntentGate : negative (conf=0.85) | The author expresses frustration or disapproval towards people who have 'unliked' something, indicat
+  CONSENSUS votes: {'positive': 0.0, 'negative': 2.55, 'neutral': 0.511}
+  RATIONALE: lexical=negative (weight=1.00, conf=0.8500, contribution=0.8500); contextual=negative (weight=1.00, conf=0.8500, contribution=0.8500); logic=negative (weight=1.00, conf=0.8500, contribution=0.8500); polarity=no vote; primary=neutral (weight=1.00, conf=0.5108, contribution=0.5108)
+  FINAL: negative

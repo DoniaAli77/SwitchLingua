@@ -1,0 +1,14 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Gazetteer entries (from train): 4858
+
+Escalated (hard): 51/100  LLM calls: 102  cost≈$0.0122
+
+==================================================
+config                       macroF1    MISC
+--------------------------------------------------
+primary                        0.827    0.56
+span_fewshot                   0.681    0.18
++verify                        0.686    0.22
++gazetteer                     0.765    0.48
+gaz_alone                      0.684    0.55
+==================================================

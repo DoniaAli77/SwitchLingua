@@ -414,3 +414,77 @@ class TestStateWrites:
         state = ConsensusAgent().execute(state)
         assert state.consensus_output is not None
         assert state.final_output is not None
+
+
+# ---------------------------------------------------------------------------
+# Sum-rule fusion (opt-in) — Kittler et al. combiner
+# ---------------------------------------------------------------------------
+
+class TestSumRuleFusion:
+    def test_unknown_fusion_rejected(self):
+        with pytest.raises(ValueError):
+            ConsensusAgent(fusion="softmax")
+
+    def test_default_is_hard_vote(self):
+        assert ConsensusAgent().fusion == "hard_vote"
+
+    def test_sum_rule_scores_sum_to_active_weight(self):
+        # 3 agents agree on 'positive' @0.9, primary dissents 'negative' @0.8 with
+        # a real 2-way softmax. Sum-rule scores must sum to the # of voters (4.0),
+        # unlike hard-vote which discards residual mass.
+        state = make_state(
+            lexical_label="positive", lexical_conf=0.9,
+            contextual_label="positive", contextual_conf=0.9,
+            logic_label="positive", logic_conf=0.9,
+        )
+        state.primary_model_output = ModelOutput(
+            label="negative", confidence=0.8,
+            probabilities={"positive": 0.2, "negative": 0.8, "neutral": 0.0},
+        )
+        state = ConsensusAgent(fusion="sum_rule").run(state)
+        total = sum(state.consensus_output.votes.values())
+        assert total == pytest.approx(4.0, abs=1e-6)
+        # posterior is a proper distribution
+        assert state.final_output.confidence == pytest.approx(
+            state.consensus_output.votes["positive"] / 4.0, abs=1e-6
+        )
+
+    def test_sum_rule_keeps_primary_second_place_mass(self):
+        # Primary argmax=negative but carries 0.2 on positive — sum-rule must
+        # credit that to positive; hard-vote would not.
+        state = make_state(
+            lexical_label="positive", lexical_conf=0.9,
+            contextual_label="positive", contextual_conf=0.9,
+            logic_label="positive", logic_conf=0.9,
+        )
+        state.primary_model_output = ModelOutput(
+            label="negative", confidence=0.8,
+            probabilities={"positive": 0.2, "negative": 0.8, "neutral": 0.0},
+        )
+        sr = ConsensusAgent(fusion="sum_rule").run(state)
+        # positive = 0.9*3 (agents) + 0.2 (primary's positive mass) = 2.9
+        assert sr.consensus_output.votes["positive"] == pytest.approx(2.9, abs=1e-6)
+
+    def test_sum_rule_and_hard_vote_agree_on_label(self):
+        # The scheme changes the reported confidence, not the winner, here.
+        kwargs = dict(
+            lexical_label="positive", lexical_conf=0.9,
+            contextual_label="positive", contextual_conf=0.9,
+            logic_label="neutral", logic_conf=0.6,
+        )
+        hv = ConsensusAgent(fusion="hard_vote").run(make_state(**kwargs))
+        sr = ConsensusAgent(fusion="sum_rule").run(make_state(**kwargs))
+        assert hv.final_output.label == sr.final_output.label == "positive"
+
+    def test_sum_rule_uniform_spread_when_no_probabilities(self):
+        # Agents carry only (label, confidence) — residual spreads over K-1 labels.
+        state = make_state(
+            lexical_label="positive", lexical_conf=0.8,
+            contextual_label="positive", contextual_conf=0.8,
+        )
+        state = ConsensusAgent(fusion="sum_rule").run(state)
+        v = state.consensus_output.votes
+        # each agent: 0.8 on positive, 0.1 on each of the other 2 (K=3)
+        assert v["positive"] == pytest.approx(1.6, abs=1e-6)
+        assert v["negative"] == pytest.approx(0.2, abs=1e-6)
+        assert v["neutral"] == pytest.approx(0.2, abs=1e-6)

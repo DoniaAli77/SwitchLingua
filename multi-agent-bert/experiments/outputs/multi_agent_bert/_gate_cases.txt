@@ -1,0 +1,12 @@
+HURT     ahmed-eesa-00021 | true=negative primary=neutral(0.57) | agents wanted=negative -> gate forced=neutral
+   text: مخرج بيدور ع ممثلة تعمل دور الممحونة  No one : مى عمر
+HELPED   ahmed-eesa-00203 | true=neutral primary=neutral(0.57) | agents wanted=negative -> gate forced=neutral
+   text: هو اللي عامل unlike دة عمله علي اساس اية! !
+HELPED   ahmed-eesa-00245 | true=neutral primary=neutral(0.51) | agents wanted=negative -> gate forced=neutral
+   text: هى الناس الى عاملة unlike دى ازااااى يعنى!!!
+HELPED   ahmed-eesa-00258 | true=neutral primary=neutral(0.48) | agents wanted=negative -> gate forced=neutral
+   text: مين ال 74 ال عملين dislike
+HELPED   ahmed-eesa-00320 | true=neutral primary=neutral(0.54) | agents wanted=positive -> gate forced=neutral
+   text: لحظو على تشيرت امين في آخر الاعلان في شعار bts لحظتو ولا لاة🙂💜🌚
+HURT     ahmed-eesa-00706 | true=positive primary=neutral(0.59) | agents wanted=positive -> gate forced=neutral
+   text: يا ارمي حد خد بالو من العمود الي عله أسهم زي permission to dance وشعار BTSعلي جاكيت احمد امين في آخر
