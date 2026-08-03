@@ -1,0 +1,11 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Retriever pool: 3132 train sentences with entities.
+
+Escalated (hard): 51/100  LLM calls: 102  cost≈$0.0182
+
+=== macro-F1 (and MISC) on ESCALATED sentences ===
+  primary (XLM-R)          macroF1=0.827  MISC=0.56
+  span FIXED few-shot      macroF1=0.648  MISC=0.07
+  span DYNAMIC few-shot    macroF1=0.815  MISC=0.58
+
+  dynamic - fixed = +0.167  (dynamic helps)

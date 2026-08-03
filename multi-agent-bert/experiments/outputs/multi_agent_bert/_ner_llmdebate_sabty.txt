@@ -1,0 +1,11 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+
+Primary: models/xlmr_sabty_ner  |  order: ['llm', 'debate']  |  Sentences: 200  LLM calls: 327  cost≈$0.0537
+
+==================================================================
+cumulative panel                              F1      prec     rec
+------------------------------------------------------------------
+primary                                    0.881     0.842   0.924
+primary +LLM+verify                        0.865     0.814   0.922  (-0.016)
+primary +LLM+verify +debate                0.805     0.782   0.830  (-0.076)
+==================================================================

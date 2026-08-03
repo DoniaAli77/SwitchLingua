@@ -1,0 +1,17 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+LLMNERReflectionAgent: parse error — JSON decode failed: Expecting value: line 1 column 2514 (char 2513); keeping draft.
+LLMNERReflectionAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 2596 (char 2595); keeping draft.
+LLMNERReflectionAgent: parse error — JSON decode failed: Unterminated string starting at: line 1 column 2516 (char 2515); keeping draft.
+
+Primary: models/xlmr_sabty_ner  |  Sentences: 200  LLM calls: 756  cost≈$0.1243
+
+============================================================
+cumulative panel                F1  precision   recall
+------------------------------------------------------------
+primary                      0.881      0.842    0.924
++gaz+verify                  0.877      0.833    0.926  (-0.004 vs primary)
++llm+verify                  0.862      0.806    0.926  (-0.019 vs primary)
++debate                      0.795      0.765    0.827  (-0.086 vs primary)
++disambiguation              0.723      0.688    0.762  (-0.158 vs primary)
++reflection                  0.540      0.511    0.573  (-0.341 vs primary)
+============================================================

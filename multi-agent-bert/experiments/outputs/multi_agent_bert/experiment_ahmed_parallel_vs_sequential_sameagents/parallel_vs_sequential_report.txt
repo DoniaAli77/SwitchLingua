@@ -1,0 +1,9 @@
+PARALLEL vs SEQUENTIAL — SAME AGENTS (Ahmed, Design C, gpt-4o-mini, threshold 0.70)
+Only difference: task_config.sequential_chain (False vs True). 818 samples, 84 escalated.
+prediction changes (parallel vs sequential): 7 / 818
+
+metric                 | PARALLEL   | SEQUENTIAL
+--------------------------------------------------
+accuracy (818)         | 0.9254     | 0.9242
+macro F1 (818)         | 0.9211     | 0.9198
+escalated accuracy     | 0.7500     | 0.7381

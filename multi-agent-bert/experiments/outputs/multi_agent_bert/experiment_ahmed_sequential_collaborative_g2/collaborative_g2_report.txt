@@ -1,0 +1,9 @@
+SEQUENTIAL FRAMING TEST — G2 (selective gate), Ahmed, gpt-4.1-mini, threshold 0.70
+Same agents/prompts/primary/gate/consensus; only chain on/off and framing vary. 818 samples, 84 escalated.
+(parallel + sequential-independent reused from the earlier Design-G run; collaborative is new; fallbacks=0)
+
+mode                       | acc      | macro F1  | escalated  | vs parallel
+--------------------------------------------------------------------------
+parallel                   | 0.9315   | 0.9277    | 68/84      | baseline
+sequential-independent     | 0.9315   | 0.9277    | 68/84      | 2 changed
+sequential-collaborative   | 0.9303   | 0.9262    | 67/84      | 1 changed

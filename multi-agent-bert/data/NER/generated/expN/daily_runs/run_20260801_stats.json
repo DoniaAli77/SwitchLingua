@@ -1,0 +1,18 @@
+{
+  "date": "20260801",
+  "attempted": 150,
+  "ok": 0,
+  "failed": 150,
+  "raw_instances": 263,
+  "kept": 114,
+  "kept_by_group": {
+    "PER": 68,
+    "LOC": 38,
+    "PER+LOC": 8
+  },
+  "loss": {
+    "entity_only_switch": 75,
+    "low_quality": 73,
+    "not_cs_valid": 1
+  }
+}

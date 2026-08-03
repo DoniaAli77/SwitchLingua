@@ -37,6 +37,22 @@ class TaskConfig:
     # primary-signal block (primary label/confidence/top-2/distribution) as
     # context. Default off → current behaviour unchanged.
     agents_use_primary_signal: bool = False
+    # Sequential-chain ablation: when True, the parallel specialists (Lexical,
+    # Polarity, Contextual) run in a fixed order and each later agent receives an
+    # agent-only chain block of the earlier specialists' conclusions. Consensus is
+    # unchanged. Default off → parallel behaviour is byte-for-byte unchanged.
+    sequential_chain: bool = False
+    # Framing of the sequential chain block: "independent" (default, anti-anchoring:
+    # use prior conclusions as context only, do not copy) or "collaborative"
+    # (invite the agent to build on / refine the prior conclusions). Only meaningful
+    # when sequential_chain is True.
+    sequential_chain_style: str = "independent"
+    # Optional custom execution order for the three specialist stages, e.g.
+    # ["contextual_agent", "logic_agent", "lexical_agent"]. Only reorders which
+    # agent runs when (which matters for the sequential chain); every agent still
+    # writes its own slot, so consensus is unchanged. None → default order
+    # (lexical → logic → contextual). Any stage omitted keeps its default position.
+    agent_stage_order: Optional[List[str]] = None
 
     def is_allowed_label(self, label: str) -> bool:
         """Return True if label is part of the configured label space."""

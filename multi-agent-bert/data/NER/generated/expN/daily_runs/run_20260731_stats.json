@@ -1,0 +1,21 @@
+{
+  "date": "20260731",
+  "attempted": 140,
+  "ok": 140,
+  "failed": 0,
+  "raw_instances": 745,
+  "kept": 378,
+  "kept_by_group": {
+    "PER": 76,
+    "MISC": 115,
+    "ORG": 81,
+    "LOC": 61,
+    "PER+ORG": 29,
+    "PER+LOC": 16
+  },
+  "loss": {
+    "low_quality": 188,
+    "entity_only_switch": 172,
+    "arabic_script_entity": 7
+  }
+}

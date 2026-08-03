@@ -1,0 +1,11 @@
+TWO-STAGE XLM-R primary (GEN960->EESA) + G2 + gpt-4.1-mini, threshold 0.90
+Weak primary (headroom for agents). Compare existing PARALLEL G2 vs new SEQUENTIAL-COLLABORATIVE.
+818 samples; escalated ~138; fallbacks=0
+
+mode                         | acc      | macro F1  | escalated
+----------------------------------------------------------------
+parallel G2 (existing)       | 0.8851   | 0.8784    | 105/138
+sequential-collaborative G2  | 0.8826   | 0.8751    | 103/138
+
+primary_only baseline (from earlier run): 0.8655 / 0.8579
+predictions changed (parallel vs collaborative): 8 / 818

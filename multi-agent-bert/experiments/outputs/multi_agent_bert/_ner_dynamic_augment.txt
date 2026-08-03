@@ -1,0 +1,9 @@
+The tokenizer you are loading from 'models/xlmr_sabty_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+
+Sentences: 300  LLM calls: 382  cost≈$0.0490
+
+=== entity-level (seqeval) ===
+  primary                F1=0.877  P=0.840  R=0.918
+  +dynLLM+verify         F1=0.863  P=0.817  R=0.915
+  +gaz+verify            F1=0.874  P=0.831  R=0.920
+  +dynLLM+gaz+verify     F1=0.862  P=0.812  R=0.918

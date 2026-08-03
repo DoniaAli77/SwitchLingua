@@ -1,0 +1,30 @@
+'(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /Davlan/xlm-roberta-base-ner-hrl/resolve/main/tokenizer_config.json (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000002789F15F230>: Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: f2b70fb1-d7c7-47f3-97f6-34d3826b29e5)')' thrown while requesting HEAD https://huggingface.co/Davlan/xlm-roberta-base-ner-hrl/resolve/main/tokenizer_config.json
+Retrying in 1s [Retry 1/5].
+NER-240: 240 sentences.
+Gazetteer (df>=2, leave-one-out safe): 34 entries.
+
+LLM calls: 257  cost≈$0.0252
+
+============================================================
+panel                         F1  precision   recall
+------------------------------------------------------------
+primary                    0.817      0.825    0.810
+dynLLM_alone               0.847      0.839    0.854
+prim+dyn+verify            0.824      0.817    0.832
+prim+gaz+verify            0.820      0.826    0.813
+prim+dyn+gaz+verify        0.824      0.817    0.832
+============================================================
+BEST panel: 'dynLLM_alone' (F1=0.847)  |  improvement over primary: +0.029
+
+Per-type for the BEST panel:
+              precision    recall  f1-score   support
+
+         LOC      0.968     0.978     0.973        93
+        MISC      0.591     0.342     0.433        38
+         ORG      0.378     0.607     0.466        28
+         PER      0.964     0.991     0.977       109
+
+   micro avg      0.839     0.854     0.847       268
+   macro avg      0.725     0.730     0.712       268
+weighted avg      0.851     0.854     0.845       268
+

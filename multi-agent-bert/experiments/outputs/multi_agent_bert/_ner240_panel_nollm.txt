@@ -1,0 +1,25 @@
+C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\seqeval\metrics\v1.py:57: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+NER-240: 240 sentences.
+Gazetteer (df>=2, leave-one-out safe): 34 entries.
+
+============================================================
+panel                         F1  precision   recall
+------------------------------------------------------------
+primary                    0.817      0.825    0.810
+prim+gaz(no verify)        0.820      0.826    0.813
+============================================================
+BEST panel: 'prim+gaz(no verify)' (F1=0.820)  |  improvement over primary: +0.002
+
+Per-type for the BEST panel:
+              precision    recall  f1-score   support
+
+         LOC      0.978     0.978     0.978        93
+        MISC      0.000     0.000     0.000        38
+         ORG      0.371     0.821     0.511        28
+         PER      0.954     0.954     0.954       109
+
+   micro avg      0.826     0.813     0.820       268
+   macro avg      0.576     0.689     0.611       268
+weighted avg      0.766     0.813     0.781       268
+

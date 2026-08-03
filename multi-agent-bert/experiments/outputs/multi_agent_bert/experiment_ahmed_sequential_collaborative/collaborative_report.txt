@@ -1,0 +1,8 @@
+SEQUENTIAL FRAMING TEST — Design C, Ahmed, gpt-4o-mini, threshold 0.70
+Same agents/prompts/primary/consensus; only chain on/off and framing vary. 818 samples, 84 escalated.
+
+mode                       | acc      | macro F1  | escalated    | vs parallel | fallbacks
+----------------------------------------------------------------------------------------
+parallel                   | 0.9254   | 0.9211    | 63/84       | baseline   | 0
+sequential-independent     | 0.9242   | 0.9195    | 62/84       | 5 changed  | 0
+sequential-collaborative   | 0.9230   | 0.9183    | 61/84       | 6 changed  | 0

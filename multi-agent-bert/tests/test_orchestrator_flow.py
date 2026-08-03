@@ -152,3 +152,32 @@ def test_full_agentic_escalation_keeps_existing_behavior() -> None:
     assert out.routing_info is not None
     assert out.routing_info.decision == "escalate"
     assert _has_mode_history(out, "full_agentic")
+
+
+def test_custom_agent_stage_order_reorders_specialists() -> None:
+    # agent_stage_order reorders WHICH specialist runs when; consensus still after.
+    calls: List[str] = []
+    orch = _build_orchestrator(calls=calls, primary_confidence=0.20)
+    state = _make_state("paper_style", threshold=0.9)
+    state.task_config.agent_stage_order = [
+        "contextual_agent", "logic_agent", "lexical_agent",
+    ]
+
+    orch.run(state)
+
+    specialists = [c for c in calls if c in ("lexical", "logic", "contextual")]
+    assert specialists == ["contextual", "logic", "lexical"]  # reversed
+    # consensus still runs after all specialists
+    assert calls.index("consensus") > calls.index("lexical")
+
+
+def test_default_stage_order_unchanged_when_none() -> None:
+    calls: List[str] = []
+    orch = _build_orchestrator(calls=calls, primary_confidence=0.20)
+    state = _make_state("paper_style", threshold=0.9)
+    assert state.task_config.agent_stage_order is None  # default
+
+    orch.run(state)
+
+    specialists = [c for c in calls if c in ("lexical", "logic", "contextual")]
+    assert specialists == ["lexical", "logic", "contextual"]  # default order

@@ -385,9 +385,19 @@ class PipelineOrchestrator:
                     ("logic_agent", logic_for_mode),
                     ("contextual_agent", contextual_for_mode),
                 ]
+                # Optional custom execution order for the three specialist stages
+                # (sequential-chain ablation). Reorders WHICH agent runs when;
+                # each agent still writes its own slot, so consensus is unchanged.
+                # Unknown/omitted names keep their default relative position.
+                custom_order = getattr(state.task_config, "agent_stage_order", None)
+                if custom_order:
+                    rank = {name: i for i, name in enumerate(custom_order)}
+                    stages.sort(key=lambda s: (rank.get(s[0], len(rank) + 1)))
                 # Four-agent sentiment variant D: run an extra Polarity stage
                 # (writes state.polarity_output) alongside the standard trio.
                 # Injected only for that variant; None otherwise → trio unchanged.
+                # Always appended AFTER the (possibly reordered) trio so the gate
+                # LLM stays last, independent of the voter order.
                 if pipeline_mode == _FULL_AGENTIC and self._polarity is not None:
                     stages.append(("polarity_agent", self._polarity))
 

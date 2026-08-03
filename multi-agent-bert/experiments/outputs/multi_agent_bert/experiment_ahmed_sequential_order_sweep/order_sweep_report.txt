@@ -1,0 +1,12 @@
+SEQUENTIAL AGENT-ORDER SWEEP — Design C, Ahmed, gpt-4o-mini, threshold 0.70
+sequential_chain=True; only agent_stage_order varies. 818 samples, 84 escalated.
+(For reference: parallel Design C ~0.9211 F1; the default seq order is the L->P->C row.)
+
+order                | acc      | macro F1  | escalated        | fallbacks
+------------------------------------------------------------------------
+L->P->C (default)    | 0.9230   | 0.9183    | 61/84 (0.7262) | 0
+C->P->L (reverse)    | 0.9242   | 0.9204    | 62/84 (0.7381) | 0
+P->L->C              | 0.9230   | 0.9186    | 61/84 (0.7262) | 0
+C->L->P              | 0.9230   | 0.9188    | 61/84 (0.7262) | 0
+
+macro-F1 spread across orders: 0.0021  (max 0.9204 - min 0.9183)

@@ -34,6 +34,7 @@ from typing import Any, Dict, List, Optional
 
 from src.agents._abstain import abstain_output
 from src.prompts._primary_block import build_primary_signal
+from src.prompts._agent_chain_block import build_agent_chain_block
 from src.agents.base_agent import BaseAgent
 from src.llm.base_client import LLMClient, LLMClientError  # noqa: F401
 from src.prompts.llm_lexical_prompt import build_user_prompt, get_system_prompt
@@ -111,6 +112,13 @@ class LLMLexicalAgent(BaseAgent[PipelineState]):
             text=state.input_text,
             primary_signal=primary_signal,
         )
+
+        if task.sequential_chain:
+            chain = build_agent_chain_block(state, exclude_slot="lexical_output",
+                                            analysis_kind="lexical",
+                                            style=task.sequential_chain_style)
+            if chain:
+                prompt = f"{chain}\n\n{prompt}"
 
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))
 

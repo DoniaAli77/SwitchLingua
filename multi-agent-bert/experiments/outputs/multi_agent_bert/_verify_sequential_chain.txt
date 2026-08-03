@@ -1,0 +1,34 @@
+==========================================================================================
+sequential_chain = True
+==========================================================================================
+
+--- 1. LEXICAL agent prompt --- contains prior-agents block? False
+    prior-call notes present in this prompt: none
+
+--- 2. POLARITY agent prompt --- contains prior-agents block? True
+PRIOR AGENTS' ANALYSES (context only — you are an independent polarity adjudicator running later in the chain):
+  Lexical agent -> label='negative', confidence=0.800, note='NOTE_FROM_CALL_1'
+Do your own polarity analysis of the text FIRST. These prior agents may be wrong; use their conclusions as context only, agree only when the text evidence supports them, and choose a different allowed label if the evidence points elsewhere. Do NOT simply copy them.
+    prior-call notes present in this prompt: ['NOTE_FROM_CALL_1']
+
+--- 3. CONTEXTUAL agent prompt --- contains prior-agents block? True
+PRIOR AGENTS' ANALYSES (context only — you are an independent contextual adjudicator running later in the chain):
+  Lexical agent -> label='negative', confidence=0.800, note='NOTE_FROM_CALL_1'
+  Polarity agent -> label='negative', confidence=0.800, note='NOTE_FROM_CALL_2'
+Do your own contextual analysis of the text FIRST. These prior agents may be wrong; use their conclusions as context only, agree only when the text evidence supports them, and choose a different allowed label if the evidence points elsewhere. Do NOT simply copy them.
+    prior-call notes present in this prompt: ['NOTE_FROM_CALL_1', 'NOTE_FROM_CALL_2']
+
+==========================================================================================
+sequential_chain = False
+==========================================================================================
+
+--- 1. LEXICAL agent prompt --- contains prior-agents block? False
+    prior-call notes present in this prompt: none
+
+--- 2. POLARITY agent prompt --- contains prior-agents block? False
+    prior-call notes present in this prompt: none
+
+--- 3. CONTEXTUAL agent prompt --- contains prior-agents block? False
+    prior-call notes present in this prompt: none
+
+ALL ASSERTIONS PASSED: chain is real when ON, absent when OFF.

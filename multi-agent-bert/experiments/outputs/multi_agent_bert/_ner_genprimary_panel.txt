@@ -1,0 +1,10 @@
+The tokenizer you are loading from 'models/xlmr_gen240_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+
+Sentences: 300  LLM calls: 435  cost≈$0.0515
+
+=== entity-level (seqeval) ===
+  primary                F1=0.683  P=0.747  R=0.629
+  dynLLM_alone           F1=0.846  P=0.854  R=0.837  ← BEATS baseline!
+  +dynLLM+verify         F1=0.713  P=0.711  R=0.715  ← BEATS baseline!
+  +gaz+verify            F1=0.720  P=0.737  R=0.704  ← BEATS baseline!
+  +dynLLM+gaz+verify     F1=0.720  P=0.708  R=0.732  ← BEATS baseline!

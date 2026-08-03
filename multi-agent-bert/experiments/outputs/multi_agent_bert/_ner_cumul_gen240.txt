@@ -1,0 +1,20 @@
+The tokenizer you are loading from 'models/xlmr_gen240_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+LLMNERReflectionAgent: parse error — JSON decode failed: Expecting value: line 1 column 2512 (char 2511); keeping draft.
+LLMNERReflectionAgent: parse error — JSON decode failed: Expecting value: line 1 column 2515 (char 2514); keeping draft.
+LLMNERReflectionAgent: parse error — JSON decode failed: Expecting value: line 1 column 2518 (char 2517); keeping draft.
+
+Primary: models/xlmr_gen240_ner  |  Sentences: 200  LLM calls: 826  cost≈$0.1292
+
+====================================
+Primary: models/xlmr_gen240_ner  |  Sentences: 200  LLM calls: 827  cost≈$0.1281
+
+============================================================
+cumulative panel                F1  precision   recall
+------------------------------------------------------------
+primary                      0.658      0.743    0.591
++gaz+verify                  0.707      0.731    0.684  (+0.049 vs primary)
++llm+verify                  0.706      0.690    0.723  (+0.048 vs primary)
++debate                      0.741      0.749    0.733  (+0.083 vs primary)
++disambiguation              0.696      0.696    0.696  (+0.038 vs primary)
++reflection                  0.528      0.517    0.540  (-0.130 vs primary)
+============================================================

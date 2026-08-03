@@ -1,0 +1,40 @@
+Some weights of XLMRobertaForTokenClassification were not initialized from the model checkpoint at xlm-roberta-base and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\seqeval\metrics\v1.py:57: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+MODE=gen  train=240 sents (gen=240, real=5306)  test=REAL 1219 sents
+CUDA: True
+{'eval_loss': 0.4949015974998474, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_runtime': 50.3712, 'eval_samples_per_second': 24.2, 'eval_steps_per_second': 1.529, 'epoch': 1.0}
+{'loss': 0.9655, 'grad_norm': 2.292907238006592, 'learning_rate': 2.58e-05, 'epoch': 1.6666666666666665}
+{'eval_loss': 0.36246591806411743, 'eval_f1': 0.1319, 'eval_precision': 0.3484, 'eval_recall': 0.0813, 'eval_runtime': 49.9806, 'eval_samples_per_second': 24.389, 'eval_steps_per_second': 1.541, 'epoch': 2.0}
+{'eval_loss': 0.32710012793540955, 'eval_f1': 0.3774, 'eval_precision': 0.3759, 'eval_recall': 0.3789, 'eval_runtime': 49.814, 'eval_samples_per_second': 24.471, 'eval_steps_per_second': 1.546, 'epoch': 3.0}
+{'loss': 0.1534, 'grad_norm': 1.0796397924423218, 'learning_rate': 2.08e-05, 'epoch': 3.3333333333333335}
+{'eval_loss': 0.3240896761417389, 'eval_f1': 0.5384, 'eval_precision': 0.582, 'eval_recall': 0.501, 'eval_runtime': 50.2665, 'eval_samples_per_second': 24.251, 'eval_steps_per_second': 1.532, 'epoch': 4.0}
+{'loss': 0.0687, 'grad_norm': 0.6760114431381226, 'learning_rate': 1.5799999999999998e-05, 'epoch': 5.0}
+{'eval_loss': 0.3398662507534027, 'eval_f1': 0.5414, 'eval_precision': 0.5956, 'eval_recall': 0.4962, 'eval_runtime': 51.9438, 'eval_samples_per_second': 23.468, 'eval_steps_per_second': 1.482, 'epoch': 5.0}
+{'eval_loss': 0.33809465169906616, 'eval_f1': 0.5098, 'eval_precision': 0.5505, 'eval_recall': 0.4746, 'eval_runtime': 51.3763, 'eval_samples_per_second': 23.727, 'eval_steps_per_second': 1.499, 'epoch': 6.0}
+{'loss': 0.0378, 'grad_norm': 0.38522082567214966, 'learning_rate': 1.08e-05, 'epoch': 6.666666666666667}
+{'eval_loss': 0.3389562666416168, 'eval_f1': 0.5576, 'eval_precision': 0.6074, 'eval_recall': 0.5153, 'eval_runtime': 50.2514, 'eval_samples_per_second': 24.258, 'eval_steps_per_second': 1.532, 'epoch': 7.0}
+{'eval_loss': 0.3438775837421417, 'eval_f1': 0.5333, 'eval_precision': 0.5772, 'eval_recall': 0.4957, 'eval_runtime': 50.4589, 'eval_samples_per_second': 24.158, 'eval_steps_per_second': 1.526, 'epoch': 8.0}
+{'loss': 0.0262, 'grad_norm': 0.5155255198478699, 'learning_rate': 5.8e-06, 'epoch': 8.333333333333334}
+{'eval_loss': 0.34933850169181824, 'eval_f1': 0.5581, 'eval_precision': 0.6189, 'eval_recall': 0.5081, 'eval_runtime': 50.644, 'eval_samples_per_second': 24.07, 'eval_steps_per_second': 1.52, 'epoch': 9.0}
+{'loss': 0.0214, 'grad_norm': 0.4542219340801239, 'learning_rate': 8.000000000000001e-07, 'epoch': 10.0}
+{'eval_loss': 0.3530692160129547, 'eval_f1': 0.5493, 'eval_precision': 0.6124, 'eval_recall': 0.4981, 'eval_runtime': 49.4046, 'eval_samples_per_second': 24.674, 'eval_steps_per_second': 1.559, 'epoch': 10.0}
+{'train_runtime': 861.202, 'train_samples_per_second': 2.787, 'train_steps_per_second': 0.174, 'train_loss': 0.21217739224433899, 'epoch': 10.0}
+{'eval_loss': 0.3530692160129547, 'eval_f1': 0.5493, 'eval_precision': 0.6124, 'eval_recall': 0.4981, 'eval_runtime': 49.2815, 'eval_samples_per_second': 24.735, 'eval_steps_per_second': 1.562, 'epoch': 10.0}
+
+=== GEN → REAL Sabty test (entity-level) ===
+  F1=0.5493  P=0.6124  R=0.4981
+              precision    recall  f1-score   support
+
+         LOC      0.763     0.544     0.635       710
+        MISC      0.097     0.169     0.123       225
+         ORG      0.219     0.053     0.086       432
+         PER      0.851     0.822     0.836       723
+
+   micro avg      0.612     0.498     0.549      2090
+   macro avg      0.483     0.397     0.420      2090
+weighted avg      0.609     0.498     0.536      2090
+
+Reference: real-train→real baseline = 0.816
+Saved model to: models/xlmr_gen240_ner
