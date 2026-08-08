@@ -75,6 +75,48 @@ OUTPUT FORMAT (copy this structure exactly):
 
 
 # ---------------------------------------------------------------------------
+# Merged-gate variant (Design H): Polarity + Selective-IntentGate criteria
+# ---------------------------------------------------------------------------
+# Ablation asking whether the Selective IntentGate's BENEFIT comes from its PROMPT
+# CONTENT or from its POSITION (a non-voting post-consensus veto). This variant
+# folds the gate's meta/mention-vs-stance criteria into the Polarity agent's own
+# prompt, so a single VOTING agent performs both jobs and no separate gate runs.
+# The default SYSTEM_PROMPT above is left byte-for-byte unchanged.
+
+_GATE_MERGE_ADDENDUM = """\
+META / MENTION vs EXPRESSED STANCE — apply this discrimination when deciding:
+Choose NEUTRAL when the text is clearly one of these (the author expresses no stance):
+- a platform / meta-comment about likes, dislikes, unlikes, comments, shares, subscribers,
+  buttons, view counts, or other users' reactions;
+- a clip / video / song / lyric / episode / content reference or plot/scene description
+  without the author's own evaluation;
+- a quote, a named entity / brand / logo / media *spotting* or mention;
+- a question or remark ABOUT other people's actions rather than the author's own opinion.
+
+Do NOT choose neutral — choose the POSITIVE or NEGATIVE direction — when the author
+expresses an evaluative stance, EVEN IF implicit or informal, including:
+- an implicit insult, mockery, sarcasm, or put-down (choose negative);
+- excited fan reaction, cheering, hype, or affection (choose positive);
+- clear praise or criticism even in slang / informal / misspelled form;
+- strong affective wording, exclamation, or emotional emphasis that conveys a stance;
+- a stance expressed implicitly but unmistakably.
+
+RULE OF THUMB: absence of an explicit sentiment word is NOT enough for neutral. Return
+neutral only for genuine meta/mention/reference; if an implicit evaluation is present,
+return its polarity.\
+""".strip()
+
+_OUTPUT_FORMAT_MARKER = "OUTPUT FORMAT (copy this structure exactly):"
+
+#: Polarity prompt with the Selective-IntentGate criteria merged in (Design H).
+SYSTEM_PROMPT_GATE_MERGED = SYSTEM_PROMPT.replace(
+    _OUTPUT_FORMAT_MARKER,
+    f"{_GATE_MERGE_ADDENDUM}\n\n{_OUTPUT_FORMAT_MARKER}",
+    1,
+)
+
+
+# ---------------------------------------------------------------------------
 # User prompt template
 # ---------------------------------------------------------------------------
 
@@ -128,9 +170,14 @@ SYSTEM_PROMPT_DISAMBIG = SYSTEM_PROMPT.replace(
 def get_system_prompt(variant: str | None = None) -> str:
     """Return the polarity system prompt for the active sentiment variant.
 
-    Single role prompt by default; ``semantic_v2_disambig`` adds the platform-action /
-    description disambiguation guidance.
+    ``variant='gate_merged'`` returns the Design-H prompt (Selective-IntentGate criteria
+    merged into Polarity). Otherwise the active sentiment variant is consulted:
+    ``semantic_v2_disambig`` adds the platform-action / description disambiguation
+    guidance; any other → the default single-role prompt.
     """
+    if variant == "gate_merged":
+        return SYSTEM_PROMPT_GATE_MERGED
+
     from src.prompts._sentiment_variant import active_variant
 
     if active_variant(variant) == "semantic_v2_disambig":

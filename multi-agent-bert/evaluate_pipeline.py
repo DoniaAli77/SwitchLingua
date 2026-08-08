@@ -794,6 +794,29 @@ def build_orchestrator(
                                      name="IntentGate")
         _consensus_polarity_weight = 0.0  # gate does NOT vote
         _intent_gate_agent = IntentGateAgent()  # separate post-consensus guard stage
+    elif _agent_variant == "lexical_polarity_contextual_lazy_gate":  # G2-lazy
+        # As G2, but the selective gate's LLM call is DEFERRED to the post-consensus
+        # stage and made only when consensus actually overrode the primary. The gate
+        # agent is NOT added to the pre-consensus specialist list (polarity_agent stays
+        # None), so it never runs on samples where no override occurred. Decisions are
+        # identical to G2 (the gate prompt never sees consensus or the primary), but the
+        # gate's LLM calls drop to the override subset only.
+        llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
+        llm_logic_agent = PolarityAgent(llm_client=llm_client)
+        _lazy_gate = IntentAgent(llm_client=llm_client, output_attr="polarity_output",
+                                 name="IntentGate", system_variant="selective")
+        polarity_agent = None             # NOT a pre-consensus stage
+        _consensus_polarity_weight = 0.0  # gate does NOT vote
+        _intent_gate_agent = IntentGateAgent(lazy_agent=_lazy_gate)
+    elif _agent_variant == "lexical_polaritygate_contextual":  # H — merged gate prompt
+        # Design C trio, but the Polarity agent's prompt has the Selective-IntentGate
+        # meta/mention-vs-stance criteria MERGED IN, and there is NO separate gate.
+        # Ablation: is the gate's benefit from its PROMPT CONTENT or from its POSITION
+        # (non-voting post-consensus veto)? Here the same criteria act inside a VOTE.
+        llm_lexical_agent = LLMLexicalAgent(llm_client=llm_client)
+        llm_logic_agent = PolarityAgent(llm_client=llm_client, system_variant="gate_merged")
+        _consensus_polarity_weight = 0.0  # no 4th agent
+        _intent_gate_agent = None         # no post-consensus guard
     elif _agent_variant == "lexical_polarity_contextual_selective_gate":  # G2
         # As G, but the IntentGate uses the SELECTIVE prompt: it protects neutral only
         # for platform/meta/mention/reference, and returns a polar label when the author

@@ -1,0 +1,15 @@
+G2-LAZY — selective gate invoked ONLY after consensus, ONLY on overrides
+Ahmed precomputed primary, gpt-4.1-mini, threshold 0.70, semantic_v1, w_primary 1.0
+818 samples, 84 escalated, 0 fallback(s)
+
+config                     | acc      | macro F1  | escalated   | gate LLM calls
+--------------------------------------------------------------------------------
+G2 (eager) mean n=5        | 0.9306   | 0.9266    | 67.2/84     | 84 (always)
+G2 range (noise band)      | 0.9291-0.9315 | 0.9251-0.9277 | 66-68/84    | 84
+G2-LAZY (this run)         | 0.9303   | 0.9267    | 67/84       | 29 (65% saved)
+
+gate invoked on 29/84 escalated samples; blocked an override on 6
+accuracy inside G2 noise band (0.9291-0.9315)? YES
+
+READ: if inside the band, deferring the gate call is decision-equivalent to G2 and
+      strictly cheaper - and the "gate runs after consensus" description becomes literal.

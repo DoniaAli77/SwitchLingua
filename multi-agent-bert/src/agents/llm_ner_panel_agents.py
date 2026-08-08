@@ -109,6 +109,7 @@ class LLMNERDebateAgent(_BasePanelAgent):
             llm_tags, reasoning = self._parse_response(raw, n)
             note = ""
         except LLMNERParseError as exc:
+            self.logger.warning("%s: parse error — %s; kept source A.", self.name, exc)
             llm_tags, reasoning, note = ta, "", f"debate parse fail ({exc}); kept source A"
         llm_tags, _ = self._align_length(llm_tags, n)
         valid = set(task.labels)
@@ -178,6 +179,7 @@ class LLMNERDisambiguationAgent(_BasePanelAgent):
             llm_tags, reasoning = self._parse_response(raw, n)
             note = ""
         except LLMNERParseError as exc:
+            self.logger.warning("%s: parse error — %s; kept draft.", self.name, exc)
             llm_tags, reasoning, note = tags, "", f"disambig parse fail ({exc}); kept draft"
         llm_tags, _ = self._align_length(llm_tags, n)
         valid = set(task.labels)

@@ -1,104 +1,11 @@
 The tokenizer you are loading from 'models/xlmr_gen240_ner' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
-Traceback (most recent call last):
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
-    yield
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
-    resp = self._pool.handle_request(req)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
-    raise exc from None
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
-    response = connection.handle_request(
-        pool_request.request
-    )
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
-    raise exc
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
-    stream = self._connect(request)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
-    stream = self._network_backend.connect_tcp(**kwargs)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
-    with map_exceptions(exc_map):
-         ~~~~~~~~~~~~~~^^^^^^^^^
-  File "C:\Users\Eng.Donia\miniconda3\Lib\contextlib.py", line 162, in __exit__
-    self.gen.throw(value)
-    ~~~~~~~~~~~~~~^^^^^^^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
-    raise to_exc(exc) from exc
-httpcore.ConnectError: [Errno 11001] getaddrinfo failed
 
-The above exception was the direct cause of the following exception:
+Primary: models/xlmr_gen240_ner  |  order: ['llm', 'debate']  |  Sentences: 200  LLM calls: 360  cost≈$0.0520
 
-Traceback (most recent call last):
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\openai\_base_client.py", line 1002, in request
-    response = self._client.send(
-        request,
-        stream=stream or self._should_stream_response_body(request=request),
-        **kwargs,
-    )
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_client.py", line 914, in send
-    response = self._send_handling_auth(
-        request,
-    ...<2 lines>...
-        history=[],
-    )
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
-    response = self._send_handling_redirects(
-        request,
-        follow_redirects=follow_redirects,
-        history=history,
-    )
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
-    response = self._send_single_request(request)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
-    response = transport.handle_request(request)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
-    with map_httpcore_exceptions():
-         ~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\Eng.Donia\miniconda3\Lib\contextlib.py", line 162, in __exit__
-    self.gen.throw(value)
-    ~~~~~~~~~~~~~~^^^^^^^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
-    raise mapped_exc(message) from exc
-httpx.ConnectError: [Errno 11001] getaddrinfo failed
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\src\llm\openai_client.py", line 134, in generate
-    response = client.chat.completions.create(**request)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
-    return func(*args, **kwargs)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1192, in create
-    return self._post(
-           ~~~~~~~~~~^
-        "/chat/completions",
-        ^^^^^^^^^^^^^^^^^^^^
-    ...<47 lines>...
-        stream_cls=Stream[ChatCompletionChunk],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\openai\_base_client.py", line 1294, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\.venv\Lib\site-packages\openai\_base_client.py", line 1034, in request
-    raise APIConnectionError(request=request) from err
-openai.APIConnectionError: Connection error.
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\scripts\ablation_ner_cumulative.py", line 238, in <module>
-    main()
-    ~~~~^^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\scripts\ablation_ner_cumulative.py", line 210, in main
-    adds = gap_spans(toks, cur, get_llm())
-                                ~~~~~~~^^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\scripts\ablation_ner_cumulative.py", line 200, in get_llm
-    stt = mk(toks, text); span.run(stt)
-                          ~~~~~~~~^^^^^
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\src\agents\llm_ner_span_agent.py", line 199, in run
-    raw = self.llm_client.generate(prompt)
-  File "C:\Users\Eng.Donia\Documents\matser\SwitchLingua\multi-agent-bert\src\llm\openai_client.py", line 136, in generate
-    raise LLMClientError(f"OpenAI API call failed: {exc}") from exc
-src.llm.base_client.LLMClientError: OpenAI API call failed: Connection error.
+==================================================================
+cumulative panel                              F1      prec     rec
+------------------------------------------------------------------
+primary                                    0.658     0.743   0.591
+primary +LLM+verify                        0.677     0.680   0.674  (+0.019)
+primary +LLM+verify +debate                0.745     0.765   0.725  (+0.087)
+==================================================================

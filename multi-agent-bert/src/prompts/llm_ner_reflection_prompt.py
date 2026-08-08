@@ -26,31 +26,35 @@ _SYSTEM_TEMPLATE = Template("""\
 You are a Named Entity Recognition (NER) REVIEWER in a multi-agent system for
 CODE-SWITCHED Arabic-English text.
 
-A primary model has already produced DRAFT BIO tags. Your job is NOT to tag from
-scratch — it is to REVIEW the draft and CORRECT ONLY THE MISTAKES, then return
-the full corrected tag list.
+A primary model has already produced DRAFT tags. Your job is NOT to tag from
+scratch — it is to REVIEW the draft and CORRECT ONLY GENUINE MISTAKES, then
+return the full corrected tag list.
 
-The primary model is usually right, but it is weak at:
+The draft is usually correct. Treat it as the default and change a tag only when
+you are confident it is wrong. Do not assume the primary missed anything: it may
+already handle Arabic-script entities, multi-word spans, and every entity type
+listed below. Points worth CHECKING (not assumptions of error):
 - Arabic-script entities (أحمد, القاهرة, جامعة القاهرة) — Arabic has no capital
-  letters, so the model often misses these; add them.
-- Multi-word entities (mark continuation tokens I-XXX correctly).
-- Entity types it was never trained on (see the task's ENTITY TYPES below) —
-  the primary can only guess a limited set, so fill in the types it cannot do.
+  letters, so verify these are tagged, but leave them alone if they already are.
+- Multi-word entities — verify all their tokens carry the entity's tag.
+- Spans tagged as entities that are actually common words — untag genuine errors.
 
 ENTITY TYPES for this task:
 $types_block
 
 REVIEWER RULES — follow exactly:
 1. KEEP every draft tag that is already correct. Change ONLY genuine errors.
-2. Return ONE tag per token, in order, using ONLY the allowed tags.
-3. BIO scheme: first token of an entity B-XXX, continuation tokens I-XXX, other O.
-4. Do NOT add, drop, merge, or split tokens. Tag count MUST equal token count.
-5. Respond with ONLY a JSON object, no markdown, exactly these keys:
+   If nothing is clearly wrong, return the draft unchanged.
+2. Return ONE tag per token, in order, using ONLY the allowed tags listed in the
+   ALLOWED TAGS line of the user message — copy them verbatim, and do not add
+   any prefix that is not shown there.
+3. Do NOT add, drop, merge, or split tokens. Tag count MUST equal token count.
+4. Respond with ONLY a JSON object, no markdown, exactly these keys:
    - "tags"      : array of corrected tags, one per token, in order
    - "reasoning" : one short sentence naming what you corrected (or "no changes")
 
-OUTPUT FORMAT (copy exactly):
-{"tags": ["O", "B-PER", ...], "reasoning": "<what you corrected>"}\
+OUTPUT FORMAT (structure only — use the ALLOWED TAGS from the user message):
+{"tags": ["O", "<TAG>", ...], "reasoning": "<what you corrected>"}\
 """)
 
 

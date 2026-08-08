@@ -1,0 +1,15 @@
+DESIGN H — gate criteria MERGED into Polarity prompt (no separate gate)
+Ahmed precomputed primary, gpt-4.1-mini, threshold 0.70, semantic_v1, w_primary 1.0
+818 samples, 84 escalated, 0 fallback(s)
+
+config                       | acc      | macro F1  | escalated
+------------------------------------------------------------------
+primary_only                 | 0.9254   | 0.9207    | 63/84
+Design C (no gate)           | 0.9266   | 0.9216    | 64/84
+Design G2 (gate, veto)       | 0.9303   | 0.9262    | 67/84
+Design H (gate merged)       | 0.9267   | 0.9217    | 64/84
+
+Design H vs primary on escalated: wrong->correct=13, correct->wrong=12, net=+1
+
+READ: if H ~= C (0.9216) the gate benefit comes from its POSITION (post-consensus veto).
+      if H ~= G2 (0.9262) the gate benefit comes from its PROMPT CONTENT.

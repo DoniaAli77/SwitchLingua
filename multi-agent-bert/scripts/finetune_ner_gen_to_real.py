@@ -26,6 +26,11 @@ from pathlib import Path
 
 import numpy as np
 
+try:  # Windows consoles default to cp1252 and cannot encode the arrows below.
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.evaluation.ner_conll_loader import load_conll
@@ -55,8 +60,11 @@ def canon_bio(tags):
     return out
 
 
-def load_gen():
-    rows = [json.loads(l) for l in GEN.open(encoding="utf-8")]
+def load_gen(path=None):
+    p = Path(path) if path else GEN
+    if not p.is_absolute():
+        p = ROOT / p
+    rows = [json.loads(l) for l in p.open(encoding="utf-8")]
     return [{"tokens": r["tokens"], "tags": canon_bio(r["ner_tags"])} for r in rows]
 
 
@@ -67,6 +75,8 @@ def load_real(path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--mode", choices=["gen", "augment", "real"], default="gen")
+    ap.add_argument("--gen_file", default=None,
+                    help="generated BIO jsonl (default: the 240 set); use to run the size ladder")
     ap.add_argument("--base", default="xlm-roberta-base")
     ap.add_argument("--epochs", type=float, default=10.0)
     ap.add_argument("--batch", type=int, default=8)
@@ -81,7 +91,7 @@ def main():
         DataCollatorForTokenClassification, Trainer, TrainingArguments)
     from seqeval.metrics import classification_report, f1_score, precision_score, recall_score
 
-    gen, real_tr, test = load_gen(), load_real(REAL_TRAIN), load_real(REAL_TEST)
+    gen, real_tr, test = load_gen(args.gen_file), load_real(REAL_TRAIN), load_real(REAL_TEST)
     train = {"gen": gen, "augment": real_tr + gen, "real": real_tr}[args.mode]
     print(f"MODE={args.mode}  train={len(train)} sents (gen={len(gen)}, real={len(real_tr)})  "
           f"test=REAL {len(test)} sents")
@@ -130,11 +140,17 @@ def main():
         data_collator=DataCollatorForTokenClassification(tok), compute_metrics=compute_metrics)
     trainer.train()
     m = trainer.evaluate()
+
+    # Save before reporting: a failed print must never cost a trained model.
+    if args.save_dir:
+        Path(args.save_dir).mkdir(parents=True, exist_ok=True)
+        model.save_pretrained(args.save_dir); tok.save_pretrained(args.save_dir)
+        print(f"Saved model to: {args.save_dir}")
+
     print(f"\n=== {args.mode.upper()} → REAL Sabty test (entity-level) ===")
     print(f"  F1={m['eval_f1']}  P={m['eval_precision']}  R={m['eval_recall']}")
 
     # final per-type report
-    preds = np.argmax(trainer.predict(DS(test)).predictions, axis=2)
     lp = trainer.predict(DS(test))
     preds = np.argmax(lp.predictions, axis=2)
     tl, tp = [], []
@@ -146,11 +162,6 @@ def main():
         tl.append(a); tp.append(b)
     print(classification_report(tl, tp, digits=3))
     print("Reference: real-train→real baseline = 0.816")
-
-    if args.save_dir:
-        Path(args.save_dir).mkdir(parents=True, exist_ok=True)
-        model.save_pretrained(args.save_dir); tok.save_pretrained(args.save_dir)
-        print(f"Saved model to: {args.save_dir}")
 
 
 if __name__ == "__main__":

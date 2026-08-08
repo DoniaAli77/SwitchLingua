@@ -21,7 +21,7 @@ never on a hardcoded label name.
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Any, Optional
 
 from src.agents.base_agent import BaseAgent
 from src.state.schema import PipelineState
@@ -36,6 +36,15 @@ class IntentGateAgent(BaseAgent[PipelineState]):
         State attribute (without the ``_output`` suffix) holding the gate agent's
         :class:`~src.state.schema.AgentOutput`. Defaults to ``"polarity"`` (i.e.
         ``state.polarity_output``), matching how Design G/G2 inject the IntentGate.
+    lazy_agent:
+        Optional gate agent (an ``IntentAgent``) invoked **on demand**, only once an
+        override of the primary has been detected. When supplied, the gate's LLM call
+        is deferred to this post-consensus stage instead of running as a pre-consensus
+        specialist (Design G2-lazy). ``None`` (default) → the gate output is expected
+        to be already present in ``gate_slot`` (Designs G/G2). The gate's judgement is
+        identical either way: its prompt sees only the raw text and label set, never
+        the consensus or primary prediction — so deferring the call changes cost and
+        call-ordering, not the decision.
     """
 
     def __init__(
@@ -43,9 +52,11 @@ class IntentGateAgent(BaseAgent[PipelineState]):
         gate_slot: str = "polarity",
         name: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
+        lazy_agent: Optional[Any] = None,
     ) -> None:
         super().__init__(name=name or "IntentGateAgent", logger=logger)
         self._gate_slot = gate_slot
+        self._lazy_agent = lazy_agent
 
     def run(self, state: PipelineState) -> PipelineState:
         """Revert consensus→primary iff consensus overrode the primary and the gate agrees."""
@@ -61,7 +72,17 @@ class IntentGateAgent(BaseAgent[PipelineState]):
         if primary_label is None or best_label == primary_label:
             return state
 
+        # Lazy mode: an override exists, so the gate's judgement is now needed.
+        # Invoke the gate agent here (its only LLM call) instead of pre-consensus.
         gate_out = getattr(state, f"{self._gate_slot}_output", None)
+        if gate_out is None and self._lazy_agent is not None:
+            self.logger.debug(
+                "%s: override detected ('%s'->'%s'); invoking gate agent on demand.",
+                self.name, primary_label, best_label,
+            )
+            state = self._lazy_agent.run(state)
+            gate_out = getattr(state, f"{self._gate_slot}_output", None)
+
         gate_label = (
             gate_out.model_output.label
             if gate_out is not None and gate_out.model_output is not None

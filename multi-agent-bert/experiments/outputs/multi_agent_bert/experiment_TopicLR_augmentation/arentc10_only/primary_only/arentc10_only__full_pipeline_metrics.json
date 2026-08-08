@@ -1,0 +1,92 @@
+{
+  "run_id": "arentc10_only__full_pipeline",
+  "mode": "full_pipeline",
+  "timestamp": "2026-08-05T14:46:50.174309+00:00",
+  "num_samples": 21134,
+  "accuracy": 0.981878,
+  "macro_f1": 0.981946,
+  "escalation_rate": 0.0,
+  "escalated_count": 0,
+  "escalated_accuracy": 0.0,
+  "per_class": [
+    {
+      "label": "business",
+      "precision": 0.975434,
+      "recall": 0.982509,
+      "f1": 0.978959,
+      "support": 2344
+    },
+    {
+      "label": "education",
+      "precision": 0.997875,
+      "recall": 0.997875,
+      "f1": 0.997875,
+      "support": 2353
+    },
+    {
+      "label": "health",
+      "precision": 0.948129,
+      "recall": 0.952178,
+      "f1": 0.950149,
+      "support": 2342
+    },
+    {
+      "label": "shopping",
+      "precision": 0.99914,
+      "recall": 0.998711,
+      "f1": 0.998925,
+      "support": 2327
+    },
+    {
+      "label": "medical",
+      "precision": 0.954981,
+      "recall": 0.961393,
+      "f1": 0.958176,
+      "support": 2383
+    },
+    {
+      "label": "sports",
+      "precision": 0.997425,
+      "recall": 0.994437,
+      "f1": 0.995929,
+      "support": 2337
+    },
+    {
+      "label": "tech",
+      "precision": 0.981655,
+      "recall": 0.979983,
+      "f1": 0.980818,
+      "support": 2348
+    },
+    {
+      "label": "finance",
+      "precision": 0.986231,
+      "recall": 0.981585,
+      "f1": 0.983902,
+      "support": 2335
+    },
+    {
+      "label": "social",
+      "precision": 0.997015,
+      "recall": 0.988584,
+      "f1": 0.992781,
+      "support": 2365
+    }
+  ],
+  "meta": {
+    "labels": [
+      "business",
+      "education",
+      "health",
+      "shopping",
+      "medical",
+      "sports",
+      "tech",
+      "finance",
+      "social"
+    ],
+    "pipeline_mode": "primary_only",
+    "valid_samples": 21134,
+    "error_samples": 0
+  }
+}

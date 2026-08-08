@@ -77,9 +77,13 @@ class PolarityAgent(BaseAgent[PipelineState]):
         name: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
         output_attr: str = "logic_output",
+        system_variant: Optional[str] = None,
     ) -> None:
         super().__init__(name=name or "PolarityAgent", logger=logger)
         self.llm_client = llm_client
+        # Optional system-prompt override. None → the active sentiment variant.
+        # "gate_merged" → the Design-H prompt (Selective-IntentGate criteria merged in).
+        self._system_variant = system_variant
         # State slot this agent writes its AgentOutput to. Defaults to
         # ``logic_output`` (the Logic-replacement variant C, drop-in for
         # consensus). The four-agent variant D injects a second PolarityAgent
@@ -126,7 +130,9 @@ class PolarityAgent(BaseAgent[PipelineState]):
 
         self.logger.debug("%s: sending prompt (%d chars)", self.name, len(prompt))
 
-        raw_response = self.llm_client.generate(f"{get_system_prompt()}\n\n{prompt}")
+        raw_response = self.llm_client.generate(
+            f"{get_system_prompt(self._system_variant)}\n\n{prompt}"
+        )
 
         try:
             parsed = self._parse_response(raw_response)

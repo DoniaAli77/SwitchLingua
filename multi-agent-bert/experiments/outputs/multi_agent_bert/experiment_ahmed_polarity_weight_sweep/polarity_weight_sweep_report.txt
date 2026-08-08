@@ -1,0 +1,24 @@
+POLARITY-WEIGHT SWEEP — Design C (no gate), Ahmed, gpt-4.1-mini, threshold 0.70
+Same captured agent outputs re-fused at each weight. 818 samples, 84 escalated, 0 fallback(s).
+
+Polarity weight    | acc      | macro F1  | escalated
+--------------------------------------------------------
+primary_only       | 0.9254   | 0.9207    | 63/84
+w = 1.00 (Design C) | 0.9267   | 0.9220    | 64/84
+w = 1.25           | 0.9254   | 0.9210    | 63/84
+w = 1.50           | 0.9267   | 0.9221    | 64/84
+w = 1.75           | 0.9267   | 0.9221    | 64/84
+w = 2.00           | 0.9267   | 0.9221    | 64/84
+w = 2.50           | 0.9279   | 0.9236    | 65/84
+w = 3.00           | 0.9230   | 0.9184    | 61/84
+--------------------------------------------------------
+G2 gate (mean n=5) | 0.9306   | 0.9266    | 67.2/84
+G2 noise band      | 0.9291-0.9315 | 0.9251-0.9277 | 66-68/84
+
+best weight by macro F1: w=2.50 -> 0.9279 acc / 0.9236 F1 / 65 escalated
+reaches G2 band (>=0.9251 F1 and >=66 escalated)? NO
+
+READ: if no weight reaches the G2 band, upweighting a voter cannot substitute for
+      the asymmetric post-consensus veto - upweighting is symmetric (Polarity wins
+      more often when right AND when wrong), whereas the gate only blocks moves
+      away from the primary.

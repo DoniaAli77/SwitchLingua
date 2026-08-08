@@ -201,6 +201,25 @@ Findings: (1) seq-independent ≈ parallel, differences flip sign across designs
 *every* sequential run across all three designs — the consistent signature of
 correlated over-calling. Parallel voting is retained.
 
+## Order sweep under BOTH framings (Design C, gpt-4o-mini)
+
+The order sweep above used the default `independent` framing. Repeated with
+`sequential_chain_style="collaborative"` to check for an order x framing
+interaction:
+
+| order | independent F1 | collaborative F1 | independent esc | collaborative esc |
+|---|---|---|---|---|
+| L→P→C (default) | 0.9183 | 0.9183 | 61/84 | 61/84 |
+| C→P→L (reverse) | 0.9204 | 0.9204 | 62/84 | 62/84 |
+| P→L→C | 0.9186 | 0.9191 | 61/84 | 61/84 |
+| C→L→P | 0.9188 | 0.9204 | 61/84 | 62/84 |
+| **spread** | **0.0021** | **0.0021** | | |
+
+Identical spread (0.0021) under both framings, and three of four orders land on
+the same escalated count. **No order x framing interaction**: neither the order of
+the chained agents nor the collaboration framing moves the result beyond ±1
+sample. 0 fallbacks in all runs.
+
 ## Reproduce
 - Code: `task_config.sequential_chain` (default False); block in
   `src/prompts/_agent_chain_block.py`; injected in `llm_lexical_agent.py`,

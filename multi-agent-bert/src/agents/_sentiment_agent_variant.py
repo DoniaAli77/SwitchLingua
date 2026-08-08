@@ -37,6 +37,11 @@ DEFAULT_VARIANT = "default"
 #:      the gate is a NON-VOTING consensus guard, not a 4th voter)
 #: - ``lexical_polarity_contextual_selective_gate`` → same as G but a SELECTIVE gate (G2):
 #:      the gate protects neutral only for platform/meta/mention, not for implicit stance
+#: - ``lexical_polaritygate_contextual`` → Lexical + Polarity(gate-merged prompt) +
+#:      Contextual (H, 3 agents, NO separate gate): the Selective-IntentGate's
+#:      meta/mention-vs-stance criteria are merged into the Polarity agent's own prompt,
+#:      so the same criteria act INSIDE a vote instead of as a post-consensus veto.
+#:      Ablation isolating the gate's PROMPT CONTENT from its POSITION.
 #: - ``sequential_sentiment_v1`` → STAGED reasoning pipeline (not parallel voting):
 #:      Intent → Polarity → Pragmatic → deterministic controller. Replaces the trio +
 #:      consensus on the escalation path; see src.agents.sequential_sentiment.
@@ -52,6 +57,8 @@ VALID_VARIANTS = frozenset({
     "intent_polarity_contextual",
     "lexical_polarity_contextual_intent_gate",
     "lexical_polarity_contextual_selective_gate",
+    "lexical_polarity_contextual_lazy_gate",
+    "lexical_polaritygate_contextual",
     "sequential_sentiment_v1",
     "sequential_sentiment_v2",
 })

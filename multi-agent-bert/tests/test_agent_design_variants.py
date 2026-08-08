@@ -199,6 +199,76 @@ def test_G_gate_does_not_touch_non_override():
     assert out.label == "neutral"
 
 
+# --------------------------------------------------------------------------- #
+# G2-lazy: the gate's LLM call is DEFERRED to the post-consensus stage and made
+# only when consensus actually overrode the primary.
+# --------------------------------------------------------------------------- #
+
+LAZY_GATE = "lexical_polarity_contextual_lazy_gate"
+
+
+class _RecordingGateAgent:
+    """Stub gate agent: records invocations and writes a fixed label to the slot."""
+
+    def __init__(self, label: str) -> None:
+        self.label = label
+        self.calls = 0
+
+    def run(self, state: PipelineState) -> PipelineState:
+        self.calls += 1
+        state.polarity_output = _vote("IntentGate", self.label, 0.8)
+        return state
+
+
+def _consensus_then_lazy_gate(st, gate_agent):
+    ConsensusAgent(weights={"primary": 1.0}).run(st)
+    IntentGateAgent(lazy_agent=gate_agent).run(st)
+    return st.final_output
+
+
+def test_lazy_gate_not_invoked_when_consensus_agrees_with_primary():
+    # No override → the gate's LLM call must be SKIPPED entirely (cost saving).
+    st = _gate_state("neutral", "neutral", None)  # gate slot empty
+    gate = _RecordingGateAgent("neutral")
+    out = _consensus_then_lazy_gate(st, gate)
+    assert gate.calls == 0          # <-- no LLM call made
+    assert out.label == "neutral"
+
+
+def test_lazy_gate_invoked_only_on_override():
+    # Override present → gate is invoked exactly once, and blocks the override.
+    st = _gate_state("neutral", "positive", None)  # gate slot empty
+    gate = _RecordingGateAgent("neutral")          # gate sides with primary
+    out = _consensus_then_lazy_gate(st, gate)
+    assert gate.calls == 1
+    assert out.label == "neutral"                  # override blocked
+
+
+def test_lazy_gate_allows_override_when_gate_disagrees_with_primary():
+    st = _gate_state("neutral", "positive", None)
+    gate = _RecordingGateAgent("positive")         # gate sees a real opinion
+    out = _consensus_then_lazy_gate(st, gate)
+    assert gate.calls == 1
+    assert out.label == "positive"                 # override stands
+
+
+def test_lazy_gate_matches_eager_gate_decision():
+    # Same inputs, eager (G2) vs lazy (G2-lazy) → identical final label.
+    eager = _gate_state("neutral", "positive", "neutral")
+    eager_out = _consensus_then_gate(eager, {"primary": 1.0})
+    lazy = _gate_state("neutral", "positive", None)
+    lazy_out = _consensus_then_lazy_gate(lazy, _RecordingGateAgent("neutral"))
+    assert eager_out.label == lazy_out.label
+
+
+def test_lazy_gate_variant_wires_gate_out_of_preconsensus_stages():
+    o = _orch(LAZY_GATE)
+    assert o._polarity is None                           # NOT a pre-consensus stage
+    assert isinstance(o._intent_gate, IntentGateAgent)   # guard active
+    assert isinstance(o._intent_gate._lazy_agent, IntentAgent)  # gate deferred to guard
+    assert o._consensus.weights["polarity"] == 0.0       # still never votes
+
+
 def test_consensus_is_pure_voting_no_gate_attr():
     # the gate is fully decoupled: ConsensusAgent no longer carries gate state
     assert not hasattr(ConsensusAgent(), "_intent_gate")

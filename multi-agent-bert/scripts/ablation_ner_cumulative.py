@@ -138,6 +138,8 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--limit", type=int, default=200)
     ap.add_argument("--llm_model", default="gpt-4o-mini")
+    ap.add_argument("--max_tokens", type=int, default=4000,
+                    help="response cap; 1500 truncated full-tag-array agents on >=100-token sentences")
     ap.add_argument("--env_file", default=None)
     ap.add_argument("--order", default="gaz,llm,debate,disambig,reflect",
                     help="comma-separated cumulative steps from: gaz,llm,debate,disambig,reflect")
@@ -153,7 +155,7 @@ def main():
         checkpoint=args.model_dir, device=args.device, tag_normalizer=tag_to_type)
     if not _load_env(args.env_file) or not os.environ.get("OPENAI_API_KEY"):
         print("[!] no OPENAI_API_KEY — pass --env_file"); return
-    client = OpenAIClient(model=args.llm_model, max_tokens=1500)
+    client = OpenAIClient(model=args.llm_model, max_tokens=args.max_tokens)
     valid = set(TYPE_LABELS)
 
     span = LLMNERSpanAgent(client, output_slot="contextual", descriptions=DESC, examples=examples)
