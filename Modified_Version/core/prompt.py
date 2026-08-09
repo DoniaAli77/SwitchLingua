@@ -340,6 +340,9 @@ TASK_VALIDATION_NER_PROMPT = ChatPromptTemplate.from_messages(
               company/brand/university names (e.g. Google, Microsoft, Cairo University) are ORG;
               city/country names (e.g. Cairo, Dubai, London, New York) are LOC;
               personal names (e.g. Ahmed Ali, Sarah Hassan) are PER.
+              These three are illustrations only. When section 2 defines any OTHER type, that
+              definition alone governs it — report such spans under their own type name, and do
+              NOT force them into PER/ORG/LOC.
             - Do NOT require a legal suffix (Inc, Ltd, Corp) or any surrounding cue word for an
               entity to count.
             - Do NOT fail just because surrounding context is Arabic or code-switched.
@@ -350,9 +353,12 @@ TASK_VALIDATION_NER_PROMPT = ChatPromptTemplate.from_messages(
 
             4. Output format:
             Return JSON with fields:
-            - entities: list of {{"text": "<exact span copied from the sentence>", "type": "PER|ORG|LOC"}}
-              This is the EVIDENCE for your verdict and is the most important field. List ONLY
-              Latin-script entities actually present. Use an empty list if there are none.
+            - entities: list of {{"text": "<exact span copied from the sentence>", "type": "<one of the required entity types defined in section 2>"}}
+              This is the EVIDENCE for your verdict and is the most important field. Use EXACTLY
+              the type names given in section 2 above; they are NOT limited to PER/ORG/LOC (for
+              example MISC, PRODUCT or EVENT may be required). Never substitute a different type
+              because a name is unfamiliar. List ONLY Latin-script entities actually present.
+              Use an empty list if there are none.
             - passed: boolean
             - confidence: float (0-1)
             - notes: short explanation
