@@ -1,0 +1,129 @@
+{
+  "total": 1080,
+  "per_label": {
+    "finance": 120,
+    "education": 120,
+    "health": 120,
+    "sports": 120,
+    "shopping": 120,
+    "business": 120,
+    "medical": 120,
+    "social": 120,
+    "tech": 120
+  },
+  "duplicates": 0,
+  "existing_540": 540,
+  "new_540": 540,
+  "profile_1080": {
+    "len_mean": 14.0,
+    "ar_pct": 50.78,
+    "en_pct": 49.19,
+    "cmi_mean": 41.82,
+    "switch_mean": 1.18,
+    "cs_valid_pct": 100.0
+  },
+  "profile_new540": {
+    "len_mean": 13.84,
+    "ar_pct": 50.84,
+    "en_pct": 49.12,
+    "cmi_mean": 41.56,
+    "switch_mean": 1.16,
+    "cs_valid_pct": 100.0
+  },
+  "batch_reports": [
+    {
+      "batch": 1,
+      "scenarios_completed_total": 108,
+      "candidate_sentences": 433,
+      "accepted_available": 267,
+      "selected_for_batch": 180,
+      "per_label": {
+        "social": 20,
+        "education": 20,
+        "sports": 20,
+        "tech": 20,
+        "finance": 20,
+        "health": 20,
+        "business": 20,
+        "medical": 20,
+        "shopping": 20
+      },
+      "cs_valid_rate_pct": 64.2,
+      "loss_by_reason": {
+        "low_quality": 10,
+        "not_cs_valid": 155,
+        "dup_vs_existing": 1
+      },
+      "quality_min": 7.0,
+      "ar_pct": 51.15,
+      "cmi_mean": 42.22,
+      "switch_mean": 1.18,
+      "len_mean": 13.73,
+      "cs_valid_pct_selected": 100.0,
+      "duplicates_in_selected": 0,
+      "saved_utc": "2026-08-09T20:35:54"
+    },
+    {
+      "batch": 2,
+      "scenarios_completed_total": 108,
+      "candidate_sentences": 437,
+      "accepted_available": 246,
+      "selected_for_batch": 180,
+      "per_label": {
+        "tech": 20,
+        "health": 20,
+        "shopping": 20,
+        "finance": 20,
+        "sports": 20,
+        "education": 20,
+        "business": 20,
+        "social": 20,
+        "medical": 20
+      },
+      "cs_valid_rate_pct": 59.3,
+      "loss_by_reason": {
+        "not_cs_valid": 178,
+        "low_quality": 13
+      },
+      "quality_min": 7.0,
+      "ar_pct": 50.38,
+      "cmi_mean": 41.49,
+      "switch_mean": 1.17,
+      "len_mean": 13.73,
+      "cs_valid_pct_selected": 100.0,
+      "duplicates_in_selected": 0,
+      "saved_utc": "2026-08-09T21:04:04"
+    },
+    {
+      "batch": 3,
+      "scenarios_completed_total": 116,
+      "candidate_sentences": 472,
+      "accepted_available": 247,
+      "selected_for_batch": 180,
+      "per_label": {
+        "business": 20,
+        "education": 20,
+        "social": 20,
+        "health": 20,
+        "finance": 20,
+        "tech": 20,
+        "medical": 20,
+        "sports": 20,
+        "shopping": 20
+      },
+      "cs_valid_rate_pct": 57.2,
+      "loss_by_reason": {
+        "not_cs_valid": 202,
+        "low_quality": 23
+      },
+      "quality_min": 7.0,
+      "ar_pct": 50.99,
+      "cmi_mean": 40.98,
+      "switch_mean": 1.14,
+      "len_mean": 14.08,
+      "cs_valid_pct_selected": 100.0,
+      "duplicates_in_selected": 0,
+      "saved_utc": "2026-08-09T21:33:37"
+    }
+  ]
+}

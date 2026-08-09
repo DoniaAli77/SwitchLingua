@@ -1,0 +1,31 @@
+{
+  "batch": 3,
+  "scenarios_completed_total": 116,
+  "candidate_sentences": 472,
+  "accepted_available": 247,
+  "selected_for_batch": 180,
+  "per_label": {
+    "business": 20,
+    "education": 20,
+    "social": 20,
+    "health": 20,
+    "finance": 20,
+    "tech": 20,
+    "medical": 20,
+    "sports": 20,
+    "shopping": 20
+  },
+  "cs_valid_rate_pct": 57.2,
+  "loss_by_reason": {
+    "not_cs_valid": 202,
+    "low_quality": 23
+  },
+  "quality_min": 7.0,
+  "ar_pct": 50.99,
+  "cmi_mean": 40.98,
+  "switch_mean": 1.14,
+  "len_mean": 14.08,
+  "cs_valid_pct_selected": 100.0,
+  "duplicates_in_selected": 0,
+  "saved_utc": "2026-08-09T21:33:37"
+}
