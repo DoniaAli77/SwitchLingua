@@ -1,0 +1,56 @@
+{
+  "primary": {
+    "correct": 726,
+    "accuracy": 0.624248,
+    "macro_f1": 0.559903,
+    "weighted_f1": 0.602511
+  },
+  "tau_030_headline": {
+    "correct": 804,
+    "accuracy": 0.691316,
+    "macro_f1": 0.653593,
+    "weighted_f1": 0.678906,
+    "routed": 169
+  },
+  "tau_040_exploratory": {
+    "correct": 894,
+    "accuracy": 0.768702,
+    "macro_f1": 0.748931,
+    "weighted_f1": 0.76568,
+    "routed": 386
+  },
+  "transitions": {
+    "tau=0.30": {
+      "routed": 169,
+      "primary_errors_routed": 100,
+      "W_to_C": 86,
+      "C_to_W": 8,
+      "W_to_W": 14,
+      "C_to_C": 61,
+      "net_gain": 78,
+      "routed_acc_before": 0.408284,
+      "routed_acc_after": 0.869822
+    },
+    "tau=0.40": {
+      "routed": 386,
+      "primary_errors_routed": 214,
+      "W_to_C": 186,
+      "C_to_W": 18,
+      "W_to_W": 28,
+      "C_to_C": 154,
+      "net_gain": 168,
+      "routed_acc_before": 0.445596,
+      "routed_acc_after": 0.880829
+    }
+  },
+  "incremental_band": {
+    "n": 217,
+    "W_to_C": 100,
+    "C_to_W": 10,
+    "W_to_W": 14,
+    "C_to_C": 93,
+    "net_gain": 90
+  },
+  "usage_total_calls": 1545,
+  "usage_total_cost_usd": 0.2459
+}

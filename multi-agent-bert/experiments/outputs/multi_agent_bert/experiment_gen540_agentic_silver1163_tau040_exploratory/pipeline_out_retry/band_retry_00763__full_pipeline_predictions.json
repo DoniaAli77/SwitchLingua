@@ -1,0 +1,25 @@
+[
+  {
+    "sample_id": "sample_00763",
+    "input_text": "عندك مثلا ثغرة الSQL injection دي لو كانت موجودة في شبكة فهي تقدر توصل لhacker في لحظة لقاعدة بيانات مستخدميها",
+    "true_label": "tech",
+    "predicted_label": "tech",
+    "confidence": 0.786812,
+    "probabilities": {
+      "business": 0.152569,
+      "education": 0.067096,
+      "health": 0.045459,
+      "shopping": 0.029985,
+      "medical": 0.073947,
+      "sports": 0.045466,
+      "tech": 0.397247,
+      "finance": 0.070537,
+      "social": 0.117693
+    },
+    "escalated": true,
+    "correct": true,
+    "pipeline_error": null,
+    "mode": "full_pipeline",
+    "pipeline_mode": "full_agentic"
+  }
+]

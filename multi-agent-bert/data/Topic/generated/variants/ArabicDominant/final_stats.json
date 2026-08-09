@@ -1,0 +1,32 @@
+{
+  "tag": "FINAL",
+  "scenarios_completed": 211,
+  "candidate_sentences": 858,
+  "candidate_yield_per_scenario": 4.066,
+  "accepted": 205,
+  "retained_yield_per_scenario": 0.972,
+  "cs_valid_rate_pct": 35.4,
+  "monolingual_arabic_rate_pct": 64.6,
+  "monolingual_arabic_share_of_cs_failures_pct": 100.0,
+  "ar_pct": 66.34,
+  "en_pct": 33.59,
+  "cmi_mean": 29.88,
+  "cmi_median": 35.29,
+  "switch_mean": 1.49,
+  "len_mean": 13.81,
+  "accepted_by_label": {
+    "social": 26,
+    "health": 28,
+    "medical": 22,
+    "education": 20,
+    "sports": 22,
+    "tech": 23,
+    "business": 21,
+    "shopping": 20,
+    "finance": 23
+  },
+  "loss_by_reason": {
+    "not_cs_valid": 554,
+    "low_quality": 99
+  }
+}

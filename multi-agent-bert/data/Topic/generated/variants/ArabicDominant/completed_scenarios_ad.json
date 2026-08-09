@@ -1,0 +1,849 @@
+{
+  "completed": {
+    "0667d385099f": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "b132a6f786d0": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "7461c6e1cbc9": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "3910ffc85d57": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "d938ed88c601": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "b50be59561bd": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "7e75cd041a41": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "11406ddf4eed": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "941c35555ee5": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "39fb5aac4e79": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "6e030ec84ea1": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "de967d2c43d3": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "7bcf6d3697d9": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "21d76a27954f": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "995eea3d58dc": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "648ef6a137dd": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "c67aa55d5f80": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "a76315e3c299": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "7bca82c3007d": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "fb167618c305": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "fc3e14f28346": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "48bd639de2c4": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "0512fa96cc00": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "a8f6bd6a8bc0": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "6b8ec0843d57": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "92406ccf3ec4": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "0388b772f8a9": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "540129fce00c": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "ba7204d11c56": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "72eacadb22a7": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "88a7fbc2b3f3": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "5c8b091119d7": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "192fcfe36786": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "6e2bfa4646da": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "21fce09ae7af": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "decec0218bc2": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "032f9d7d04d3": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "72a838b31ec1": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "021e4f4ffb13": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "2cd0e3da8316": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "065625125160": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "9976fcf47b83": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "c8049d5ba8f5": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "589cf14b070f": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "528951d095ec": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "bff17d88f307": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "123d31c27abf": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "5ab8ff530b5a": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "9932288467c2": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "18bc4be68ad3": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "44bea1a62bbe": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "db86587565c0": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "8bb78607face": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "09a2aab7c88f": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "260dddde4121": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "0099c4730517": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "da00beccaea7": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "ba319ec54561": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "cffce9baf2f3": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "5247a0910950": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "78d1883c7e42": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "267b49b2d8e2": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "02718e8203c8": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "bb777f9eeac1": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "5fc0c12256a3": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "c7b3e860c2ba": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "a9aaa2674b69": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "71e18a46c98c": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "196ec052429f": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "302a85d96eb2": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "2d18d4b9a4de": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "c470d2b001a2": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "67888781ce0f": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "963679812791": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "a6da18046293": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "7622f0c2f8b9": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "b9aacf4e8fc4": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "2f7d2a9cf2c0": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "a0b65669e0b6": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "946b0154a24c": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "589057c80598": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "d09263ecc77b": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "dcd87793d2d4": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "428f165d809d": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "8a0159df5de0": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "7406345c5d71": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "492d9ba69e42": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "3e2602867189": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "ee31ab6e2b6c": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "ea21c7b42790": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "895db2efd0ba": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "8ec6c6b5c9c3": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "784d66221e24": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "103e46ffb839": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "ef790ef4c3dc": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "08db7c239aca": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "9d5a0f35e536": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "78a39986ef2a": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "220c093bc1c4": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "508b74bfbe84": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "998d7bb61d54": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "4c1bd95e9261": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "4380b12bd5a0": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "f5c526853b50": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "47cb10721eb9": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "b981e8f075b2": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "f59a2e319cb2": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "02e9270d3d3e": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "33ffa856aa09": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "645a44e22a93": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "a3e738462072": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "8c4182e75faa": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "48fe7abc5264": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "ca5c3936bcd4": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "fabf5f9e960e": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "b7a31bbf3638": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "68b7d545edab": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "6ca614af7036": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "0932c95911ff": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "1c4568a5e48c": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "efc43eefbe8c": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "e495d7664a3f": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "cac816ce7892": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "6e59f03d6909": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "a5a7b04e20a8": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "6200ef010e97": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "897f0569f112": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "1e387945173f": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "86d9b1c1bf42": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "55d8548d8fc5": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "9fb22567433f": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "7a64f4bfbb0e": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "e0d4ceb22c58": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "8f9b6e10047e": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "5f6424502a74": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "f75926b2371b": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "420609af625b": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "cbce4287d00f": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "cf8adffd00f7": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "e78131608760": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "14f92fabe7ac": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "2b0a33494434": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "fb768c074185": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "674ad529dc95": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "2d8bbf9d47f5": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "70a18dfbc935": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "520739ca39ff": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "c05aaa9f21a9": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "51541c7fbad4": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "bed6e5c420bf": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "3f60f68f0028": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "8c0c71041f8d": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "c4b1c367e864": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "70a520dce392": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "2d9bc35b0b29": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "db2307032c29": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "5025eb0b1a66": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "4e3855e5cb6a": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "c6260dd03f16": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "195430ede007": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "20c68a052148": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "88cefd264629": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "aea5fb76c2fa": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "cb1b4533e519": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "07cc79b1d67a": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "28ea180780ad": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "a2e149cb5c60": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "3e09365d5435": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "b159ca607dd6": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "0db3a315e14b": {
+      "date": "20260809",
+      "label": "social"
+    },
+    "9cb221dbdc8c": {
+      "date": "20260809",
+      "label": "education"
+    },
+    "b168f2552dee": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "3f6d6ea31c38": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "541cf695ce9f": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "df97220c5301": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "0c00e5bbdd03": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "8e2d35e2ac74": {
+      "date": "20260809",
+      "label": "shopping"
+    },
+    "fa21ff82152a": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "f783fff23816": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "fbecd04e280d": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "9999f6b23eb0": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "9392755693e4": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "5ad1fddbb6f1": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "3c3968527ce6": {
+      "date": "20260809",
+      "label": "health"
+    },
+    "c3afe6bc8c6f": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "e8117ddef43e": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "3b0b0cf9900c": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "17a9ae03dd24": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "f67113be7256": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "816ebf0d1f92": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "10474aa89008": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "42f228e91bc3": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "549685c1e62e": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "945f3b7a2000": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "8f2c5e5f9bce": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "afbda47dcfea": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "304e0587ff1e": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "67724e303763": {
+      "date": "20260809",
+      "label": "business"
+    },
+    "463f0f5e1cd4": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "9b1d216eea22": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "9af4e87fbb0a": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "3872c961477a": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "c269f680de44": {
+      "date": "20260809",
+      "label": "medical"
+    },
+    "cd103529846c": {
+      "date": "20260809",
+      "label": "tech"
+    },
+    "9b2d5d93f16f": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "ed3f20b62d02": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "f5fc505189f1": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "26ea54214af6": {
+      "date": "20260809",
+      "label": "finance"
+    },
+    "75ee4b92b6e3": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "3129c7e06520": {
+      "date": "20260809",
+      "label": "sports"
+    },
+    "39bf62173d39": {
+      "date": "20260809",
+      "label": "sports"
+    }
+  },
+  "updated": "2026-08-09T19:25:53"
+}

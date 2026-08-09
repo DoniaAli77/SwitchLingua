@@ -1,0 +1,33 @@
+{
+  "tag": "CHECKPOINT (45 scenarios)",
+  "scenarios_completed": 45,
+  "candidate_sentences": 181,
+  "candidate_yield_per_scenario": 4.022,
+  "accepted": 50,
+  "retained_yield_per_scenario": 1.111,
+  "cs_valid_rate_pct": 38.1,
+  "monolingual_arabic_rate_pct": 61.9,
+  "monolingual_arabic_share_of_cs_failures_pct": 100.0,
+  "ar_pct": 64.31,
+  "en_pct": 35.55,
+  "cmi_mean": 32.36,
+  "cmi_median": 40.0,
+  "switch_mean": 1.54,
+  "len_mean": 15.02,
+  "accepted_by_label": {
+    "social": 8,
+    "health": 6,
+    "medical": 8,
+    "education": 5,
+    "sports": 3,
+    "tech": 6,
+    "business": 2,
+    "shopping": 8,
+    "finance": 4
+  },
+  "loss_by_reason": {
+    "not_cs_valid": 112,
+    "low_quality": 19
+  },
+  "gates_passed": true
+}

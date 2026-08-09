@@ -1,0 +1,198 @@
+{
+  "note": "EXPLORATORY sweep. tau=0.30 is the predefined headline condition. No optimal threshold is selected.",
+  "primary_only": {
+    "correct": 726,
+    "accuracy": 0.624248,
+    "macro_f1": 0.559903,
+    "weighted_f1": 0.602511
+  },
+  "sweep": {
+    "0.30": {
+      "routed": 169,
+      "coverage_pct": 14.53,
+      "calls": 676,
+      "correct": 804,
+      "accuracy": 0.691316,
+      "macro_f1": 0.653593,
+      "weighted_f1": 0.678906,
+      "err_routed": 100,
+      "C_to_C": 61,
+      "W_to_C": 86,
+      "C_to_W": 8,
+      "W_to_W": 14,
+      "net": 78,
+      "routed_acc_before": 0.408284,
+      "routed_acc_after": 0.869822
+    },
+    "0.40": {
+      "routed": 386,
+      "coverage_pct": 33.19,
+      "calls": 1545,
+      "correct": 894,
+      "accuracy": 0.768702,
+      "macro_f1": 0.748931,
+      "weighted_f1": 0.76568,
+      "err_routed": 214,
+      "C_to_C": 154,
+      "W_to_C": 186,
+      "C_to_W": 18,
+      "W_to_W": 28,
+      "net": 168,
+      "routed_acc_before": 0.445596,
+      "routed_acc_after": 0.880829
+    },
+    "0.50": {
+      "routed": 616,
+      "coverage_pct": 52.97,
+      "calls": 2465,
+      "correct": 968,
+      "accuracy": 0.83233,
+      "macro_f1": 0.823421,
+      "weighted_f1": 0.83183,
+      "err_routed": 306,
+      "C_to_C": 279,
+      "W_to_C": 273,
+      "C_to_W": 31,
+      "W_to_W": 33,
+      "net": 242,
+      "routed_acc_before": 0.503247,
+      "routed_acc_after": 0.896104
+    },
+    "0.60": {
+      "routed": 846,
+      "coverage_pct": 72.74,
+      "calls": 3385,
+      "correct": 1012,
+      "accuracy": 0.870163,
+      "macro_f1": 0.868597,
+      "weighted_f1": 0.872139,
+      "err_routed": 382,
+      "C_to_C": 410,
+      "W_to_C": 340,
+      "C_to_W": 54,
+      "W_to_W": 42,
+      "net": 286,
+      "routed_acc_before": 0.548463,
+      "routed_acc_after": 0.886525
+    }
+  },
+  "per_class_f1": {
+    "labels": [
+      "business",
+      "education",
+      "health",
+      "shopping",
+      "medical",
+      "sports",
+      "tech",
+      "finance",
+      "social"
+    ],
+    "support": [
+      154,
+      85,
+      90,
+      91,
+      71,
+      63,
+      294,
+      232,
+      83
+    ],
+    "primary": [
+      0.364444,
+      0.342342,
+      0.551181,
+      0.6,
+      0.619289,
+      0.583333,
+      0.726727,
+      0.758475,
+      0.493333
+    ],
+    "tau_0.30": [
+      0.459574,
+      0.532258,
+      0.675862,
+      0.669811,
+      0.706522,
+      0.650307,
+      0.770186,
+      0.782051,
+      0.635762
+    ],
+    "tau_0.40": [
+      0.603922,
+      0.748299,
+      0.780488,
+      0.724638,
+      0.783626,
+      0.6875,
+      0.825449,
+      0.834783,
+      0.751678
+    ],
+    "tau_0.50": [
+      0.708772,
+      0.81761,
+      0.863636,
+      0.779487,
+      0.888889,
+      0.771242,
+      0.874791,
+      0.869757,
+      0.836601
+    ],
+    "tau_0.60": [
+      0.775385,
+      0.89011,
+      0.896175,
+      0.818653,
+      0.934307,
+      0.834437,
+      0.903571,
+      0.892938,
+      0.871795
+    ]
+  },
+  "usage": {
+    "tau030_run": {
+      "model": "gpt-4o-mini",
+      "calls": 676,
+      "prompt_tokens": 529166,
+      "completion_tokens": 47084,
+      "total_tokens": 576250,
+      "est_cost_usd": 0.1076,
+      "pricing_note": "List price estimate only \u2014 verify current OpenAI pricing."
+    },
+    "band030_040": {
+      "model": "gpt-4o-mini",
+      "calls": 865,
+      "prompt_tokens": 677170,
+      "completion_tokens": 60232,
+      "total_tokens": 737402,
+      "est_cost_usd": 0.1377,
+      "pricing_note": "List price estimate only \u2014 verify current OpenAI pricing."
+    },
+    "band_retry": {
+      "model": "gpt-4o-mini",
+      "calls": 4,
+      "prompt_tokens": 3171,
+      "completion_tokens": 283,
+      "total_tokens": 3454,
+      "est_cost_usd": 0.0006,
+      "pricing_note": "List price estimate only \u2014 verify current OpenAI pricing."
+    },
+    "band040_060": {
+      "model": "gpt-4o-mini",
+      "calls": 1840,
+      "prompt_tokens": 1438612,
+      "completion_tokens": 125514,
+      "total_tokens": 1564126,
+      "est_cost_usd": 0.2911,
+      "pricing_note": "List price estimate only \u2014 verify current OpenAI pricing."
+    }
+  },
+  "usage_total_calls": 3385,
+  "usage_total_cost_usd": 0.537
+}
