@@ -1,0 +1,38 @@
+{
+  "180_seed42": {
+    "path": "data\\Topic\\generated\\learning_curve\\topic_180_seed42.jsonl",
+    "rows": 180,
+    "per_label": 20
+  },
+  "360_seed42": {
+    "path": "data\\Topic\\generated\\learning_curve\\topic_360_seed42.jsonl",
+    "rows": 360,
+    "per_label": 40
+  },
+  "180_seed43": {
+    "path": "data\\Topic\\generated\\learning_curve\\topic_180_seed43.jsonl",
+    "rows": 180,
+    "per_label": 20
+  },
+  "360_seed43": {
+    "path": "data\\Topic\\generated\\learning_curve\\topic_360_seed43.jsonl",
+    "rows": 360,
+    "per_label": 40
+  },
+  "180_seed44": {
+    "path": "data\\Topic\\generated\\learning_curve\\topic_180_seed44.jsonl",
+    "rows": 180,
+    "per_label": 20
+  },
+  "360_seed44": {
+    "path": "data\\Topic\\generated\\learning_curve\\topic_360_seed44.jsonl",
+    "rows": 360,
+    "per_label": 40
+  },
+  "540_all_seeds": {
+    "path": "data\\Topic\\generated\\merged\\switchlingua_topic_train_540_60perlabel.jsonl",
+    "rows": 540,
+    "per_label": 60,
+    "note": "original file, used unchanged for all seeds"
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "condition": "Topic-540 XLM-R + full agentic pipeline at the primary-calibrated threshold tau=0.30",
+  "tau": 0.3,
+  "n": 1163,
+  "routed": 169,
+  "routed_pct": 14.53,
+  "primary": {
+    "correct": 726,
+    "accuracy": 0.624248,
+    "macro_f1": 0.559903,
+    "weighted_f1": 0.602511
+  },
+  "final": {
+    "correct": 804,
+    "accuracy": 0.691316,
+    "macro_f1": 0.653593,
+    "weighted_f1": 0.678906
+  },
+  "delta": {
+    "accuracy": 0.067068,
+    "macro_f1": 0.09369,
+    "weighted_f1": 0.076396
+  },
+  "transitions": {
+    "C_to_C": 61,
+    "W_to_C": 86,
+    "C_to_W": 8,
+    "W_to_W": 14,
+    "net_gain": 78
+  },
+  "primary_errors_total": 437,
+  "primary_errors_routed": 100,
+  "routed_subset_accuracy": {
+    "before": 0.408284,
+    "after": 0.869822
+  },
+  "per_class": [
+    {
+      "label": "business",
+      "support": 154,
+      "primary": {
+        "precision": 0.577465,
+        "recall": 0.266234,
+        "f1": 0.364444
+      },
+      "final": {
+        "precision": 0.666667,
+        "recall": 0.350649,
+        "f1": 0.459574
+      }
+    },
+    {
+      "label": "education",
+      "support": 85,
+      "primary": {
+        "precision": 0.730769,
+        "recall": 0.223529,
+        "f1": 0.342342
+      },
+      "final": {
+        "precision": 0.846154,
+        "recall": 0.388235,
+        "f1": 0.532258
+      }
+    },
+    {
+      "label": "health",
+      "support": 90,
+      "primary": {
+        "precision": 0.945946,
+        "recall": 0.388889,
+        "f1": 0.551181
+      },
+      "final": {
+        "precision": 0.890909,
+        "recall": 0.544444,
+        "f1": 0.675862
+      }
+    },
+    {
+      "label": "shopping",
+      "support": 91,
+      "primary": {
+        "precision": 0.529412,
+        "recall": 0.692308,
+        "f1": 0.6
+      },
+      "final": {
+        "precision": 0.586777,
+        "recall": 0.78022,
+        "f1": 0.669811
+      }
+    },
+    {
+      "label": "medical",
+      "support": 71,
+      "primary": {
+        "precision": 0.484127,
+        "recall": 0.859155,
+        "f1": 0.619289
+      },
+      "final": {
+        "precision": 0.575221,
+        "recall": 0.915493,
+        "f1": 0.706522
+      }
+    },
+    {
+      "label": "sports",
+      "support": 63,
+      "primary": {
+        "precision": 0.466667,
+        "recall": 0.777778,
+        "f1": 0.583333
+      },
+      "final": {
+        "precision": 0.53,
+        "recall": 0.84127,
+        "f1": 0.650307
+      }
+    },
+    {
+      "label": "tech",
+      "support": 294,
+      "primary": {
+        "precision": 0.650538,
+        "recall": 0.823129,
+        "f1": 0.726727
+      },
+      "final": {
+        "precision": 0.708571,
+        "recall": 0.843537,
+        "f1": 0.770186
+      }
+    },
+    {
+      "label": "finance",
+      "support": 232,
+      "primary": {
+        "precision": 0.745833,
+        "recall": 0.771552,
+        "f1": 0.758475
+      },
+      "final": {
+        "precision": 0.775424,
+        "recall": 0.788793,
+        "f1": 0.782051
+      }
+    },
+    {
+      "label": "social",
+      "support": 83,
+      "primary": {
+        "precision": 0.552239,
+        "recall": 0.445783,
+        "f1": 0.493333
+      },
+      "final": {
+        "precision": 0.705882,
+        "recall": 0.578313,
+        "f1": 0.635762
+      }
+    }
+  ],
+  "confusion_primary": [
+    [
+      41,
+      0,
+      0,
+      16,
+      0,
+      7,
+      45,
+      40,
+      5
+    ],
+    [
+      2,
+      19,
+      0,
+      2,
+      24,
+      5,
+      25,
+      2,
+      6
+    ],
+    [
+      2,
+      0,
+      35,
+      4,
+      21,
+      11,
+      13,
+      1,
+      3
+    ],
+    [
+      0,
+      0,
+      1,
+      63,
+      7,
+      5,
+      8,
+      3,
+      4
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      61,
+      1,
+      6,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      1,
+      0,
+      49,
+      8,
+      3,
+      1
+    ],
+    [
+      11,
+      5,
+      0,
+      6,
+      2,
+      13,
+      242,
+      8,
+      7
+    ],
+    [
+      9,
+      0,
+      0,
+      18,
+      3,
+      7,
+      13,
+      179,
+      3
+    ],
+    [
+      5,
+      2,
+      1,
+      7,
+      8,
+      7,
+      12,
+      4,
+      37
+    ]
+  ],
+  "confusion_final": [
+    [
+      54,
+      0,
+      0,
+      12,
+      0,
+      7,
+      39,
+      37,
+      5
+    ],
+    [
+      2,
+      33,
+      0,
+      1,
+      20,
+      4,
+      18,
+      2,
+      5
+    ],
+    [
+      1,
+      0,
+      49,
+      3,
+      16,
+      8,
+      11,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      3,
+      71,
+      1,
+      5,
+      5,
+      3,
+      3
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      65,
+      1,
+      3,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      53,
+      6,
+      2,
+      1
+    ],
+    [
+      13,
+      4,
+      0,
+      6,
+      2,
+      12,
+      248,
+      6,
+      3
+    ],
+    [
+      8,
+      0,
+      0,
+      19,
+      3,
+      6,
+      11,
+      183,
+      2
+    ],
+    [
+      3,
+      2,
+      3,
+      6,
+      6,
+      4,
+      9,
+      2,
+      48
+    ]
+  ],
+  "labels": [
+    "business",
+    "education",
+    "health",
+    "shopping",
+    "medical",
+    "sports",
+    "tech",
+    "finance",
+    "social"
+  ],
+  "llm_usage": {
+    "model": "gpt-4o-mini",
+    "calls": 676,
+    "prompt_tokens": 529166,
+    "completion_tokens": 47084,
+    "total_tokens": 576250,
+    "est_cost_usd": 0.1076,
+    "pricing_note": "List price estimate only — verify current OpenAI pricing."
+  }
+}

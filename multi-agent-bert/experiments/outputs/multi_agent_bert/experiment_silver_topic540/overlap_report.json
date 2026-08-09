@@ -1,0 +1,76 @@
+{
+ "frozen_rows": 1044,
+ "unique_normalised": 1044,
+ "sources": {
+  "Topic-540 train (generated)": {
+   "rows": 540,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  },
+  "ARENTCV2/train": {
+   "rows": 73956,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  },
+  "ARENTCV2/dev": {
+   "rows": 10562,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  },
+  "ARENTCV2/test": {
+   "rows": 21134,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  },
+  "ARENTCV1/train": {
+   "rows": 73976,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  },
+  "ARENTCV1/dev": {
+   "rows": 10569,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  },
+  "ARENTCV1/test": {
+   "rows": 21137,
+   "exact_overlap": 0,
+   "containment_overlap": 0,
+   "examples": []
+  }
+ },
+ "label_check": {
+  "arentc_labels": [
+   "business",
+   "education",
+   "finance",
+   "health",
+   "medical",
+   "shopping",
+   "social",
+   "sports",
+   "tech"
+  ],
+  "silver_labels": [
+   "business",
+   "education",
+   "finance",
+   "health",
+   "medical",
+   "shopping",
+   "social",
+   "sports",
+   "tech"
+  ],
+  "identical": true,
+  "alias": {
+   "technology": "tech"
+  }
+ }
+}

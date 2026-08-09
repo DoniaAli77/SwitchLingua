@@ -1,0 +1,2516 @@
+{
+  "XLM-R": {
+    "1044_original": {
+      "n": 1044,
+      "accuracy": 0.630268,
+      "macro_f1": 0.557221,
+      "weighted_f1": 0.613519,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.491228,
+          "recall": 0.282828,
+          "f1": 0.358974,
+          "support": 99
+        },
+        {
+          "label": "education",
+          "precision": 0.72,
+          "recall": 0.214286,
+          "f1": 0.330275,
+          "support": 84
+        },
+        {
+          "label": "health",
+          "precision": 0.945946,
+          "recall": 0.397727,
+          "f1": 0.56,
+          "support": 88
+        },
+        {
+          "label": "shopping",
+          "precision": 0.54955,
+          "recall": 0.685393,
+          "f1": 0.61,
+          "support": 89
+        },
+        {
+          "label": "medical",
+          "precision": 0.466102,
+          "recall": 0.859375,
+          "f1": 0.604396,
+          "support": 64
+        },
+        {
+          "label": "sports",
+          "precision": 0.430108,
+          "recall": 0.754717,
+          "f1": 0.547945,
+          "support": 53
+        },
+        {
+          "label": "tech",
+          "precision": 0.669697,
+          "recall": 0.818519,
+          "f1": 0.736667,
+          "support": 270
+        },
+        {
+          "label": "finance",
+          "precision": 0.788462,
+          "recall": 0.759259,
+          "f1": 0.773585,
+          "support": 216
+        },
+        {
+          "label": "social",
+          "precision": 0.553846,
+          "recall": 0.444444,
+          "f1": 0.493151,
+          "support": 81
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            28,
+            0,
+            0,
+            11,
+            0,
+            6,
+            26,
+            24,
+            4
+          ],
+          [
+            2,
+            18,
+            0,
+            2,
+            24,
+            5,
+            25,
+            2,
+            6
+          ],
+          [
+            2,
+            0,
+            35,
+            4,
+            19,
+            11,
+            13,
+            1,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            61,
+            7,
+            5,
+            8,
+            3,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            55,
+            1,
+            5,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1,
+            0,
+            40,
+            8,
+            2,
+            1
+          ],
+          [
+            10,
+            5,
+            0,
+            6,
+            2,
+            11,
+            221,
+            8,
+            7
+          ],
+          [
+            9,
+            0,
+            0,
+            18,
+            3,
+            7,
+            12,
+            164,
+            3
+          ],
+          [
+            5,
+            2,
+            1,
+            6,
+            8,
+            7,
+            12,
+            4,
+            36
+          ]
+        ]
+      },
+      "true_distribution": {
+        "finance": 216,
+        "tech": 270,
+        "business": 99,
+        "education": 84,
+        "social": 81,
+        "shopping": 89,
+        "medical": 64,
+        "health": 88,
+        "sports": 53
+      },
+      "pred_distribution": {
+        "finance": 208,
+        "tech": 330,
+        "social": 65,
+        "medical": 118,
+        "business": 57,
+        "shopping": 111,
+        "sports": 93,
+        "education": 25,
+        "health": 37
+      },
+      "confidence": {
+        "mean": 0.48322886206896554,
+        "median": 0.48549549999999997,
+        "min": 0.153055,
+        "max": 0.796352,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "119_new": {
+      "n": 119,
+      "accuracy": 0.571429,
+      "macro_f1": 0.572929,
+      "weighted_f1": 0.525875,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.928571,
+          "recall": 0.236364,
+          "f1": 0.376812,
+          "support": 55
+        },
+        {
+          "label": "education",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "health",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        },
+        {
+          "label": "shopping",
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4,
+          "support": 2
+        },
+        {
+          "label": "medical",
+          "precision": 0.75,
+          "recall": 0.857143,
+          "f1": 0.8,
+          "support": 7
+        },
+        {
+          "label": "sports",
+          "precision": 0.75,
+          "recall": 0.9,
+          "f1": 0.818182,
+          "support": 10
+        },
+        {
+          "label": "tech",
+          "precision": 0.5,
+          "recall": 0.875,
+          "f1": 0.636364,
+          "support": 24
+        },
+        {
+          "label": "finance",
+          "precision": 0.46875,
+          "recall": 0.9375,
+          "f1": 0.625,
+          "support": 16
+        },
+        {
+          "label": "social",
+          "precision": 0.5,
+          "recall": 0.5,
+          "f1": 0.5,
+          "support": 2
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            13,
+            0,
+            0,
+            5,
+            0,
+            1,
+            19,
+            16,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            2,
+            21,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            15,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "true_distribution": {
+        "sports": 10,
+        "business": 55,
+        "finance": 16,
+        "medical": 7,
+        "social": 2,
+        "health": 2,
+        "shopping": 2,
+        "tech": 24,
+        "education": 1
+      },
+      "pred_distribution": {
+        "sports": 12,
+        "shopping": 8,
+        "finance": 32,
+        "tech": 42,
+        "business": 14,
+        "medical": 8,
+        "social": 2,
+        "education": 1
+      },
+      "confidence": {
+        "mean": 0.48136584033613444,
+        "median": 0.495052,
+        "min": 0.183448,
+        "max": 0.780411,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "1163_combined": {
+      "n": 1163,
+      "accuracy": 0.624248,
+      "macro_f1": 0.559903,
+      "weighted_f1": 0.602511,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.577465,
+          "recall": 0.266234,
+          "f1": 0.364444,
+          "support": 154
+        },
+        {
+          "label": "education",
+          "precision": 0.730769,
+          "recall": 0.223529,
+          "f1": 0.342342,
+          "support": 85
+        },
+        {
+          "label": "health",
+          "precision": 0.945946,
+          "recall": 0.388889,
+          "f1": 0.551181,
+          "support": 90
+        },
+        {
+          "label": "shopping",
+          "precision": 0.529412,
+          "recall": 0.692308,
+          "f1": 0.6,
+          "support": 91
+        },
+        {
+          "label": "medical",
+          "precision": 0.484127,
+          "recall": 0.859155,
+          "f1": 0.619289,
+          "support": 71
+        },
+        {
+          "label": "sports",
+          "precision": 0.466667,
+          "recall": 0.777778,
+          "f1": 0.583333,
+          "support": 63
+        },
+        {
+          "label": "tech",
+          "precision": 0.650538,
+          "recall": 0.823129,
+          "f1": 0.726727,
+          "support": 294
+        },
+        {
+          "label": "finance",
+          "precision": 0.745833,
+          "recall": 0.771552,
+          "f1": 0.758475,
+          "support": 232
+        },
+        {
+          "label": "social",
+          "precision": 0.552239,
+          "recall": 0.445783,
+          "f1": 0.493333,
+          "support": 83
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            41,
+            0,
+            0,
+            16,
+            0,
+            7,
+            45,
+            40,
+            5
+          ],
+          [
+            2,
+            19,
+            0,
+            2,
+            24,
+            5,
+            25,
+            2,
+            6
+          ],
+          [
+            2,
+            0,
+            35,
+            4,
+            21,
+            11,
+            13,
+            1,
+            3
+          ],
+          [
+            0,
+            0,
+            1,
+            63,
+            7,
+            5,
+            8,
+            3,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            61,
+            1,
+            6,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1,
+            0,
+            49,
+            8,
+            3,
+            1
+          ],
+          [
+            11,
+            5,
+            0,
+            6,
+            2,
+            13,
+            242,
+            8,
+            7
+          ],
+          [
+            9,
+            0,
+            0,
+            18,
+            3,
+            7,
+            13,
+            179,
+            3
+          ],
+          [
+            5,
+            2,
+            1,
+            7,
+            8,
+            7,
+            12,
+            4,
+            37
+          ]
+        ]
+      },
+      "true_distribution": {
+        "finance": 232,
+        "tech": 294,
+        "business": 154,
+        "education": 85,
+        "social": 83,
+        "shopping": 91,
+        "medical": 71,
+        "health": 90,
+        "sports": 63
+      },
+      "pred_distribution": {
+        "finance": 240,
+        "tech": 372,
+        "social": 67,
+        "medical": 126,
+        "business": 71,
+        "shopping": 119,
+        "sports": 105,
+        "education": 26,
+        "health": 37
+      },
+      "confidence": {
+        "mean": 0.4830382347377472,
+        "median": 0.485672,
+        "min": 0.153055,
+        "max": 0.796352,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "named_entity_only (n=105)": {
+      "n": 105,
+      "accuracy": 0.533333,
+      "macro_f1": 0.579098,
+      "weighted_f1": 0.49479,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.928571,
+          "recall": 0.236364,
+          "f1": 0.376812,
+          "support": 55
+        },
+        {
+          "label": "education",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "health",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        },
+        {
+          "label": "shopping",
+          "precision": 0.285714,
+          "recall": 1.0,
+          "f1": 0.444444,
+          "support": 2
+        },
+        {
+          "label": "medical",
+          "precision": 0.714286,
+          "recall": 0.833333,
+          "f1": 0.769231,
+          "support": 6
+        },
+        {
+          "label": "sports",
+          "precision": 0.818182,
+          "recall": 0.9,
+          "f1": 0.857143,
+          "support": 10
+        },
+        {
+          "label": "tech",
+          "precision": 0.34375,
+          "recall": 0.846154,
+          "f1": 0.488889,
+          "support": 13
+        },
+        {
+          "label": "finance",
+          "precision": 0.451613,
+          "recall": 0.933333,
+          "f1": 0.608696,
+          "support": 15
+        },
+        {
+          "label": "social",
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.666667,
+          "support": 1
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            13,
+            0,
+            0,
+            5,
+            0,
+            1,
+            19,
+            16,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            11,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            14,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "true_distribution": {
+        "sports": 10,
+        "business": 55,
+        "finance": 15,
+        "medical": 6,
+        "social": 1,
+        "health": 2,
+        "shopping": 2,
+        "tech": 13,
+        "education": 1
+      },
+      "pred_distribution": {
+        "sports": 11,
+        "shopping": 7,
+        "finance": 31,
+        "tech": 32,
+        "business": 14,
+        "medical": 7,
+        "social": 2,
+        "education": 1
+      },
+      "confidence": {
+        "mean": 0.46889599047619046,
+        "median": 0.456163,
+        "min": 0.183448,
+        "max": 0.780411,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "acronym_or_model_only (n=12)": {
+      "n": 12,
+      "accuracy": 0.916667,
+      "macro_f1": 0.216931,
+      "weighted_f1": 0.956349,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "education",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "health",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "shopping",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "medical",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "sports",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "tech",
+          "precision": 1.0,
+          "recall": 0.909091,
+          "f1": 0.952381,
+          "support": 11
+        },
+        {
+          "label": "finance",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "social",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            10,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "true_distribution": {
+        "medical": 1,
+        "tech": 11
+      },
+      "pred_distribution": {
+        "medical": 1,
+        "tech": 10,
+        "sports": 1
+      },
+      "confidence": {
+        "mean": 0.5716804166666667,
+        "median": 0.6070709999999999,
+        "min": 0.359065,
+        "max": 0.768309,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "standalone=no (n=2)": {
+      "n": 2,
+      "accuracy": 0.5,
+      "macro_f1": 0.111111,
+      "weighted_f1": 0.5,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "education",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "health",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "shopping",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "medical",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "sports",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "tech",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "finance",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "social",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "true_distribution": {
+        "social": 1,
+        "finance": 1
+      },
+      "pred_distribution": {
+        "shopping": 1,
+        "finance": 1
+      },
+      "confidence": {
+        "mean": 0.5941455,
+        "median": 0.5941455,
+        "min": 0.545862,
+        "max": 0.642429,
+        "pct_below_0.90": 100.0
+      }
+    }
+  },
+  "mBERT": {
+    "1044_original": {
+      "n": 1044,
+      "accuracy": 0.490421,
+      "macro_f1": 0.439371,
+      "weighted_f1": 0.48254,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.462963,
+          "recall": 0.252525,
+          "f1": 0.326797,
+          "support": 99
+        },
+        {
+          "label": "education",
+          "precision": 1.0,
+          "recall": 0.119048,
+          "f1": 0.212766,
+          "support": 84
+        },
+        {
+          "label": "health",
+          "precision": 0.6875,
+          "recall": 0.125,
+          "f1": 0.211538,
+          "support": 88
+        },
+        {
+          "label": "shopping",
+          "precision": 0.210169,
+          "recall": 0.696629,
+          "f1": 0.322917,
+          "support": 89
+        },
+        {
+          "label": "medical",
+          "precision": 0.471074,
+          "recall": 0.890625,
+          "f1": 0.616216,
+          "support": 64
+        },
+        {
+          "label": "sports",
+          "precision": 0.603175,
+          "recall": 0.716981,
+          "f1": 0.655172,
+          "support": 53
+        },
+        {
+          "label": "tech",
+          "precision": 0.715909,
+          "recall": 0.7,
+          "f1": 0.707865,
+          "support": 270
+        },
+        {
+          "label": "finance",
+          "precision": 0.764151,
+          "recall": 0.375,
+          "f1": 0.503106,
+          "support": 216
+        },
+        {
+          "label": "social",
+          "precision": 0.33913,
+          "recall": 0.481481,
+          "f1": 0.397959,
+          "support": 81
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            25,
+            0,
+            0,
+            31,
+            1,
+            2,
+            17,
+            16,
+            7
+          ],
+          [
+            4,
+            10,
+            2,
+            9,
+            22,
+            1,
+            18,
+            2,
+            16
+          ],
+          [
+            0,
+            0,
+            11,
+            24,
+            28,
+            5,
+            6,
+            2,
+            12
+          ],
+          [
+            1,
+            0,
+            2,
+            62,
+            1,
+            6,
+            3,
+            1,
+            13
+          ],
+          [
+            1,
+            0,
+            0,
+            3,
+            57,
+            0,
+            2,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            6,
+            1,
+            38,
+            2,
+            1,
+            4
+          ],
+          [
+            7,
+            0,
+            0,
+            44,
+            3,
+            7,
+            189,
+            3,
+            17
+          ],
+          [
+            13,
+            0,
+            0,
+            92,
+            3,
+            1,
+            20,
+            81,
+            6
+          ],
+          [
+            2,
+            0,
+            1,
+            24,
+            5,
+            3,
+            7,
+            0,
+            39
+          ]
+        ]
+      },
+      "true_distribution": {
+        "finance": 216,
+        "tech": 270,
+        "business": 99,
+        "education": 84,
+        "social": 81,
+        "shopping": 89,
+        "medical": 64,
+        "health": 88,
+        "sports": 53
+      },
+      "pred_distribution": {
+        "business": 54,
+        "tech": 264,
+        "shopping": 295,
+        "social": 115,
+        "finance": 106,
+        "medical": 121,
+        "sports": 63,
+        "education": 10,
+        "health": 16
+      },
+      "confidence": {
+        "mean": 0.377863403256705,
+        "median": 0.3531225,
+        "min": 0.134188,
+        "max": 0.814697,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "119_new": {
+      "n": 119,
+      "accuracy": 0.504202,
+      "macro_f1": 0.536997,
+      "weighted_f1": 0.525463,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.894737,
+          "recall": 0.309091,
+          "f1": 0.459459,
+          "support": 55
+        },
+        {
+          "label": "education",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "health",
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.666667,
+          "support": 2
+        },
+        {
+          "label": "shopping",
+          "precision": 0.038462,
+          "recall": 0.5,
+          "f1": 0.071429,
+          "support": 2
+        },
+        {
+          "label": "medical",
+          "precision": 0.75,
+          "recall": 0.857143,
+          "f1": 0.8,
+          "support": 7
+        },
+        {
+          "label": "sports",
+          "precision": 0.888889,
+          "recall": 0.8,
+          "f1": 0.842105,
+          "support": 10
+        },
+        {
+          "label": "tech",
+          "precision": 0.466667,
+          "recall": 0.875,
+          "f1": 0.608696,
+          "support": 24
+        },
+        {
+          "label": "finance",
+          "precision": 0.5,
+          "recall": 0.3125,
+          "f1": 0.384615,
+          "support": 16
+        },
+        {
+          "label": "social",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            17,
+            0,
+            0,
+            13,
+            1,
+            0,
+            19,
+            5,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            6,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            8,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            3,
+            0,
+            0,
+            21,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            6,
+            0,
+            0,
+            3,
+            5,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "true_distribution": {
+        "sports": 10,
+        "business": 55,
+        "finance": 16,
+        "medical": 7,
+        "social": 2,
+        "health": 2,
+        "shopping": 2,
+        "tech": 24,
+        "education": 1
+      },
+      "pred_distribution": {
+        "shopping": 26,
+        "business": 19,
+        "tech": 45,
+        "finance": 10,
+        "sports": 9,
+        "medical": 8,
+        "health": 1,
+        "education": 1
+      },
+      "confidence": {
+        "mean": 0.35923605882352944,
+        "median": 0.3263,
+        "min": 0.155412,
+        "max": 0.804363,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "1163_combined": {
+      "n": 1163,
+      "accuracy": 0.491831,
+      "macro_f1": 0.447281,
+      "weighted_f1": 0.485199,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.575342,
+          "recall": 0.272727,
+          "f1": 0.370044,
+          "support": 154
+        },
+        {
+          "label": "education",
+          "precision": 1.0,
+          "recall": 0.129412,
+          "f1": 0.229167,
+          "support": 85
+        },
+        {
+          "label": "health",
+          "precision": 0.705882,
+          "recall": 0.133333,
+          "f1": 0.224299,
+          "support": 90
+        },
+        {
+          "label": "shopping",
+          "precision": 0.196262,
+          "recall": 0.692308,
+          "f1": 0.305825,
+          "support": 91
+        },
+        {
+          "label": "medical",
+          "precision": 0.488372,
+          "recall": 0.887324,
+          "f1": 0.63,
+          "support": 71
+        },
+        {
+          "label": "sports",
+          "precision": 0.638889,
+          "recall": 0.730159,
+          "f1": 0.681481,
+          "support": 63
+        },
+        {
+          "label": "tech",
+          "precision": 0.679612,
+          "recall": 0.714286,
+          "f1": 0.696517,
+          "support": 294
+        },
+        {
+          "label": "finance",
+          "precision": 0.741379,
+          "recall": 0.37069,
+          "f1": 0.494253,
+          "support": 232
+        },
+        {
+          "label": "social",
+          "precision": 0.33913,
+          "recall": 0.46988,
+          "f1": 0.393939,
+          "support": 83
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            42,
+            0,
+            0,
+            44,
+            2,
+            2,
+            36,
+            21,
+            7
+          ],
+          [
+            4,
+            11,
+            2,
+            9,
+            22,
+            1,
+            18,
+            2,
+            16
+          ],
+          [
+            0,
+            0,
+            12,
+            25,
+            28,
+            5,
+            6,
+            2,
+            12
+          ],
+          [
+            1,
+            0,
+            2,
+            63,
+            1,
+            6,
+            4,
+            1,
+            13
+          ],
+          [
+            1,
+            0,
+            0,
+            3,
+            63,
+            1,
+            2,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            7,
+            1,
+            46,
+            3,
+            1,
+            4
+          ],
+          [
+            7,
+            0,
+            0,
+            47,
+            3,
+            7,
+            210,
+            3,
+            17
+          ],
+          [
+            15,
+            0,
+            0,
+            98,
+            3,
+            1,
+            23,
+            86,
+            6
+          ],
+          [
+            2,
+            0,
+            1,
+            25,
+            6,
+            3,
+            7,
+            0,
+            39
+          ]
+        ]
+      },
+      "true_distribution": {
+        "finance": 232,
+        "tech": 294,
+        "business": 154,
+        "education": 85,
+        "social": 83,
+        "shopping": 91,
+        "medical": 71,
+        "health": 90,
+        "sports": 63
+      },
+      "pred_distribution": {
+        "business": 73,
+        "tech": 309,
+        "shopping": 321,
+        "social": 115,
+        "finance": 116,
+        "medical": 129,
+        "sports": 72,
+        "education": 11,
+        "health": 17
+      },
+      "confidence": {
+        "mean": 0.37595742390369735,
+        "median": 0.351002,
+        "min": 0.134188,
+        "max": 0.814697,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "named_entity_only (n=105)": {
+      "n": 105,
+      "accuracy": 0.466667,
+      "macro_f1": 0.52675,
+      "weighted_f1": 0.502357,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.894737,
+          "recall": 0.309091,
+          "f1": 0.459459,
+          "support": 55
+        },
+        {
+          "label": "education",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "health",
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.666667,
+          "support": 2
+        },
+        {
+          "label": "shopping",
+          "precision": 0.041667,
+          "recall": 0.5,
+          "f1": 0.076923,
+          "support": 2
+        },
+        {
+          "label": "medical",
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.857143,
+          "support": 6
+        },
+        {
+          "label": "sports",
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.888889,
+          "support": 10
+        },
+        {
+          "label": "tech",
+          "precision": 0.314286,
+          "recall": 0.846154,
+          "f1": 0.458333,
+          "support": 13
+        },
+        {
+          "label": "finance",
+          "precision": 0.444444,
+          "recall": 0.266667,
+          "f1": 0.333333,
+          "support": 15
+        },
+        {
+          "label": "social",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            17,
+            0,
+            0,
+            13,
+            1,
+            0,
+            19,
+            5,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            8,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            11,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            6,
+            0,
+            0,
+            3,
+            4,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "true_distribution": {
+        "sports": 10,
+        "business": 55,
+        "finance": 15,
+        "medical": 6,
+        "social": 1,
+        "health": 2,
+        "shopping": 2,
+        "tech": 13,
+        "education": 1
+      },
+      "pred_distribution": {
+        "shopping": 24,
+        "business": 19,
+        "tech": 35,
+        "finance": 9,
+        "sports": 8,
+        "medical": 8,
+        "health": 1,
+        "education": 1
+      },
+      "confidence": {
+        "mean": 0.3479941619047619,
+        "median": 0.322542,
+        "min": 0.155412,
+        "max": 0.804363,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "acronym_or_model_only (n=12)": {
+      "n": 12,
+      "accuracy": 0.833333,
+      "macro_f1": 0.10582,
+      "weighted_f1": 0.873016,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "education",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "health",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "shopping",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "medical",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        },
+        {
+          "label": "sports",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "tech",
+          "precision": 1.0,
+          "recall": 0.909091,
+          "f1": 0.952381,
+          "support": 11
+        },
+        {
+          "label": "finance",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "social",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            10,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "true_distribution": {
+        "medical": 1,
+        "tech": 11
+      },
+      "pred_distribution": {
+        "sports": 1,
+        "shopping": 1,
+        "tech": 10
+      },
+      "confidence": {
+        "mean": 0.45639758333333336,
+        "median": 0.4680175,
+        "min": 0.220955,
+        "max": 0.615326,
+        "pct_below_0.90": 100.0
+      }
+    },
+    "standalone=no (n=2)": {
+      "n": 2,
+      "accuracy": 0.5,
+      "macro_f1": 0.111111,
+      "weighted_f1": 0.5,
+      "per_class": [
+        {
+          "label": "business",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "education",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "health",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "shopping",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "medical",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "sports",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "tech",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "label": "finance",
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        {
+          "label": "social",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      ],
+      "confusion_matrix": {
+        "labels": [
+          "business",
+          "education",
+          "health",
+          "shopping",
+          "medical",
+          "sports",
+          "tech",
+          "finance",
+          "social"
+        ],
+        "matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "true_distribution": {
+        "social": 1,
+        "finance": 1
+      },
+      "pred_distribution": {
+        "shopping": 1,
+        "finance": 1
+      },
+      "confidence": {
+        "mean": 0.36646650000000003,
+        "median": 0.36646650000000003,
+        "min": 0.269009,
+        "max": 0.463924,
+        "pct_below_0.90": 100.0
+      }
+    }
+  }
+}

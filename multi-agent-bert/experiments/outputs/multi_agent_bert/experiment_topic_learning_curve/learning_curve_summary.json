@@ -1,0 +1,122 @@
+{
+  "per_run": {
+    "180_seed42": {
+      "correct": 194,
+      "accuracy": 0.16681,
+      "macro_f1": 0.18104,
+      "weighted_f1": 0.150927
+    },
+    "180_seed43": {
+      "correct": 82,
+      "accuracy": 0.070507,
+      "macro_f1": 0.039063,
+      "weighted_f1": 0.027044
+    },
+    "180_seed44": {
+      "correct": 197,
+      "accuracy": 0.16939,
+      "macro_f1": 0.11056,
+      "weighted_f1": 0.153881
+    },
+    "360_seed42": {
+      "correct": 647,
+      "accuracy": 0.55632,
+      "macro_f1": 0.499205,
+      "weighted_f1": 0.53859
+    },
+    "360_seed43": {
+      "correct": 650,
+      "accuracy": 0.558899,
+      "macro_f1": 0.495738,
+      "weighted_f1": 0.523618
+    },
+    "360_seed44": {
+      "correct": 695,
+      "accuracy": 0.597592,
+      "macro_f1": 0.536421,
+      "weighted_f1": 0.572298
+    },
+    "540_seed42": {
+      "correct": 715,
+      "accuracy": 0.614789,
+      "macro_f1": 0.542914,
+      "weighted_f1": 0.594626
+    },
+    "540_seed43": {
+      "correct": 715,
+      "accuracy": 0.614789,
+      "macro_f1": 0.557541,
+      "weighted_f1": 0.603587
+    },
+    "540_seed44": {
+      "correct": 714,
+      "accuracy": 0.613929,
+      "macro_f1": 0.541489,
+      "weighted_f1": 0.59381
+    }
+  },
+  "by_size_mean_sd": {
+    "180": {
+      "accuracy": {
+        "mean": 0.135569,
+        "sd": 0.05636
+      },
+      "macro_f1": {
+        "mean": 0.110221,
+        "sd": 0.070989
+      },
+      "weighted_f1": {
+        "mean": 0.110617,
+        "sd": 0.072391
+      }
+    },
+    "360": {
+      "accuracy": {
+        "mean": 0.570937,
+        "sd": 0.02312
+      },
+      "macro_f1": {
+        "mean": 0.510454,
+        "sd": 0.022554
+      },
+      "weighted_f1": {
+        "mean": 0.544835,
+        "sd": 0.024933
+      }
+    },
+    "540": {
+      "accuracy": {
+        "mean": 0.614503,
+        "sd": 0.000496
+      },
+      "macro_f1": {
+        "mean": 0.547315,
+        "sd": 0.008885
+      },
+      "weighted_f1": {
+        "mean": 0.597341,
+        "sd": 0.005424
+      }
+    }
+  },
+  "paired_macro_f1_deltas": {
+    "180->360": [
+      0.318164,
+      0.456675,
+      0.42586
+    ],
+    "360->540": [
+      0.043709,
+      0.061803,
+      0.005069
+    ]
+  },
+  "reproduction_check_540_seed42": {
+    "reference_accuracy": 0.6242,
+    "reference_macro_f1": 0.5599,
+    "observed_accuracy": 0.614789,
+    "observed_macro_f1": 0.542914,
+    "identical_predictions_vs_baseline": 1034,
+    "n": 1163
+  }
+}
