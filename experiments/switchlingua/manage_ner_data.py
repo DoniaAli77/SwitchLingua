@@ -31,15 +31,23 @@ SW = ROOT / "experiments" / "switchlingua"
 CORE = ROOT / "Modified_Version" / "core"
 sys.path.insert(0, str(SW))
 import manage_sentiment_data as M
-from run_ner_coverage_gen import en_context_tokens, has_latin_entity_candidate, MIN_EN_CONTEXT
+from run_ner_coverage_gen import en_context_tokens, has_latin_entity_span, MIN_EN_CONTEXT
 
 CONFIG = SW / "config_ner_expN_v1.yaml"
-BASE = ROOT / "multi-agent-bert" / "data" / "NER" / "generated" / "expN"
-DAILY = BASE / "daily_runs"
-MERGED = BASE / "merged"
-MANIFEST = BASE / "completed_scenarios_ner.json"
 MODEL = "gpt-4o-mini"
 QTHRESH = 7.0
+
+
+def _paths(tag):
+    """Resolve BASE/DAILY/MERGED/MANIFEST for a given experiment tag. Different configs that
+    share the same combinatorial scenario fields (e.g. v1 vs v2, which differ only in
+    entity_type_guidance text) produce IDENTICAL scenario_ids -> the resume manifest can't tell
+    them apart. Tagging keeps each config's runs (and resume state) in its own directory."""
+    base = ROOT / "multi-agent-bert" / "data" / "NER" / "generated" / tag
+    return base, base / "daily_runs", base / "merged", base / "completed_scenarios_ner.json"
+
+
+BASE, DAILY, MERGED, MANIFEST = _paths("expN")
 
 # Entity-type groups + their share of LATIN-SCRIPT entity-bearing sentences in the Sabty corpus.
 # (must_include_types, min_entities, max_entities, corpus_share)
@@ -103,6 +111,8 @@ def _scenarios(config_path=None, only_groups=None):
 
 # --------------------------------------------------------------------------- generate
 def cmd_generate(a):
+    global BASE, DAILY, MERGED, MANIFEST
+    BASE, DAILY, MERGED, MANIFEST = _paths(a.tag)
     date = a.date or datetime.date.today().strftime("%Y%m%d")
     raw_path = DAILY / f"run_{date}_raw.jsonl"
     scen = _scenarios(a.config, a.groups)
@@ -207,23 +217,44 @@ def _filter_rows(states, qthresh):
             rows.append(r)
     M.assign_reasons(rows, qthresh)
     for r in rows:
-        if r["filter_reason"] is None and en_context_tokens(r["text"]) < MIN_EN_CONTEXT:
+        if r["filter_reason"] is not None:
+            continue
+        if en_context_tokens(r["text"]) < MIN_EN_CONTEXT:
             r["filter_reason"] = "entity_only_switch"
-        elif r["filter_reason"] is None and not has_latin_entity_candidate(r["text"]):
-            r["filter_reason"] = "arabic_script_entity"
-        elif r["filter_reason"] is None and not r["entities_verified"]:
+        elif not r["entities_verified"]:
+            # Checked BEFORE the script test: with no spans there is nothing to test the script of.
             r["filter_reason"] = "no_verified_entities"
+        elif not has_latin_entity_span(r["entities_verified"]):
+            # Script test on the validator's ACTUAL spans, not on capitalisation in the sentence.
+            # The old text heuristic (has_latin_entity_candidate) required a capitalised token, so
+            # it discarded lowercase common-noun entities — currency names in particular — and
+            # mislabelled them 'arabic_script_entity'. See has_latin_entity_span docstring.
+            r["filter_reason"] = "arabic_script_entity"
     return rows
 
 
 # --------------------------------------------------------------------------- merge
 def cmd_merge(a):
+    global BASE, DAILY, MERGED, MANIFEST
+    BASE, DAILY, MERGED, MANIFEST = _paths(a.tag)
+    # Pool may span several tags. Needed because a config change can invalidate ONE entity group
+    # while leaving the others valid (e.g. the 2026-08-12 guidance bug hit MISC only, since MISC is
+    # the one type with no DEFAULT_ENTITY_GUIDANCE entry to fall back on) — so the fixed group is
+    # regenerated under a new tag and the untouched groups are reused instead of re-paid for.
+    pool_tags = a.pool_tags or [a.tag]
+    # "GROUP=TAG" pins a group to one tag, so a stale version of that group in another tag is ignored.
+    group_source = dict(s.split("=", 1) for s in (a.group_source or []))
     pool, seen = [], set()
-    for p in sorted(DAILY.glob("run_*_filtered.jsonl")):
-        for r in M._read_jsonl(p):
-            k = M._norm(r.get("text", ""))
-            if k and k not in seen:
-                seen.add(k); pool.append(r)
+    for tag in pool_tags:
+        _b, daily, _m, _mf = _paths(tag)
+        for p in sorted(daily.glob("run_*_filtered.jsonl")):
+            for r in M._read_jsonl(p):
+                k = M._norm(r.get("text", ""))
+                if not k or k in seen:
+                    continue
+                if group_source.get(r.get("group")) not in (None, tag):
+                    continue                      # this group is pinned to a different tag
+                seen.add(k); r["_pool_tag"] = tag; pool.append(r)
     if not pool:
         raise SystemExit("empty pool — run `generate` first")
     by_group = {}
@@ -255,6 +286,10 @@ def cmd_merge(a):
     M._write_csv(base.with_suffix(".csv"), chosen)
     print(f"[merge] pool={len(pool)} -> selected {len(chosen)} (target {target})")
     print(f"[merge] by group: {dict(Counter(r['group'] for r in chosen))}")
+    if len(pool_tags) > 1 or group_source:
+        print(f"[merge] by source tag: {dict(Counter(r.get('_pool_tag') for r in chosen))}")
+        if group_source:
+            print(f"[merge] pinned groups: {group_source}")
     print(f"[merge] shortfall vs corpus proportions: {shortfall or 'none'}")
     print(f"[merge] wrote {base.with_suffix('.jsonl')}")
 
@@ -282,6 +317,8 @@ def to_bio(text, entities):
 
 
 def cmd_bio(a):
+    global BASE, DAILY, MERGED, MANIFEST
+    BASE, DAILY, MERGED, MANIFEST = _paths(a.tag)
     src = MERGED / f"switchlingua_ner_train_{a.target}.jsonl"
     if not src.exists():
         raise SystemExit(f"{src} not found — run `merge --target {a.target}` first")
@@ -308,11 +345,19 @@ def main():
     g.add_argument("--concurrency", type=int, default=4); g.add_argument("--date", default=None)
     g.add_argument("--seed", type=int, default=7); g.add_argument("--config", default=None)
     g.add_argument("--quality-threshold", type=float, default=QTHRESH)
+    g.add_argument("--tag", default="expN", help="output subdir under data/NER/generated/ (isolate configs that share scenario fields, e.g. v1 vs v2)")
     g.add_argument("--groups", nargs="*", default=None,
                    help="restrict to entity-type groups still short of target, e.g. --groups PER LOC PER+LOC")
     g.set_defaults(func=cmd_generate)
-    r = sub.add_parser("merge"); r.add_argument("--target", type=int, default=240); r.set_defaults(func=cmd_merge)
-    b = sub.add_parser("bio"); b.add_argument("--target", type=int, default=240); b.set_defaults(func=cmd_bio)
+    r = sub.add_parser("merge"); r.add_argument("--target", type=int, default=240)
+    r.add_argument("--tag", default="expN", help="output tag (also the default pool tag)")
+    r.add_argument("--pool_tags", nargs="*", default=None,
+                   help="read the pool from these tags instead of just --tag, e.g. --pool_tags expN expN_v2_postfix")
+    r.add_argument("--group_source", nargs="*", default=None, metavar="GROUP=TAG",
+                   help="pin an entity group to one tag so stale copies elsewhere are ignored, e.g. --group_source MISC=expN_v2_postfix")
+    r.set_defaults(func=cmd_merge)
+    b = sub.add_parser("bio"); b.add_argument("--target", type=int, default=240)
+    b.add_argument("--tag", default="expN"); b.set_defaults(func=cmd_bio)
     a = ap.parse_args(); a.func(a)
 
 

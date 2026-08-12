@@ -44,6 +44,10 @@ _EN_FUNCTION_WORDS = {"i", "and", "but", "the", "it", "my", "he", "she", "they",
                       "so", "because", "when", "also", "however", "especially", "since", "honestly"}
 
 
+_ARABIC_CHAR = re.compile(r"[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]")
+_LATIN_CHAR = re.compile(r"[A-Za-z]")
+
+
 def has_latin_entity_candidate(text: str) -> bool:
     """True if the sentence contains at least one Latin-script capitalised token that is not a
     sentence-initial English function word.
@@ -52,9 +56,49 @@ def has_latin_entity_candidate(text: str) -> bool:
     Arabic) and needs no world knowledge — it cannot tell PER from LOC, only that a Latin-script
     name candidate exists. Needed because the LLM validator sometimes accepts an Arabic-script
     entity (e.g. 'عمر خالد' for PER, 'نيويورك' for LOC) despite the policy forbidding it.
+
+    HEURISTIC, superseded by has_latin_entity_span() where the validator's entity spans are
+    available. It requires a CAPITALISED token, which is only a valid proxy for entity types that
+    are proper nouns (PER/LOC/ORG). It wrongly rejects common-noun entities — currency names
+    ('pounds', 'dirhams', 'euros') are lowercase Latin script, and were being discarded and
+    mislabelled 'arabic_script_entity'. Kept for callers that have no span information.
     """
     for cand in re.findall(r"\b([A-Z][A-Za-z0-9&.\-]+)\b", str(text)):
         if cand.lower() not in _EN_FUNCTION_WORDS:
+            return True
+    return False
+
+
+# Entity classes that are legitimately LOWER-CASE in normal English and would otherwise be
+# rejected by the capitalisation rule below. Deliberately a small closed list: currency names are
+# the only entity class in this corpus's schema that is a common noun by convention. Months
+# (March) and religious observances (Ramadan, Eid al-Fitr) are capitalised and need no exemption.
+_LOWERCASE_ENTITY_TERMS = {
+    "dollar", "dollars", "euro", "euros", "pound", "pounds", "riyal", "riyals",
+    "dinar", "dinars", "dirham", "dirhams", "shekel", "shekels", "lira", "yen", "rupee", "rupees",
+}
+
+
+def has_latin_entity_span(entities) -> bool:
+    """True if at least one validator-reported entity span is an acceptable Latin-script entity.
+
+    Direct form of the ENGLISH-ONLY entity policy: test the spans the validator actually reported
+    instead of guessing from the sentence whether a Latin entity is *likely* present.
+
+    A span qualifies when it is Latin script (no Arabic characters) AND is either capitalised or a
+    known lower-case entity term. The capitalisation requirement is retained deliberately: it is
+    the only mechanical signal separating a real named entity from the common nouns the LLM
+    validator sometimes returns as 'entities' ('nutrition', 'wellness', 'yoga', 'water'). Dropping
+    it entirely admits that noise, so currency names are exempted by name instead.
+    """
+    for e in entities or []:
+        span = str(e.get("text", "") if isinstance(e, dict) else e).strip()
+        if not span or _ARABIC_CHAR.search(span) or not _LATIN_CHAR.search(span):
+            continue
+        words = [w for w in re.split(r"[\s\-]+", span) if w]
+        if any(w[0].isupper() for w in words):
+            return True
+        if all(w.lower().strip(".,") in _LOWERCASE_ENTITY_TERMS for w in words):
             return True
     return False
 

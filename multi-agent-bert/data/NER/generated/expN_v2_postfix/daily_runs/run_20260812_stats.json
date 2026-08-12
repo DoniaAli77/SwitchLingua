@@ -1,0 +1,15 @@
+{
+  "date": "20260812",
+  "attempted": 18,
+  "ok": 4,
+  "failed": 14,
+  "raw_instances": 47,
+  "kept": 29,
+  "kept_by_group": {
+    "MISC": 29
+  },
+  "loss": {
+    "low_quality": 12,
+    "entity_only_switch": 6
+  }
+}

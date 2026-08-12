@@ -144,6 +144,8 @@ class BaseState(TypedDict, total=False):
     label: str
     task_constraints: Dict[str, Any]
     annotations: list["NERSpan"]
+    entity_type_guidance: Dict[str, Any]   # config-driven NER guidance (see build_ner_entity_guidance) — was
+    ner_entity_guidance: str               # missing here, so LangGraph dropped it and MISC always fell back to the generic description
 
     # existing scenario keys
     topic: str
